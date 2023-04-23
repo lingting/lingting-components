@@ -1,0 +1,5 @@
+org.springframework.context.ApplicationListener=\
+  live.lingting.component.core.spring.event.SpringApplicationContextInitialized
+# 环境自动配置
+org.springframework.boot.env.EnvironmentPostProcessor=\
+  live.lingting.component.core.spring.post.EnvironmentPost
