@@ -8,28 +8,28 @@ import lombok.Getter;
  */
 public class BizException extends RuntimeException {
 
-    @Getter
-    private final Integer code;
+	@Getter
+	private final Integer code;
 
-    @Getter
-    private final String message;
+	@Getter
+	private final String message;
 
-    public BizException(ResultCode resultCode, Object... args) {
-        this(resultCode.getCode(), String.format(resultCode.getMessage(), args), null);
-    }
+	public BizException(ResultCode resultCode, Object... args) {
+		this(resultCode.getCode(), String.format(resultCode.getMessage(), args), null);
+	}
 
-    public BizException(ResultCode resultCode, Exception e) {
-        this(resultCode, resultCode.getMessage(), e);
-    }
+	public BizException(ResultCode resultCode, Exception e) {
+		this(resultCode, resultCode.getMessage(), e);
+	}
 
-    public BizException(ResultCode resultCode, String message, Exception e) {
-        this(resultCode.getCode(), message, e);
-    }
+	public BizException(ResultCode resultCode, String message, Exception e) {
+		this(resultCode.getCode(), message, e);
+	}
 
-    public BizException(Integer code, String message, Exception e) {
-        super(message, e);
-        this.message = message;
-        this.code = code;
-    }
+	public BizException(Integer code, String message, Exception e) {
+		super(message, e);
+		this.message = message;
+		this.code = code;
+	}
 
 }

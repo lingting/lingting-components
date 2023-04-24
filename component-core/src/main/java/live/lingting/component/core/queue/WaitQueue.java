@@ -9,45 +9,45 @@ import java.util.concurrent.TimeUnit;
  */
 public class WaitQueue<V> {
 
-    private final LinkedBlockingQueue<V> queue;
+	private final LinkedBlockingQueue<V> queue;
 
-    public WaitQueue() {
-        this(new LinkedBlockingQueue<>());
-    }
+	public WaitQueue() {
+		this(new LinkedBlockingQueue<>());
+	}
 
-    public WaitQueue(LinkedBlockingQueue<V> queue) {
-        this.queue = queue;
-    }
+	public WaitQueue(LinkedBlockingQueue<V> queue) {
+		this.queue = queue;
+	}
 
-    public V get() {
-        return queue.poll();
-    }
+	public V get() {
+		return queue.poll();
+	}
 
-    public V poll() throws InterruptedException {
-        return poll(10, TimeUnit.HOURS);
-    }
+	public V poll() throws InterruptedException {
+		return poll(10, TimeUnit.HOURS);
+	}
 
-    public V poll(long timeout, TimeUnit unit) throws InterruptedException {
-        V v;
-        do {
-            v = queue.poll(timeout, unit);
-        }
-        while (v == null);
-        return v;
-    }
+	public V poll(long timeout, TimeUnit unit) throws InterruptedException {
+		V v;
+		do {
+			v = queue.poll(timeout, unit);
+		}
+		while (v == null);
+		return v;
+	}
 
-    public void clear() {
-        queue.clear();
-    }
+	public void clear() {
+		queue.clear();
+	}
 
-    public void add(V seat) {
-        queue.add(seat);
-    }
+	public void add(V seat) {
+		queue.add(seat);
+	}
 
-    public void addAll(Collection<V> accounts) {
-        for (V account : accounts) {
-            add(account);
-        }
-    }
+	public void addAll(Collection<V> accounts) {
+		for (V account : accounts) {
+			add(account);
+		}
+	}
 
 }
