@@ -4,13 +4,24 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>live.lingting.compotes</groupId>
-    <artifactId>lingting-compotes</artifactId>
+    <groupId>live.lingting.components</groupId>
+    <artifactId>lingting-components</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
     <modules>
         <module>component-core</module>
         <module>component-jackson</module>
+        <module>component-ntp</module>
+        <module>component-okhttp</module>
+        <module>component-dingtalk</module>
+        <module>component-datascope</module>
+        <module>component-web</module>
+        <module>component-grpc</module>
+        <module>component-aliyun</module>
+        <module>component-mybatis</module>
+        <module>component-validation</module>
+        <module>component-redis</module>
+        <module>component-easyexcel</module>
     </modules>
 
     <properties>
@@ -72,13 +83,28 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>live.lingting.compotes</groupId>
+                <groupId>live.lingting.components</groupId>
                 <artifactId>component-core</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>live.lingting.compotes</groupId>
+                <groupId>live.lingting.components</groupId>
                 <artifactId>component-jackson</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
+                <artifactId>component-ntp</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
+                <artifactId>component-okhttp</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
+                <artifactId>component-validation</artifactId>
                 <version>${revision}</version>
             </dependency>
 

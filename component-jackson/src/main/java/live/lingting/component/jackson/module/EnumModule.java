@@ -3,18 +3,11 @@ package live.lingting.component.jackson.module;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonStreamContext;
-import com.fasterxml.jackson.databind.BeanDescription;
-import com.fasterxml.jackson.databind.DeserializationConfig;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.type.ClassKey;
 import live.lingting.component.core.util.EnumUtils;
-import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
 import java.io.IOException;
@@ -24,7 +17,6 @@ import java.util.Objects;
 /**
  * @author lingting 2022/12/20 14:11
  */
-@Component
 @SuppressWarnings("java:S3740")
 public class EnumModule extends SimpleModule {
 

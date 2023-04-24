@@ -195,7 +195,7 @@ public class ClassUtils {
 	 * <p>
 	 * 否则直接取字段 - 不会尝试修改可读性, 如果可读性有问题, 请主动get 然后修改
 	 * </p>
-	 * @return live.lingting.tools.core.domain.ClassField 可用于获取字段值的数组
+	 * @return live.lingting.component.core.domain.ClassField 可用于获取字段值的数组
 	 */
 	public static ClassField[] classFields(Class<?> cls) {
 		return CACHE_CLASS_FIELDS.computeIfAbsent(cls, k -> {
@@ -232,7 +232,7 @@ public class ClassUtils {
 	 * 获取指定类中的指定字段名的字段
 	 * @param fieldName 字段名
 	 * @param cls 指定类
-	 * @return live.lingting.tools.core.domain.ClassField 字段
+	 * @return live.lingting.component.core.domain.ClassField 字段
 	 */
 	public static ClassField classField(String fieldName, Class<?> cls) {
 		for (ClassField field : classFields(cls)) {

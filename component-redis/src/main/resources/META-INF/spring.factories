@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  live.lingting.component.redis.configuration.ComponentRedisAutoConfiguration,\
+  live.lingting.component.redis.configuration.ComponentRedisKeyEventAutoConfiguration,\
+  live.lingting.component.redis.listener.MessageEventListenerAutoConfiguration

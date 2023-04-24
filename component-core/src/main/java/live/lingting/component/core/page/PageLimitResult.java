@@ -41,7 +41,7 @@ public class PageLimitResult<T> {
 	/**
 	 * 转换返回数据类型
 	 * @param function 单个数据转换方法
-	 * @return live.lingting.votes.component.core.KocPageResult<E>
+	 * @return live.lingting.component.core.KocPageResult<E>
 	 */
 	public <E> PageLimitResult<E> convert(Function<T, E> function) {
 		List<E> collect = getRecords().stream().map(function).collect(Collectors.toList());

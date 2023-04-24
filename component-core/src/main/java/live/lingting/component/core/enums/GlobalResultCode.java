@@ -84,6 +84,10 @@ public enum GlobalResultCode implements ResultCode {
 	 * 正在处理中, 请稍候!
 	 */
 	WAIT(2022092211, "Processing!"),
+	/**
+	 * 阿里云异常
+	 */
+	ALI_ERROR(2022092212, "阿里云相关操作异常!"),
 
 	;
 

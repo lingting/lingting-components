@@ -4,6 +4,7 @@ import live.lingting.component.core.util.SpringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationContextInitializedEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.core.annotation.Order;
 
 /**
  * 监听spring上下文初始化完成事件
@@ -11,6 +12,7 @@ import org.springframework.context.ApplicationListener;
  * @author lingting 2022/10/15 15:27
  */
 @Slf4j
+@Order
 public class SpringApplicationContextInitialized implements ApplicationListener<ApplicationContextInitializedEvent> {
 
 	@Override

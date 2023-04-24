@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>live.lingting.components</groupId>
+        <artifactId>lingting-compotes</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>component-datascope</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>live.lingting.components</groupId>
+            <artifactId>component-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.jsqlparser</groupId>
+            <artifactId>jsqlparser</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

@@ -79,4 +79,19 @@ public class SystemUtils {
 		return System.getProperty("user.name");
 	}
 
+	public static void proxy(String host, Integer port) {
+		proxyHttp(host, port);
+		proxyHttps(host, port);
+	}
+
+	public static void proxyHttp(String host, Integer port) {
+		System.setProperty("http.proxyHost", host);
+		System.setProperty("http.proxyPort", port.toString());
+	}
+
+	public static void proxyHttps(String host, Integer port) {
+		System.setProperty("https.proxyHost", host);
+		System.setProperty("https.proxyPort", port.toString());
+	}
+
 }
