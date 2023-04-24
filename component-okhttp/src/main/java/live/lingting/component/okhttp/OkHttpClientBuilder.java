@@ -163,7 +163,7 @@ public class OkHttpClientBuilder {
 	}
 
 	public OkHttpClientBuilder timeout(Duration callTimeout, Duration connectTimeout, Duration readTimeout,
-									   Duration writeTimeout) {
+			Duration writeTimeout) {
 		return callTimeout(callTimeout).connectTimeout(connectTimeout)
 			.readTimeout(readTimeout)
 			.writeTimeout(writeTimeout);

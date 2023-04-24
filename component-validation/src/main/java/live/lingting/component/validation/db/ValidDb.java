@@ -1,6 +1,5 @@
 package live.lingting.component.validation.db;
 
-
 import live.lingting.component.validation.constant.ValidatorConstants;
 
 import javax.validation.Constraint;
