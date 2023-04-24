@@ -25,6 +25,7 @@ import java.util.Objects;
  * @author lingting 2022/12/20 14:11
  */
 @Component
+@SuppressWarnings("java:S3740")
 public class EnumModule extends SimpleModule {
 
 	/**
@@ -44,7 +45,7 @@ public class EnumModule extends SimpleModule {
 	}
 
 	public EnumModule() {
-		addSerializer(Enum.class, new JsonSerializer<Enum<?>>() {
+		addSerializer(Enum.class, new JsonSerializer<Enum>() {
 
 			@Override
 			public void serialize(Enum e, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
@@ -54,7 +55,7 @@ public class EnumModule extends SimpleModule {
 		});
 
 		EnumJacksonDeserializers deserializers = new EnumJacksonDeserializers();
-		deserializers.addDeserializer(Enum.class, new JsonDeserializer<Enum<?>>() {
+		deserializers.addDeserializer(Enum.class, new JsonDeserializer<Enum>() {
 			@Override
 			public Enum deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
 					throws IOException {
