@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.ser.DefaultSerializerProvider;
 import live.lingting.component.jackson.JacksonUtils;
+import live.lingting.component.jackson.module.BooleanModule;
 import live.lingting.component.jackson.module.EnumModule;
 import live.lingting.component.jackson.module.JavaTimeModule;
 import live.lingting.component.jackson.provider.NullSerializerProvider;
@@ -73,6 +74,11 @@ public class JacksonComponentAutoConfiguration {
 	@Bean
 	public EnumModule enumModule() {
 		return new EnumModule();
+	}
+
+	@Bean
+	public BooleanModule booleanModule() {
+		return new BooleanModule();
 	}
 
 	@Bean
