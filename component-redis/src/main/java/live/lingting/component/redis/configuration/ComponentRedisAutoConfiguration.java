@@ -1,7 +1,7 @@
 package live.lingting.component.redis.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import live.lingting.component.redis.RedisHelper;
+import live.lingting.component.redis.RedisTemplateBeanPostProcessor;
 import live.lingting.component.redis.core.CacheStringAspect;
 import live.lingting.component.redis.prefix.IRedisPrefixConverter;
 import live.lingting.component.redis.prefix.impl.DefaultRedisPrefixConverter;
@@ -89,10 +89,9 @@ public class ComponentRedisAutoConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnMissingBean(RedisHelper.class)
-	public RedisHelper redisHelper(StringRedisTemplate template) {
-		RedisHelper.setRedisTemplate(template);
-		return RedisHelper.INSTANCE;
+	@ConditionalOnMissingBean
+	public RedisTemplateBeanPostProcessor redisTemplateBeanPostProcessor() {
+		return new RedisTemplateBeanPostProcessor();
 	}
 
 	/**
@@ -103,10 +102,9 @@ public class ComponentRedisAutoConfiguration {
 	 * @return CacheStringAspect 缓存注解操作切面
 	 */
 	@Bean
-	@DependsOn("redisHelper")
 	@ConditionalOnMissingBean
-	public CacheStringAspect cacheStringAspect(StringRedisTemplate stringRedisTemplate,
-			CacheSerializer cacheSerializer) {
+	public CacheStringAspect cacheStringAspect(StringRedisTemplate stringRedisTemplate, CacheSerializer cacheSerializer,
+			RedisTemplateBeanPostProcessor postProcessor) {
 		return new CacheStringAspect(stringRedisTemplate, cacheSerializer);
 	}
 

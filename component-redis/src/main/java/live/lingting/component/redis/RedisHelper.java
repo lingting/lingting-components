@@ -1,5 +1,7 @@
 package live.lingting.component.redis;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Range;
@@ -56,25 +58,16 @@ import java.util.stream.Collectors;
 @SuppressWarnings("ConstantConditions")
 public class RedisHelper {
 
-	@SuppressWarnings("InstantiationOfUtilityClass")
-	public static final RedisHelper INSTANCE = new RedisHelper();
-
 	/**
 	 * 自增并设置过期时间的 lua 脚本
 	 */
-	private static final DefaultRedisScript<Long> INCR_BY_EXPIRE_LUA_SCRIPT = new DefaultRedisScript<>(
+	static final DefaultRedisScript<Long> INCR_BY_EXPIRE_LUA_SCRIPT = new DefaultRedisScript<>(
 			"local r = redis.call('INCRBY', KEYS[1], ARGV[1]) redis.call('EXPIRE', KEYS[1], ARGV[2]) return r",
 			Long.class);
 
+	@Getter
+	@Setter
 	static RedisTemplate<String, String> redisTemplate;
-
-	public static RedisTemplate<String, String> getRedisTemplate() {
-		return redisTemplate;
-	}
-
-	public static void setRedisTemplate(RedisTemplate<String, String> redisTemplate) {
-		RedisHelper.redisTemplate = redisTemplate;
-	}
 
 	@SuppressWarnings("all")
 	private static RedisSerializer<String> getKeySerializer() {
