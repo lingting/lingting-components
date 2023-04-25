@@ -2,9 +2,12 @@ package live.lingting.component.mybatis;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import live.lingting.component.core.enums.GlobalResultCode;
 import live.lingting.component.core.exception.BizException;
+import live.lingting.component.core.page.PageLimitParams;
+import live.lingting.component.mybatis.util.PageUtils;
 import live.lingting.component.validation.db.ValidDb;
 import live.lingting.component.validation.db.ValidDbBean;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +34,10 @@ public interface ExtendService<T> extends ValidDbBean {
 	 * 默认一次批量插入的数量
 	 */
 	int DEFAULT_INSERT_BATCH_SIZE = 5000;
+
+	default Page<T> toIpage(PageLimitParams params) {
+		return PageUtils.toIpage(params);
+	}
 
 	/**
 	 * 插入一条记录（选择字段，策略插入）
