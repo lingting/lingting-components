@@ -46,7 +46,8 @@ public class ComponentWebAutoConfiguration {
 	 * 自定义async线程池
 	 */
 	@Bean
-	public TaskExecutorCustomizer votesTaskexecutorcustomizer() {
+	@ConditionalOnMissingBean
+	public TaskExecutorCustomizer taskexecutorcustomizer() {
 		return taskExecutor -> {
 			taskExecutor.setThreadNamePrefix("Async-");
 			taskExecutor.setMaxPoolSize(100000);
