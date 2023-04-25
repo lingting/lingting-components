@@ -84,12 +84,42 @@
         <dependencies>
             <dependency>
                 <groupId>live.lingting.components</groupId>
+                <artifactId>component-aliyun</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
                 <artifactId>component-core</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>live.lingting.components</groupId>
+                <artifactId>component-datascope</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
+                <artifactId>component-dingtalk</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
+                <artifactId>component-easyexcel</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
+                <artifactId>component-grpc</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
                 <artifactId>component-jackson</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
+                <artifactId>component-mybatis</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
@@ -104,7 +134,17 @@
             </dependency>
             <dependency>
                 <groupId>live.lingting.components</groupId>
+                <artifactId>component-redis</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
                 <artifactId>component-validation</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
+                <artifactId>component-web</artifactId>
                 <version>${revision}</version>
             </dependency>
 
