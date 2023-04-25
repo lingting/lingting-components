@@ -17,12 +17,12 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class ThreadPool {
 
-	private static final ThreadPool THREAD_POOL;
+	protected static final ThreadPool THREAD_POOL;
 
-	private static final Integer QUEUE_MAX = 100;
+	protected static final Integer QUEUE_MAX = 100;
 
 	@Getter
-	private final ThreadPoolExecutor pool;
+	protected final ThreadPoolExecutor pool;
 
 	static {
 		THREAD_POOL = new ThreadPool(new ThreadPoolExecutor(

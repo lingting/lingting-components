@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("java:S1066")
 public abstract class AbstractDynamicTimer<T> extends AbstractThreadContextComponent {
 
-	private final JavaReentrantLock lock = new JavaReentrantLock();
+	protected final JavaReentrantLock lock = new JavaReentrantLock();
 
 	protected final PriorityQueue<T> queue = new PriorityQueue<>(comparator());
 

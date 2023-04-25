@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public abstract class AbstractBlockingQueueThread<T> extends AbstractQueueThread<T> {
 
-	private final BlockingQueue<T> queue = new LinkedBlockingQueue<>();
+	protected final BlockingQueue<T> queue = new LinkedBlockingQueue<>();
 
 	@Override
 	public void put(T t) {

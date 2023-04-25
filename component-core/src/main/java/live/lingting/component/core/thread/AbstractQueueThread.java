@@ -17,17 +17,17 @@ public abstract class AbstractQueueThread<E> extends AbstractThreadContextCompon
 	/**
 	 * 默认缓存数据数量
 	 */
-	private static final int DEFAULT_BATCH_SIZE = 500;
+	protected static final int DEFAULT_BATCH_SIZE = 500;
 
 	/**
 	 * 默认等待时长 30秒；单位 毫秒
 	 */
-	private static final long DEFAULT_BATCH_TIMEOUT_MS = 30 * 1000L;
+	protected static final long DEFAULT_BATCH_TIMEOUT_MS = 30 * 1000L;
 
 	/**
 	 * 默认获取数据时的超时时间
 	 */
-	private static final long POLL_TIMEOUT_MS = 5 * 1000L;
+	protected static final long POLL_TIMEOUT_MS = 5 * 1000L;
 
 	/**
 	 * 用于子类自定义缓存数据数量
