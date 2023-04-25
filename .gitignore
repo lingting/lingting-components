@@ -11,6 +11,8 @@ target/
 *.iws
 *.iml
 *.ipr
+.flattened-pom.xml
+.idea/sonarlint
 
 ### Eclipse ###
 .apt_generated
