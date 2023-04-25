@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 @ConfigurationProperties(GrpcClientProperties.PREFIX)
 public class GrpcClientProperties {
 
-	public static final String PREFIX = "lingting.component.grpc.client";
+	public static final String PREFIX = "lingting.grpc.client";
 
 	private String host;
 

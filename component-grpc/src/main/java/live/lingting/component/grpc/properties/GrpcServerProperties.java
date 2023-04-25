@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 @ConfigurationProperties(GrpcServerProperties.PREFIX)
 public class GrpcServerProperties {
 
-	public static final String PREFIX = "lingting.component.grpc.server";
+	public static final String PREFIX = "lingting.grpc.server";
 
 	private Integer port;
 

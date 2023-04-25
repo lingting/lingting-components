@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(AliOssProperties.PREFIX)
 public class AliOssProperties {
 
-	public static final String PREFIX = "lingting.ali.oss";
+	public static final String PREFIX = "lingting.aliyun.oss";
 
 	private String region;
 

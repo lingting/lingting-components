@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(AliStsProperties.PREFIX)
 public class AliStsProperties {
 
-	public static final String PREFIX = "lingting.ali.sts";
+	public static final String PREFIX = "lingting.aliyun.sts";
 
 	private String protocol = "https";
 
