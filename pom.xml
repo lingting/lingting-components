@@ -237,6 +237,7 @@
                     <source>${maven.compiler.source}</source>
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <skip>true</skip>
+                    <executable>./mvnw</executable>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.mapstruct</groupId>
