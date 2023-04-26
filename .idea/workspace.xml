@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: 完善 Validator 已支持更多形式的校验">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":wrench: 切换到maven wrapper">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-validation/src/main/java/live/lingting/component/validation/validator/BeanValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-validation/src/main/java/live/lingting/component/validation/validator/BeanValidator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,19 +49,19 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Code/Project/lingting/lingting-resource",
-    "node.js.selected.package.stylelint": "",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "MavenSettings",
-    "spring.configuration.checksum": "b77ab3de95262f6a45495d11bc3138d6"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Code/Project/lingting/lingting-resource&quot;,
+    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;b77ab3de95262f6a45495d11bc3138d6&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="deoloy" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
@@ -123,7 +123,8 @@
       <workItem from="1682421401697" duration="207000" />
       <workItem from="1682422703450" duration="378000" />
       <workItem from="1682423217509" duration="1166000" />
-      <workItem from="1682477816742" duration="2115000" />
+      <workItem from="1682477816742" duration="2169000" />
+      <workItem from="1682484141690" duration="54000" />
     </task>
     <task id="LOCAL-00001" summary=":bug: 修复父模块 artifactId 异常">
       <created>1682346027151</created>
@@ -202,7 +203,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682478650906</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary=":wrench: 切换到maven wrapper">
+      <created>1682480052034</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1682480052034</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -230,6 +238,7 @@
     <MESSAGE value=":bug: 修复grpc和aliyun配置key异常" />
     <MESSAGE value=":wrench: 补充idea配置" />
     <MESSAGE value=":zap: 完善 Validator 已支持更多形式的校验" />
-    <option name="LAST_COMMIT_MESSAGE" value=":zap: 完善 Validator 已支持更多形式的校验" />
+    <MESSAGE value=":wrench: 切换到maven wrapper" />
+    <option name="LAST_COMMIT_MESSAGE" value=":wrench: 切换到maven wrapper" />
   </component>
 </project>

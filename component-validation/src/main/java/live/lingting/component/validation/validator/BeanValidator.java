@@ -44,7 +44,7 @@ public interface BeanValidator<A extends Annotation, V> {
 	 * @throws Exception 获取异常
 	 */
 	default void set(A annotation, ConstraintValidatorContext validatorContext, ValueContext<Object, V> valueContext,
-			Integer oldVal, V newVal) throws Exception {
+			V oldVal, V newVal) throws Exception {
 		Object bean = valueContext.getCurrentBean();
 		Field field = getField(annotation, validatorContext, valueContext, oldVal);
 		field.set(bean, newVal);
@@ -61,7 +61,7 @@ public interface BeanValidator<A extends Annotation, V> {
 	 * @throws NoSuchFieldException 获取异常
 	 */
 	default Field getField(A annotation, ConstraintValidatorContext validatorContext,
-			ValueContext<Object, V> valueContext, Integer oldVal) throws IllegalAccessException, NoSuchFieldException {
+			ValueContext<Object, V> valueContext, V oldVal) throws IllegalAccessException, NoSuchFieldException {
 		Object bean = valueContext.getCurrentBean();
 		Class<?> cls = bean.getClass();
 
@@ -111,7 +111,7 @@ public interface BeanValidator<A extends Annotation, V> {
 	 * @return java.lang.reflect.Field
 	 * @throws IllegalAccessException 异常
 	 */
-	default Field getByValueEqual(A annotation, Integer oldVal, Object bean) throws IllegalAccessException {
+	default Field getByValueEqual(A annotation, V oldVal, Object bean) throws IllegalAccessException {
 		Class<?> cls = bean.getClass();
 		// 获取字段
 		Field field = null;
