@@ -16,6 +16,10 @@
             <groupId>live.lingting.components</groupId>
             <artifactId>component-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>live.lingting.components</groupId>
+            <artifactId>component-validation</artifactId>
+        </dependency>
 
         <!--spring-->
         <dependency>

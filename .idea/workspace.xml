@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":wrench: 切换到maven wrapper">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":bug: 修复 BeanValidator.set 方法参数异常">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-validation/src/main/java/live/lingting/component/validation/validator/BeanValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-validation/src/main/java/live/lingting/component/validation/validator/BeanValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-web/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +28,10 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -124,7 +128,7 @@
       <workItem from="1682422703450" duration="378000" />
       <workItem from="1682423217509" duration="1166000" />
       <workItem from="1682477816742" duration="2169000" />
-      <workItem from="1682484141690" duration="54000" />
+      <workItem from="1682484141690" duration="1742000" />
     </task>
     <task id="LOCAL-00001" summary=":bug: 修复父模块 artifactId 异常">
       <created>1682346027151</created>
@@ -210,7 +214,21 @@
       <option name="project" value="LOCAL" />
       <updated>1682480052034</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary=":bug: 修复 BeanValidator.set">
+      <created>1682484266386</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1682484266386</updated>
+    </task>
+    <task id="LOCAL-00014" summary=":bug: 修复 BeanValidator.set 方法参数异常">
+      <created>1682484294256</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1682484294256</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -239,6 +257,8 @@
     <MESSAGE value=":wrench: 补充idea配置" />
     <MESSAGE value=":zap: 完善 Validator 已支持更多形式的校验" />
     <MESSAGE value=":wrench: 切换到maven wrapper" />
-    <option name="LAST_COMMIT_MESSAGE" value=":wrench: 切换到maven wrapper" />
+    <MESSAGE value=":bug: 修复 BeanValidator.set" />
+    <MESSAGE value=":bug: 修复 BeanValidator.set 方法参数异常" />
+    <option name="LAST_COMMIT_MESSAGE" value=":bug: 修复 BeanValidator.set 方法参数异常" />
   </component>
 </project>
