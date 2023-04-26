@@ -100,8 +100,7 @@ public class GlobalExceptionHandler {
 		// 有详细数据的
 		FieldError fieldError;
 		if (e.getFieldErrorCount() > 0 && (fieldError = e.getFieldError()) != null) {
-			return R.failed(GlobalResultCode.SERVER_PARAM_BIND_ERROR,
-					fieldError.getField() + " " + fieldError.getDefaultMessage());
+			return R.failed(GlobalResultCode.SERVER_PARAM_BIND_ERROR, fieldError.getDefaultMessage());
 		}
 		return R.failed(GlobalResultCode.SERVER_PARAM_BIND_ERROR);
 	}

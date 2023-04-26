@@ -10,5 +10,7 @@ import org.springframework.core.Ordered;
 public class WebConstants {
 
 	public static final int ORDER_EXCEPTION_DEFAULT = Ordered.LOWEST_PRECEDENCE;
+
 	public static final int ORDER_EXCEPTION_GLOBAL = 100;
+
 }
