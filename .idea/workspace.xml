@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":bug: 修复grpc和aliyun配置key异常">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/CamelCaseConfigNew.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/setting.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":wrench: 补充idea配置">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-validation/src/main/java/live/lingting/component/validation/AbstractValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-validation/src/main/java/live/lingting/component/validation/validator/AbstractAnnotationValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-validation/src/main/java/live/lingting/component/validation/Validator.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-validation/src/main/java/live/lingting/component/validation/validator/BeanValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-validation/src/main/java/live/lingting/component/validation/db/ValidDbValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-validation/src/main/java/live/lingting/component/validation/db/ValidDbValidator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,19 +51,19 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Code/Project/lingting/lingting-components",
-    "node.js.selected.package.stylelint": "",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.fileTypes",
-    "spring.configuration.checksum": "b77ab3de95262f6a45495d11bc3138d6"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Code/Project/lingting/lingting-resource&quot;,
+    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.fileTypes&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;b77ab3de95262f6a45495d11bc3138d6&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="deoloy" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
@@ -129,7 +123,9 @@
       <workItem from="1682345953753" duration="1253000" />
       <workItem from="1682391365938" duration="8982000" />
       <workItem from="1682421401697" duration="207000" />
-      <workItem from="1682422703450" duration="121000" />
+      <workItem from="1682422703450" duration="378000" />
+      <workItem from="1682423217509" duration="1166000" />
+      <workItem from="1682477816742" duration="781000" />
     </task>
     <task id="LOCAL-00001" summary=":bug: 修复父模块 artifactId 异常">
       <created>1682346027151</created>
@@ -194,8 +190,26 @@
       <option name="project" value="LOCAL" />
       <updated>1682403905726</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary=":wrench: 补充idea配置">
+      <created>1682422891971</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1682422891971</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
@@ -209,6 +223,7 @@
     <MESSAGE value=":bug: 修复RedisHelp初始化异常" />
     <MESSAGE value=":zap: 优化Web自动配置" />
     <MESSAGE value=":bug: 修复grpc和aliyun配置key异常" />
-    <option name="LAST_COMMIT_MESSAGE" value=":bug: 修复grpc和aliyun配置key异常" />
+    <MESSAGE value=":wrench: 补充idea配置" />
+    <option name="LAST_COMMIT_MESSAGE" value=":wrench: 补充idea配置" />
   </component>
 </project>

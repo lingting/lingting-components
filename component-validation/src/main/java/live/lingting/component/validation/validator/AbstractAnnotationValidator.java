@@ -1,6 +1,6 @@
-package live.lingting.component.validation;
+package live.lingting.component.validation.validator;
 
-import live.lingting.component.core.util.SpringUtils;
+import live.lingting.component.validation.EntityConstraintValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.internal.engine.valuecontext.ValueContext;
 
@@ -8,10 +8,13 @@ import javax.validation.ConstraintValidatorContext;
 import java.lang.annotation.Annotation;
 
 /**
+ * 此类的子类用于注解上使用.
+ *
  * @author lingting 2022/11/1 20:22
  */
 @Slf4j
-public abstract class AbstractValidator<A extends Annotation, V> implements EntityConstraintValidator<A, V, Object> {
+public abstract class AbstractAnnotationValidator<A extends Annotation, V>
+		implements EntityConstraintValidator<A, V, Object> {
 
 	private A annotation;
 
@@ -25,19 +28,14 @@ public abstract class AbstractValidator<A extends Annotation, V> implements Enti
 			ValueContext<Object, V> valueContext) {
 		try {
 			// 使用spring 解耦
-			return SpringUtils.getBean(getBeanName(), Validator.class)
-				.valid(annotation, validValue, validatorContext, valueContext);
+			return getValidator(annotation).valid(annotation, validValue, validatorContext, valueContext);
 		}
 		catch (Exception e) {
-			log.error("参数校验出现异常! beanName: {}, validValue: {}", annotation.annotationType(), validValue, e);
+			log.error("参数校验出现异常! 注解类型: {}, 校验值: {}", annotation.annotationType(), validValue, e);
 			return false;
 		}
 	}
 
-	/**
-	 * 获取参数校验实现bean的名称
-	 * @return bean 名称
-	 */
-	public abstract String getBeanName();
+	public abstract BeanValidator<A, V> getValidator(A annotation);
 
 }

@@ -1,4 +1,4 @@
-package live.lingting.component.validation;
+package live.lingting.component.validation.validator;
 
 import org.hibernate.validator.internal.engine.constraintvalidation.ConstraintValidatorContextImpl;
 import org.hibernate.validator.internal.engine.path.NodeImpl;
@@ -13,10 +13,12 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 此类的子类是真正进行校验的类.
+ *
  * @author lingting 2022/11/1 20:28
  */
 @SuppressWarnings({ "java:S3011", "java:S135", "java:S112", "java:S2386" })
-public interface Validator<A extends Annotation, V> {
+public interface BeanValidator<A extends Annotation, V> {
 
 	Map<Class<?>, Field> MAP = new ConcurrentHashMap<>();
 
