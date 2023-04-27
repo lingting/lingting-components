@@ -90,37 +90,26 @@ public class GlobalExceptionHandler {
 	}
 
 	/**
-	 * bind Exception
-	 * @param e the e
-	 * @return R
-	 */
-	@ExceptionHandler(BindException.class)
-	public R<String> handleBodyBindException(BindException e, HttpServletRequest request) {
-		log.error("请求地址: {}, 参数绑定异常! {}", request.getRequestURI(), e.getMessage());
-		// 有详细数据的
-		FieldError fieldError;
-		if (e.getFieldErrorCount() > 0 && (fieldError = e.getFieldError()) != null) {
-			return R.failed(GlobalResultCode.SERVER_PARAM_BIND_ERROR, fieldError.getDefaultMessage());
-		}
-		return R.failed(GlobalResultCode.SERVER_PARAM_BIND_ERROR);
-	}
-
-	/**
 	 * 单体参数校验异常 validation Exception
 	 * @param e the e
 	 * @return R
 	 */
-	@ExceptionHandler({ ValidationException.class, MethodArgumentNotValidException.class })
+	@ExceptionHandler({ ValidationException.class, MethodArgumentNotValidException.class, BindException.class })
 	public R<String> handleValidationException(Exception e, HttpServletRequest request) {
 		String message = e.getLocalizedMessage();
+		FieldError fe = null;
 		if (e instanceof MethodArgumentNotValidException) {
 			MethodArgumentNotValidException me = (MethodArgumentNotValidException) e;
-			FieldError fe = me.getFieldError();
-			if (fe != null) {
-				message = String.format("字段[%s] %s", fe.getField(), fe.getDefaultMessage());
-			}
+			fe = me.getFieldError();
 		}
-		log.error("请求地址: {}, 参数校验异常! {}", request.getRequestURI(), message);
+		else if (e instanceof BindException) {
+			fe = ((BindException) e).getFieldError();
+		}
+
+		if (fe != null) {
+			message = fe.getDefaultMessage();
+		}
+		log.error("请求地址: {}, 参数校验异常! {}", request.getRequestURI(), e.getMessage());
 		return R.failed(GlobalResultCode.PARAMS_ERROR, message);
 	}
 

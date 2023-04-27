@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":sparkles: 添加web端的异常处理">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":wrench: maven跳过测试用例">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/configuration/ComponentWebAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/configuration/ComponentWebAutoConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/constant/WebConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/constant/WebConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/constant/GlobalConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/constant/GlobalConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/configuration/JacksonComponentAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/configuration/JacksonComponentAutoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/OkHttpUrlBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/OkHttpUrlBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/exception/GlobalExceptionHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,6 +25,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="AnnotationType" />
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -58,6 +63,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "C:/Code/Project/lingting/lingting-resource",
     "node.js.selected.package.stylelint": "",
@@ -68,7 +75,34 @@
     "spring.configuration.checksum": "b77ab3de95262f6a45495d11bc3138d6"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="live.lingting.component.jackson.util" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="live.lingting.component.jackson.serializer" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.SensitiveUtilsTest.serialize">
+    <configuration name="SensitiveUtilsTest.serialize" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="component-jackson" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="live.lingting.component.jackson.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="live.lingting.component.jackson.util" />
+      <option name="MAIN_CLASS_NAME" value="live.lingting.component.jackson.util.SensitiveUtilsTest" />
+      <option name="METHOD_NAME" value="serialize" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="deoloy" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -115,6 +149,11 @@
       </MavenSettings>
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.SensitiveUtilsTest.serialize" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -130,7 +169,8 @@
       <workItem from="1682422703450" duration="378000" />
       <workItem from="1682423217509" duration="1166000" />
       <workItem from="1682477816742" duration="2169000" />
-      <workItem from="1682484141690" duration="2792000" />
+      <workItem from="1682484141690" duration="5850000" />
+      <workItem from="1682564196603" duration="8553000" />
     </task>
     <task id="LOCAL-00001" summary=":bug: 修复父模块 artifactId 异常">
       <created>1682346027151</created>
@@ -237,7 +277,28 @@
       <option name="project" value="LOCAL" />
       <updated>1682490103256</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary=":bug: 修复异常处理bean扫描异常">
+      <created>1682491149852</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1682491149852</updated>
+    </task>
+    <task id="LOCAL-00017" summary=":zap: 扩展 BizException 构造方法">
+      <created>1682572413209</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1682572413209</updated>
+    </task>
+    <task id="LOCAL-00018" summary=":wrench: maven跳过测试用例">
+      <created>1682582707349</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1682582707349</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -269,6 +330,9 @@
     <MESSAGE value=":bug: 修复 BeanValidator.set" />
     <MESSAGE value=":bug: 修复 BeanValidator.set 方法参数异常" />
     <MESSAGE value=":sparkles: 添加web端的异常处理" />
-    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: 添加web端的异常处理" />
+    <MESSAGE value=":bug: 修复异常处理bean扫描异常" />
+    <MESSAGE value=":zap: 扩展 BizException 构造方法" />
+    <MESSAGE value=":wrench: maven跳过测试用例" />
+    <option name="LAST_COMMIT_MESSAGE" value=":wrench: maven跳过测试用例" />
   </component>
 </project>
