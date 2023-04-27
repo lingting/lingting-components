@@ -11,6 +11,9 @@ import live.lingting.component.jackson.module.BooleanModule;
 import live.lingting.component.jackson.module.EnumModule;
 import live.lingting.component.jackson.module.JavaTimeModule;
 import live.lingting.component.jackson.provider.NullSerializerProvider;
+import live.lingting.component.jackson.serializer.SensitiveAllSerializer;
+import live.lingting.component.jackson.serializer.SensitiveDefaultSerializer;
+import live.lingting.component.jackson.serializer.SensitiveMobileSerializer;
 import live.lingting.component.jackson.spring.ObjectMapperAfter;
 import live.lingting.component.jackson.spring.ObjectMapperCustomizer;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -67,23 +70,49 @@ public class JacksonComponentAutoConfiguration {
 	}
 
 	@Bean
+	@ConditionalOnMissingBean
 	public JavaTimeModule javaTimeModule() {
 		return new JavaTimeModule();
 	}
 
 	@Bean
+	@ConditionalOnMissingBean
 	public EnumModule enumModule() {
 		return new EnumModule();
 	}
 
 	@Bean
+	@ConditionalOnMissingBean
 	public BooleanModule booleanModule() {
 		return new BooleanModule();
 	}
 
 	@Bean
+	@ConditionalOnMissingBean
 	public NullSerializerProvider nullSerializerProvider() {
-		return new NullSerializerProvider();
+		return NullSerializerProvider.INSTANCE;
 	}
+
+	// region 脱敏相关
+
+	@Bean
+	@ConditionalOnMissingBean
+	public SensitiveDefaultSerializer sensitiveDefaultSerializer() {
+		return new SensitiveDefaultSerializer();
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public SensitiveAllSerializer sensitiveAllSerializer() {
+		return new SensitiveAllSerializer();
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public SensitiveMobileSerializer sensitiveMobileSerializer() {
+		return new SensitiveMobileSerializer();
+	}
+
+	// endregion
 
 }
