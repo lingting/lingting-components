@@ -1,6 +1,7 @@
 package live.lingting.component.web.filter;
 
 import live.lingting.component.core.util.FileUtils;
+import live.lingting.component.core.util.HttpServletUtils;
 import live.lingting.component.core.util.IdUtils;
 import live.lingting.component.core.util.IpUtils;
 import live.lingting.component.core.util.StreamUtils;
@@ -37,11 +38,13 @@ public class TraceIdFilter extends OncePerRequestFilter {
 		Map<String, Object> map = new HashMap<>();
 		MAP_THREAD_LOCAL.set(map);
 		try {
-			map.put(WebScope.KEY_HOST, "Host");
+			map.put(WebScope.KEY_SCHEME, request.getScheme());
+			map.put(WebScope.KEY_HOST, HttpServletUtils.host(request));
 			map.put(WebScope.KEY_IP, IpUtils.getFirstIp(request));
-			map.put(WebScope.KEY_LANGUAGE, request.getHeader("Accept-Language"));
-			map.put(WebScope.KEY_AUTHORIZATION, request.getHeader("Authorization"));
-			map.put(WebScope.KEY_USER_AGENT, request.getHeader("User-Agent"));
+			map.put(WebScope.KEY_URI, request.getRequestURI());
+			map.put(WebScope.KEY_LANGUAGE, HttpServletUtils.language(request));
+			map.put(WebScope.KEY_AUTHORIZATION, HttpServletUtils.authorization(request));
+			map.put(WebScope.KEY_USER_AGENT, HttpServletUtils.userAgent(request));
 			response.addHeader(IdUtils.TRACE_ID, traceId);
 			filterChain.doFilter(request, response);
 		}
