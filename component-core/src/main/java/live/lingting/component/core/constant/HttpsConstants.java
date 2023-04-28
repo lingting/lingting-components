@@ -1,4 +1,4 @@
-package live.lingting.component.okhttp.constant;
+package live.lingting.component.core.constant;
 
 import lombok.experimental.UtilityClass;
 

@@ -4,19 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import okhttp3.MediaType;
 
-import static live.lingting.component.okhttp.constant.HttpConstants.HEADER_APPLICATION_JSON;
-import static live.lingting.component.okhttp.constant.HttpConstants.HEADER_APPLICATION_MSWORD;
-import static live.lingting.component.okhttp.constant.HttpConstants.HEADER_APPLICATION_OCTET_STREAM;
-import static live.lingting.component.okhttp.constant.HttpConstants.HEADER_APPLICATION_PDF;
-import static live.lingting.component.okhttp.constant.HttpConstants.HEADER_APPLICATION_XML;
-import static live.lingting.component.okhttp.constant.HttpConstants.HEADER_APPLICATION_X_WWW_FORM_URLENCODED;
-import static live.lingting.component.okhttp.constant.HttpConstants.HEADER_IMAGE_GIF;
-import static live.lingting.component.okhttp.constant.HttpConstants.HEADER_IMAGE_JPEG;
-import static live.lingting.component.okhttp.constant.HttpConstants.HEADER_IMAGE_PNG;
-import static live.lingting.component.okhttp.constant.HttpConstants.HEADER_MULTIPART_FORM_DATA;
-import static live.lingting.component.okhttp.constant.HttpConstants.HEADER_TEXT_HTML;
-import static live.lingting.component.okhttp.constant.HttpConstants.HEADER_TEXT_PLAIN;
-import static live.lingting.component.okhttp.constant.HttpConstants.HEADER_TEXT_XML;
+import static live.lingting.component.core.constant.HttpConstants.HEADER_APPLICATION_JSON;
+import static live.lingting.component.core.constant.HttpConstants.HEADER_APPLICATION_MSWORD;
+import static live.lingting.component.core.constant.HttpConstants.HEADER_APPLICATION_OCTET_STREAM;
+import static live.lingting.component.core.constant.HttpConstants.HEADER_APPLICATION_PDF;
+import static live.lingting.component.core.constant.HttpConstants.HEADER_APPLICATION_XML;
+import static live.lingting.component.core.constant.HttpConstants.HEADER_APPLICATION_X_WWW_FORM_URLENCODED;
+import static live.lingting.component.core.constant.HttpConstants.HEADER_IMAGE_GIF;
+import static live.lingting.component.core.constant.HttpConstants.HEADER_IMAGE_JPEG;
+import static live.lingting.component.core.constant.HttpConstants.HEADER_IMAGE_PNG;
+import static live.lingting.component.core.constant.HttpConstants.HEADER_MULTIPART_FORM_DATA;
+import static live.lingting.component.core.constant.HttpConstants.HEADER_TEXT_HTML;
+import static live.lingting.component.core.constant.HttpConstants.HEADER_TEXT_PLAIN;
+import static live.lingting.component.core.constant.HttpConstants.HEADER_TEXT_XML;
 
 /**
  * @author lingting 2021/9/10 16:09

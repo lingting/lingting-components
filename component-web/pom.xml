@@ -21,6 +21,11 @@
             <artifactId>component-validation</artifactId>
         </dependency>
 
+        <!--servlet-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
         <!--spring-->
         <dependency>
             <groupId>org.springframework</groupId>

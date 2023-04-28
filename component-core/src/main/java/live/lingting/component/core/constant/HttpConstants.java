@@ -1,4 +1,4 @@
-package live.lingting.component.okhttp.constant;
+package live.lingting.component.core.constant;
 
 import lombok.experimental.UtilityClass;
 
@@ -85,5 +85,35 @@ public class HttpConstants {
 	public static final String HEADER_IMAGE_JPEG = "image/jpeg";
 
 	public static final String HEADER_IMAGE_PNG = "image/png";
+
+	public static final String HEADER_HOST = "Host";
+
+	public static final String HEADER_ACCEPT = "Accept";
+
+	public static final String HEADER_USER_AGENT = "User-Agent";
+
+	public static final String HEADER_CONTENT_TYPE = "Content-Type";
+
+	public static final String HEADER_CONTENT_LENGTH = "Content-Length";
+
+	public static final String HEADER_AUTHORIZATION = "Authorization";
+
+	public static final String HEADER_CONTENT_ENCODING = "Content-Encoding";
+
+	public static final String HEADER_CONNECTION = "Connection";
+
+	public static final String HEADER_ACCEPT_LANGUAGE = "Accept-Language";
+
+	public static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
+
+	public static final String HEADER_REFERER = "Referer";
+
+	public static final String HEADER_UPGRADE_INSECURE_REQUESTS = "Upgrade-Insecure-Requests";
+
+	public static final String HEADER_IF_MODIFIED_SINCE = "If-Modified-Since";
+
+	public static final String HEADER_IF_NONE_MATCH = "If-None-Match";
+
+	public static final String HEADER_CACHE_CONTROL = "Cache-Control";
 
 }

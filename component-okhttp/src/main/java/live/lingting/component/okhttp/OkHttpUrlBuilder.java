@@ -1,7 +1,7 @@
 package live.lingting.component.okhttp;
 
 import live.lingting.component.core.util.CollectionUtils;
-import live.lingting.component.okhttp.constant.HttpConstants;
+import live.lingting.component.core.constant.HttpConstants;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

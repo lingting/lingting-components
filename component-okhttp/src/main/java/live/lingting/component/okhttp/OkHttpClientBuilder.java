@@ -1,6 +1,6 @@
 package live.lingting.component.okhttp;
 
-import live.lingting.component.okhttp.constant.HttpsConstants;
+import live.lingting.component.core.constant.HttpsConstants;
 import live.lingting.component.okhttp.proxy.ProxyPool;
 import lombok.Getter;
 import okhttp3.CookieJar;
