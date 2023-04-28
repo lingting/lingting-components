@@ -4,20 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":sparkles: 添加一些参数转换类">
-      <change afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/configuration/ComponentConverterAutoConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/converter/ConversionUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/converter/Converter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/converter/EnumConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/converter/StringToArrayConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/converter/StringToCollectionConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/converter/StringToLocalDateConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/converter/StringToLocalDateTimeConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/converter/StringToLocalTimeConverter.java" afterDir="false" />
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":sparkles: 添加一些spring web的参数转换类">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/configuration/ComponentWebAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/configuration/ComponentWebAutoConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-web/src/main/resources/META-INF/spring.factories" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/src/main/resources/META-INF/spring.factories" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-web/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/EnumUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/EnumUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +86,7 @@
       <recent name="live.lingting.component.jackson.serializer" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.SensitiveUtilsTest.serialize">
+  <component name="RunManager" selected="Maven.deoloy">
     <configuration name="SensitiveUtilsTest.serialize" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="component-jackson" />
       <extension name="coverage">
@@ -182,7 +171,7 @@
       <workItem from="1682477816742" duration="2169000" />
       <workItem from="1682484141690" duration="5850000" />
       <workItem from="1682564196603" duration="9946000" />
-      <workItem from="1682657584590" duration="5809000" />
+      <workItem from="1682657584590" duration="6736000" />
     </task>
     <task id="LOCAL-00001" summary=":bug: 修复父模块 artifactId 异常">
       <created>1682346027151</created>
@@ -352,7 +341,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682659035809</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary=":sparkles: 添加一些spring web的参数转换类">
+      <created>1682671134499</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1682671134499</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -393,6 +389,7 @@
     <MESSAGE value=":zap: 调整http相关静态常量到core" />
     <MESSAGE value=":zap: WebScope上下文支持更多数据存储" />
     <MESSAGE value=":sparkles: 添加一些参数转换类" />
-    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: 添加一些参数转换类" />
+    <MESSAGE value=":sparkles: 添加一些spring web的参数转换类" />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: 添加一些spring web的参数转换类" />
   </component>
 </project>

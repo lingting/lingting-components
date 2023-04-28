@@ -11,6 +11,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -19,12 +20,20 @@ import java.util.concurrent.ConcurrentHashMap;
 @UtilityClass
 public class EnumUtils {
 
+	public static final String METHOD_GET_VALUE = "getValue";
+
+	public static final String CLS_MYBATIS_PLUS_IENUM = "com.baomidou.mybatisplus.annotation.IEnum";
+
 	static final Map<Class<?>, ClassField> CACHE = new ConcurrentHashMap<>();
 
 	public static ClassField getCf(Class<?> cls) {
 		return CACHE.computeIfAbsent(cls, k -> {
-			// 查找 IEnum
-			Method method = ReflectionUtils.findMethod(k, "getValue");
+			Method method = null;
+
+			// IEnum的getValue
+			if (Objects.equals(cls.getName(), CLS_MYBATIS_PLUS_IENUM)) {
+				method = ReflectionUtils.findMethod(k, METHOD_GET_VALUE);
+			}
 
 			if (method != null) {
 				return new ClassField(null, method);
