@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import live.lingting.component.jackson.spring.ObjectMapperAfter;
 import live.lingting.component.mybatis.FillMetaObjectHandle;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -24,7 +23,7 @@ public class ComponentMybatisAutoConfiguration {
 	 * @return MybatisPlusInterceptor
 	 */
 	@Bean
-	@ConditionalOnMissingBean(MybatisPlusInterceptor.class)
+	@ConditionalOnMissingBean
 	public MybatisPlusInterceptor mybatisPlusInterceptor() {
 		MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
 		interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
@@ -32,14 +31,9 @@ public class ComponentMybatisAutoConfiguration {
 	}
 
 	@Bean
+	@ConditionalOnMissingBean
 	public MetaObjectHandler fillMetaObjectHandle() {
 		return new FillMetaObjectHandle();
-	}
-
-	@Bean
-	public JacksonTypeHandler jacksonTypeHandler(ObjectMapper objectMapper) {
-		JacksonTypeHandler.setObjectMapper(objectMapper);
-		return new JacksonTypeHandler(Object.class);
 	}
 
 	@Bean
