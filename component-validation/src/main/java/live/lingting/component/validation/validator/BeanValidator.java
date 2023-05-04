@@ -1,6 +1,6 @@
 package live.lingting.component.validation.validator;
 
-import org.hibernate.validator.internal.engine.constraintvalidation.ConstraintValidatorContextImpl;
+import lombok.SneakyThrows;
 import org.hibernate.validator.internal.engine.path.NodeImpl;
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.hibernate.validator.internal.engine.valuecontext.ValueContext;
@@ -11,6 +11,7 @@ import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 
 /**
  * 此类的子类是真正进行校验的类.
@@ -20,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @SuppressWarnings({ "java:S3011", "java:S135", "java:S112", "java:S2386" })
 public interface BeanValidator<A extends Annotation, V> {
 
-	Map<Class<?>, Field> MAP = new ConcurrentHashMap<>();
+	Map<Class<?>, Map<String, Field>> MAP = new ConcurrentHashMap<>();
 
 	/**
 	 * 注解校验执行
@@ -57,50 +58,44 @@ public interface BeanValidator<A extends Annotation, V> {
 	 * @param valueContext 值上下文
 	 * @param oldVal 旧值
 	 * @return java.lang.reflect.Field
-	 * @throws IllegalAccessException 获取异常
-	 * @throws NoSuchFieldException 获取异常
 	 */
 	default Field getField(A annotation, ConstraintValidatorContext validatorContext,
-			ValueContext<Object, V> valueContext, V oldVal) throws IllegalAccessException, NoSuchFieldException {
+			ValueContext<Object, V> valueContext, V oldVal) {
+		PathImpl path = valueContext.getPropertyPath();
+		String fieldKey = path.toString();
+
 		Object bean = valueContext.getCurrentBean();
 		Class<?> cls = bean.getClass();
 
-		if (MAP.containsKey(cls)) {
-			return MAP.get(cls);
-		}
+		Map<String, Field> fieldMap = MAP.computeIfAbsent(cls, k -> new ConcurrentHashMap<>());
 
-		Field field = getFieldByContext(validatorContext, cls);
+		return fieldMap.computeIfAbsent(fieldKey, new Function<String, Field>() {
+			@Override
+			@SneakyThrows
+			public Field apply(String s) {
+				Field field = getFieldByPath(path, cls);
 
-		if (field == null) {
-			field = getByValueEqual(annotation, oldVal, bean);
-		}
+				if (field == null) {
+					field = getByValueEqual(annotation, oldVal, bean);
+				}
 
-		if (field != null) {
-			field.setAccessible(true);
-			MAP.put(cls, field);
-		}
-		return field;
+				if (field != null) {
+					field.setAccessible(true);
+				}
+				return field;
+			}
+		});
 	}
 
 	/**
 	 * 从上下文中获取字段
-	 * @param validatorContext 校验上下文
 	 * @param cls 类
 	 * @return 字段
-	 * @throws NoSuchFieldException 异常
-	 * @throws IllegalAccessException 异常
 	 */
-	default Field getFieldByContext(ConstraintValidatorContext validatorContext, Class<?> cls)
-			throws NoSuchFieldException, IllegalAccessException {
-		if (validatorContext instanceof ConstraintValidatorContextImpl) {
-			Field basePathField = ConstraintValidatorContextImpl.class.getDeclaredField("basePath");
-			basePathField.setAccessible(true);
-			PathImpl path = (PathImpl) basePathField.get(validatorContext);
-			NodeImpl node = path.getLeafNode();
-			String fieldName = node.getName();
-			return cls.getDeclaredField(fieldName);
-		}
-		return null;
+	default Field getFieldByPath(PathImpl path, Class<?> cls) throws NoSuchFieldException {
+		NodeImpl node = path.getLeafNode();
+		String fieldName = node.getName();
+		return cls.getDeclaredField(fieldName);
 	}
 
 	/**
