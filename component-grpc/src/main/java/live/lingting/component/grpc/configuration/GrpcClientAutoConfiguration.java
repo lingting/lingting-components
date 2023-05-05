@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Bean;
 public class GrpcClientAutoConfiguration {
 
 	@Bean
+	@ConditionalOnMissingBean
 	@ConditionalOnProperty(prefix = GrpcClientProperties.PREFIX, name = "host")
 	public GrpcClientChannel grpcChannel(GrpcClientProperties properties) {
 		if (properties.getPort() == null || properties.getPort() < 0) {
