@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import live.lingting.component.core.util.ArrayUtils;
+import live.lingting.component.core.util.BooleanUtils;
 import live.lingting.component.core.util.StringUtils;
 
 import java.io.IOException;
@@ -21,10 +21,6 @@ public class BooleanModule extends SimpleModule {
 
 	public static class BooleanDeserializer extends JsonDeserializer<Boolean> {
 
-		private static final String[] STR_TRUE = { "1", "true", "yes", "ok", "y" };
-
-		private static final String[] STR_FALSE = { "0", "false", "no", "n" };
-
 		@Override
 		public Boolean deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
 				throws IOException {
@@ -33,10 +29,10 @@ public class BooleanModule extends SimpleModule {
 				throw new JsonParseException(jsonParser, String.format("不支持文本[%s]转布尔值!", text));
 			}
 			text = text.trim().toLowerCase();
-			if (ArrayUtils.contains(STR_TRUE, text)) {
+			if (BooleanUtils.isTrue(text)) {
 				return true;
 			}
-			if (ArrayUtils.contains(STR_FALSE, text)) {
+			if (BooleanUtils.isFalse(text)) {
 				return false;
 			}
 
@@ -45,7 +41,10 @@ public class BooleanModule extends SimpleModule {
 				if (number == null) {
 					throw new JsonParseException(jsonParser, "不支持数值 Null 转布尔值!");
 				}
-				return number.doubleValue() > 0;
+				return BooleanUtils.isTrue(number);
+			}
+			catch (JsonParseException e) {
+				throw e;
 			}
 			catch (Exception e) {
 				//

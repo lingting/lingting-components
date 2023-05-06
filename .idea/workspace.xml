@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":bug: 修复同时使用多个bean注解时, 校验字段获取异常">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":sparkles: 添加布尔工具类">
+      <change afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/BooleanUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/configuration/ComponentAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/configuration/ComponentAutoConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/configuration/GrpcClientAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/configuration/GrpcClientAutoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/module/BooleanModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/module/BooleanModule.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,21 +58,21 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Code/Project/lingting/lingting-components/component-web/src/main/java/live/lingting/component/web/converter&quot;,
-    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenRunHelper&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;b77ab3de95262f6a45495d11bc3138d6&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Code/Project/lingting/lingting-components/component-web/src/main/java/live/lingting/component/web/converter",
+    "node.js.selected.package.stylelint": "",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "MavenRunHelper",
+    "spring.configuration.checksum": "b77ab3de95262f6a45495d11bc3138d6"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Code\Project\lingting\lingting-components\component-web\src\main\java\live\lingting\component\web\converter" />
@@ -175,7 +175,9 @@
       <workItem from="1682657584590" duration="7997000" />
       <workItem from="1683083783732" duration="338000" />
       <workItem from="1683193635648" duration="3262000" />
-      <workItem from="1683289081128" duration="413000" />
+      <workItem from="1683289081128" duration="1285000" />
+      <workItem from="1683300972455" duration="233000" />
+      <workItem from="1683334997239" duration="1788000" />
     </task>
     <task id="LOCAL-00001" summary=":bug: 修复父模块 artifactId 异常">
       <created>1682346027151</created>
@@ -373,7 +375,21 @@
       <option name="project" value="LOCAL" />
       <updated>1683195440296</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary=":zap: GrpcClientChannel和ContextComposeBeanPostProcessor允许使用者覆盖">
+      <created>1683289574901</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1683289574901</updated>
+    </task>
+    <task id="LOCAL-00030" summary=":sparkles: 添加布尔工具类">
+      <created>1683354205723</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1683354205723</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -390,8 +406,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":sparkles: jackson添加布尔转换" />
-    <MESSAGE value=":sparkles: 添加PageLimitParams转换Ipage" />
     <MESSAGE value=":bug: 修复未声明依赖导致无法正常版本管理" />
     <MESSAGE value=":bug: 修复RedisHelp初始化异常" />
     <MESSAGE value=":zap: 优化Web自动配置" />
@@ -415,6 +429,8 @@
     <MESSAGE value=":bug: 修复获取枚举值时, 使用了非IEnum枚举的getValue方法" />
     <MESSAGE value=":bug: 修复 mybatis填充策略无法被覆盖" />
     <MESSAGE value=":bug: 修复同时使用多个bean注解时, 校验字段获取异常" />
-    <option name="LAST_COMMIT_MESSAGE" value=":bug: 修复同时使用多个bean注解时, 校验字段获取异常" />
+    <MESSAGE value=":zap: GrpcClientChannel和ContextComposeBeanPostProcessor允许使用者覆盖" />
+    <MESSAGE value=":sparkles: 添加布尔工具类" />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: 添加布尔工具类" />
   </component>
 </project>
