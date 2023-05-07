@@ -36,59 +36,62 @@ public enum GlobalResultCode implements ResultCode {
 	 * 系统异常
 	 */
 	SERVER_ERROR(500, GlobalConstants.SYSTEM_ERROR),
+
+	// region 202200
 	/**
 	 * 空指针异常
 	 */
-	SERVER_NLP_ERROR(2022092200, GlobalConstants.SYSTEM_ERROR),
+	SERVER_NLP_ERROR(2022000000, GlobalConstants.SYSTEM_ERROR),
 	/**
 	 * 参数类型转换异常
 	 */
-	SERVER_PARAM_CONVERT_ERROR(2022092201, GlobalConstants.SYSTEM_ERROR),
+	SERVER_PARAM_CONVERT_ERROR(2022000001, GlobalConstants.SYSTEM_ERROR),
 	/**
 	 * 请求方式异常
 	 */
-	SERVER_METHOD_ERROR(2022092202, "Request Method Error!"),
+	SERVER_METHOD_ERROR(2022000002, "Request Method Error!"),
 	/**
 	 * 请求参数非法
 	 */
-	SERVER_PARAM_INVALID_ERROR(2022092203, "Request Params Invalid!"),
+	SERVER_PARAM_INVALID_ERROR(2022000003, "Request Params Invalid!"),
 	/**
 	 * 请求参数绑定异常
 	 */
-	SERVER_PARAM_BIND_ERROR(2022092204, "Request Params Bind Error!"),
+	SERVER_PARAM_BIND_ERROR(2022000004, "Request Params Bind Error!"),
 	/**
 	 * 请求体异常
 	 */
-	PARAM_BODY_ERROR(2022092205, "Request Params Body Error!"),
+	PARAM_BODY_ERROR(2022000005, "Request Params Body Error!"),
 	/**
 	 * 请求参数缺失
 	 */
-	PARAM_MISSING_ERROR(2022092206, "Request Params Missing Error!"),
+	PARAM_MISSING_ERROR(2022000006, "Request Params Missing Error!"),
 	/**
 	 * 支付异常
 	 */
-	PAY_ERROR(2022092207, "Pay Error!"),
+	PAY_ERROR(2022000007, "Pay Error!"),
 	/**
 	 * 数据保存异常
 	 */
-	SAVE_ERROR(2022092208, "Save Error!"),
+	SAVE_ERROR(2022000008, "Save Error!"),
 	/**
 	 * 数据更新异常
 	 */
-	UPDATE_ERROR(2022092209, "Update Error!"),
+	UPDATE_ERROR(2022000009, "Update Error!"),
 	/**
 	 * 数据获取异常
 	 */
-	GET_ERROR(2022092210, "Data Get Error!"),
+	GET_ERROR(2022000010, "Data Get Error!"),
 	/**
 	 * 正在处理中, 请稍候!
 	 */
-	WAIT(2022092211, "Processing!"),
+	WAIT(2022000011, "Processing!"),
 	/**
 	 * 阿里云异常
 	 */
-	ALI_ERROR(2022092212, "阿里云相关操作异常!"),
+	ALI_ERROR(2022000012, "阿里云相关操作异常!"),
 
+	// endregion
 	;
 
 	private final Integer code;
