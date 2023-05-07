@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+ live.lingting.component.money.configuration.MoneyMybatisAutoConfiguration,\
+ live.lingting.component.money.configuration.MoneyWebAutoConfiguration,\
+ live.lingting.component.money.configuration.MoneyJacksonAutoConfiguration

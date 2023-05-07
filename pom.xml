@@ -22,6 +22,7 @@
         <module>component-validation</module>
         <module>component-redis</module>
         <module>component-easyexcel</module>
+        <module>component-money</module>
     </modules>
 
     <properties>
@@ -147,6 +148,11 @@
                 <artifactId>component-web</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
+                <artifactId>component-money</artifactId>
+                <version>${revision}</version>
+            </dependency>
 
             <dependency>
                 <groupId>live.lingting.dependencies</groupId>
@@ -157,7 +163,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
 
     <build>
         <pluginManagement>
