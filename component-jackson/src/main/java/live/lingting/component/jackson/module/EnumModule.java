@@ -20,8 +20,27 @@ import java.util.Objects;
 @SuppressWarnings("java:S3740")
 public class EnumModule extends SimpleModule {
 
+	public EnumModule() {
+		addSerializer(Enum.class, new EnumSerializer());
+
+		EnumJacksonDeserializers deserializers = new EnumJacksonDeserializers();
+		deserializers.addDeserializer(Enum.class, new EnumDeserializer());
+
+		setDeserializers(deserializers);
+	}
+
+	public static class EnumSerializer extends JsonSerializer<Enum> {
+
+		@Override
+		public void serialize(Enum e, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
+				throws IOException {
+			jsonGenerator.writeObject(EnumUtils.getValue(e));
+		}
+
+	}
+
 	/**
-	 * @author lingting 2022/12/20 14:05
+	 * @author lingting
 	 */
 	public static class EnumJacksonDeserializers extends SimpleDeserializers {
 
@@ -36,52 +55,40 @@ public class EnumModule extends SimpleModule {
 
 	}
 
-	public EnumModule() {
-		addSerializer(Enum.class, new JsonSerializer<Enum>() {
+	public static class EnumDeserializer extends JsonDeserializer<Enum> {
 
-			@Override
-			public void serialize(Enum e, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
-					throws IOException {
-				jsonGenerator.writeObject(EnumUtils.getValue(e));
-			}
-		});
+		@Override
+		public Enum deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
+				throws IOException {
+			// 获取前端输入的原始文本
+			String rawString = jsonParser.getValueAsString();
 
-		EnumJacksonDeserializers deserializers = new EnumJacksonDeserializers();
-		deserializers.addDeserializer(Enum.class, new JsonDeserializer<Enum>() {
-			@Override
-			public Enum deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
-					throws IOException {
-				// 获取前端输入的原始文本
-				String rawString = jsonParser.getValueAsString();
+			// 获取上下文
+			JsonStreamContext context = jsonParser.getParsingContext();
+			// 字段名
+			String fieldName = context.getCurrentName();
+			// 实体类
+			Class<?> aClass = context.getCurrentValue().getClass();
 
-				// 获取上下文
-				JsonStreamContext context = jsonParser.getParsingContext();
-				// 字段名
-				String fieldName = context.getCurrentName();
-				// 实体类
-				Class<?> aClass = context.getCurrentValue().getClass();
+			Field field = ReflectionUtils.findField(aClass, fieldName);
 
-				Field field = ReflectionUtils.findField(aClass, fieldName);
-
-				if (field == null) {
-					return null;
-				}
-
-				// 获取值
-				for (Object obj : field.getType().getEnumConstants()) {
-					Enum<?> e = (Enum<?>) obj;
-					Object value = EnumUtils.getValue(e);
-
-					if (Objects.equals(value, rawString)
-							|| (value != null && Objects.equals(value.toString(), rawString))) {
-						return e;
-					}
-				}
-
+			if (field == null) {
 				return null;
 			}
-		});
-		setDeserializers(deserializers);
+
+			// 获取值
+			for (Object obj : field.getType().getEnumConstants()) {
+				Enum<?> e = (Enum<?>) obj;
+				Object value = EnumUtils.getValue(e);
+
+				if (Objects.equals(value, rawString)
+						|| (value != null && Objects.equals(value.toString(), rawString))) {
+					return e;
+				}
+			}
+
+			return null;
+		}
 
 	}
 
