@@ -23,7 +23,16 @@ public @interface Cached {
 	String key();
 
 	/**
-	 * 如果需要在key 后面拼接参数 则传入一个拼接数据的 SpEL 表达式
+	 * 如果需要在key 后面拼接参数 则传入一个拼接数据的 SpEL 表达式. 可以返回字符串或者数组或者list
+	 * <p>
+	 * 如果返回数组获取list则会按照顺序用分隔符拼接
+	 * </p>
+	 * <p>
+	 * 示例: #p0: 返回第一个参数
+	 * </p>
+	 * <p>
+	 * 示例: {#p0,#p1}: 返回数组: [参数1, 参数2]
+	 * </p>
 	 */
 	String keyJoint() default "";
 

@@ -1,7 +1,6 @@
 package live.lingting.component.redis.core;
 
 import live.lingting.component.redis.RedisHelper;
-import live.lingting.component.redis.properties.CachePropertiesHolder;
 import live.lingting.component.redis.core.annotation.CacheDel;
 import live.lingting.component.redis.core.annotation.CacheDels;
 import live.lingting.component.redis.core.annotation.CachePut;
@@ -12,6 +11,7 @@ import live.lingting.component.redis.operation.CacheDelsOps;
 import live.lingting.component.redis.operation.CachePutOps;
 import live.lingting.component.redis.operation.CachedOps;
 import live.lingting.component.redis.operation.function.VoidMethod;
+import live.lingting.component.redis.properties.CachePropertiesHolder;
 import live.lingting.component.redis.serialize.CacheSerializer;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -30,7 +30,6 @@ import org.springframework.data.redis.core.ValueOperations;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
-import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -246,15 +245,9 @@ public class CacheStringAspect {
 			};
 		}
 		else {
-			if (cacheDelAnnotation.multiDel()) {
-				Collection<String> keys = keyGenerator.getKeys(cacheDelAnnotation.key(), cacheDelAnnotation.keyJoint());
-				cacheDel = () -> redisTemplate.delete(keys);
-			}
-			else {
-				// 缓存key
-				String key = keyGenerator.getKey(cacheDelAnnotation.key(), cacheDelAnnotation.keyJoint());
-				cacheDel = () -> redisTemplate.delete(key);
-			}
+			// 缓存key
+			String key = keyGenerator.getKey(cacheDelAnnotation.key(), cacheDelAnnotation.keyJoint());
+			cacheDel = () -> redisTemplate.delete(key);
 		}
 		return cacheDel;
 	}
