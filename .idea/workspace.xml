@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":sparkles: 添加 Money 模块">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: 格式化代码">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/SpelUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/SpelUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-money/src/main/java/live/lingting/component/money/configuration/MoneyMybatisAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-money/src/main/java/live/lingting/component/money/configuration/MoneyMybatisAutoConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/core/CacheStringAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/core/CacheStringAspect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/core/KeyGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/core/KeyGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/core/annotation/CacheDel.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/core/annotation/CacheDel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/core/annotation/CachePut.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/core/annotation/CachePut.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/core/annotation/Cached.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/core/annotation/Cached.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-mybatis/src/main/java/live/lingting/component/mybatis/ExtendService.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-mybatis/src/main/java/live/lingting/component/mybatis/ExtendService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,24 +57,25 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Code/Project/lingting/lingting-components/component-money/src/main/resources&quot;,
-    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenRunHelper&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;93406c99fd7cf40112455302daf0d407&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "master",
+    "jdk.selected.JAVA_MODULE": "1.8",
+    "last_opened_file_path": "C:/Code/Project/lingting/lingting-components/component-core/src/main/java/live/lingting/component/core/system",
+    "node.js.selected.package.stylelint": "",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "MavenRunHelper",
+    "spring.configuration.checksum": "93406c99fd7cf40112455302daf0d407"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Code\Project\lingting\lingting-components\component-core\src\main\java\live\lingting\component\core\system" />
       <recent name="C:\Code\Project\lingting\lingting-components\component-money\src\main\resources" />
       <recent name="C:\Code\Project\lingting\lingting-components\component-money\src\main\java\live\lingting\component\money\enums" />
       <recent name="C:\Code\Project\lingting\lingting-components\component-web\src\main\java\live\lingting\component\web\converter" />
@@ -93,6 +88,8 @@
       <recent name="live.lingting.component.jackson.util" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="live.lingting.component.core.exception" />
+      <recent name="live.lingting.component.mybatis.typehandler" />
       <recent name="live.lingting.component.jackson.serializer" />
     </key>
   </component>
@@ -222,7 +219,7 @@
       <workItem from="1683334997239" duration="3568000" />
       <workItem from="1683452307481" duration="6411000" />
       <workItem from="1683514474461" duration="1264000" />
-      <workItem from="1683541771340" duration="34000" />
+      <workItem from="1683541771340" duration="4882000" />
     </task>
     <task id="LOCAL-00001" summary=":bug: 修复父模块 artifactId 异常">
       <created>1682346027151</created>
@@ -462,7 +459,21 @@
       <option name="project" value="LOCAL" />
       <updated>1683457720428</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary=":art: 调整换成 keyJoint 的逻辑">
+      <created>1683541858110</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1683541858110</updated>
+    </task>
+    <task id="LOCAL-00036" summary=":zap: 格式化代码">
+      <created>1683541888101</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1683541888101</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -479,8 +490,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":bug: 修复grpc和aliyun配置key异常" />
-    <MESSAGE value=":wrench: 补充idea配置" />
     <MESSAGE value=":zap: 完善 Validator 已支持更多形式的校验" />
     <MESSAGE value=":wrench: 切换到maven wrapper" />
     <MESSAGE value=":bug: 修复 BeanValidator.set" />
@@ -504,6 +513,8 @@
     <MESSAGE value=":zap: 优化EnumModule代码结构" />
     <MESSAGE value=":zap: 调整 GlobalResultCode 返回的code码" />
     <MESSAGE value=":sparkles: 添加 Money 模块" />
-    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: 添加 Money 模块" />
+    <MESSAGE value=":art: 调整换成 keyJoint 的逻辑" />
+    <MESSAGE value=":zap: 格式化代码" />
+    <option name="LAST_COMMIT_MESSAGE" value=":zap: 格式化代码" />
   </component>
 </project>
