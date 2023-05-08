@@ -106,6 +106,14 @@ public interface ExtendService<T> extends ValidDbBean {
 	 */
 	boolean updateBatchById(Collection<T> entityList, int batchSize);
 
+	default T getExist(Serializable id) {
+		T t = getById(id);
+		if (t == null) {
+			throw new BizException(GlobalResultCode.GET_ERROR);
+		}
+		return t;
+	}
+
 	/**
 	 * 根据 ID 查询
 	 * @param id 主键ID
