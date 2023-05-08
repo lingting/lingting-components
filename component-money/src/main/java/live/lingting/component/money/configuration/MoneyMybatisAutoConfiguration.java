@@ -20,11 +20,11 @@ public class MoneyMybatisAutoConfiguration {
 	public MoneyTypeHandler moneyTypeHandler() {
 		return new MoneyTypeHandler();
 	}
+
 	@Bean
 	@ConditionalOnBean(MoneyTypeHandler.class)
 	public ConfigurationCustomizer moneyConfigurationCustomizer(MoneyTypeHandler handler) {
 		return configuration -> configuration.getTypeHandlerRegistry().register(handler);
 	}
-
 
 }
