@@ -25,12 +25,17 @@ public class GrpcServer implements ContextComponent {
 	public void onApplicationStart() {
 		server.start();
 		log.debug("grpc服务启动. 端口: {}", server.getPort());
-		THREAD_POOL.execute(new Runnable() {
-			@SneakyThrows
-			@Override
-			public void run() {
-				Thread.currentThread().setName("GrpcServer");
+		THREAD_POOL.execute(() -> {
+			Thread.currentThread().setName("GrpcServer");
+			try {
 				server.awaitTermination();
+			}
+			catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+				log.error("GrpcServer线程被中断!");
+			}
+			catch (Exception e) {
+				log.error("GrpcServer线程异常!", e);
 			}
 		});
 	}

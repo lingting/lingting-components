@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: 格式化代码">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":sparkles: 添加系统命令行相关实现">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-mybatis/src/main/java/live/lingting/component/mybatis/ExtendService.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-mybatis/src/main/java/live/lingting/component/mybatis/ExtendService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/GrpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/GrpcServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/RedisHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/RedisHelper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +70,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "MavenRunHelper",
+    "settings.editor.selected.configurable": "preferences.sourceCode.Java",
     "spring.configuration.checksum": "93406c99fd7cf40112455302daf0d407"
   }
 }]]></component>
@@ -219,7 +220,11 @@
       <workItem from="1683334997239" duration="3568000" />
       <workItem from="1683452307481" duration="6411000" />
       <workItem from="1683514474461" duration="1264000" />
-      <workItem from="1683541771340" duration="4882000" />
+      <workItem from="1683541771340" duration="5490000" />
+      <workItem from="1683698607700" duration="606000" />
+      <workItem from="1683770499236" duration="611000" />
+      <workItem from="1683793770773" duration="935000" />
+      <workItem from="1683852825207" duration="2613000" />
     </task>
     <task id="LOCAL-00001" summary=":bug: 修复父模块 artifactId 异常">
       <created>1682346027151</created>
@@ -473,7 +478,28 @@
       <option name="project" value="LOCAL" />
       <updated>1683541888101</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary=":sparkles: 添加 Money 的多个mybatis类型处理器">
+      <created>1683547656353</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1683547656353</updated>
+    </task>
+    <task id="LOCAL-00038" summary=":sparkles: mybatis service添加 getExist方法">
+      <created>1683547673159</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1683547673159</updated>
+    </task>
+    <task id="LOCAL-00039" summary=":sparkles: 添加系统命令行相关实现">
+      <created>1683547715635</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1683547715635</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -490,9 +516,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":zap: 完善 Validator 已支持更多形式的校验" />
-    <MESSAGE value=":wrench: 切换到maven wrapper" />
-    <MESSAGE value=":bug: 修复 BeanValidator.set" />
     <MESSAGE value=":bug: 修复 BeanValidator.set 方法参数异常" />
     <MESSAGE value=":sparkles: 添加web端的异常处理" />
     <MESSAGE value=":bug: 修复异常处理bean扫描异常" />
@@ -515,6 +538,9 @@
     <MESSAGE value=":sparkles: 添加 Money 模块" />
     <MESSAGE value=":art: 调整换成 keyJoint 的逻辑" />
     <MESSAGE value=":zap: 格式化代码" />
-    <option name="LAST_COMMIT_MESSAGE" value=":zap: 格式化代码" />
+    <MESSAGE value=":sparkles: 添加 Money 的多个mybatis类型处理器" />
+    <MESSAGE value=":sparkles: mybatis service添加 getExist方法" />
+    <MESSAGE value=":sparkles: 添加系统命令行相关实现" />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: 添加系统命令行相关实现" />
   </component>
 </project>

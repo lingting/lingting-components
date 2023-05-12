@@ -69,12 +69,12 @@ public class RedisHelper {
 	@Setter
 	static RedisTemplate<String, String> redisTemplate;
 
-	@SuppressWarnings("all")
+	@SuppressWarnings("unchecked")
 	private static RedisSerializer<String> getKeySerializer() {
 		return (RedisSerializer<String>) redisTemplate.getKeySerializer();
 	}
 
-	@SuppressWarnings("all")
+	@SuppressWarnings("unchecked")
 	private static RedisSerializer<String> getValueSerializer() {
 		return (RedisSerializer<String>) redisTemplate.getValueSerializer();
 	}
