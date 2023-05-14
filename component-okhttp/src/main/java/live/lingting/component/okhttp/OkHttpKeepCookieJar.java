@@ -66,12 +66,24 @@ public class OkHttpKeepCookieJar implements CookieJar {
 		addAll(cookie.domain(), Collections.singleton(cookie));
 	}
 
+	public List<Cookie> get(String domain) {
+		List<Cookie> cookies = cache.get(domain);
+		if (CollectionUtils.isEmpty(cookies)) {
+			return Collections.emptyList();
+		}
+		return Collections.unmodifiableList(cookies);
+	}
+
 	public Map<String, List<Cookie>> all() {
 		return Collections.unmodifiableMap(cache);
 	}
 
 	public void clean(String domain) {
 		cache.remove(domain);
+	}
+
+	public void cleanAll() {
+		cache.clear();
 	}
 
 }

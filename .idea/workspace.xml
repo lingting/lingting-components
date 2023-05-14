@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: 优化grpc服务线程日志, 避免异常信息被吞">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":sparkles: 添加 ThrowingConsumer">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/OkHttpKeepCookieJar.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/OkHttpKeepCookieJar.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -226,6 +227,9 @@
       <workItem from="1683852825207" duration="3262000" />
       <workItem from="1683859552435" duration="623000" />
       <workItem from="1683863085320" duration="760000" />
+      <workItem from="1684047042132" duration="805000" />
+      <workItem from="1684051651141" duration="610000" />
+      <workItem from="1684108407783" duration="102000" />
     </task>
     <task id="LOCAL-00001" summary=":bug: 修复父模块 artifactId 异常">
       <created>1682346027151</created>
@@ -507,7 +511,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683855486015</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary=":sparkles: 添加 ThrowingConsumer">
+      <created>1684047096191</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1684047096191</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -524,7 +535,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":sparkles: 添加web端的异常处理" />
     <MESSAGE value=":bug: 修复异常处理bean扫描异常" />
     <MESSAGE value=":zap: 扩展 BizException 构造方法" />
     <MESSAGE value=":wrench: maven跳过测试用例" />
@@ -549,6 +559,7 @@
     <MESSAGE value=":sparkles: mybatis service添加 getExist方法" />
     <MESSAGE value=":sparkles: 添加系统命令行相关实现" />
     <MESSAGE value=":zap: 优化grpc服务线程日志, 避免异常信息被吞" />
-    <option name="LAST_COMMIT_MESSAGE" value=":zap: 优化grpc服务线程日志, 避免异常信息被吞" />
+    <MESSAGE value=":sparkles: 添加 ThrowingConsumer" />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: 添加 ThrowingConsumer" />
   </component>
 </project>
