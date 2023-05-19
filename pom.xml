@@ -8,6 +8,8 @@
     <artifactId>lingting-components</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
+    <name>lingting-components</name>
+    <description>各种类型的组件, 一般是某个框架的扩展,有些也是独立的实现</description>
     <modules>
         <module>component-core</module>
         <module>component-jackson</module>
@@ -26,8 +28,8 @@
     </modules>
 
     <properties>
-        <revision>0.0.1-SNAPSHOT</revision>
-        <dependencies.version>0.0.1-SNAPSHOT</dependencies.version>
+        <revision>0.0.1</revision>
+        <dependencies.version>0.0.1</dependencies.version>
 
         <spring-boot.version>2.7.11</spring-boot.version>
 
