@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":art: 调整脱敏相关结构, 默认类型支持扩展">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":camera_flash: 添加0.0.2快照">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
@@ -57,22 +57,22 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "master",
-    "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "C:/Code/Project/lingting/lingting-components/component-core/src/main/java/live/lingting/component/core/system",
-    "node.js.selected.package.stylelint": "",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "MavenSettings",
-    "spring.configuration.checksum": "93406c99fd7cf40112455302daf0d407"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Code/Project/lingting/lingting-components/component-core/src/main/java/live/lingting/component/core/system&quot;,
+    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;93406c99fd7cf40112455302daf0d407&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -225,7 +225,9 @@
       <workItem from="1684148994163" duration="647000" />
       <workItem from="1684151115863" duration="709000" />
       <workItem from="1684406879369" duration="927000" />
-      <workItem from="1684459585917" duration="2028000" />
+      <workItem from="1684459585917" duration="2715000" />
+      <workItem from="1684671263020" duration="976000" />
+      <workItem from="1684716377071" duration="1333000" />
     </task>
     <task id="LOCAL-00001" summary=":bug: 修复父模块 artifactId 异常">
       <created>1682346027151</created>
@@ -521,7 +523,21 @@
       <option name="project" value="LOCAL" />
       <updated>1684120012134</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary=":rocket: 发布0.0.1版本">
+      <created>1684461635146</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1684461635146</updated>
+    </task>
+    <task id="LOCAL-00044" summary=":camera_flash: 添加0.0.2快照">
+      <created>1684461666546</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1684461666546</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -538,8 +554,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":zap: 扩展 BizException 构造方法" />
-    <MESSAGE value=":wrench: maven跳过测试用例" />
     <MESSAGE value=":sparkles: jackson添加脱敏注解" />
     <MESSAGE value=":sparkles: OkHttpUrlBuilder 支持url参数添加" />
     <MESSAGE value=":zap: 整合参数校验异常处理" />
@@ -563,6 +577,8 @@
     <MESSAGE value=":zap: 优化grpc服务线程日志, 避免异常信息被吞" />
     <MESSAGE value=":sparkles: 添加 ThrowingConsumer" />
     <MESSAGE value=":art: 调整脱敏相关结构, 默认类型支持扩展" />
-    <option name="LAST_COMMIT_MESSAGE" value=":art: 调整脱敏相关结构, 默认类型支持扩展" />
+    <MESSAGE value=":rocket: 发布0.0.1版本" />
+    <MESSAGE value=":camera_flash: 添加0.0.2快照" />
+    <option name="LAST_COMMIT_MESSAGE" value=":camera_flash: 添加0.0.2快照" />
   </component>
 </project>
