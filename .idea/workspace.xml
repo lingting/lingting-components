@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":camera_flash: 添加0.0.2快照">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":bug: 修复maven编译时版本号未指定警告">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/thread/AbstractTimer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/thread/AbstractTimer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,7 +227,11 @@
       <workItem from="1684406879369" duration="927000" />
       <workItem from="1684459585917" duration="2715000" />
       <workItem from="1684671263020" duration="976000" />
-      <workItem from="1684716377071" duration="1333000" />
+      <workItem from="1684716377071" duration="1471000" />
+      <workItem from="1684725503947" duration="1262000" />
+      <workItem from="1684804319749" duration="608000" />
+      <workItem from="1684908244563" duration="94000" />
+      <workItem from="1684909051559" duration="37000" />
     </task>
     <task id="LOCAL-00001" summary=":bug: 修复父模块 artifactId 异常">
       <created>1682346027151</created>
@@ -537,7 +541,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684461666546</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary=":bug: 修复maven编译时版本号未指定警告">
+      <created>1684719241800</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1684719241800</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -554,7 +565,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":sparkles: jackson添加脱敏注解" />
     <MESSAGE value=":sparkles: OkHttpUrlBuilder 支持url参数添加" />
     <MESSAGE value=":zap: 整合参数校验异常处理" />
     <MESSAGE value=":zap: 调整http相关静态常量到core" />
@@ -579,6 +589,7 @@
     <MESSAGE value=":art: 调整脱敏相关结构, 默认类型支持扩展" />
     <MESSAGE value=":rocket: 发布0.0.1版本" />
     <MESSAGE value=":camera_flash: 添加0.0.2快照" />
-    <option name="LAST_COMMIT_MESSAGE" value=":camera_flash: 添加0.0.2快照" />
+    <MESSAGE value=":bug: 修复maven编译时版本号未指定警告" />
+    <option name="LAST_COMMIT_MESSAGE" value=":bug: 修复maven编译时版本号未指定警告" />
   </component>
 </project>
