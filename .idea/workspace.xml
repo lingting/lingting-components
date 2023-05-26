@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: 优化动态定时器, 被唤醒后元素使用专用方法放入队列">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: 优化动态定时器, 支持子类自定义异常处理">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/thread/AbstractDynamicTimer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/thread/AbstractDynamicTimer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/filter/TraceIdFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/filter/TraceIdFilter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -233,7 +233,7 @@
       <workItem from="1684908244563" duration="94000" />
       <workItem from="1684909051559" duration="906000" />
       <workItem from="1684999484639" duration="1136000" />
-      <workItem from="1685085514128" duration="331000" />
+      <workItem from="1685085514128" duration="1087000" />
     </task>
     <task id="LOCAL-00001" summary=":bug: 修复父模块 artifactId 异常">
       <created>1682346027151</created>
@@ -571,7 +571,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685085806167</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary=":zap: 优化动态定时器, 支持子类自定义异常处理">
+      <created>1685085879398</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1685085879398</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -588,7 +595,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":zap: WebScope上下文支持更多数据存储" />
     <MESSAGE value=":sparkles: 添加一些参数转换类" />
     <MESSAGE value=":sparkles: 添加一些spring web的参数转换类" />
     <MESSAGE value=":bug: 修复获取枚举值时, 使用了非IEnum枚举的getValue方法" />
@@ -613,6 +619,7 @@
     <MESSAGE value=":bug: 修复 AbstractTimer 执行异常时未进行休眠" />
     <MESSAGE value=":bug: 修复 redis key 前缀配置失效" />
     <MESSAGE value=":zap: 优化动态定时器, 被唤醒后元素使用专用方法放入队列" />
-    <option name="LAST_COMMIT_MESSAGE" value=":zap: 优化动态定时器, 被唤醒后元素使用专用方法放入队列" />
+    <MESSAGE value=":zap: 优化动态定时器, 支持子类自定义异常处理" />
+    <option name="LAST_COMMIT_MESSAGE" value=":zap: 优化动态定时器, 支持子类自定义异常处理" />
   </component>
 </project>

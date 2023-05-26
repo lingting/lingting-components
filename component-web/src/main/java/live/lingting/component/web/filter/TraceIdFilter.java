@@ -5,6 +5,7 @@ import live.lingting.component.core.util.HttpServletUtils;
 import live.lingting.component.core.util.IdUtils;
 import live.lingting.component.core.util.IpUtils;
 import live.lingting.component.core.util.StreamUtils;
+import live.lingting.component.core.util.StringUtils;
 import live.lingting.component.web.RepeatBodyRequestWrapper;
 import org.slf4j.MDC;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -31,9 +32,8 @@ public class TraceIdFilter extends OncePerRequestFilter {
 			FilterChain filterChain) throws ServletException, IOException {
 		final RepeatBodyRequestWrapper request = RepeatBodyRequestWrapper.of(httpServletRequest);
 		final ContentCachingResponseWrapper response = new ContentCachingResponseWrapper(httpServletResponse);
-		String traceId = IdUtils.traceId();
+		String traceId = traceId(request);
 
-		// trace id 初始化
 		MDC.put(IdUtils.TRACE_ID, traceId);
 		Map<String, Object> map = new HashMap<>();
 		MAP_THREAD_LOCAL.set(map);
@@ -61,6 +61,15 @@ public class TraceIdFilter extends OncePerRequestFilter {
 
 			response.copyBodyToResponse();
 		}
+	}
+
+	protected String traceId(HttpServletRequest request) {
+		// 如果请求头存在traceId, 则复用, 用于支持链路跟踪
+		String traceId = request.getHeader(IdUtils.TRACE_ID);
+		if (StringUtils.hasText(traceId)) {
+			return traceId;
+		}
+		return IdUtils.traceId();
 	}
 
 }
