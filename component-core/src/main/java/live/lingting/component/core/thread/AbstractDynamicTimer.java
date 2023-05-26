@@ -44,7 +44,13 @@ public abstract class AbstractDynamicTimer<T> extends AbstractThreadContextCompo
 		catch (Exception e) {
 			log.error("{} put error, param: {}", this.getClass().toString(), t, e);
 		}
+	}
 
+	/**
+	 * 将取出的元素重新放入队列
+	 */
+	public void replay(T t) {
+		put(t);
 	}
 
 	@Override
@@ -64,14 +70,13 @@ public abstract class AbstractDynamicTimer<T> extends AbstractThreadContextCompo
 					if (sleepTime > 0) {
 						// 如果是被唤醒
 						if (lock.await(sleepTime, TimeUnit.MILLISECONDS)) {
-							put(t);
+							replay(t);
 							return;
 						}
 					}
 
 					process(t);
 				});
-
 			}
 			catch (InterruptedException e) {
 				interrupt();
