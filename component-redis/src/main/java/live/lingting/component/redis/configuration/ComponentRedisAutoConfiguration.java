@@ -62,7 +62,7 @@ public class ComponentRedisAutoConfiguration {
 	 */
 	@Bean
 	@DependsOn("cachePropertiesHolder")
-	@ConditionalOnProperty(prefix = "ballcat.redis", name = "key-prefix")
+	@ConditionalOnProperty(prefix = CacheProperties.PREFIX, name = "key-prefix")
 	@ConditionalOnMissingBean(IRedisPrefixConverter.class)
 	public IRedisPrefixConverter redisPrefixConverter() {
 		return new DefaultRedisPrefixConverter(CachePropertiesHolder.keyPrefix());

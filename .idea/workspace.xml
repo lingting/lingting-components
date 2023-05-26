@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":bug: 修复maven编译时版本号未指定警告">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":bug: 修复 AbstractTimer 执行异常时未进行休眠">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/thread/AbstractTimer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/thread/AbstractTimer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/configuration/ComponentRedisAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/configuration/ComponentRedisAutoConfiguration.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -231,7 +231,8 @@
       <workItem from="1684725503947" duration="1262000" />
       <workItem from="1684804319749" duration="608000" />
       <workItem from="1684908244563" duration="94000" />
-      <workItem from="1684909051559" duration="37000" />
+      <workItem from="1684909051559" duration="906000" />
+      <workItem from="1684999484639" duration="1136000" />
     </task>
     <task id="LOCAL-00001" summary=":bug: 修复父模块 artifactId 异常">
       <created>1682346027151</created>
@@ -548,7 +549,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684719241800</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary=":bug: 修复 AbstractTimer 执行异常时未进行休眠">
+      <created>1684909197834</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1684909197834</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -565,7 +573,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":sparkles: OkHttpUrlBuilder 支持url参数添加" />
     <MESSAGE value=":zap: 整合参数校验异常处理" />
     <MESSAGE value=":zap: 调整http相关静态常量到core" />
     <MESSAGE value=":zap: WebScope上下文支持更多数据存储" />
@@ -590,6 +597,7 @@
     <MESSAGE value=":rocket: 发布0.0.1版本" />
     <MESSAGE value=":camera_flash: 添加0.0.2快照" />
     <MESSAGE value=":bug: 修复maven编译时版本号未指定警告" />
-    <option name="LAST_COMMIT_MESSAGE" value=":bug: 修复maven编译时版本号未指定警告" />
+    <MESSAGE value=":bug: 修复 AbstractTimer 执行异常时未进行休眠" />
+    <option name="LAST_COMMIT_MESSAGE" value=":bug: 修复 AbstractTimer 执行异常时未进行休眠" />
   </component>
 </project>
