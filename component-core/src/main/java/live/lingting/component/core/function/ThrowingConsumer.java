@@ -7,6 +7,6 @@ package live.lingting.component.core.function;
 @SuppressWarnings("java:S112")
 public interface ThrowingConsumer<T> {
 
-	void accept(T t);
+	void accept(T t) throws Exception;
 
 }
