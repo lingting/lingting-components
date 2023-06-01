@@ -15,6 +15,7 @@ import java.util.Set;
  * @author lingting
  */
 @UtilityClass
+@SuppressWarnings("unchecked")
 public class CollectionUtils {
 
 	@SafeVarargs
@@ -46,6 +47,9 @@ public class CollectionUtils {
 		return obj instanceof Iterable || obj instanceof Iterator || obj.getClass().isArray();
 	}
 
+	/**
+	 * 复数对应转为 Collection
+	 */
 	public static Collection<Object> multiToList(Object obj) {
 		if (obj == null) {
 			return new ArrayList<>();
@@ -70,6 +74,22 @@ public class CollectionUtils {
 			((Iterable<?>) obj).forEach(list::add);
 		}
 
+		return list;
+	}
+
+	/**
+	 * 提取集合中指定数量的元素,
+	 * @param number 提取元素数量, 不足则有多少提取多少
+	 */
+	public static <T extends Collection<D>, D> List<D> extract(T collection, int number) {
+		return extract(collection.iterator(), number);
+	}
+
+	public static <D> List<D> extract(Iterator<D> iterator, int number) {
+		List<D> list = new ArrayList<>(number);
+		while (iterator.hasNext()) {
+			list.add(iterator.next());
+		}
 		return list;
 	}
 

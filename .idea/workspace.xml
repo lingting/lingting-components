@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: 优化动态定时器, 支持子类自定义异常处理">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/filter/TraceIdFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/filter/TraceIdFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/function/ThrowingConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/function/ThrowingConsumer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/lock/JavaReentrantLock.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/lock/JavaReentrantLock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/queue/WaitQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/queue/WaitQueue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/thread/AbstractDynamicTimer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/thread/AbstractDynamicTimer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/CollectionUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/CollectionUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,10 +95,11 @@
       <recent name="live.lingting.component.jackson.util" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="live.lingting.component.core.lock" />
+      <recent name="live.lingting.component.core.queue" />
       <recent name="live.lingting.component.core.function" />
       <recent name="live.lingting.component.core.exception" />
       <recent name="live.lingting.component.mybatis.typehandler" />
-      <recent name="live.lingting.component.jackson.serializer" />
     </key>
   </component>
   <component name="RunManager" selected="Maven.deoloy">
@@ -234,6 +239,10 @@
       <workItem from="1684909051559" duration="906000" />
       <workItem from="1684999484639" duration="1136000" />
       <workItem from="1685085514128" duration="1087000" />
+      <workItem from="1685330535963" duration="653000" />
+      <workItem from="1685408602946" duration="3861000" />
+      <workItem from="1685503764489" duration="1042000" />
+      <workItem from="1685615419020" duration="941000" />
     </task>
     <task id="LOCAL-00001" summary=":bug: 修复父模块 artifactId 异常">
       <created>1682346027151</created>
@@ -595,7 +604,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":sparkles: 添加一些参数转换类" />
     <MESSAGE value=":sparkles: 添加一些spring web的参数转换类" />
     <MESSAGE value=":bug: 修复获取枚举值时, 使用了非IEnum枚举的getValue方法" />
     <MESSAGE value=":bug: 修复 mybatis填充策略无法被覆盖" />
@@ -620,6 +628,7 @@
     <MESSAGE value=":bug: 修复 redis key 前缀配置失效" />
     <MESSAGE value=":zap: 优化动态定时器, 被唤醒后元素使用专用方法放入队列" />
     <MESSAGE value=":zap: 优化动态定时器, 支持子类自定义异常处理" />
+    <MESSAGE value=":zap: 优化 TraceIdFilter 支持链路跟踪" />
     <option name="LAST_COMMIT_MESSAGE" value=":zap: 优化动态定时器, 支持子类自定义异常处理" />
   </component>
 </project>
