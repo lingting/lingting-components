@@ -82,23 +82,23 @@ public class JavaReentrantLock {
 		getLock().unlock();
 	}
 
-	public void signal() {
-		getDefaultCondition().signal();
+	public void signal() throws InterruptedException {
+		runByInterruptibly(() -> getDefaultCondition().signal());
 	}
 
-	public void signalAll() {
-		getDefaultCondition().signalAll();
+	public void signalAll() throws InterruptedException {
+		runByInterruptibly(() -> getDefaultCondition().signalAll());
 	}
 
 	public void await() throws InterruptedException {
-		getDefaultCondition().await();
+		runByInterruptibly(() -> getDefaultCondition().await());
 	}
 
 	/**
 	 * @return 是否被唤醒
 	 */
 	public boolean await(long time, TimeUnit timeUnit) throws InterruptedException {
-		return getDefaultCondition().await(time, timeUnit);
+		return getByInterruptibly(() -> getDefaultCondition().await(time, timeUnit));
 	}
 
 }
