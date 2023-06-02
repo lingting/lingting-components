@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: 优化动态定时器, 支持子类自定义异常处理">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: CollectionUtils 添加提取方法">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/function/ThrowingConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/function/ThrowingConsumer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/lock/JavaReentrantLock.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/lock/JavaReentrantLock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/queue/WaitQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/queue/WaitQueue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/thread/AbstractDynamicTimer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/thread/AbstractDynamicTimer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/CollectionUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/CollectionUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-money/src/main/java/live/lingting/component/money/Money.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-money/src/main/java/live/lingting/component/money/Money.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/proxy/ProxyPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/proxy/ProxyPool.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -242,42 +240,9 @@
       <workItem from="1685330535963" duration="653000" />
       <workItem from="1685408602946" duration="3861000" />
       <workItem from="1685503764489" duration="1042000" />
-      <workItem from="1685615419020" duration="941000" />
-    </task>
-    <task id="LOCAL-00001" summary=":bug: 修复父模块 artifactId 异常">
-      <created>1682346027151</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1682346027151</updated>
-    </task>
-    <task id="LOCAL-00002" summary=":zap: 格式化">
-      <created>1682346143194</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1682346143195</updated>
-    </task>
-    <task id="LOCAL-00003" summary=":zap: 调整部分线程类属性作用域">
-      <created>1682402365747</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1682402365747</updated>
-    </task>
-    <task id="LOCAL-00004" summary=":sparkles: jackson添加布尔转换">
-      <created>1682402381793</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1682402381793</updated>
-    </task>
-    <task id="LOCAL-00005" summary=":sparkles: 添加PageLimitParams转换Ipage">
-      <created>1682402406352</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1682402406352</updated>
+      <workItem from="1685615419020" duration="1840000" />
+      <workItem from="1685672029895" duration="1054000" />
+      <workItem from="1685673815164" duration="2107000" />
     </task>
     <task id="LOCAL-00006" summary=":bug: 修复未声明依赖导致无法正常版本管理">
       <created>1682402423194</created>
@@ -587,7 +552,42 @@
       <option name="project" value="LOCAL" />
       <updated>1685085879398</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary=":zap: 优化 reentrantLock,支持获取返回值">
+      <created>1685617570784</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1685617570784</updated>
+    </task>
+    <task id="LOCAL-00051" summary=":bug: 修复 ThrowingConsumer 内部无法抛出异常">
+      <created>1685617596569</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1685617596569</updated>
+    </task>
+    <task id="LOCAL-00052" summary=":sparkles: 添加循环队列">
+      <created>1685617611806</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1685617611806</updated>
+    </task>
+    <task id="LOCAL-00053" summary=":bug: 修复动态定时器异常">
+      <created>1685617628843</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1685617628843</updated>
+    </task>
+    <task id="LOCAL-00054" summary=":zap: CollectionUtils 添加提取方法">
+      <created>1685617641584</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1685617641584</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -604,11 +604,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":sparkles: 添加一些spring web的参数转换类" />
-    <MESSAGE value=":bug: 修复获取枚举值时, 使用了非IEnum枚举的getValue方法" />
-    <MESSAGE value=":bug: 修复 mybatis填充策略无法被覆盖" />
-    <MESSAGE value=":bug: 修复同时使用多个bean注解时, 校验字段获取异常" />
-    <MESSAGE value=":zap: GrpcClientChannel和ContextComposeBeanPostProcessor允许使用者覆盖" />
     <MESSAGE value=":sparkles: 添加布尔工具类" />
     <MESSAGE value=":zap: 优化EnumModule代码结构" />
     <MESSAGE value=":zap: 调整 GlobalResultCode 返回的code码" />
@@ -629,6 +624,11 @@
     <MESSAGE value=":zap: 优化动态定时器, 被唤醒后元素使用专用方法放入队列" />
     <MESSAGE value=":zap: 优化动态定时器, 支持子类自定义异常处理" />
     <MESSAGE value=":zap: 优化 TraceIdFilter 支持链路跟踪" />
-    <option name="LAST_COMMIT_MESSAGE" value=":zap: 优化动态定时器, 支持子类自定义异常处理" />
+    <MESSAGE value=":zap: 优化 reentrantLock,支持获取返回值" />
+    <MESSAGE value=":bug: 修复 ThrowingConsumer 内部无法抛出异常" />
+    <MESSAGE value=":sparkles: 添加循环队列" />
+    <MESSAGE value=":bug: 修复动态定时器异常" />
+    <MESSAGE value=":zap: CollectionUtils 添加提取方法" />
+    <option name="LAST_COMMIT_MESSAGE" value=":zap: CollectionUtils 添加提取方法" />
   </component>
 </project>

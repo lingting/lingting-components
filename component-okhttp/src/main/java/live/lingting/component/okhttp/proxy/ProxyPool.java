@@ -17,27 +17,31 @@ import java.util.function.Supplier;
 @Slf4j
 public class ProxyPool {
 
-	private final ThreadLocal<ProxyConfig> threadLocal = new ThreadLocal<>();
+	protected final ThreadLocal<ProxyConfig> threadLocal = new ThreadLocal<>();
 
-	private final WaitQueue<ProxyConfig> queue;
+	protected final WaitQueue<ProxyConfig> queue;
 
 	@Setter
-	private Supplier<Long> currentTimeMillisSupplier = System::currentTimeMillis;
+	protected Supplier<Long> currentTimeMillisSupplier = System::currentTimeMillis;
 
-	private Set<ProxyConfig> proxies;
+	protected Set<ProxyConfig> proxies;
 
-	private ProxyPool(WaitQueue<ProxyConfig> queue, Set<ProxyConfig> proxies) {
+	protected ProxyPool(WaitQueue<ProxyConfig> queue, Set<ProxyConfig> proxies) {
 		this.queue = queue;
 		this.proxies = proxies;
 	}
 
-	public static ProxyPool of(Collection<ProxyConfig> configs) {
+	protected ProxyPool(Collection<ProxyConfig> configs) {
 		Authenticator.setDefault(ProxyAuthenticator.INSTANCE);
-		ProxyPool pool = new ProxyPool(new WaitQueue<>(), new HashSet<>(configs.size()));
-		for (ProxyConfig config : configs) {
-			pool.add(config);
-		}
-		return pool;
+		WaitQueue<ProxyConfig> waitQueue = new WaitQueue<>();
+		Set<ProxyConfig> set = new HashSet<>(configs.size());
+		this.queue = waitQueue;
+		this.proxies = set;
+		addAll(configs);
+	}
+
+	public static ProxyPool of(Collection<ProxyConfig> configs) {
+		return new ProxyPool(configs);
 	}
 
 	public void reset(Collection<ProxyConfig> configs) {
@@ -63,6 +67,7 @@ public class ProxyPool {
 	}
 
 	public ProxyConfig use(ProxyConfig config) {
+		log.debug("使用代理: {}", config.string());
 		threadLocal.set(config);
 		ProxyAuthenticator.set(this);
 		return config;
@@ -95,7 +100,7 @@ public class ProxyPool {
 		return use(config);
 	}
 
-	private ProxyConfig getProxyConfig() {
+	protected ProxyConfig getProxyConfig() {
 		ProxyConfig config;
 		try {
 			config = queue.poll();
@@ -122,6 +127,7 @@ public class ProxyPool {
 		if (config == null) {
 			return;
 		}
+		log.debug("释放代理: {}", config.string());
 		threadLocal.remove();
 		ProxyAuthenticator.remove();
 		// 还在列表
