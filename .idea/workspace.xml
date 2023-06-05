@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: CollectionUtils 添加提取方法">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":sparkles: 添加 FileValue 和 WaitValue">
+      <change afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/value/AbstractFileValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/value/WaitValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/value/FileJsonValue.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/lock/JavaReentrantLock.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/lock/JavaReentrantLock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-money/src/main/java/live/lingting/component/money/Money.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-money/src/main/java/live/lingting/component/money/Money.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/proxy/ProxyPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/proxy/ProxyPool.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,27 +59,28 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Code/Project/lingting/lingting-components/component-core/src/main/java/live/lingting/component/core/system&quot;,
-    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;93406c99fd7cf40112455302daf0d407&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "master",
+    "jdk.selected.JAVA_MODULE": "1.8",
+    "last_opened_file_path": "C:/Code/Project/lingting/lingting-components/component-core/src/main/java/live/lingting/component/core/lock",
+    "node.js.selected.package.stylelint": "",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "spring.configuration.checksum": "93406c99fd7cf40112455302daf0d407"
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Code\Project\lingting\lingting-components\component-core\src\main\java\live\lingting\component\core\lock" />
       <recent name="C:\Code\Project\lingting\lingting-components\component-core\src\main\java\live\lingting\component\core\system" />
       <recent name="C:\Code\Project\lingting\lingting-components\component-money\src\main\resources" />
       <recent name="C:\Code\Project\lingting\lingting-components\component-money\src\main\java\live\lingting\component\money\enums" />
@@ -242,28 +243,9 @@
       <workItem from="1685503764489" duration="1042000" />
       <workItem from="1685615419020" duration="1840000" />
       <workItem from="1685672029895" duration="1054000" />
-      <workItem from="1685673815164" duration="2107000" />
-    </task>
-    <task id="LOCAL-00006" summary=":bug: 修复未声明依赖导致无法正常版本管理">
-      <created>1682402423194</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1682402423194</updated>
-    </task>
-    <task id="LOCAL-00007" summary=":bug: 修复RedisHelp初始化异常">
-      <created>1682403646967</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1682403646967</updated>
-    </task>
-    <task id="LOCAL-00008" summary=":zap: 优化Web自动配置">
-      <created>1682403658259</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1682403658259</updated>
+      <workItem from="1685673815164" duration="3500000" />
+      <workItem from="1685886012112" duration="1215000" />
+      <workItem from="1685927770846" duration="3446000" />
     </task>
     <task id="LOCAL-00009" summary=":bug: 修复grpc和aliyun配置key异常">
       <created>1682403905726</created>
@@ -587,7 +569,28 @@
       <option name="project" value="LOCAL" />
       <updated>1685617641584</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary=":bug: 修复 ReentrantLock唤醒时异常">
+      <created>1685676670199</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1685676670199</updated>
+    </task>
+    <task id="LOCAL-00056" summary=":bug: 修复Money对象比对时异常">
+      <created>1685676690622</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1685676690622</updated>
+    </task>
+    <task id="LOCAL-00057" summary=":zap: ProxyPool 调整实现, 便于重写">
+      <created>1685676794549</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1685676794549</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -604,10 +607,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":sparkles: 添加布尔工具类" />
-    <MESSAGE value=":zap: 优化EnumModule代码结构" />
-    <MESSAGE value=":zap: 调整 GlobalResultCode 返回的code码" />
-    <MESSAGE value=":sparkles: 添加 Money 模块" />
     <MESSAGE value=":art: 调整换成 keyJoint 的逻辑" />
     <MESSAGE value=":zap: 格式化代码" />
     <MESSAGE value=":sparkles: 添加 Money 的多个mybatis类型处理器" />
@@ -629,6 +628,10 @@
     <MESSAGE value=":sparkles: 添加循环队列" />
     <MESSAGE value=":bug: 修复动态定时器异常" />
     <MESSAGE value=":zap: CollectionUtils 添加提取方法" />
-    <option name="LAST_COMMIT_MESSAGE" value=":zap: CollectionUtils 添加提取方法" />
+    <MESSAGE value=":bug: 修复 ReentrantLock唤醒时异常" />
+    <MESSAGE value=":bug: 修复Money对象比对时异常" />
+    <MESSAGE value=":zap: ProxyPool 调整实现, 便于重写" />
+    <MESSAGE value=":sparkles: 添加 FileValue 和 WaitValue" />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: 添加 FileValue 和 WaitValue" />
   </component>
 </project>
