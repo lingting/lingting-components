@@ -1,8 +1,7 @@
 package live.lingting.component.core.thread;
 
-import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
@@ -14,7 +13,8 @@ import java.util.concurrent.TimeUnit;
  * @author lingting 2022/11/17 20:15
  */
 @Slf4j
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
+@SuppressWarnings("java:S6548")
 public class ThreadPool {
 
 	protected static final ThreadPool THREAD_POOL;
@@ -22,7 +22,7 @@ public class ThreadPool {
 	protected static final Integer QUEUE_MAX = 100;
 
 	@Getter
-	protected final ThreadPoolExecutor pool;
+	protected ThreadPoolExecutor pool;
 
 	static {
 		THREAD_POOL = new ThreadPool(new ThreadPoolExecutor(
@@ -46,6 +46,12 @@ public class ThreadPool {
 
 	public static ThreadPool instance() {
 		return THREAD_POOL;
+	}
+
+	public static ThreadPool update(ThreadPoolExecutor executor) {
+		ThreadPool instance = instance();
+		instance.pool = executor;
+		return instance;
 	}
 
 	/**
