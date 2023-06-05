@@ -89,6 +89,9 @@ public class CollectionUtils {
 		List<D> list = new ArrayList<>(number);
 		while (iterator.hasNext()) {
 			list.add(iterator.next());
+			if (list.size() == number) {
+				break;
+			}
 		}
 		return list;
 	}
