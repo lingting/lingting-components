@@ -52,12 +52,13 @@ public class FileJsonValue<T> extends AbstractFileValue<T> {
 	}
 
 	@Override
+	@SneakyThrows
 	protected T ofClass(String json, Class<T> cls) {
 		return of(json, s -> mapper.readValue(s, cls));
 	}
 
-	@SneakyThrows
 	@Override
+	@SneakyThrows
 	protected String toString(T t) {
 		return mapper.writeValueAsString(t);
 	}

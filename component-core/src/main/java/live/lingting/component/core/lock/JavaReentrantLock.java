@@ -45,11 +45,11 @@ public class JavaReentrantLock {
 		}
 	}
 
-	public void runByInterruptibly(LockRunnable supplier) throws InterruptedException {
+	public void runByInterruptibly(LockRunnable runnable) throws InterruptedException {
 		ReentrantLock reentrantLock = getLock();
 		reentrantLock.lockInterruptibly();
 		try {
-			supplier.run();
+			runnable.run();
 		}
 		finally {
 			reentrantLock.unlock();

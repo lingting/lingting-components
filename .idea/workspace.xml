@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":sparkles: 添加 FileValue 和 WaitValue">
-      <change afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/value/AbstractFileValue.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/value/WaitValue.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/value/FileJsonValue.java" afterDir="false" />
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: WaitValue 支持新的更新形式">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/lock/JavaReentrantLock.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/lock/JavaReentrantLock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/value/WaitValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/value/WaitValue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/value/FileJsonValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/value/FileJsonValue.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,22 +59,22 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "master",
-    "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "C:/Code/Project/lingting/lingting-components/component-core/src/main/java/live/lingting/component/core/lock",
-    "node.js.selected.package.stylelint": "",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "MavenSettings",
-    "spring.configuration.checksum": "93406c99fd7cf40112455302daf0d407"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Code/Project/lingting/lingting-components/component-core/src/main/java/live/lingting/component/core/lock&quot;,
+    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;93406c99fd7cf40112455302daf0d407&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -245,35 +245,9 @@
       <workItem from="1685672029895" duration="1054000" />
       <workItem from="1685673815164" duration="3500000" />
       <workItem from="1685886012112" duration="1215000" />
-      <workItem from="1685927770846" duration="3446000" />
-    </task>
-    <task id="LOCAL-00009" summary=":bug: 修复grpc和aliyun配置key异常">
-      <created>1682403905726</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1682403905726</updated>
-    </task>
-    <task id="LOCAL-00010" summary=":wrench: 补充idea配置">
-      <created>1682422891971</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1682422891971</updated>
-    </task>
-    <task id="LOCAL-00011" summary=":zap: 完善 Validator 已支持更多形式的校验">
-      <created>1682478650906</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1682478650906</updated>
-    </task>
-    <task id="LOCAL-00012" summary=":wrench: 切换到maven wrapper">
-      <created>1682480052034</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1682480052034</updated>
+      <workItem from="1685927770846" duration="3467000" />
+      <workItem from="1685955691664" duration="345000" />
+      <workItem from="1685957253259" duration="4347000" />
     </task>
     <task id="LOCAL-00013" summary=":bug: 修复 BeanValidator.set">
       <created>1682484266386</created>
@@ -590,7 +564,35 @@
       <option name="project" value="LOCAL" />
       <updated>1685676794549</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary=":sparkles: 添加 FileValue 和 WaitValue">
+      <created>1685931224168</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1685931224169</updated>
+    </task>
+    <task id="LOCAL-00059" summary=":sparkles: 添加 异步任务类">
+      <created>1685965525560</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1685965525560</updated>
+    </task>
+    <task id="LOCAL-00060" summary=":bug: 修复 CollectionUtils 提取数量异常">
+      <created>1685965558368</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1685965558368</updated>
+    </task>
+    <task id="LOCAL-00061" summary=":zap: 线程池支持更新以及外部创建">
+      <created>1685965588110</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1685965588110</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -607,10 +609,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":art: 调整换成 keyJoint 的逻辑" />
-    <MESSAGE value=":zap: 格式化代码" />
-    <MESSAGE value=":sparkles: 添加 Money 的多个mybatis类型处理器" />
-    <MESSAGE value=":sparkles: mybatis service添加 getExist方法" />
     <MESSAGE value=":sparkles: 添加系统命令行相关实现" />
     <MESSAGE value=":zap: 优化grpc服务线程日志, 避免异常信息被吞" />
     <MESSAGE value=":sparkles: 添加 ThrowingConsumer" />
@@ -632,6 +630,10 @@
     <MESSAGE value=":bug: 修复Money对象比对时异常" />
     <MESSAGE value=":zap: ProxyPool 调整实现, 便于重写" />
     <MESSAGE value=":sparkles: 添加 FileValue 和 WaitValue" />
-    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: 添加 FileValue 和 WaitValue" />
+    <MESSAGE value=":sparkles: 添加 异步任务类" />
+    <MESSAGE value=":bug: 修复 CollectionUtils 提取数量异常" />
+    <MESSAGE value=":zap: 线程池支持更新以及外部创建" />
+    <MESSAGE value=":zap: WaitValue 支持新的更新形式" />
+    <option name="LAST_COMMIT_MESSAGE" value=":zap: WaitValue 支持新的更新形式" />
   </component>
 </project>
