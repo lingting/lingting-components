@@ -3,13 +3,14 @@ package live.lingting.component.core.value;
 import live.lingting.component.core.lock.JavaReentrantLock;
 import live.lingting.component.core.util.CollectionUtils;
 import live.lingting.component.core.util.StringUtils;
-import lombok.SneakyThrows;
+import lombok.Getter;
 
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
 
 /**
  * @author lingting 2023-05-21 20:13
@@ -18,6 +19,7 @@ public class WaitValue<T> {
 
 	protected final JavaReentrantLock lock = new JavaReentrantLock();
 
+	@Getter
 	protected T value;
 
 	public static <T> WaitValue<T> of() {
@@ -30,10 +32,15 @@ public class WaitValue<T> {
 		return of;
 	}
 
-	@SneakyThrows
-	public void update(T t) {
-		value = t;
-		lock.signalAll();
+	public void update(T t) throws InterruptedException {
+		update(v -> t);
+	}
+
+	public void update(UnaryOperator<T> operator) throws InterruptedException {
+		lock.runByInterruptibly(() -> {
+			value = operator.apply(value);
+			lock.signalAll();
+		});
 	}
 
 	public T notNull() throws InterruptedException {
