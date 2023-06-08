@@ -28,7 +28,7 @@
     </modules>
 
     <properties>
-        <revision>0.0.2-SNAPSHOT</revision>
+        <revision>0.0.3-SNAPSHOT</revision>
         <dependencies.version>0.0.1</dependencies.version>
 
         <spring-boot.version>2.7.11</spring-boot.version>

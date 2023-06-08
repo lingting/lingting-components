@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: 优化部分编码形式">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":sparkles: 添加 ThrowingBiConsumer">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/Async.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/Async.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -249,21 +249,7 @@
       <workItem from="1686018053560" duration="1214000" />
       <workItem from="1686109679496" duration="735000" />
       <workItem from="1686139402939" duration="48000" />
-      <workItem from="1686188159591" duration="2668000" />
-    </task>
-    <task id="LOCAL-00015" summary=":sparkles: 添加web端的异常处理">
-      <created>1682490103256</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1682490103256</updated>
-    </task>
-    <task id="LOCAL-00016" summary=":bug: 修复异常处理bean扫描异常">
-      <created>1682491149852</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1682491149852</updated>
+      <workItem from="1686188159591" duration="4419000" />
     </task>
     <task id="LOCAL-00017" summary=":zap: 扩展 BizException 构造方法">
       <created>1682572413209</created>
@@ -594,7 +580,21 @@
       <option name="project" value="LOCAL" />
       <updated>1685965648575</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary=":bug: 修复异步任务等待异常">
+      <created>1686204125829</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1686204125830</updated>
+    </task>
+    <task id="LOCAL-00065" summary=":sparkles: 添加 ThrowingBiConsumer">
+      <created>1686204143295</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1686204143295</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -611,8 +611,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":zap: 优化grpc服务线程日志, 避免异常信息被吞" />
-    <MESSAGE value=":sparkles: 添加 ThrowingConsumer" />
     <MESSAGE value=":art: 调整脱敏相关结构, 默认类型支持扩展" />
     <MESSAGE value=":rocket: 发布0.0.1版本" />
     <MESSAGE value=":camera_flash: 添加0.0.2快照" />
@@ -636,6 +634,8 @@
     <MESSAGE value=":zap: 线程池支持更新以及外部创建" />
     <MESSAGE value=":zap: WaitValue 支持新的更新形式" />
     <MESSAGE value=":zap: 优化部分编码形式" />
-    <option name="LAST_COMMIT_MESSAGE" value=":zap: 优化部分编码形式" />
+    <MESSAGE value=":bug: 修复异步任务等待异常" />
+    <MESSAGE value=":sparkles: 添加 ThrowingBiConsumer" />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: 添加 ThrowingBiConsumer" />
   </component>
 </project>
