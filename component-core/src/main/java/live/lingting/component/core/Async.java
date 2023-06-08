@@ -18,18 +18,18 @@ public class Async {
 	@Setter
 	protected static ThreadPool defaultPool = ThreadPool.instance();
 
-	protected final WaitValue<Integer> counter = new WaitValue<>();
+	protected final WaitValue<Integer> counter = WaitValue.of(0);
 
 	@Setter
 	protected ThreadPool pool = defaultPool;
 
-	public void submit(String name, ThrowingRunnable runnable) {
+	public void submit(String name, ThrowingRunnable runnable) throws InterruptedException {
+		increment();
 		pool.execute(String.format("Async-%s", name), new Runnable() {
 			@SneakyThrows
 			@Override
 			public void run() {
 				try {
-					increment();
 					runnable.run();
 				}
 				catch (InterruptedException e) {
@@ -47,25 +47,19 @@ public class Async {
 	}
 
 	protected void increment() throws InterruptedException {
-		counter.update(v -> {
-			if (v == null) {
-				return 1;
-			}
-			return v + 1;
-		});
+		counter.update(v -> v + 1);
 	}
 
 	protected void decrement() throws InterruptedException {
-		counter.update(v -> {
-			if (v == null || v < 2) {
-				return 0;
-			}
-			return v - 1;
-		});
+		counter.update(v -> v - 1);
 	}
 
 	public void await() throws InterruptedException {
-		counter.wait(v -> v != null && v == 0);
+		counter.wait(v -> v < 1);
+	}
+
+	public long count() {
+		return counter.getValue();
 	}
 
 }

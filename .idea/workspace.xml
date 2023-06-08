@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: WaitValue 支持新的更新形式">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: 优化部分编码形式">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/lock/JavaReentrantLock.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/lock/JavaReentrantLock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/value/WaitValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/value/WaitValue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/value/FileJsonValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/value/FileJsonValue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/Async.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/Async.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,9 +92,9 @@
       <recent name="live.lingting.component.jackson.util" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="live.lingting.component.core.function" />
       <recent name="live.lingting.component.core.lock" />
       <recent name="live.lingting.component.core.queue" />
-      <recent name="live.lingting.component.core.function" />
       <recent name="live.lingting.component.core.exception" />
       <recent name="live.lingting.component.mybatis.typehandler" />
     </key>
@@ -247,21 +245,11 @@
       <workItem from="1685886012112" duration="1215000" />
       <workItem from="1685927770846" duration="3467000" />
       <workItem from="1685955691664" duration="345000" />
-      <workItem from="1685957253259" duration="4347000" />
-    </task>
-    <task id="LOCAL-00013" summary=":bug: 修复 BeanValidator.set">
-      <created>1682484266386</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1682484266386</updated>
-    </task>
-    <task id="LOCAL-00014" summary=":bug: 修复 BeanValidator.set 方法参数异常">
-      <created>1682484294256</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1682484294256</updated>
+      <workItem from="1685957253259" duration="4963000" />
+      <workItem from="1686018053560" duration="1214000" />
+      <workItem from="1686109679496" duration="735000" />
+      <workItem from="1686139402939" duration="48000" />
+      <workItem from="1686188159591" duration="2668000" />
     </task>
     <task id="LOCAL-00015" summary=":sparkles: 添加web端的异常处理">
       <created>1682490103256</created>
@@ -592,7 +580,21 @@
       <option name="project" value="LOCAL" />
       <updated>1685965588110</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary=":zap: WaitValue 支持新的更新形式">
+      <created>1685965633226</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1685965633226</updated>
+    </task>
+    <task id="LOCAL-00063" summary=":zap: 优化部分编码形式">
+      <created>1685965648575</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1685965648575</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -609,7 +611,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":sparkles: 添加系统命令行相关实现" />
     <MESSAGE value=":zap: 优化grpc服务线程日志, 避免异常信息被吞" />
     <MESSAGE value=":sparkles: 添加 ThrowingConsumer" />
     <MESSAGE value=":art: 调整脱敏相关结构, 默认类型支持扩展" />
@@ -634,6 +635,7 @@
     <MESSAGE value=":bug: 修复 CollectionUtils 提取数量异常" />
     <MESSAGE value=":zap: 线程池支持更新以及外部创建" />
     <MESSAGE value=":zap: WaitValue 支持新的更新形式" />
-    <option name="LAST_COMMIT_MESSAGE" value=":zap: WaitValue 支持新的更新形式" />
+    <MESSAGE value=":zap: 优化部分编码形式" />
+    <option name="LAST_COMMIT_MESSAGE" value=":zap: 优化部分编码形式" />
   </component>
 </project>
