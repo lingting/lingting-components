@@ -7,7 +7,6 @@ import live.lingting.component.core.util.IpUtils;
 import live.lingting.component.core.util.StreamUtils;
 import live.lingting.component.core.util.StringUtils;
 import live.lingting.component.web.RepeatBodyRequestWrapper;
-import org.slf4j.MDC;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
@@ -34,18 +33,21 @@ public class TraceIdFilter extends OncePerRequestFilter {
 		final ContentCachingResponseWrapper response = new ContentCachingResponseWrapper(httpServletResponse);
 		String traceId = traceId(request);
 
-		MDC.put(IdUtils.TRACE_ID, traceId);
+		IdUtils.fillTraceId(traceId);
 		Map<String, Object> map = new HashMap<>();
 		MAP_THREAD_LOCAL.set(map);
 		try {
 			map.put(WebScope.KEY_SCHEME, request.getScheme());
 			map.put(WebScope.KEY_HOST, HttpServletUtils.host(request));
+			map.put(WebScope.KEY_ORIGIN, HttpServletUtils.origin(request));
 			map.put(WebScope.KEY_IP, IpUtils.getFirstIp(request));
 			map.put(WebScope.KEY_URI, request.getRequestURI());
 			map.put(WebScope.KEY_LANGUAGE, HttpServletUtils.language(request));
 			map.put(WebScope.KEY_AUTHORIZATION, HttpServletUtils.authorization(request));
 			map.put(WebScope.KEY_USER_AGENT, HttpServletUtils.userAgent(request));
-			response.addHeader(IdUtils.TRACE_ID, traceId);
+
+			response.addHeader(IdUtils.HEADER_TRACE_ID, traceId);
+
 			filterChain.doFilter(request, response);
 		}
 		finally {
@@ -56,7 +58,7 @@ public class TraceIdFilter extends OncePerRequestFilter {
 			// 移除文件, 避免大量文件放在临时目录
 			FileUtils.delete(request.getBodyFile());
 
-			MDC.remove(IdUtils.TRACE_ID);
+			IdUtils.remoteTraceId();
 			MAP_THREAD_LOCAL.remove();
 
 			response.copyBodyToResponse();
@@ -65,7 +67,7 @@ public class TraceIdFilter extends OncePerRequestFilter {
 
 	protected String traceId(HttpServletRequest request) {
 		// 如果请求头存在traceId, 则复用, 用于支持链路跟踪
-		String traceId = request.getHeader(IdUtils.TRACE_ID);
+		String traceId = request.getHeader(IdUtils.HEADER_TRACE_ID);
 		if (StringUtils.hasText(traceId)) {
 			return traceId;
 		}

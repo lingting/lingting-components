@@ -88,6 +88,8 @@ public class HttpConstants {
 
 	public static final String HEADER_HOST = "Host";
 
+	public static final String HEADER_ORIGIN = "Origin";
+
 	public static final String HEADER_ACCEPT = "Accept";
 
 	public static final String HEADER_USER_AGENT = "User-Agent";

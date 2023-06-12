@@ -15,6 +15,10 @@ public class HttpServletUtils {
 		return request.getHeader(HttpConstants.HEADER_HOST);
 	}
 
+	public static String origin(HttpServletRequest request) {
+		return request.getHeader(HttpConstants.HEADER_ORIGIN);
+	}
+
 	public static String language(HttpServletRequest request) {
 		return request.getHeader(HttpConstants.HEADER_ACCEPT_LANGUAGE);
 	}

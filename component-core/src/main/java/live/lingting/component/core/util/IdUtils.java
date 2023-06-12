@@ -4,6 +4,7 @@ import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
 import lombok.Setter;
 import lombok.experimental.UtilityClass;
+import org.slf4j.MDC;
 
 /**
  * @author lingting 2022/12/11 20:14
@@ -15,6 +16,8 @@ public class IdUtils {
 	private static Snowflake snowflake = new Snowflake(0, 0);
 
 	public static final String TRACE_ID = "traceId";
+
+	public static final String HEADER_TRACE_ID = "X-Trace-Id";
 
 	public static String simpleUuid() {
 		return IdUtil.fastSimpleUUID();
@@ -30,6 +33,20 @@ public class IdUtils {
 
 	public static String traceId() {
 		return IdUtil.objectId();
+	}
+
+	public static String fillTraceId() {
+		String traceId = traceId();
+		fillTraceId(traceId);
+		return traceId;
+	}
+
+	public static void fillTraceId(String traceId) {
+		MDC.put(TRACE_ID, traceId);
+	}
+
+	public static void remoteTraceId() {
+		MDC.remove(TRACE_ID);
 	}
 
 }

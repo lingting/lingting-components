@@ -16,6 +16,8 @@ public class WebScope {
 
 	public static final String KEY_HOST = "lingting_component_web_host";
 
+	public static final String KEY_ORIGIN = "lingting_component_web_origin";
+
 	public static final String KEY_IP = "lingting_component_web_ip";
 
 	public static final String KEY_URI = "lingting_component_web_uri";
@@ -41,19 +43,23 @@ public class WebScope {
 	// region 基础数据
 
 	public static String scheme() {
-		return MAP_THREAD_LOCAL.get().get(KEY_SCHEME).toString();
+		return get(KEY_SCHEME);
 	}
 
 	public static String host() {
-		return MAP_THREAD_LOCAL.get().get(KEY_HOST).toString();
+		return get(KEY_HOST);
+	}
+
+	public static String origin() {
+		return get(KEY_ORIGIN);
 	}
 
 	public static String ip() {
-		return MAP_THREAD_LOCAL.get().get(KEY_IP).toString();
+		return get(KEY_IP);
 	}
 
 	public static String uri() {
-		return MAP_THREAD_LOCAL.get().get(KEY_URI).toString();
+		return get(KEY_URI);
 	}
 
 	public static String traceId() {
