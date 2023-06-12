@@ -1,7 +1,5 @@
 package live.lingting.component.web.configuration;
 
-import io.undertow.server.DefaultByteBufferPool;
-import io.undertow.websockets.jsr.WebSocketDeploymentInfo;
 import live.lingting.component.web.argumentresolve.PageLimitArgumentResolve;
 import live.lingting.component.web.converter.EnumConverter;
 import live.lingting.component.web.converter.StringToArrayConverter;
@@ -14,8 +12,6 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.web.servlet.ConditionalOnMissingFilterBean;
 import org.springframework.boot.task.TaskExecutorCustomizer;
-import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
-import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -55,17 +51,6 @@ public class ComponentWebAutoConfiguration {
 			taskExecutor.setCorePoolSize(200);
 			taskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
 		};
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	public WebServerFactoryCustomizer<UndertowServletWebServerFactory> undertowServletWebServerFactoryCustomization() {
-		return factory -> factory.addDeploymentInfoCustomizers(deploymentInfo -> {
-			WebSocketDeploymentInfo webSocketDeploymentInfo = new WebSocketDeploymentInfo();
-			webSocketDeploymentInfo.setBuffers(new DefaultByteBufferPool(false, 2048, -1, 24, 0));
-			deploymentInfo.addServletContextAttribute("io.undertow.websockets.jsr.WebSocketDeploymentInfo",
-					webSocketDeploymentInfo);
-		});
 	}
 
 	// region ArgumentResolve

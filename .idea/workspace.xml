@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":sparkles: 添加 ThrowingBiConsumer">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":rocket: 发布0.0.2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/configuration/GrpcClientAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/configuration/GrpcAutoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-grpc/src/main/resources/META-INF/spring.factories" beforeDir="false" afterPath="$PROJECT_DIR$/component-grpc/src/main/resources/META-INF/spring.factories" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-grpc/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports" beforeDir="false" afterPath="$PROJECT_DIR$/component-grpc/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/configuration/ComponentWebAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/configuration/ComponentWebAutoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-web/src/main/resources/META-INF/spring.factories" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/src/main/resources/META-INF/spring.factories" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-web/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +74,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.General&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;93406c99fd7cf40112455302daf0d407&quot;
   }
 }</component>
@@ -250,20 +255,12 @@
       <workItem from="1686109679496" duration="735000" />
       <workItem from="1686139402939" duration="48000" />
       <workItem from="1686188159591" duration="4419000" />
-    </task>
-    <task id="LOCAL-00017" summary=":zap: 扩展 BizException 构造方法">
-      <created>1682572413209</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1682572413209</updated>
-    </task>
-    <task id="LOCAL-00018" summary=":wrench: maven跳过测试用例">
-      <created>1682582707349</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1682582707349</updated>
+      <workItem from="1686212688241" duration="33000" />
+      <workItem from="1686280213108" duration="2959000" />
+      <workItem from="1686304170540" duration="3201000" />
+      <workItem from="1686308277083" duration="37000" />
+      <workItem from="1686363385463" duration="1845000" />
+      <workItem from="1686534200983" duration="2622000" />
     </task>
     <task id="LOCAL-00019" summary=":sparkles: jackson添加脱敏注解">
       <created>1682584768641</created>
@@ -594,7 +591,21 @@
       <option name="project" value="LOCAL" />
       <updated>1686204143295</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary=":rocket: 发布0.0.2">
+      <created>1686212696546</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1686212696546</updated>
+    </task>
+    <task id="LOCAL-00067" summary=":rocket: 发布0.0.2">
+      <created>1686212716457</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1686212716457</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -611,7 +622,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":art: 调整脱敏相关结构, 默认类型支持扩展" />
     <MESSAGE value=":rocket: 发布0.0.1版本" />
     <MESSAGE value=":camera_flash: 添加0.0.2快照" />
     <MESSAGE value=":bug: 修复maven编译时版本号未指定警告" />
@@ -636,6 +646,7 @@
     <MESSAGE value=":zap: 优化部分编码形式" />
     <MESSAGE value=":bug: 修复异步任务等待异常" />
     <MESSAGE value=":sparkles: 添加 ThrowingBiConsumer" />
-    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: 添加 ThrowingBiConsumer" />
+    <MESSAGE value=":rocket: 发布0.0.2" />
+    <option name="LAST_COMMIT_MESSAGE" value=":rocket: 发布0.0.2" />
   </component>
 </project>

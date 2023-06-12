@@ -1,3 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   live.lingting.component.web.configuration.ComponentWebAutoConfiguration,\
-  live.lingting.component.web.configuration.ComponentConverterAutoConfiguration
+  live.lingting.component.web.configuration.ComponentConverterAutoConfiguration,\
+  live.lingting.component.web.configuration.ComponentUndertowAutoConfiguration
