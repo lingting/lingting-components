@@ -35,6 +35,10 @@ public class IdUtils {
 		return IdUtil.objectId();
 	}
 
+	public static String getTraceId() {
+		return MDC.get(TRACE_ID);
+	}
+
 	public static String fillTraceId() {
 		String traceId = traceId();
 		fillTraceId(traceId);
