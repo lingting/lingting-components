@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
  */
 @AutoConfiguration
 @EnableConfigurationProperties(GrpcClientProperties.class)
-public class GrpcClientAutoConfiguration {
+public class GrpcAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean

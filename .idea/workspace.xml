@@ -6,14 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":art: 修改 traceId 名称">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/constant/HttpConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/constant/HttpConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/HttpServletUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/HttpServletUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/IdUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/IdUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/configuration/GrpcClientAutoConfiguration.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/component-grpc/src/main/resources/META-INF/spring.factories" beforeDir="false" afterPath="$PROJECT_DIR$/component-grpc/src/main/resources/META-INF/spring.factories" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/component-grpc/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports" beforeDir="false" afterPath="$PROJECT_DIR$/component-grpc/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/filter/TraceIdFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/filter/TraceIdFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/filter/WebScope.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/filter/WebScope.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -262,14 +258,8 @@
       <workItem from="1686304170540" duration="3201000" />
       <workItem from="1686308277083" duration="37000" />
       <workItem from="1686363385463" duration="1845000" />
-      <workItem from="1686534200983" duration="5809000" />
-    </task>
-    <task id="LOCAL-00021" summary=":zap: 整合参数校验异常处理">
-      <created>1682584808001</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1682584808001</updated>
+      <workItem from="1686534200983" duration="5954000" />
+      <workItem from="1686623734309" duration="1613000" />
     </task>
     <task id="LOCAL-00022" summary=":zap: 调整http相关静态常量到cor">
       <created>1682658924519</created>
@@ -607,7 +597,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686571847416</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary=":art: 修改 traceId 名称">
+      <created>1686572673119</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1686572673119</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

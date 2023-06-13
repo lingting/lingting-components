@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  live.lingting.component.grpc.configuration.GrpcClientAutoConfiguration
+  live.lingting.component.grpc.configuration.GrpcAutoConfiguration
