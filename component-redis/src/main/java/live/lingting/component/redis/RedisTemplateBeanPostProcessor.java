@@ -7,6 +7,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 /**
  * @author lingting 2023-04-25 14:11
  */
+@SuppressWarnings("unchecked")
 public class RedisTemplateBeanPostProcessor implements ComponentBeanPostProcessor {
 
 	@Override
