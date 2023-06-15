@@ -1,0 +1,3 @@
+live.lingting.component.security.web.configuration.SecurityWebAuthorizationAutoConfiguration
+live.lingting.component.security.web.configuration.SecurityWebAutoConfiguration
+live.lingting.component.security.web.configuration.SecurityWebResourceAutoConfiguration

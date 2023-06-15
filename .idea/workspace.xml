@@ -4,12 +4,51 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: grpc traceId 联动, 使用调用者的traceId以及主动发送当前的traceId">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":sparkles: 添加security模块">
+      <change afterPath="$PROJECT_DIR$/component-security-web/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/aspectj/SecurityWebResourceAspectj.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/configuration/SecurityWebAuthorizationAutoConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/configuration/SecurityWebAutoConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/configuration/SecurityWebResourceAutoConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/constant/SecurityWebConstants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/endpoint/AuthorizationEndpoint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/exception/SecurityExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/filter/SecurityWebResourceFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/properties/SecurityWebProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/resource/DefaultRemoteResourceServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/resource/RemoteResourceRequestCustomer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/resources/META-INF/spring.factories" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/annotation/Authorize.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/annotation/EnableAuthorizationServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/annotation/EnableResourceServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/authorize/SecurityAuthorizationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/authorize/SecurityAuthorize.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/configuration/SecurityAuthorizationConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/configuration/SecurityAutoConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/configuration/SecurityResourceConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/constant/SecurityConstants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/exception/AuthorizationException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/exception/PermissionsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/exception/SecurityException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/mapstruct/SecurityMapstruct.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/password/SecurityDefaultPassword.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/password/SecurityPassword.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/po/AuthorizationPasswordPO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/properties/SecurityProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/resource/SecurityHolder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/resource/SecurityResourceService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/resource/SecurityScope.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/store/SecurityMemoryStore.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/store/SecurityStore.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/token/SecurityToken.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/vo/AuthorizationVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/resources/META-INF/spring.factories" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/component-security/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/configuration/GrpcAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/configuration/GrpcAutoConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/constant/GrpcConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/constant/GrpcConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/interceptor/LogInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/interceptor/LogInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/interceptor/TraceIdInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/interceptor/TraceIdInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +106,7 @@
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "C:/Code/Project/lingting/lingting-components/component-core/src/main/java/live/lingting/component/core/lock",
+    "last_opened_file_path": "C:/Code/Project/lingting/lingting-components/component-security-web/src/main/resources",
     "node.js.selected.package.stylelint": "",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
@@ -81,11 +120,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Code\Project\lingting\lingting-components\component-security-web\src\main\resources" />
+      <recent name="C:\Code\Project\lingting\lingting-components\component-security\src\main\resources" />
+      <recent name="C:\Code\Project\lingting\lingting-components\component-security-web\src\main\java\live\lingting\component\security" />
+      <recent name="C:\Code\Project\lingting\lingting-components\component-security\src\main\java\live\lingting\component" />
       <recent name="C:\Code\Project\lingting\lingting-components\component-core\src\main\java\live\lingting\component\core\lock" />
-      <recent name="C:\Code\Project\lingting\lingting-components\component-core\src\main\java\live\lingting\component\core\system" />
-      <recent name="C:\Code\Project\lingting\lingting-components\component-money\src\main\resources" />
-      <recent name="C:\Code\Project\lingting\lingting-components\component-money\src\main\java\live\lingting\component\money\enums" />
-      <recent name="C:\Code\Project\lingting\lingting-components\component-web\src\main\java\live\lingting\component\web\converter" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -95,11 +134,11 @@
       <recent name="live.lingting.component.jackson.util" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="live.lingting.component.security.password" />
       <recent name="live.lingting.component.core.function" />
       <recent name="live.lingting.component.core.lock" />
       <recent name="live.lingting.component.core.queue" />
       <recent name="live.lingting.component.core.exception" />
-      <recent name="live.lingting.component.mybatis.typehandler" />
     </key>
   </component>
   <component name="RunManager" selected="Maven.deoloy">
@@ -283,21 +322,7 @@
       <workItem from="1686709851534" duration="1920000" />
       <workItem from="1686748672659" duration="903000" />
       <workItem from="1686749995324" duration="1043000" />
-      <workItem from="1686797167015" duration="2318000" />
-    </task>
-    <task id="LOCAL-00024" summary=":zap: WebScope上下文支持更多数据存储">
-      <created>1682659035809</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1682659035809</updated>
-    </task>
-    <task id="LOCAL-00025" summary=":sparkles: 添加一些spring web的参数转换类">
-      <created>1682671134499</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1682671134499</updated>
+      <workItem from="1686797167015" duration="12591000" />
     </task>
     <task id="LOCAL-00026" summary=":bug: 修复获取枚举值时, 使用了非IEnum枚举的getValue方法">
       <created>1682672148594</created>
@@ -628,7 +653,21 @@
       <option name="project" value="LOCAL" />
       <updated>1686627817387</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary=":zap: grpc 客户端拦截器自动注入">
+      <created>1686800293760</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1686800293760</updated>
+    </task>
+    <task id="LOCAL-00074" summary=":zap: 优化RedisHelper实现, 避免在template未注入时调用方法导致异常">
+      <created>1686815691340</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1686815691340</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -645,9 +684,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":zap: 优化动态定时器, 被唤醒后元素使用专用方法放入队列" />
-    <MESSAGE value=":zap: 优化动态定时器, 支持子类自定义异常处理" />
-    <MESSAGE value=":zap: 优化 TraceIdFilter 支持链路跟踪" />
     <MESSAGE value=":zap: 优化 reentrantLock,支持获取返回值" />
     <MESSAGE value=":bug: 修复 ThrowingConsumer 内部无法抛出异常" />
     <MESSAGE value=":sparkles: 添加循环队列" />
@@ -670,6 +706,9 @@
     <MESSAGE value=":zap: IdUtils 添加getTraceId方法" />
     <MESSAGE value=":art: 修改Grpc配置类名" />
     <MESSAGE value=":zap: grpc traceId 联动, 使用调用者的traceId以及主动发送当前的traceId" />
-    <option name="LAST_COMMIT_MESSAGE" value=":zap: grpc traceId 联动, 使用调用者的traceId以及主动发送当前的traceId" />
+    <MESSAGE value=":zap: grpc 客户端拦截器自动注入" />
+    <MESSAGE value=":zap: 优化RedisHelper实现, 避免在template未注入时调用方法导致异常" />
+    <MESSAGE value=":sparkles: 添加security模块" />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: 添加security模块" />
   </component>
 </project>

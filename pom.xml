@@ -25,6 +25,8 @@
         <module>component-redis</module>
         <module>component-easyexcel</module>
         <module>component-money</module>
+        <module>component-security</module>
+        <module>component-security-web</module>
     </modules>
 
     <properties>
@@ -155,6 +157,16 @@
             <dependency>
                 <groupId>live.lingting.components</groupId>
                 <artifactId>component-money</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
+                <artifactId>component-security</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
+                <artifactId>component-security-web</artifactId>
                 <version>${revision}</version>
             </dependency>
 
