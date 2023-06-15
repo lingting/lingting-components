@@ -1,10 +1,6 @@
 package live.lingting.component.grpc.interceptor;
 
 import cn.hutool.core.convert.Convert;
-import live.lingting.component.grpc.enums.GrpcLogType;
-import live.lingting.component.grpc.log.GrpcLogHandler;
-import live.lingting.component.grpc.constant.GrpcConstants;
-import live.lingting.component.grpc.log.GrpcLog;
 import io.grpc.Attributes;
 import io.grpc.CallOptions;
 import io.grpc.Channel;
@@ -18,6 +14,10 @@ import io.grpc.ServerCallHandler;
 import io.grpc.ServerInterceptor;
 import live.lingting.component.core.StopWatch;
 import live.lingting.component.core.constant.GlobalConstants;
+import live.lingting.component.grpc.constant.GrpcConstants;
+import live.lingting.component.grpc.enums.GrpcLogType;
+import live.lingting.component.grpc.log.GrpcLog;
+import live.lingting.component.grpc.log.GrpcLogHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
@@ -74,7 +74,7 @@ public class LogInterceptor implements ServerInterceptor, ClientInterceptor {
 		}
 	}
 
-	<T> T timing(Supplier<T> supplier, GrpcLog grpcLog) {
+	protected <T> T timing(Supplier<T> supplier, GrpcLog grpcLog) {
 		StopWatch watch = new StopWatch();
 		try {
 			watch.start();
@@ -86,7 +86,7 @@ public class LogInterceptor implements ServerInterceptor, ClientInterceptor {
 		}
 	}
 
-	<S, R> void resolve(ServerCall<S, R> call, GrpcLog grpcLog) {
+	protected <S, R> void resolve(ServerCall<S, R> call, GrpcLog grpcLog) {
 		Attributes attributes = call.getAttributes();
 		SocketAddress address = attributes.get(Grpc.TRANSPORT_ATTR_REMOTE_ADDR);
 		if (address instanceof InetSocketAddress) {
@@ -97,7 +97,7 @@ public class LogInterceptor implements ServerInterceptor, ClientInterceptor {
 		}
 	}
 
-	void resolve(String authority, GrpcLog grpcLog) {
+	protected void resolve(String authority, GrpcLog grpcLog) {
 		String[] split = authority.split(GlobalConstants.COLON);
 		grpcLog.setHost(split[0]);
 		if (split.length > 1) {

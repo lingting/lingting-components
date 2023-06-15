@@ -13,6 +13,6 @@ public class GrpcConstants {
 
 	public static final int ORDER_CROSS = ORDER_TRACE_ID + 100;
 
-	public static final int ORDER_LOG = Ordered.LOWEST_PRECEDENCE;
+	public static final int ORDER_LOG = ORDER_TRACE_ID + 200;
 
 }
