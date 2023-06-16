@@ -9,10 +9,22 @@ import java.io.IOException;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
@@ -28,11 +40,41 @@ import java.util.jar.JarFile;
 @SuppressWarnings("java:S3011")
 public class ClassUtils {
 
-	private static final Map<String, Boolean> CACHE = new ConcurrentHashMap<>(8);
+	private static final Map<String, Boolean> CACHE_CLASS_PRESENT = new ConcurrentHashMap<>(8);
 
 	private static final Map<Class<?>, Field[]> CACHE_FIELDS = new ConcurrentHashMap<>(16);
 
 	private static final Map<Class<?>, ClassField[]> CACHE_CLASS_FIELDS = new ConcurrentHashMap<>(16);
+
+	private static final Map<Class<?>, Type[]> CACHE_TYPE_ARGUMENTS = new ConcurrentHashMap<>();
+
+	/**
+	 * 获取指定类的泛型
+	 */
+	public static Type[] typeArguments(Class<?> cls) {
+		return CACHE_TYPE_ARGUMENTS.computeIfAbsent(cls, k -> {
+			Type superclass = cls.getGenericSuperclass();
+
+			if (!(superclass instanceof ParameterizedType)) {
+				return new Type[0];
+			}
+
+			return ((ParameterizedType) superclass).getActualTypeArguments();
+		});
+	}
+
+	public static List<Class<?>> classArguments(Class<?> cls) {
+		Type[] types = typeArguments(cls);
+		List<Class<?>> list = new ArrayList<>();
+
+		for (Type type : types) {
+			if (type instanceof Class<?>) {
+				list.add((Class<?>) type);
+			}
+		}
+
+		return list;
+	}
 
 	/**
 	 * 确定class是否可以被加载
@@ -40,16 +82,16 @@ public class ClassUtils {
 	 * @param classLoader 类加载
 	 */
 	public static boolean isPresent(String className, ClassLoader classLoader) {
-		if (CACHE.containsKey(className)) {
-			return CACHE.get(className);
+		if (CACHE_CLASS_PRESENT.containsKey(className)) {
+			return CACHE_CLASS_PRESENT.get(className);
 		}
 		try {
 			Class.forName(className, true, classLoader);
-			CACHE.put(className, true);
+			CACHE_CLASS_PRESENT.put(className, true);
 			return true;
 		}
 		catch (Exception ex) {
-			CACHE.put(className, false);
+			CACHE_CLASS_PRESENT.put(className, false);
 			return false;
 		}
 	}

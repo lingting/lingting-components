@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":sparkles: 添加security模块">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":bug: 修复 MdcTaskDecorator 无效">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/configuration/ComponentAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/configuration/ComponentAutoConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/mdc/MdcTaskDecorator.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/mdc/MdcTaskDecorator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/configuration/ComponentWebAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/configuration/ComponentWebAutoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/ClassUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/ClassUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,22 +57,22 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "master",
-    "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "C:/Code/Project/lingting/lingting-components/component-security-web/src/main/resources",
-    "node.js.selected.package.stylelint": "",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
-    "spring.configuration.checksum": "a33084e01702e409d24361c1df89ad99"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Code/Project/lingting/lingting-components/component-security-web/src/main/resources&quot;,
+    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.runner&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;a33084e01702e409d24361c1df89ad99&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -283,14 +281,9 @@
       <workItem from="1686748672659" duration="903000" />
       <workItem from="1686749995324" duration="1043000" />
       <workItem from="1686797167015" duration="13999000" />
-      <workItem from="1686878774833" duration="1810000" />
-    </task>
-    <task id="LOCAL-00027" summary=":bug: 修复 mybatis填充策略无法被覆盖">
-      <created>1683195417715</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1683195417715</updated>
+      <workItem from="1686878774833" duration="5554000" />
+      <workItem from="1686898136137" duration="15000" />
+      <workItem from="1686898153271" duration="155000" />
     </task>
     <task id="LOCAL-00028" summary=":bug: 修复同时使用多个bean注解时, 校验字段获取异常">
       <created>1683195440296</created>
@@ -628,7 +621,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686833896674</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary=":bug: 修复 MdcTaskDecorator 无效">
+      <created>1686880747996</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1686880747996</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -645,7 +645,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":zap: 优化 reentrantLock,支持获取返回值" />
     <MESSAGE value=":bug: 修复 ThrowingConsumer 内部无法抛出异常" />
     <MESSAGE value=":sparkles: 添加循环队列" />
     <MESSAGE value=":bug: 修复动态定时器异常" />
@@ -670,6 +669,7 @@
     <MESSAGE value=":zap: grpc 客户端拦截器自动注入" />
     <MESSAGE value=":zap: 优化RedisHelper实现, 避免在template未注入时调用方法导致异常" />
     <MESSAGE value=":sparkles: 添加security模块" />
-    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: 添加security模块" />
+    <MESSAGE value=":bug: 修复 MdcTaskDecorator 无效" />
+    <option name="LAST_COMMIT_MESSAGE" value=":bug: 修复 MdcTaskDecorator 无效" />
   </component>
 </project>
