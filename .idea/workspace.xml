@@ -5,50 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":sparkles: 添加security模块">
-      <change afterPath="$PROJECT_DIR$/component-security-web/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/aspectj/SecurityWebResourceAspectj.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/configuration/SecurityWebAuthorizationAutoConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/configuration/SecurityWebAutoConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/configuration/SecurityWebResourceAutoConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/constant/SecurityWebConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/endpoint/AuthorizationEndpoint.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/exception/SecurityExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/filter/SecurityWebResourceFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/properties/SecurityWebProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/resource/DefaultRemoteResourceServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/resource/RemoteResourceRequestCustomer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/resources/META-INF/spring.factories" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security-web/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/annotation/Authorize.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/annotation/EnableAuthorizationServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/annotation/EnableResourceServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/authorize/SecurityAuthorizationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/authorize/SecurityAuthorize.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/configuration/SecurityAuthorizationConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/configuration/SecurityAutoConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/configuration/SecurityResourceConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/constant/SecurityConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/exception/AuthorizationException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/exception/PermissionsException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/exception/SecurityException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/mapstruct/SecurityMapstruct.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/password/SecurityDefaultPassword.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/password/SecurityPassword.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/po/AuthorizationPasswordPO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/properties/SecurityProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/resource/SecurityHolder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/resource/SecurityResourceService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/resource/SecurityScope.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/store/SecurityMemoryStore.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/store/SecurityStore.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/token/SecurityToken.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/vo/AuthorizationVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/resources/META-INF/spring.factories" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-security/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/configuration/ComponentAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/configuration/ComponentAutoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/mdc/MdcTaskDecorator.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/mdc/MdcTaskDecorator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/configuration/ComponentWebAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/configuration/ComponentWebAutoConfiguration.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +72,7 @@
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
-    "spring.configuration.checksum": "93406c99fd7cf40112455302daf0d407"
+    "spring.configuration.checksum": "a33084e01702e409d24361c1df89ad99"
   }
 }]]></component>
   <component name="ReactorSettings">
@@ -322,14 +282,8 @@
       <workItem from="1686709851534" duration="1920000" />
       <workItem from="1686748672659" duration="903000" />
       <workItem from="1686749995324" duration="1043000" />
-      <workItem from="1686797167015" duration="12591000" />
-    </task>
-    <task id="LOCAL-00026" summary=":bug: 修复获取枚举值时, 使用了非IEnum枚举的getValue方法">
-      <created>1682672148594</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1682672148594</updated>
+      <workItem from="1686797167015" duration="13999000" />
+      <workItem from="1686878774833" duration="1810000" />
     </task>
     <task id="LOCAL-00027" summary=":bug: 修复 mybatis填充策略无法被覆盖">
       <created>1683195417715</created>
@@ -667,7 +621,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686815691340</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary=":sparkles: 添加security模块">
+      <created>1686833896674</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1686833896674</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

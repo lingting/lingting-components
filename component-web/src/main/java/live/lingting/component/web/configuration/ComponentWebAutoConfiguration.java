@@ -8,6 +8,7 @@ import live.lingting.component.web.converter.StringToLocalDateConverter;
 import live.lingting.component.web.converter.StringToLocalDateTimeConverter;
 import live.lingting.component.web.converter.StringToLocalTimeConverter;
 import live.lingting.component.web.filter.TraceIdFilter;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.web.servlet.ConditionalOnMissingFilterBean;
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.Ordered;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.core.task.TaskDecorator;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -44,11 +46,15 @@ public class ComponentWebAutoConfiguration {
 	 */
 	@Bean
 	@ConditionalOnMissingBean
-	public TaskExecutorCustomizer taskexecutorcustomizer() {
+	public TaskExecutorCustomizer taskexecutorcustomizer(ObjectProvider<TaskDecorator> provider) {
+
 		return taskExecutor -> {
+			provider.ifAvailable(taskExecutor::setTaskDecorator);
+
 			taskExecutor.setThreadNamePrefix("Async-");
 			taskExecutor.setMaxPoolSize(100000);
 			taskExecutor.setCorePoolSize(200);
+
 			taskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
 		};
 	}
