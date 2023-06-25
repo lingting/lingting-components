@@ -145,4 +145,34 @@ public class StringUtils {
 		return writer.toString();
 	}
 
+	/**
+	 * 下划线字符串转驼峰字符串
+	 * <p>
+	 * eg: HumpToUnderscore -> hump_to_underscore
+	 * </p>
+	 */
+	public static String underscoreToHump(String str) {
+		CharArrayWriter writer = new CharArrayWriter();
+		boolean upper = false;
+		for (int i = 0; i < str.length(); i++) {
+			char c = str.charAt(i);
+			// 如果是下划线, 下一个要转大写
+			if (c == '_') {
+				upper = true;
+				continue;
+			}
+			// 要转大写
+			if (upper) {
+				writer.append(Character.toUpperCase(c));
+				upper = false;
+			}
+			// 保持原样
+			else {
+				writer.append(c);
+			}
+		}
+
+		return writer.toString();
+	}
+
 }

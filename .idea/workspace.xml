@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":sparkles: ClassUtils 添加泛型获取功能">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: 优化脱敏序列化器实现方式">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/AbstractSensitiveSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/AbstractSensitiveSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/SensitiveAllSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/SensitiveAllSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/SensitiveDefaultSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/SensitiveDefaultSerializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/SensitiveMobileSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/SensitiveMobileSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/StringUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,8 +25,8 @@
         <option value="AnnotationType" />
         <option value="Interface" />
         <option value="Enum" />
-        <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -91,6 +88,7 @@
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="live.lingting.component.core.util" />
       <recent name="live.lingting.component.money" />
       <recent name="live.lingting.component.jackson.util" />
     </key>
@@ -102,7 +100,7 @@
       <recent name="live.lingting.component.core.exception" />
     </key>
   </component>
-  <component name="RunManager" selected="Maven.deoloy">
+  <component name="RunManager" selected="JUnit.StringUtilsTest.underscoreToHump">
     <configuration name="MoneyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="component-money" />
       <extension name="coverage">
@@ -145,6 +143,22 @@
       <option name="PACKAGE_NAME" value="live.lingting.component.jackson.util" />
       <option name="MAIN_CLASS_NAME" value="live.lingting.component.jackson.util.SensitiveUtilsTest" />
       <option name="METHOD_NAME" value="serialize" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StringUtilsTest.underscoreToHump" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="component-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="live.lingting.component.core.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="live.lingting.component.core.util" />
+      <option name="MAIN_CLASS_NAME" value="live.lingting.component.core.util.StringUtilsTest" />
+      <option name="METHOD_NAME" value="underscoreToHump" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -199,6 +213,7 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="JUnit.StringUtilsTest.underscoreToHump" />
       <item itemvalue="JUnit.MoneyTest" />
       <item itemvalue="JUnit.MoneyTest.json" />
       <item itemvalue="JUnit.SensitiveUtilsTest.serialize" />
@@ -206,6 +221,7 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.StringUtilsTest.underscoreToHump" />
         <item itemvalue="JUnit.SensitiveUtilsTest.serialize" />
         <item itemvalue="JUnit.MoneyTest.json" />
         <item itemvalue="JUnit.MoneyTest" />
@@ -291,7 +307,7 @@
       <workItem from="1687138306577" duration="1204000" />
       <workItem from="1687171971847" duration="2931000" />
       <workItem from="1687224567670" duration="687000" />
-      <workItem from="1687656470981" duration="1646000" />
+      <workItem from="1687656470981" duration="3966000" />
     </task>
     <task id="LOCAL-00029" summary=":zap: GrpcClientChannel和ContextComposeBeanPostProcessor允许使用者覆盖">
       <created>1683289574901</created>
@@ -636,7 +652,7 @@
       <option name="project" value="LOCAL" />
       <updated>1686898339956</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -653,7 +669,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":sparkles: 添加循环队列" />
     <MESSAGE value=":bug: 修复动态定时器异常" />
     <MESSAGE value=":zap: CollectionUtils 添加提取方法" />
     <MESSAGE value=":bug: 修复 ReentrantLock唤醒时异常" />
@@ -678,6 +693,7 @@
     <MESSAGE value=":sparkles: 添加security模块" />
     <MESSAGE value=":bug: 修复 MdcTaskDecorator 无效" />
     <MESSAGE value=":sparkles: ClassUtils 添加泛型获取功能" />
-    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: ClassUtils 添加泛型获取功能" />
+    <MESSAGE value=":zap: 优化脱敏序列化器实现方式" />
+    <option name="LAST_COMMIT_MESSAGE" value=":zap: 优化脱敏序列化器实现方式" />
   </component>
 </project>
