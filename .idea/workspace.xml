@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":bug: 修复 MdcTaskDecorator 无效">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":sparkles: ClassUtils 添加泛型获取功能">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/ClassUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/ClassUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/AbstractSensitiveSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/AbstractSensitiveSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/SensitiveAllSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/SensitiveAllSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/SensitiveDefaultSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/SensitiveDefaultSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/SensitiveMobileSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/SensitiveMobileSerializer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -283,14 +286,12 @@
       <workItem from="1686797167015" duration="13999000" />
       <workItem from="1686878774833" duration="5554000" />
       <workItem from="1686898136137" duration="15000" />
-      <workItem from="1686898153271" duration="155000" />
-    </task>
-    <task id="LOCAL-00028" summary=":bug: 修复同时使用多个bean注解时, 校验字段获取异常">
-      <created>1683195440296</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1683195440296</updated>
+      <workItem from="1686898153271" duration="2020000" />
+      <workItem from="1686910080503" duration="1000000" />
+      <workItem from="1687138306577" duration="1204000" />
+      <workItem from="1687171971847" duration="2931000" />
+      <workItem from="1687224567670" duration="687000" />
+      <workItem from="1687656470981" duration="1646000" />
     </task>
     <task id="LOCAL-00029" summary=":zap: GrpcClientChannel和ContextComposeBeanPostProcessor允许使用者覆盖">
       <created>1683289574901</created>
@@ -628,7 +629,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686880747996</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary=":sparkles: ClassUtils 添加泛型获取功能">
+      <created>1686898339956</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1686898339956</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -645,7 +653,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":bug: 修复 ThrowingConsumer 内部无法抛出异常" />
     <MESSAGE value=":sparkles: 添加循环队列" />
     <MESSAGE value=":bug: 修复动态定时器异常" />
     <MESSAGE value=":zap: CollectionUtils 添加提取方法" />
@@ -670,6 +677,7 @@
     <MESSAGE value=":zap: 优化RedisHelper实现, 避免在template未注入时调用方法导致异常" />
     <MESSAGE value=":sparkles: 添加security模块" />
     <MESSAGE value=":bug: 修复 MdcTaskDecorator 无效" />
-    <option name="LAST_COMMIT_MESSAGE" value=":bug: 修复 MdcTaskDecorator 无效" />
+    <MESSAGE value=":sparkles: ClassUtils 添加泛型获取功能" />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: ClassUtils 添加泛型获取功能" />
   </component>
 </project>
