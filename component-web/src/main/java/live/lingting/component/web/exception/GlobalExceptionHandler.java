@@ -22,6 +22,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ValidationException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
  * 优先级高一点的异常处理
@@ -142,6 +143,15 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(SecurityException.class)
 	public R<String> handlerSecurityException(SecurityException e) {
 		return R.failed(GlobalResultCode.UNAUTHORIZED_ERROR, e.getMessage());
+	}
+
+	/**
+	 * sql执行异常
+	 */
+	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+	public R<String> handlerSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException e) {
+		log.error("sql执行异常! {}", e.getMessage());
+		return R.failed(GlobalResultCode.DB_CONSTRAINT_VIOLATION_ERROR);
 	}
 
 }

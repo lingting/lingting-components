@@ -87,9 +87,13 @@ public enum GlobalResultCode implements ResultCode {
 	 */
 	WAIT(2022000011, "Processing!"),
 	/**
-	 * 阿里云异常
+	 * 阿里云相关操作异常
 	 */
 	ALI_ERROR(2022000012, "阿里云相关操作异常!"),
+	/**
+	 * 数据处理异常! 请确认数据填写正确且不存在重复数据
+	 */
+	DB_CONSTRAINT_VIOLATION_ERROR(2022000013, "数据处理异常! 请确认数据填写正确且不存在重复数据!"),
 
 	// endregion
 	;
