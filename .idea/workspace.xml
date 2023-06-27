@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: 调整Undertow配置实现">
-      <change afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/undertow/ComponentUndertowServletWebServerFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/undertow/ComponentUndertowTimer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/configuration/ComponentUndertowAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/configuration/ComponentUndertowAutoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/core/KeyGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/core/KeyGenerator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -311,7 +309,8 @@
       <workItem from="1687224567670" duration="687000" />
       <workItem from="1687656470981" duration="4621000" />
       <workItem from="1687746539867" duration="3663000" />
-      <workItem from="1687778421501" duration="678000" />
+      <workItem from="1687778421501" duration="805000" />
+      <workItem from="1687828760406" duration="5261000" />
     </task>
     <task id="LOCAL-00029" summary=":zap: GrpcClientChannel和ContextComposeBeanPostProcessor允许使用者覆盖">
       <created>1683289574901</created>
@@ -656,7 +655,7 @@
       <option name="project" value="LOCAL" />
       <updated>1686898339956</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

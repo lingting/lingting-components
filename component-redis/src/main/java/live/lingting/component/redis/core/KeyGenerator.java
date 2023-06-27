@@ -38,7 +38,7 @@ public class KeyGenerator {
 	 */
 	public String getKey(String keyPrefix, String keyJoint) {
 		// 根据 keyJoint 判断是否需要拼接
-		if (keyJoint == null || keyJoint.length() == 0) {
+		if (!StringUtils.hasText(keyJoint)) {
 			return keyPrefix;
 		}
 		// 获取所有需要拼接的元素, 组装进集合中
@@ -55,7 +55,7 @@ public class KeyGenerator {
 				builder.append(Convert.toStr(obj)).append(delimiter);
 			}
 			if (builder.length() > 0) {
-				builder.deleteCharAt(delimiter.length());
+				builder.deleteCharAt(builder.length() - 1);
 			}
 			suffix = builder.toString();
 		}
