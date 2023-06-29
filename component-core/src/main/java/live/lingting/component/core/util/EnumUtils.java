@@ -24,38 +24,96 @@ public class EnumUtils {
 
 	public static final String CLS_MYBATIS_PLUS_IENUM = "com.baomidou.mybatisplus.annotation.IEnum";
 
+	public static final String CLS_JACKSON_JSON_VALUE = "com.fasterxml.jackson.annotation.JsonValue";
+
 	static final Map<Class<?>, ClassField> CACHE = new ConcurrentHashMap<>();
 
-	public static ClassField getCf(Class<?> cls) {
-		return CACHE.computeIfAbsent(cls, k -> {
-			Method method = null;
+	public static ClassField getByIEnum(Class<?> cls) {
+		Method method = null;
+		// IEnum的getValue
+		if (Objects.equals(cls.getName(), CLS_MYBATIS_PLUS_IENUM)) {
+			method = ReflectionUtils.findMethod(cls, METHOD_GET_VALUE);
+		}
 
-			// IEnum的getValue
-			if (Objects.equals(cls.getName(), CLS_MYBATIS_PLUS_IENUM)) {
-				method = ReflectionUtils.findMethod(k, METHOD_GET_VALUE);
+		if (method == null) {
+			return null;
+		}
+		return new ClassField(null, method);
+	}
+
+	public static ClassField getByJsonValue(Class<?> cls) {
+		if (!ClassUtils.isPresent(CLS_JACKSON_JSON_VALUE, EnumUtils.class.getClassLoader())) {
+			return null;
+		}
+
+		Method method = null;
+		Field field = getJsonValueField(cls);
+		if (field != null) {
+			// public 字段
+			if (Modifier.isPublic(field.getModifiers())) {
+				return new ClassField(field, null);
 			}
 
+			// 获取 get 方法
+			method = ReflectionUtils.findMethod(cls, StringConstants.GET + StringUtils.firstUpper(field.getName()));
 			if (method != null) {
 				return new ClassField(null, method);
 			}
+		}
 
-			// 查找 JsonValue 注解
-			Field field = getJsonValueField(k);
-			if (field != null) {
-				// public 字段, 直接用
-				if (Modifier.isPublic(field.getModifiers())) {
-					return new ClassField(field, null);
-				}
+		method = getJsonValueMethod(cls);
+		if (method != null) {
+			return new ClassField(null, method);
+		}
+		return null;
+	}
 
-				method = ReflectionUtils.findMethod(k, StringConstants.GET + StringUtils.firstUpper(field.getName()));
+	public static Method getJsonValueMethod(Class<?> cls) {
+		// 获取public的方法.
+		Method[] methods = cls.getMethods();
+		for (Method method : methods) {
+			Annotation annotation = method.getAnnotation(JsonValue.class);
+			// 存在注解且参数为空
+			if (annotation != null && ArrayUtils.isEmpty(method.getParameters())) {
+				return method;
+			}
+		}
+		return null;
+	}
 
-				if (method != null) {
-					return new ClassField(null, method);
-				}
+	public static Field getJsonValueField(Class<?> cls) {
+		Field[] fields = cls.getDeclaredFields();
+
+		for (Field field : fields) {
+			Annotation annotation = field.getAnnotation(JsonValue.class);
+			if (annotation != null) {
+				return field;
+			}
+		}
+		return null;
+	}
+
+	public static ClassField getByName(Class<?> cls) {
+		Method method = ReflectionUtils.findMethod(cls, "name");
+		if (method != null) {
+			return new ClassField(null, method);
+		}
+		return null;
+	}
+
+	public static ClassField getCf(Class<?> cls) {
+		return CACHE.computeIfAbsent(cls, k -> {
+			ClassField cf = getByIEnum(cls);
+
+			if (cf == null) {
+				cf = getByJsonValue(cls);
 			}
 
-			method = ReflectionUtils.findMethod(k, "name");
-			return method == null ? null : new ClassField(null, method);
+			if (cf == null) {
+				cf = getByName(cls);
+			}
+
+			return cf;
 		});
 	}
 
@@ -70,18 +128,6 @@ public class EnumUtils {
 		catch (Exception ex) {
 			return null;
 		}
-	}
-
-	private Field getJsonValueField(Class<?> aClass) {
-		Field[] fields = aClass.getDeclaredFields();
-
-		for (Field field : fields) {
-			Annotation jsonValue = field.getAnnotation(JsonValue.class);
-			if (jsonValue != null) {
-				return field;
-			}
-		}
-		return null;
 	}
 
 }
