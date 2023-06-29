@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: 调整Undertow配置实现">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":bug: 修复redis换成拼接key异常">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/core/KeyGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/core/KeyGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/module/EnumModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/module/EnumModule.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +69,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.runner&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenRunHelper&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;a33084e01702e409d24361c1df89ad99&quot;
   }
 }</component>
@@ -310,7 +310,10 @@
       <workItem from="1687656470981" duration="4621000" />
       <workItem from="1687746539867" duration="3663000" />
       <workItem from="1687778421501" duration="805000" />
-      <workItem from="1687828760406" duration="5261000" />
+      <workItem from="1687828760406" duration="7957000" />
+      <workItem from="1687865275684" duration="430000" />
+      <workItem from="1687916111859" duration="4402000" />
+      <workItem from="1688002091790" duration="530000" />
     </task>
     <task id="LOCAL-00029" summary=":zap: GrpcClientChannel和ContextComposeBeanPostProcessor允许使用者覆盖">
       <created>1683289574901</created>
@@ -655,7 +658,7 @@
       <option name="project" value="LOCAL" />
       <updated>1686898339956</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -672,7 +675,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":bug: 修复Money对象比对时异常" />
     <MESSAGE value=":zap: ProxyPool 调整实现, 便于重写" />
     <MESSAGE value=":sparkles: 添加 FileValue 和 WaitValue" />
     <MESSAGE value=":sparkles: 添加 异步任务类" />
@@ -697,6 +699,7 @@
     <MESSAGE value=":sparkles: StringUtils添加_转驼峰" />
     <MESSAGE value=":zap: 优化 SQLIntegrityConstraintViolationException 异常返回值" />
     <MESSAGE value=":zap: 调整Undertow配置实现" />
-    <option name="LAST_COMMIT_MESSAGE" value=":zap: 调整Undertow配置实现" />
+    <MESSAGE value=":bug: 修复redis换成拼接key异常" />
+    <option name="LAST_COMMIT_MESSAGE" value=":bug: 修复redis换成拼接key异常" />
   </component>
 </project>

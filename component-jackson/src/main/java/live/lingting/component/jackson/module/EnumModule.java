@@ -2,16 +2,19 @@ package live.lingting.component.jackson.module;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonStreamContext;
-import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.BeanDescription;
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.type.ClassKey;
 import live.lingting.component.core.util.EnumUtils;
-import org.springframework.util.ReflectionUtils;
+import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.Objects;
 
 /**
@@ -24,8 +27,6 @@ public class EnumModule extends SimpleModule {
 		addSerializer(Enum.class, new EnumSerializer());
 
 		EnumJacksonDeserializers deserializers = new EnumJacksonDeserializers();
-		deserializers.addDeserializer(Enum.class, new EnumDeserializer());
-
 		setDeserializers(deserializers);
 	}
 
@@ -48,14 +49,17 @@ public class EnumModule extends SimpleModule {
 		public JsonDeserializer<?> findEnumDeserializer(Class<?> type, DeserializationConfig config,
 				BeanDescription beanDesc) throws JsonMappingException {
 			if (type.isEnum()) {
-				return this._classMappings.get(new ClassKey(Enum.class));
+				return new EnumDeserializer(type);
 			}
 			return super.findEnumDeserializer(type, config, beanDesc);
 		}
 
 	}
 
+	@RequiredArgsConstructor
 	public static class EnumDeserializer extends JsonDeserializer<Enum> {
+
+		private final Class<?> cls;
 
 		@Override
 		public Enum deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
@@ -63,21 +67,8 @@ public class EnumModule extends SimpleModule {
 			// 获取前端输入的原始文本
 			String rawString = jsonParser.getValueAsString();
 
-			// 获取上下文
-			JsonStreamContext context = jsonParser.getParsingContext();
-			// 字段名
-			String fieldName = context.getCurrentName();
-			// 实体类
-			Class<?> aClass = context.getCurrentValue().getClass();
-
-			Field field = ReflectionUtils.findField(aClass, fieldName);
-
-			if (field == null) {
-				return null;
-			}
-
 			// 获取值
-			for (Object obj : field.getType().getEnumConstants()) {
+			for (Object obj : cls.getEnumConstants()) {
 				Enum<?> e = (Enum<?>) obj;
 				Object value = EnumUtils.getValue(e);
 
