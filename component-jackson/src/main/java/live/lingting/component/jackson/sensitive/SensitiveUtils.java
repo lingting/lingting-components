@@ -22,6 +22,11 @@ public class SensitiveUtils {
 			return "";
 		}
 
+		// 如果关闭脱敏
+		if (!SensitiveHolder.allowSensitive()) {
+			return raw;
+		}
+
 		StringBuilder builder = new StringBuilder();
 
 		// 开头
