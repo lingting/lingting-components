@@ -21,7 +21,7 @@ import java.lang.annotation.Target;
 @JsonSerialize(using = SensitiveDefaultSerializer.class)
 public @interface Sensitive {
 
-	SensitiveType type() default SensitiveType.DEFAULT;
+	SensitiveType value() default SensitiveType.DEFAULT;
 
 	/**
 	 * 当类型为 {@link SensitiveType#CUSTOMER} 时, 获取此class对应的bean进行脱敏

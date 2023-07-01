@@ -5,17 +5,13 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.ContextualSerializer;
+import live.lingting.component.core.constant.GlobalConstants;
 import live.lingting.component.core.util.SpringUtils;
 
 /**
  * @author lingting 2023-04-27 15:30
  */
 public class SensitiveDefaultSerializer extends AbstractSensitiveSerializer implements ContextualSerializer {
-
-	@Override
-	public String serialize(String raw) {
-		return SensitiveUtils.serialize(raw, 1, 1, sensitive);
-	}
 
 	@Override
 	public JsonSerializer<?> createContextual(SerializerProvider prov, BeanProperty property)
@@ -25,22 +21,30 @@ public class SensitiveDefaultSerializer extends AbstractSensitiveSerializer impl
 			return prov.findValueSerializer(property.getType(), property);
 		}
 
-		AbstractSensitiveSerializer serializer;
-		switch (sensitive.type()) {
-			case DEFAULT:
-				serializer = this;
-				break;
+		SensitiveDefaultSerializer serializer = new SensitiveDefaultSerializer();
+		serializer.sensitive = sensitive;
+		return serializer;
+	}
+
+	@Override
+	public String serialize(String raw, Sensitive sensitive) {
+		switch (sensitive.value()) {
 			case ALL:
-				serializer = SpringUtils.getBean(SensitiveAllSerializer.class);
-				break;
+				return sensitive.middle();
+			case DEFAULT:
+				return SensitiveUtils.serialize(raw, 1, 1, sensitive);
 			case MOBILE:
-				serializer = SpringUtils.getBean(SensitiveMobileSerializer.class);
-				break;
+				if (raw.startsWith(GlobalConstants.PLUS)) {
+					String serialize = SensitiveUtils.serialize(raw.substring(1), 2, 2, sensitive);
+					return GlobalConstants.PLUS + serialize;
+				}
+				return SensitiveUtils.serialize(raw, 2, 2, sensitive);
+			case CUSTOMER:
+				AbstractSensitiveSerializer bean = SpringUtils.getBean(sensitive.cls());
+				return bean.serialize(raw, sensitive);
 			default:
-				serializer = SpringUtils.getBean(sensitive.cls());
-				break;
+				return raw;
 		}
-		return serializer.of(sensitive);
 	}
 
 }

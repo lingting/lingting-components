@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: 优化枚举工具类, 适配JsonValue在方法上的形式">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":sparkles: 允许针对当前上下文指定是否脱敏">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/SensitiveUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/SensitiveUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/configuration/JacksonComponentAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/configuration/JacksonComponentAutoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/AbstractSensitiveSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/AbstractSensitiveSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/Sensitive.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/Sensitive.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/SensitiveAllSerializer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/SensitiveDefaultSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/SensitiveDefaultSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/SensitiveMobileSerializer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/src/test/java/live/lingting/component/jackson/JacksonUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/test/java/live/lingting/component/jackson/JacksonUtilsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,14 +99,30 @@
       <recent name="live.lingting.component.jackson.util" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="live.lingting.component.jackson.sensitive" />
       <recent name="live.lingting.component.security.password" />
       <recent name="live.lingting.component.core.function" />
       <recent name="live.lingting.component.core.lock" />
       <recent name="live.lingting.component.core.queue" />
-      <recent name="live.lingting.component.core.exception" />
     </key>
   </component>
-  <component name="RunManager" selected="Maven.deoloy">
+  <component name="RunManager" selected="JUnit.JacksonUtilsTest.sensitive">
+    <configuration name="JacksonUtilsTest.sensitive" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="component-jackson" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="live.lingting.component.jackson.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="live.lingting.component.jackson" />
+      <option name="MAIN_CLASS_NAME" value="live.lingting.component.jackson.JacksonUtilsTest" />
+      <option name="METHOD_NAME" value="sensitive" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MoneyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="component-money" />
       <extension name="coverage">
@@ -213,6 +235,7 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="JUnit.JacksonUtilsTest.sensitive" />
       <item itemvalue="JUnit.StringUtilsTest.underscoreToHump" />
       <item itemvalue="JUnit.MoneyTest" />
       <item itemvalue="JUnit.MoneyTest.json" />
@@ -221,6 +244,7 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.JacksonUtilsTest.sensitive" />
         <item itemvalue="JUnit.StringUtilsTest.underscoreToHump" />
         <item itemvalue="JUnit.SensitiveUtilsTest.serialize" />
         <item itemvalue="JUnit.MoneyTest.json" />
@@ -314,7 +338,8 @@
       <workItem from="1687865275684" duration="430000" />
       <workItem from="1687916111859" duration="4402000" />
       <workItem from="1688002091790" duration="6886000" />
-      <workItem from="1688117367842" duration="1411000" />
+      <workItem from="1688117367842" duration="3120000" />
+      <workItem from="1688177141939" duration="1778000" />
     </task>
     <task id="LOCAL-00029" summary=":zap: GrpcClientChannel和ContextComposeBeanPostProcessor允许使用者覆盖">
       <created>1683289574901</created>
@@ -659,7 +684,7 @@
       <option name="project" value="LOCAL" />
       <updated>1686898339956</updated>
     </task>
-    <option name="localTasksCounter" value="85" />
+    <option name="localTasksCounter" value="86" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -676,7 +701,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":sparkles: 添加 异步任务类" />
     <MESSAGE value=":bug: 修复 CollectionUtils 提取数量异常" />
     <MESSAGE value=":zap: 线程池支持更新以及外部创建" />
     <MESSAGE value=":zap: WaitValue 支持新的更新形式" />
@@ -701,6 +725,7 @@
     <MESSAGE value=":bug: 修复redis换成拼接key异常" />
     <MESSAGE value=":bug: 修复jackson枚举反序列化时, 如果字段值为数组时解析异常" />
     <MESSAGE value=":zap: 优化枚举工具类, 适配JsonValue在方法上的形式" />
-    <option name="LAST_COMMIT_MESSAGE" value=":zap: 优化枚举工具类, 适配JsonValue在方法上的形式" />
+    <MESSAGE value=":sparkles: 允许针对当前上下文指定是否脱敏" />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: 允许针对当前上下文指定是否脱敏" />
   </component>
 </project>
