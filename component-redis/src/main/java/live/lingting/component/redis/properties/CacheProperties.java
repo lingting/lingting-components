@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author Hccake 2020/3/20 16:56
  */
@@ -36,7 +38,7 @@ public class CacheProperties {
 	/**
 	 * 默认缓存数据的超时时间(s)
 	 */
-	private long expireTime = 86400L;
+	private long expireTime = TimeUnit.DAYS.toSeconds(7);
 
 	/**
 	 * 默认锁的超时时间(s)

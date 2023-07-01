@@ -85,12 +85,14 @@ public class CacheStringAspect {
 			String key = keyGenerator.getKey(cachedAnnotation.key(), cachedAnnotation.keyJoint());
 			// redis 分布式锁的 key
 			String lockKey = key + CachePropertiesHolder.lockKeySuffix();
-			Supplier<String> cacheQuery = () -> valueOperations.get(key);
-			// 失效时间控制
-			Consumer<Object> cachePut = prodCachePutFunction(valueOperations, key, cachedAnnotation.ttl(),
-					cachedAnnotation.timeUnit());
-			return cached(new CachedOps(point, lockKey, cacheQuery, cachePut, method.getGenericReturnType()));
+			long ttl = cachedAnnotation.ttl();
+			TimeUnit unit = cachedAnnotation.timeUnit();
+			// 缓存获取
+			Supplier<String> cacheQuery = prodCacheQueryFunction(valueOperations, key, ttl, unit);
+			// 缓存插入
+			Consumer<Object> cachePut = prodCachePutFunction(valueOperations, key, ttl, unit);
 
+			return cached(new CachedOps(point, lockKey, cacheQuery, cachePut, method.getGenericReturnType()));
 		}
 
 		// 缓存更新处理
@@ -124,8 +126,24 @@ public class CacheStringAspect {
 		return point.proceed();
 	}
 
-	private Consumer<Object> prodCachePutFunction(ValueOperations<String, String> valueOperations, String key, long ttl,
-			TimeUnit unit) {
+	protected Supplier<String> prodCacheQueryFunction(ValueOperations<String, String> valueOperations, String key,
+			long ttl, TimeUnit unit) {
+		Supplier<String> cacheQuery;
+		if (ttl < 0) {
+			cacheQuery = () -> valueOperations.get(key);
+		}
+		else if (ttl == 0) {
+			long expireTime = CachePropertiesHolder.expireTime();
+			cacheQuery = () -> valueOperations.getAndExpire(key, expireTime, unit);
+		}
+		else {
+			cacheQuery = () -> valueOperations.getAndExpire(key, ttl, unit);
+		}
+		return cacheQuery;
+	}
+
+	protected Consumer<Object> prodCachePutFunction(ValueOperations<String, String> valueOperations, String key,
+			long ttl, TimeUnit unit) {
 		Consumer<Object> cachePut;
 		if (ttl < 0) {
 			cachePut = value -> valueOperations.set(key, (String) value);
