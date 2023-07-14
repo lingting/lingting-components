@@ -1,11 +1,9 @@
 package live.lingting.component.core.page;
 
-import live.lingting.component.core.util.CollectionUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,18 +15,14 @@ import java.util.List;
 @AllArgsConstructor
 public class PageScrollResult<T> {
 
-	private List<Object> nextCursor;
+	private List<T> records;
 
-	private Collection<T> records;
+	private Object cursor;
 
 	private Long total;
 
-	public static <T> PageScrollResult<T> of(Collection<T> collection, Long total, Object... nextCursor) {
-		return of(collection, total, CollectionUtils.toList(nextCursor));
-	}
-
-	public static <T> PageScrollResult<T> of(Collection<T> collection, Long total, List<Object> nextCursor) {
-		return new PageScrollResult<>(nextCursor, collection, total);
+	public static <T> PageScrollResult<T> of(List<T> collection, Object cursor) {
+		return new PageScrollResult<>(collection, cursor, 0L);
 	}
 
 	public static <T> PageScrollResult<T> empty() {
