@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: 优化 @Cache 设置的缓存获取, 使用 getAndExpire 来为经常获取的缓存续期">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: grpcServer bean注册时将builder剥离, 方便自定义服务配置">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/page/PageScrollParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/page/PageScrollParams.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/page/PageScrollResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/page/PageScrollResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/configuration/GrpcServerConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/configuration/GrpcServerConfiguration.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -338,7 +337,10 @@
       <workItem from="1688347369983" duration="2952000" />
       <workItem from="1688642080505" duration="704000" />
       <workItem from="1689248936773" duration="603000" />
-      <workItem from="1689302957002" duration="2001000" />
+      <workItem from="1689302957002" duration="3160000" />
+      <workItem from="1689561266886" duration="1245000" />
+      <workItem from="1689643838932" duration="8000" />
+      <workItem from="1689750573595" duration="855000" />
     </task>
     <task id="LOCAL-00029" summary=":zap: GrpcClientChannel和ContextComposeBeanPostProcessor允许使用者覆盖">
       <created>1683289574901</created>
@@ -683,7 +685,7 @@
       <option name="project" value="LOCAL" />
       <updated>1686898339956</updated>
     </task>
-    <option name="localTasksCounter" value="88" />
+    <option name="localTasksCounter" value="89" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -700,8 +702,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":zap: WaitValue 支持新的更新形式" />
-    <MESSAGE value=":zap: 优化部分编码形式" />
     <MESSAGE value=":bug: 修复异步任务等待异常" />
     <MESSAGE value=":sparkles: 添加 ThrowingBiConsumer" />
     <MESSAGE value=":rocket: 发布0.0.2" />
@@ -725,6 +725,8 @@
     <MESSAGE value=":sparkles: 允许针对当前上下文指定是否脱敏" />
     <MESSAGE value=":art: 简化 Sensitive 相关实现" />
     <MESSAGE value=":zap: 优化 @Cache 设置的缓存获取, 使用 getAndExpire 来为经常获取的缓存续期" />
-    <option name="LAST_COMMIT_MESSAGE" value=":zap: 优化 @Cache 设置的缓存获取, 使用 getAndExpire 来为经常获取的缓存续期" />
+    <MESSAGE value=":art: 调整滚动查询的参数和结果结构" />
+    <MESSAGE value=":zap: grpcServer bean注册时将builder剥离, 方便自定义服务配置" />
+    <option name="LAST_COMMIT_MESSAGE" value=":zap: grpcServer bean注册时将builder剥离, 方便自定义服务配置" />
   </component>
 </project>

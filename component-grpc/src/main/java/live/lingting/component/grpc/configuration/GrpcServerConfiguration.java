@@ -22,8 +22,10 @@ public class GrpcServerConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public GrpcServer grpcServer(GrpcServerProperties properties, List<ServerInterceptor> interceptors,
+	@SuppressWarnings("java:S1452")
+	public ServerBuilder<?> grpcServerBuilder(GrpcServerProperties properties, List<ServerInterceptor> interceptors,
 			List<BindableService> services) {
+
 		ServerBuilder<?> builder = ServerBuilder.forPort(properties.getPort())
 			// 单个消息最大大小
 			.maxInboundMessageSize((int) properties.getMessageSize().toBytes())
@@ -44,6 +46,12 @@ public class GrpcServerConfiguration {
 			builder.addService(service);
 		}
 
+		return builder;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public GrpcServer grpcServer(ServerBuilder<?> builder) {
 		return new GrpcServer(builder.build());
 	}
 
