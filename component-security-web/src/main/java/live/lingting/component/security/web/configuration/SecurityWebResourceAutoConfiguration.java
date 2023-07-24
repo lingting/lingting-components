@@ -9,8 +9,8 @@ import live.lingting.component.security.resource.SecurityResourceService;
 import live.lingting.component.security.web.aspectj.SecurityWebResourceAspectj;
 import live.lingting.component.security.web.filter.SecurityWebResourceFilter;
 import live.lingting.component.security.web.properties.SecurityWebProperties;
-import live.lingting.component.security.web.resource.DefaultRemoteResourceServiceImpl;
-import live.lingting.component.security.web.resource.RemoteResourceRequestCustomer;
+import live.lingting.component.security.web.resource.SecurityDefaultRemoteResourceServiceImpl;
+import live.lingting.component.security.web.resource.SecurityRemoteResourceRequestCustomer;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -39,25 +39,25 @@ public class SecurityWebResourceAutoConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnMissingFilterBean
+	@ConditionalOnMissingBean
 	@ConditionalOnProperty(prefix = SecurityProperties.PREFIX + ".authorization", value = "remote",
 			havingValue = "true")
 	public SecurityResourceService securityResourceService(SecurityProperties properties,
-			RemoteResourceRequestCustomer customer) {
+			SecurityRemoteResourceRequestCustomer customer) {
 		String host = properties.getAuthorization().getRemoteHost();
 
 		OkHttpClientBuilder builder = new OkHttpClientBuilder().disableSsl()
 			.timeout(Duration.ofSeconds(5), Duration.ofSeconds(10));
 
-		return new DefaultRemoteResourceServiceImpl(host, builder.build(), customer);
+		return new SecurityDefaultRemoteResourceServiceImpl(host, builder.build(), customer);
 	}
 
 	@Bean
 	@ConditionalOnMissingBean
 	@ConditionalOnProperty(prefix = SecurityProperties.PREFIX + ".authorization", value = "remote",
 			havingValue = "true")
-	public RemoteResourceRequestCustomer remoteResourceRequestCustomer() {
-		return new RemoteResourceRequestCustomer() {
+	public SecurityRemoteResourceRequestCustomer remoteResourceRequestCustomer() {
+		return new SecurityRemoteResourceRequestCustomer() {
 		};
 	}
 

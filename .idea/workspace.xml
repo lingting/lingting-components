@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":zap: 优化线程日志的类输出, 使用具体的实现类而不是抽象类">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":sparkles: securityVO添加头像和昵称">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/configuration/SecurityWebResourceAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/configuration/SecurityWebResourceAutoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/endpoint/AuthorizationEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/endpoint/AuthorizationEndpoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/resource/DefaultRemoteResourceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/resource/SecurityDefaultRemoteResourceServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/resource/RemoteResourceRequestCustomer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/resource/SecurityRemoteResourceRequestCustomer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/resource/SecurityScope.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/resource/SecurityScope.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/vo/AuthorizationVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/vo/AuthorizationVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/store/SecurityStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-security/src/main/java/live/lingting/component/security/store/SecurityStore.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -344,7 +348,7 @@
       <workItem from="1689750573595" duration="2778000" />
       <workItem from="1689833104322" duration="772000" />
       <workItem from="1689905343263" duration="713000" />
-      <workItem from="1690164379962" duration="1054000" />
+      <workItem from="1690164379962" duration="5195000" />
     </task>
     <task id="LOCAL-00029" summary=":zap: GrpcClientChannel和ContextComposeBeanPostProcessor允许使用者覆盖">
       <created>1683289574901</created>
@@ -689,7 +693,7 @@
       <option name="project" value="LOCAL" />
       <updated>1686898339956</updated>
     </task>
-    <option name="localTasksCounter" value="91" />
+    <option name="localTasksCounter" value="92" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -706,7 +710,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":sparkles: 添加 ThrowingBiConsumer" />
     <MESSAGE value=":rocket: 发布0.0.2" />
     <MESSAGE value=":sparkles: 添加 undertow 存放文件的临时文件夹定时创建任务" />
     <MESSAGE value=":art: 修改 traceId 名称" />
@@ -731,6 +734,7 @@
     <MESSAGE value=":art: 调整滚动查询的参数和结果结构" />
     <MESSAGE value=":zap: grpcServer bean注册时将builder剥离, 方便自定义服务配置" />
     <MESSAGE value=":zap: 优化线程日志的类输出, 使用具体的实现类而不是抽象类" />
-    <option name="LAST_COMMIT_MESSAGE" value=":zap: 优化线程日志的类输出, 使用具体的实现类而不是抽象类" />
+    <MESSAGE value=":sparkles: securityVO添加头像和昵称" />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: securityVO添加头像和昵称" />
   </component>
 </project>

@@ -14,26 +14,32 @@ import okhttp3.Request;
 /**
  * @author lingting 2023-03-31 10:53
  */
-public class DefaultRemoteResourceServiceImpl implements SecurityResourceService {
+public class SecurityDefaultRemoteResourceServiceImpl implements SecurityResourceService {
 
-	private final OkHttpClient client;
+	protected final OkHttpClient client;
 
-	private final RemoteResourceRequestCustomer customer;
+	protected final SecurityRemoteResourceRequestCustomer customer;
 
-	private final String urlResolve;
+	protected final String urlResolve;
 
-	public DefaultRemoteResourceServiceImpl(String host, OkHttpClient client, RemoteResourceRequestCustomer customer) {
+	public SecurityDefaultRemoteResourceServiceImpl(String host, OkHttpClient client,
+			SecurityRemoteResourceRequestCustomer customer) {
 		this.client = client;
 		this.customer = customer;
 		this.urlResolve = join(host, SecurityWebConstants.URI_RESOLVE);
 	}
 
-	@Override
-	public SecurityScope resolve(SecurityToken token) {
+	public Request.Builder resolveBuilder(SecurityToken token) {
 		Request.Builder builder = new Request.Builder();
 		builder.get().url(urlResolve);
 		builder = fillSecurity(builder, token);
 		builder = customer.apply(builder);
+		return builder;
+	}
+
+	@Override
+	public SecurityScope resolve(SecurityToken token) {
+		Request.Builder builder = resolveBuilder(token);
 		Request request = customer.resolve(builder);
 		AuthorizationVO vo = client.request(request, AuthorizationVO.class);
 		return SecurityMapstruct.INSTANCE.ofVo(vo);

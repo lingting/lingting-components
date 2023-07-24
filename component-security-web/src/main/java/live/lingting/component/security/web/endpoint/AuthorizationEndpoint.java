@@ -4,7 +4,6 @@ import live.lingting.component.security.annotation.Authorize;
 import live.lingting.component.security.authorize.SecurityAuthorizationService;
 import live.lingting.component.security.configuration.SecurityAuthorizationConfiguration;
 import live.lingting.component.security.exception.AuthorizationException;
-import live.lingting.component.security.mapstruct.SecurityMapstruct;
 import live.lingting.component.security.password.SecurityPassword;
 import live.lingting.component.security.po.AuthorizationPasswordPO;
 import live.lingting.component.security.resource.SecurityHolder;
@@ -37,7 +36,7 @@ public class AuthorizationEndpoint {
 	public AuthorizationVO logout() {
 		SecurityScope scope = SecurityHolder.scope();
 		store.deleted(scope);
-		return SecurityMapstruct.INSTANCE.toVo(scope);
+		return store.convert(scope);
 	}
 
 	@Authorize(anyone = true)
@@ -51,7 +50,7 @@ public class AuthorizationEndpoint {
 			throw new AuthorizationException("用户名或者密码错误!");
 		}
 		store.save(scope);
-		return SecurityMapstruct.INSTANCE.toVo(scope);
+		return store.convert(scope);
 	}
 
 	@Authorize
@@ -62,14 +61,14 @@ public class AuthorizationEndpoint {
 			throw new AuthorizationException("登录授权已失效!");
 		}
 		store.update(scope);
-		return SecurityMapstruct.INSTANCE.toVo(scope);
+		return store.convert(scope);
 	}
 
 	@Authorize
 	@GetMapping(SecurityWebConstants.URI_RESOLVE)
 	public AuthorizationVO resolve() {
 		SecurityScope scope = SecurityHolder.scope();
-		return SecurityMapstruct.INSTANCE.toVo(scope);
+		return store.convert(scope);
 	}
 
 }

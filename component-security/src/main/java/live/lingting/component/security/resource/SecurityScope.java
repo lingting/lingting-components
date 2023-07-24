@@ -3,6 +3,7 @@ package live.lingting.component.security.resource;
 import live.lingting.component.core.util.StringUtils;
 import lombok.Data;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -40,6 +41,8 @@ public class SecurityScope {
 	private Set<String> roles;
 
 	private Set<String> permissions;
+
+	private Map<String, Object> attributes;
 
 	public boolean isSystem() {
 		return Boolean.TRUE.equals(getIsSystem());
