@@ -1,7 +1,6 @@
 package live.lingting.component.core.thread;
 
 import live.lingting.component.core.lock.JavaReentrantLock;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -10,7 +9,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author lingting 2023-04-22 10:39
  */
-@Slf4j
 @SuppressWarnings("java:S1066")
 public abstract class AbstractDynamicTimer<T> extends AbstractThreadContextComponent {
 

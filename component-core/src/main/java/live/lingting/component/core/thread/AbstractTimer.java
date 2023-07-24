@@ -1,13 +1,10 @@
 package live.lingting.component.core.thread;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.concurrent.TimeUnit;
 
 /**
  * @author lingting 2022/6/27 20:26
  */
-@Slf4j
 public abstract class AbstractTimer extends AbstractThreadContextComponent {
 
 	/**

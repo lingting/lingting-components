@@ -1,7 +1,6 @@
 package live.lingting.component.core.thread;
 
 import live.lingting.component.core.util.CollectionUtils;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.List;
  *
  * @author lingting 2021/3/2 15:07
  */
-@Slf4j
 public abstract class AbstractQueueThread<E> extends AbstractThreadContextComponent {
 
 	/**
