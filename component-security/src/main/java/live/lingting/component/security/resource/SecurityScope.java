@@ -21,6 +21,10 @@ public class SecurityScope {
 
 	private String password;
 
+	private String avatar;
+
+	private String nickname;
+
 	private Boolean isSystem;
 
 	/**

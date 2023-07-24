@@ -18,6 +18,10 @@ public class AuthorizationVO {
 
 	private String username;
 
+	private String avatar;
+
+	private String nickname;
+
 	private Boolean isSystem;
 
 	/**
