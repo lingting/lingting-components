@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":art: Security上下文支持扩展">
+    <list default="true" id="2fde89ef-e67b-405b-b4e3-a2a6bd0265f1" name="Changes" comment=":sparkles: JavaTimeModule支持更多时间类型">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/module/JavaTimeModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/module/JavaTimeModule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -343,7 +343,10 @@
       <workItem from="1689750573595" duration="2778000" />
       <workItem from="1689833104322" duration="772000" />
       <workItem from="1689905343263" duration="713000" />
-      <workItem from="1690164379962" duration="8754000" />
+      <workItem from="1690164379962" duration="9255000" />
+      <workItem from="1690250617218" duration="612000" />
+      <workItem from="1690267360746" duration="4216000" />
+      <workItem from="1690282890373" duration="2013000" />
     </task>
     <task id="LOCAL-00029" summary=":zap: GrpcClientChannel和ContextComposeBeanPostProcessor允许使用者覆盖">
       <created>1683289574901</created>
@@ -688,7 +691,7 @@
       <option name="project" value="LOCAL" />
       <updated>1686898339956</updated>
     </task>
-    <option name="localTasksCounter" value="93" />
+    <option name="localTasksCounter" value="94" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -705,7 +708,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":sparkles: 添加 undertow 存放文件的临时文件夹定时创建任务" />
     <MESSAGE value=":art: 修改 traceId 名称" />
     <MESSAGE value=":zap: IdUtils 添加getTraceId方法" />
     <MESSAGE value=":art: 修改Grpc配置类名" />
@@ -730,6 +732,7 @@
     <MESSAGE value=":zap: 优化线程日志的类输出, 使用具体的实现类而不是抽象类" />
     <MESSAGE value=":sparkles: securityVO添加头像和昵称" />
     <MESSAGE value=":art: Security上下文支持扩展" />
-    <option name="LAST_COMMIT_MESSAGE" value=":art: Security上下文支持扩展" />
+    <MESSAGE value=":sparkles: JavaTimeModule支持更多时间类型" />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: JavaTimeModule支持更多时间类型" />
   </component>
 </project>

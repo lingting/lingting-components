@@ -30,10 +30,10 @@
     </modules>
 
     <properties>
-        <revision>0.0.3-SNAPSHOT</revision>
-        <dependencies.version>0.0.1</dependencies.version>
+        <revision>0.0.4-SNAPSHOT</revision>
+        <dependencies.version>0.0.3.1</dependencies.version>
 
-        <spring-boot.version>2.7.11</spring-boot.version>
+        <spring-boot.version>2.7.14</spring-boot.version>
 
         <!--插件版本-->
         <maven-compiler-plugin.verison>3.10.1</maven-compiler-plugin.verison>
