@@ -5,7 +5,6 @@ import live.lingting.component.core.thread.ThreadPool;
 import live.lingting.component.core.value.WaitValue;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -25,23 +24,12 @@ public class Async {
 
 	public void submit(String name, ThrowingRunnable runnable) throws InterruptedException {
 		increment();
-		pool.execute(String.format("Async-%s", name), new Runnable() {
-			@SneakyThrows
-			@Override
-			public void run() {
-				try {
-					runnable.run();
-				}
-				catch (InterruptedException e) {
-					Thread.currentThread().interrupt();
-					log.error("异步任务被中断!");
-				}
-				catch (Exception e) {
-					log.error("异步任务执行异常!", e);
-				}
-				finally {
-					decrement();
-				}
+		pool.execute(String.format("Async-%s", name), () -> {
+			try {
+				runnable.run();
+			}
+			finally {
+				decrement();
 			}
 		});
 	}

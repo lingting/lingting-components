@@ -1,5 +1,6 @@
 package live.lingting.compnent.tcp;
 
+import live.lingting.component.core.function.ThrowingRunnable;
 import live.lingting.component.core.util.StreamUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,19 +16,16 @@ import java.util.function.Function;
  */
 @Slf4j
 @RequiredArgsConstructor
-public class TcpServerSocketRunnable implements Runnable {
+public class TcpServerSocketRunnable implements ThrowingRunnable {
 
 	private final Socket socket;
 
 	private final Function<byte[], byte[]> handler;
 
 	@Override
-	public void run() {
+	public void run() throws Exception {
 		try {
 			handler();
-		}
-		catch (Exception e) {
-			log.error("tcp server socket handler error!", e);
 		}
 		finally {
 			StreamUtils.close(socket);

@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":art: 剥离component-core中的spring相关到 component-spring">
+    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":sparkles: TcpServer 支持使用线程池异步处理请求">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-tcp/src/main/java/live/lingting/compnent/tcp/TcpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-tcp/src/main/java/live/lingting/compnent/tcp/TcpServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-tcp/src/test/java/live/lingting/component/tcp/TcpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-tcp/src/test/java/live/lingting/component/tcp/TcpTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/Async.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/Async.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/thread/ThreadPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/thread/ThreadPool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/GrpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/GrpcServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-tcp/src/main/java/live/lingting/compnent/tcp/TcpServerSocketRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-tcp/src/main/java/live/lingting/compnent/tcp/TcpServerSocketRunnable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +153,7 @@
       <workItem from="1693819656159" duration="6000" />
       <workItem from="1695188726449" duration="7797000" />
       <workItem from="1695367545932" duration="679000" />
-      <workItem from="1695608331465" duration="13265000" />
+      <workItem from="1695608331465" duration="13703000" />
     </task>
     <task id="LOCAL-00001" summary=":heavy_minus_sign: 移除针对 dependencies 的依赖">
       <option name="closed" value="true" />
@@ -201,7 +203,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695640994524</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary=":sparkles: TcpServer 支持使用线程池异步处理请求">
+      <option name="closed" value="true" />
+      <created>1695641893402</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1695641893402</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -213,6 +223,7 @@
     <MESSAGE value=":sparkles: 添加 bcpkix 模块, 目前支持pkcs12相关管理" />
     <MESSAGE value=":sparkles: 添加 tcp 模块, 基础的TcpServer和TcpClient 测试通过" />
     <MESSAGE value=":art: 剥离component-core中的spring相关到 component-spring" />
-    <option name="LAST_COMMIT_MESSAGE" value=":art: 剥离component-core中的spring相关到 component-spring" />
+    <MESSAGE value=":sparkles: TcpServer 支持使用线程池异步处理请求" />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: TcpServer 支持使用线程池异步处理请求" />
   </component>
 </project>

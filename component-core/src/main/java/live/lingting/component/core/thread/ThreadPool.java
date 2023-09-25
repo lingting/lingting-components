@@ -1,5 +1,6 @@
 package live.lingting.component.core.thread;
 
+import live.lingting.component.core.function.ThrowingRunnable;
 import live.lingting.component.core.util.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -68,25 +69,27 @@ public class ThreadPool {
 		return getPool().getTaskCount();
 	}
 
-	public void execute(Runnable runnable) {
+	public void execute(ThrowingRunnable runnable) {
 		execute(null, runnable);
 	}
 
-	public void execute(String name, Runnable runnable) {
+	public void execute(String name, ThrowingRunnable runnable) {
 		getPool().execute(() -> {
 			Thread thread = Thread.currentThread();
 			String oldName = thread.getName();
 			if (StringUtils.hasText(name)) {
 				thread.setName(name);
 			}
+
 			try {
 				runnable.run();
 			}
+			catch (InterruptedException e) {
+				thread.interrupt();
+				log.warn("线程池内部线程被中断!");
+			}
 			catch (Throwable throwable) {
-				log.error("线程发生异常!", throwable);
-				if (!(throwable instanceof Exception)) {
-					throw throwable;
-				}
+				log.error("线程内部线程异常!", throwable);
 			}
 			finally {
 				thread.setName(oldName);
