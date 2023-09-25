@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":sparkles: TcpServer 支持使用线程池异步处理请求">
+    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":zap: 优化线程池任务执行方法, 允许执行的方法抛出异常">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/Async.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/Async.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/thread/ThreadPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/thread/ThreadPool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/GrpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-grpc/src/main/java/live/lingting/component/grpc/GrpcServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-tcp/src/main/java/live/lingting/compnent/tcp/TcpServerSocketRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-tcp/src/main/java/live/lingting/compnent/tcp/TcpServerSocketRunnable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/FileUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/FileUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-tcp/src/main/java/live/lingting/compnent/tcp/TcpResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-tcp/src/main/java/live/lingting/compnent/tcp/TcpResponse.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,21 +56,21 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "git-widget-placeholder": "master",
-    "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "C:/Code/Project/lingting/lingting-components/component-spring/src/main/java/live/lingting/component",
-    "node.js.selected.package.stylelint": "",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.sourceCode.Java",
-    "spring.configuration.checksum": "12a2309bea3d58c99ac82eeed4532b90"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Code/Project/lingting/lingting-components/component-spring/src/main/java/live/lingting/component&quot;,
+    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.Java&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;12a2309bea3d58c99ac82eeed4532b90&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Code\Project\lingting\lingting-components\component-spring\src\main\java\live\lingting\component" />
@@ -153,7 +151,8 @@
       <workItem from="1693819656159" duration="6000" />
       <workItem from="1695188726449" duration="7797000" />
       <workItem from="1695367545932" duration="679000" />
-      <workItem from="1695608331465" duration="13703000" />
+      <workItem from="1695608331465" duration="14267000" />
+      <workItem from="1695642809410" duration="433000" />
     </task>
     <task id="LOCAL-00001" summary=":heavy_minus_sign: 移除针对 dependencies 的依赖">
       <option name="closed" value="true" />
@@ -211,7 +210,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695641893402</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary=":zap: 优化线程池任务执行方法, 允许执行的方法抛出异常">
+      <option name="closed" value="true" />
+      <created>1695642376994</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1695642376994</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -224,6 +231,7 @@
     <MESSAGE value=":sparkles: 添加 tcp 模块, 基础的TcpServer和TcpClient 测试通过" />
     <MESSAGE value=":art: 剥离component-core中的spring相关到 component-spring" />
     <MESSAGE value=":sparkles: TcpServer 支持使用线程池异步处理请求" />
-    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: TcpServer 支持使用线程池异步处理请求" />
+    <MESSAGE value=":zap: 优化线程池任务执行方法, 允许执行的方法抛出异常" />
+    <option name="LAST_COMMIT_MESSAGE" value=":zap: 优化线程池任务执行方法, 允许执行的方法抛出异常" />
   </component>
 </project>
