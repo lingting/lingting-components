@@ -1,6 +1,6 @@
-package live.lingting.component.core.spring.post;
+package live.lingting.component.spring.post;
 
-import live.lingting.component.core.util.EnvironmentUtils;
+import live.lingting.component.spring.util.EnvironmentUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.Ordered;

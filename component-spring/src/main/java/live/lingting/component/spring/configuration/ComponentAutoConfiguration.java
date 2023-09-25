@@ -1,7 +1,7 @@
-package live.lingting.component.core.configuration;
+package live.lingting.component.spring.configuration;
 
-import live.lingting.component.core.mdc.MdcTaskDecorator;
-import live.lingting.component.core.spring.post.ContextComposeBeanPostProcessor;
+import live.lingting.component.spring.mdc.MdcTaskDecorator;
+import live.lingting.component.spring.post.ContextComposeBeanPostProcessor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

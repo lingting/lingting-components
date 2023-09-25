@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>live.lingting.components</groupId>
-            <artifactId>component-core</artifactId>
+            <artifactId>component-spring</artifactId>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>

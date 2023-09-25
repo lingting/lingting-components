@@ -4,12 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":sparkles: 添加 bcpkix 模块, 目前支持pkcs12相关管理">
-      <change afterPath="$PROJECT_DIR$/component-tcp/pom.xml" afterDir="false" />
+    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":sparkles: 添加 tcp 模块, 基础的TcpServer和TcpClient 测试通过">
+      <change afterPath="$PROJECT_DIR$/component-spring/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-bcpkix/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/component-bcpkix/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/configuration/ComponentAutoConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/mdc/MdcTaskDecorator.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-spring/src/main/java/live/lingting/component/spring/mdc/MdcTaskDecorator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/page/PageLimitResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/page/PageLimitResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/spring/ComponentBeanPostProcessor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/spring/event/SpringApplicationContextInitialized.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/spring/event/SpringContextClosed.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/spring/post/ContextComposeBeanPostProcessor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/spring/post/EnvironmentPost.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/thread/ThreadPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/thread/ThreadPool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/AspectUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/ClassUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/ClassUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/EnumUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/EnumUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/EnvironmentUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/SpelUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/SpringUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/resources/META-INF/spring.factories" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-core/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/SensitiveDefaultSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/sensitive/SensitiveDefaultSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/RedisTemplateBeanPostProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/RedisTemplateBeanPostProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/core/KeyGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/core/KeyGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/aspectj/SecurityWebResourceAspectj.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-security-web/src/main/java/live/lingting/component/security/web/aspectj/SecurityWebResourceAspectj.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-security/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/component-security/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-tcp/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/component-tcp/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-validation/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/component-validation/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-validation/src/main/java/live/lingting/component/validation/db/ValidDbValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-validation/src/main/java/live/lingting/component/validation/db/ValidDbValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-web/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +91,7 @@
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "C:/Code/Project/lingting/lingting-components/component-bcpkix/src/main/resources",
+    "last_opened_file_path": "C:/Code/Project/lingting/lingting-components/component-spring/src/main/java/live/lingting/component",
     "node.js.selected.package.stylelint": "",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
@@ -76,6 +102,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Code\Project\lingting\lingting-components\component-spring\src\main\java\live\lingting\component" />
+      <recent name="C:\Code\Project\lingting\lingting-components\component-spring\src\main\resources" />
       <recent name="C:\Code\Project\lingting\lingting-components\component-bcpkix\src\main\resources" />
     </key>
   </component>
@@ -152,7 +180,7 @@
       <workItem from="1693819656159" duration="6000" />
       <workItem from="1695188726449" duration="7797000" />
       <workItem from="1695367545932" duration="679000" />
-      <workItem from="1695608331465" duration="9783000" />
+      <workItem from="1695608331465" duration="12304000" />
     </task>
     <task id="LOCAL-00001" summary=":heavy_minus_sign: 移除针对 dependencies 的依赖">
       <option name="closed" value="true" />
@@ -186,7 +214,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695609106611</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary=":sparkles: 添加 tcp 模块, 基础的TcpServer和TcpClient 测试通过">
+      <option name="closed" value="true" />
+      <created>1695635398512</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1695635398512</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -196,6 +232,7 @@
     <MESSAGE value=":wrench: 更新编辑配置" />
     <MESSAGE value=":art: FileUtils 临时文件创建方法优化, 固定前缀, 仅允许修改后缀" />
     <MESSAGE value=":sparkles: 添加 bcpkix 模块, 目前支持pkcs12相关管理" />
-    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: 添加 bcpkix 模块, 目前支持pkcs12相关管理" />
+    <MESSAGE value=":sparkles: 添加 tcp 模块, 基础的TcpServer和TcpClient 测试通过" />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: 添加 tcp 模块, 基础的TcpServer和TcpClient 测试通过" />
   </component>
 </project>

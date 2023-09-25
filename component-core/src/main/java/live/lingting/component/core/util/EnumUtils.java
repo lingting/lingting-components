@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import live.lingting.component.core.constant.StringConstants;
 import live.lingting.component.core.domain.ClassField;
 import lombok.experimental.UtilityClass;
-import org.springframework.util.ReflectionUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -32,7 +31,7 @@ public class EnumUtils {
 		Method method = null;
 		// IEnum的getValue
 		if (Objects.equals(cls.getName(), CLS_MYBATIS_PLUS_IENUM)) {
-			method = ReflectionUtils.findMethod(cls, METHOD_GET_VALUE);
+			method = ClassUtils.method(cls, METHOD_GET_VALUE);
 		}
 
 		if (method == null) {
@@ -54,8 +53,9 @@ public class EnumUtils {
 				return new ClassField(field, null);
 			}
 
+			String name = StringConstants.GET + StringUtils.firstUpper(field.getName());
 			// 获取 get 方法
-			method = ReflectionUtils.findMethod(cls, StringConstants.GET + StringUtils.firstUpper(field.getName()));
+			method = ClassUtils.method(cls, name);
 			if (method != null) {
 				return new ClassField(null, method);
 			}
@@ -94,7 +94,7 @@ public class EnumUtils {
 	}
 
 	public static ClassField getByName(Class<?> cls) {
-		Method method = ReflectionUtils.findMethod(cls, "name");
+		Method method = ClassUtils.method(cls, "name");
 		if (method != null) {
 			return new ClassField(null, method);
 		}

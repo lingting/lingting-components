@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.ContextualSerializer;
 import live.lingting.component.core.constant.GlobalConstants;
-import live.lingting.component.core.util.SpringUtils;
+import live.lingting.component.spring.util.SpringUtils;
 
 /**
  * @author lingting 2023-04-27 15:30

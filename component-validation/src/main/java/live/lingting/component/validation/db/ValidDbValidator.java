@@ -1,7 +1,7 @@
 package live.lingting.component.validation.db;
 
-import live.lingting.component.core.util.SpringUtils;
 import live.lingting.component.core.util.StringUtils;
+import live.lingting.component.spring.util.SpringUtils;
 import live.lingting.component.validation.validator.AbstractAnnotationValidator;
 import live.lingting.component.validation.validator.BeanValidator;
 import live.lingting.component.validation.constant.ValidatorConstants;

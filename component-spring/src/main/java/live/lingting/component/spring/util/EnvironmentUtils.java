@@ -1,6 +1,7 @@
-package live.lingting.component.core.util;
+package live.lingting.component.spring.util;
 
 import live.lingting.component.core.constant.SpringConstants;
+import live.lingting.component.core.util.ArrayUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.UtilityClass;

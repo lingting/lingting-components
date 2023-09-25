@@ -1,4 +1,4 @@
-package live.lingting.component.core.mdc;
+package live.lingting.component.spring.mdc;
 
 import org.slf4j.MDC;
 import org.springframework.core.task.TaskDecorator;

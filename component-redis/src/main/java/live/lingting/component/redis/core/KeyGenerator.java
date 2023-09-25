@@ -3,8 +3,8 @@ package live.lingting.component.redis.core;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.lang.Assert;
 import live.lingting.component.core.util.CollectionUtils;
-import live.lingting.component.core.util.SpelUtils;
 import live.lingting.component.redis.properties.CachePropertiesHolder;
+import live.lingting.component.spring.util.SpelUtils;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.util.StringUtils;
 

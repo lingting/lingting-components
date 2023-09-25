@@ -9,7 +9,6 @@
         <version>${revision}</version>
     </parent>
 
-    <groupId>live.lingting.component</groupId>
     <artifactId>component-tcp</artifactId>
 
 

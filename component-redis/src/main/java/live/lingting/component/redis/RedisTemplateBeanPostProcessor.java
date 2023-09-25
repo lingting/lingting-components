@@ -1,6 +1,6 @@
 package live.lingting.component.redis;
 
-import live.lingting.component.core.spring.ComponentBeanPostProcessor;
+import live.lingting.component.spring.ComponentBeanPostProcessor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 

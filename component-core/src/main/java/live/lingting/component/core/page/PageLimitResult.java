@@ -1,7 +1,7 @@
 package live.lingting.component.core.page;
 
+import live.lingting.component.core.util.CollectionUtils;
 import lombok.Data;
-import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
 import java.util.List;

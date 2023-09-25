@@ -23,6 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -40,9 +41,13 @@ import java.util.jar.JarFile;
 @SuppressWarnings("java:S3011")
 public class ClassUtils {
 
+	private static final Class<?>[] EMPTY_CLASS_ARRAY = new Class<?>[0];
+
 	private static final Map<String, Boolean> CACHE_CLASS_PRESENT = new ConcurrentHashMap<>(8);
 
 	private static final Map<Class<?>, Field[]> CACHE_FIELDS = new ConcurrentHashMap<>(16);
+
+	private static final Map<Class<?>, Method[]> CACHE_METHODS = new ConcurrentHashMap<>(16);
 
 	private static final Map<Class<?>, ClassField[]> CACHE_CLASS_FIELDS = new ConcurrentHashMap<>(16);
 
@@ -226,6 +231,36 @@ public class ClassUtils {
 		});
 	}
 
+	public static Method[] methods(Class<?> cls) {
+		return CACHE_METHODS.computeIfAbsent(cls, Class::getDeclaredMethods);
+	}
+
+	public static Method method(Class<?> cls, String name) {
+		return method(cls, name, EMPTY_CLASS_ARRAY);
+	}
+
+	public static Method method(Class<?> cls, String name, Class<?>... types) {
+		return Arrays.stream(methods(cls)).filter(method -> {
+			if (!Objects.equals(method.getName(), name)) {
+				return false;
+			}
+
+			int len = types == null ? 0 : types.length;
+
+			// 参数数量不一致
+			if (len != method.getParameterCount()) {
+				return false;
+			}
+			// 无参
+			if (len == 0) {
+				return true;
+			}
+
+			// 参数类型是否一致
+			return Arrays.equals(types, method.getParameterTypes());
+		}).findFirst().orElse(null);
+	}
+
 	/**
 	 * 扫描所有字段以及对应字段的值
 	 * <p>
@@ -241,7 +276,7 @@ public class ClassUtils {
 	 */
 	public static ClassField[] classFields(Class<?> cls) {
 		return CACHE_CLASS_FIELDS.computeIfAbsent(cls, k -> {
-			Method[] methods = cls.getDeclaredMethods();
+			Method[] methods = methods(cls);
 
 			List<ClassField> fields = new ArrayList<>();
 			while (k != null && !k.isAssignableFrom(Object.class)) {

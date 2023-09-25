@@ -29,6 +29,7 @@
         <module>component-security-web</module>
         <module>component-bcpkix</module>
         <module>component-tcp</module>
+        <module>component-spring</module>
     </modules>
 
     <properties>
@@ -127,6 +128,11 @@
             <dependency>
                 <groupId>live.lingting.components</groupId>
                 <artifactId>component-core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
+                <artifactId>component-spring</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>

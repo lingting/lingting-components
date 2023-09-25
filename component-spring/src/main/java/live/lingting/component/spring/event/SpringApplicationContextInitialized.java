@@ -1,6 +1,6 @@
-package live.lingting.component.core.spring.event;
+package live.lingting.component.spring.event;
 
-import live.lingting.component.core.util.SpringUtils;
+import live.lingting.component.spring.util.SpringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationContextInitializedEvent;
 import org.springframework.context.ApplicationListener;

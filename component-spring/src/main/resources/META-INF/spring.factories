@@ -1,0 +1,8 @@
+org.springframework.context.ApplicationListener=\
+  live.lingting.component.spring.event.SpringApplicationContextInitialized,\
+  live.lingting.component.spring.event.SpringContextClosed
+# 环境自动配置
+org.springframework.boot.env.EnvironmentPostProcessor=\
+  live.lingting.component.spring.post.EnvironmentPost
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  live.lingting.component.spring.configuration.ComponentAutoConfiguration

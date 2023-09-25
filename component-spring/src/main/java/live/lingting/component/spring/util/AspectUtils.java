@@ -1,4 +1,4 @@
-package live.lingting.component.core.util;
+package live.lingting.component.spring.util;
 
 import lombok.experimental.UtilityClass;
 import org.aspectj.lang.ProceedingJoinPoint;

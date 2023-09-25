@@ -1,4 +1,4 @@
-package live.lingting.component.core.spring.event;
+package live.lingting.component.spring.event;
 
 import live.lingting.component.core.ContextComponent;
 import lombok.RequiredArgsConstructor;
