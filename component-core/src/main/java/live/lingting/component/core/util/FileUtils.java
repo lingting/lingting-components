@@ -2,6 +2,7 @@ package live.lingting.component.core.util;
 
 import live.lingting.component.core.constant.FileConstants;
 import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -24,6 +25,7 @@ import static live.lingting.component.core.constant.FileConstants.POINT;
 /**
  * @author lingting
  */
+@Slf4j
 @UtilityClass
 public class FileUtils {
 
@@ -86,19 +88,23 @@ public class FileUtils {
 
 		if (file.isFile()) {
 			list.add(file.getAbsolutePath());
+			return list;
 		}
+
 		// 文件夹
-		else {
-			File[] files = file.listFiles();
-			for (File childFile : files) {
-				// 如果递归
-				if (recursive && childFile.isDirectory()) {
-					list.addAll(scanFile(childFile.getAbsolutePath(), true));
-				}
-				// 是文件
-				else if (childFile.isFile()) {
-					list.add(childFile.getAbsolutePath());
-				}
+		File[] files = file.listFiles();
+		if (ArrayUtils.isEmpty(files)) {
+			return list;
+		}
+
+		for (File childFile : files) {
+			// 如果递归
+			if (recursive && childFile.isDirectory()) {
+				list.addAll(scanFile(childFile.getAbsolutePath(), true));
+			}
+			// 是文件
+			else if (childFile.isFile()) {
+				list.add(childFile.getAbsolutePath());
 			}
 		}
 
@@ -108,34 +114,33 @@ public class FileUtils {
 	/**
 	 * 创建指定文件夹, 已存在时不会重新创建
 	 * @param dir 文件夹.
-	 * @throws IOException 创建失败时抛出
 	 */
-	public static void createDir(File dir) throws IOException {
+	public static boolean createDir(File dir) {
 		if (dir.exists()) {
-			return;
+			return true;
 		}
-
-		if (!dir.mkdirs()) {
-			throw new IOException("文件夹创建失败! 文件夹路径: " + dir.getAbsolutePath());
-		}
+		return dir.mkdirs();
 	}
 
 	/**
 	 * 创建指定文件, 已存在时不会重新创建
 	 * @param file 文件.
-	 * @throws IOException 创建失败时抛出
 	 */
-	public static void createFile(File file) throws IOException {
+	public static boolean createFile(File file) {
 		if (file.exists()) {
-			return;
+			return true;
 		}
 
-		if (!file.getParentFile().exists() && !file.getParentFile().mkdirs()) {
-			throw new IOException("父文件创建失败! 文件路径: " + file.getAbsolutePath());
+		if (!createDir(file.getParentFile())) {
+			return false;
 		}
 
-		if (!file.createNewFile()) {
-			throw new IOException("文件创建失败! 文件路径: " + file.getAbsolutePath());
+		try {
+			return file.createNewFile();
+		}
+		catch (IOException e) {
+			log.debug("file create error! path: {}", file.getAbsolutePath());
+			return false;
 		}
 	}
 
@@ -162,13 +167,9 @@ public class FileUtils {
 	 * @return 临时文件对象
 	 */
 	public static File createTemp(String suffix, File dir) throws IOException {
-		try {
-			createDir(dir);
+		if (!createDir(dir)) {
+			throw new IOException("temp dir create error! path : " + dir.getAbsolutePath());
 		}
-		catch (IOException e) {
-			throw new IOException("临时文件夹创建失败! 文件夹地址: " + dir.getAbsolutePath(), e);
-		}
-
 		return File.createTempFile("lingting.", suffix, dir);
 	}
 
