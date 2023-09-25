@@ -143,25 +143,25 @@ public class FileUtils {
 	 * 创建临时文件
 	 */
 	public static File createTemp() throws IOException {
-		return createTemp("lingting");
+		return createTemp(".tmp");
 	}
 
 	/**
 	 * 创建临时文件
-	 * @param trait 文件特征
+	 * @param suffix 文件后缀
 	 * @return 临时文件对象
 	 */
-	public static File createTemp(String trait) throws IOException {
-		return createTemp(trait, TEMP_DIR);
+	public static File createTemp(String suffix) throws IOException {
+		return createTemp(suffix, TEMP_DIR);
 	}
 
 	/**
 	 * 创建临时文件
-	 * @param trait 文件特征
+	 * @param suffix 文件特征
 	 * @param dir 文件存放位置
 	 * @return 临时文件对象
 	 */
-	public static File createTemp(String trait, File dir) throws IOException {
+	public static File createTemp(String suffix, File dir) throws IOException {
 		try {
 			createDir(dir);
 		}
@@ -169,7 +169,7 @@ public class FileUtils {
 			throw new IOException("临时文件夹创建失败! 文件夹地址: " + dir.getAbsolutePath(), e);
 		}
 
-		return File.createTempFile(trait, "tmp", dir);
+		return File.createTempFile("lingting.", suffix, dir);
 	}
 
 	public static File createTemp(InputStream in) throws IOException {
