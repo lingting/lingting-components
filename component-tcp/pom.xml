@@ -9,19 +9,14 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>component-bcpkix</artifactId>
-    <description>用于证书管理, 生成</description>
+    <groupId>live.lingting.component</groupId>
+    <artifactId>component-tcp</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk18on</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>live.lingting.components</groupId>
-            <artifactId>component-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
+<dependencies>
+    <dependency>
+        <groupId>live.lingting.components</groupId>
+        <artifactId>component-core</artifactId>
+    </dependency>
+</dependencies>
 </project>

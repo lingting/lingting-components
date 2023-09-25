@@ -28,10 +28,11 @@
         <module>component-security</module>
         <module>component-security-web</module>
         <module>component-bcpkix</module>
+        <module>component-tcp</module>
     </modules>
 
     <properties>
-        <revision>0.0.4-SNAPSHOT</revision>
+        <revision>0.1.0-SNAPSHOT</revision>
 
         <!--spring-->
         <spring-boot.version>2.7.15</spring-boot.version>

@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":wrench: 更新编辑配置">
-      <change afterPath="$PROJECT_DIR$/component-bcpkix/pom.xml" afterDir="false" />
+    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":sparkles: 添加 bcpkix 模块, 目前支持pkcs12相关管理">
+      <change afterPath="$PROJECT_DIR$/component-tcp/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/FileUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/FileUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-bcpkix/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/component-bcpkix/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,27 +59,27 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Code/Project/lingting/lingting-components/component-bcpkix/src/main/resources&quot;,
-    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.Java&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;12a2309bea3d58c99ac82eeed4532b90&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "git-widget-placeholder": "master",
+    "jdk.selected.JAVA_MODULE": "1.8",
+    "last_opened_file_path": "C:/Code/Project/lingting/lingting-components/component-bcpkix/src/main/resources",
+    "node.js.selected.package.stylelint": "",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.sourceCode.Java",
+    "spring.configuration.checksum": "12a2309bea3d58c99ac82eeed4532b90"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Code\Project\lingting\lingting-components\component-bcpkix\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.TcpTest.client">
     <configuration name="T1.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="component-bcpkix" />
       <extension name="coverage">
@@ -95,8 +96,42 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TcpTest.client" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="component-tcp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="live.lingting.component.tcp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="live.lingting.component.tcp" />
+      <option name="MAIN_CLASS_NAME" value="live.lingting.component.tcp.TcpTest" />
+      <option name="METHOD_NAME" value="client" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TcpTest.server" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="component-tcp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="live.lingting.component.tcp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="live.lingting.component.tcp" />
+      <option name="MAIN_CLASS_NAME" value="live.lingting.component.tcp.TcpTest" />
+      <option name="METHOD_NAME" value="server" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TcpTest.client" />
+        <item itemvalue="JUnit.TcpTest.server" />
         <item itemvalue="JUnit.T1.test" />
       </list>
     </recent_temporary>
@@ -117,7 +152,7 @@
       <workItem from="1693819656159" duration="6000" />
       <workItem from="1695188726449" duration="7797000" />
       <workItem from="1695367545932" duration="679000" />
-      <workItem from="1695608331465" duration="643000" />
+      <workItem from="1695608331465" duration="9783000" />
     </task>
     <task id="LOCAL-00001" summary=":heavy_minus_sign: 移除针对 dependencies 的依赖">
       <option name="closed" value="true" />
@@ -135,7 +170,23 @@
       <option name="project" value="LOCAL" />
       <updated>1695190006556</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary=":art: FileUtils 临时文件创建方法优化, 固定前缀, 仅允许修改后缀">
+      <option name="closed" value="true" />
+      <created>1695609072926</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1695609072926</updated>
+    </task>
+    <task id="LOCAL-00004" summary=":sparkles: 添加 bcpkix 模块, 目前支持pkcs12相关管理">
+      <option name="closed" value="true" />
+      <created>1695609106611</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1695609106611</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -143,6 +194,8 @@
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value=":heavy_minus_sign: 移除针对 dependencies 的依赖" />
     <MESSAGE value=":wrench: 更新编辑配置" />
-    <option name="LAST_COMMIT_MESSAGE" value=":wrench: 更新编辑配置" />
+    <MESSAGE value=":art: FileUtils 临时文件创建方法优化, 固定前缀, 仅允许修改后缀" />
+    <MESSAGE value=":sparkles: 添加 bcpkix 模块, 目前支持pkcs12相关管理" />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: 添加 bcpkix 模块, 目前支持pkcs12相关管理" />
   </component>
 </project>
