@@ -1,12 +1,11 @@
 package live.lingting.compnent.tcp;
 
-import live.lingting.component.core.util.StreamUtils;
+import live.lingting.component.core.thread.ThreadPool;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.Closeable;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -24,6 +23,9 @@ public class TcpServer implements Closeable {
 	private final int backlog;
 
 	private final InetAddress address;
+
+	@Setter
+	private ThreadPool pool = ThreadPool.instance();
 
 	private ServerSocket server;
 
@@ -63,24 +65,13 @@ public class TcpServer implements Closeable {
 	public void awaitTermination() throws IOException {
 		Thread thread = Thread.currentThread();
 		while (!thread.isInterrupted()) {
-			try (Socket socket = server.accept()) {
-				// 没有请求处理者
-				if (handler == null) {
-					log.warn("no tcp socket handler!");
-					continue;
-				}
-				// 获取参数
-				InputStream input = socket.getInputStream();
-				byte[] read = StreamUtils.read(input);
-				// 处理请求
-				byte[] bytes = handler.apply(read);
-				// 处理返回值
-				if (bytes != null && bytes.length > 0) {
-					OutputStream output = socket.getOutputStream();
-					output.write(bytes);
-				}
-				socket.shutdownOutput();
+			Socket socket = server.accept();
+			// 没有请求处理者
+			if (handler == null) {
+				log.warn("no tcp socket handler!");
+				continue;
 			}
+			pool.execute(new TcpServerSocketRunnable(socket, handler));
 		}
 	}
 
