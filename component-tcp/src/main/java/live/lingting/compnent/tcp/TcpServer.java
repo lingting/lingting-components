@@ -1,5 +1,6 @@
 package live.lingting.compnent.tcp;
 
+import live.lingting.component.core.function.ThrowingFunction;
 import live.lingting.component.core.thread.ThreadPool;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,7 @@ public class TcpServer implements Closeable {
 	private ServerSocket server;
 
 	// 用于处理请求
-	private Function<byte[], byte[]> handler;
+	private ThrowingFunction<byte[], byte[]> handler;
 
 	public TcpServer(int port) {
 		this(null, port, 0);
@@ -57,7 +58,7 @@ public class TcpServer implements Closeable {
 		return this;
 	}
 
-	public TcpServer handler(Function<byte[], byte[]> handler) {
+	public TcpServer handler(ThrowingFunction<byte[], byte[]> handler) {
 		this.handler = handler;
 		return this;
 	}

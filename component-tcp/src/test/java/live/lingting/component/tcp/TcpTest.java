@@ -4,16 +4,13 @@ import live.lingting.compnent.tcp.TcpClient;
 import live.lingting.compnent.tcp.TcpResponse;
 import live.lingting.compnent.tcp.TcpServer;
 import live.lingting.component.core.Async;
-import live.lingting.component.core.thread.ThreadPool;
 import live.lingting.component.core.util.RandomUtils;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.function.Function;
 
 /**
  * @author lingting 2023-09-25 17:15
@@ -32,23 +29,22 @@ class TcpTest {
 	@Test
 	void server() throws IOException {
 		try (TcpServer server = new TcpServer(host, port)) {
-			server.open().handler(new Function<byte[], byte[]>() {
-				@SneakyThrows
-				@Override
-				public byte[] apply(byte[] bytes) {
-					String body = new String(bytes, charset);
-					System.out.println("recv: " + body);
-					String response = "response: " + body;
-					Thread.sleep(RandomUtils.nextInt(1000, 5000));
+			server.open().handler(bytes -> {
+				String body = new String(bytes, charset);
+				System.out.println("recv: " + body);
+				int millis = RandomUtils.nextInt(1000, 5000);
+				Thread.sleep(millis);
+				String response = "response: " + body + "; " + millis;
+				if (millis < 2500) {
 					return response.getBytes(charset);
 				}
+				return null;
 			}).awaitTermination();
 		}
 	}
 
 	@Test
-	void client() throws IOException, InterruptedException {
-		ThreadPool pool = ThreadPool.instance();
+	void client() throws InterruptedException {
 		Async async = new Async();
 		for (int i = 0; i < 10; i++) {
 			String body = "send body: " + i;

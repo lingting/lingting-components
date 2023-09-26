@@ -1,15 +1,14 @@
 package live.lingting.compnent.tcp;
 
+import live.lingting.component.core.function.ThrowingFunction;
 import live.lingting.component.core.function.ThrowingRunnable;
 import live.lingting.component.core.util.StreamUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.function.Function;
 
 /**
  * @author lingting 2023-09-25 19:25
@@ -20,7 +19,7 @@ public class TcpServerSocketRunnable implements ThrowingRunnable {
 
 	private final Socket socket;
 
-	private final Function<byte[], byte[]> handler;
+	private final ThrowingFunction<byte[], byte[]> handler;
 
 	@Override
 	public void run() throws Exception {
@@ -32,7 +31,7 @@ public class TcpServerSocketRunnable implements ThrowingRunnable {
 		}
 	}
 
-	void handler() throws IOException {
+	void handler() throws Exception {
 		// 获取参数
 		InputStream input = socket.getInputStream();
 		byte[] read = StreamUtils.read(input);

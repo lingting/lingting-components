@@ -50,6 +50,9 @@ public class TcpResponse implements Closeable {
 
 	public String string() throws IOException {
 		byte[] bytes = bytes();
+		if (bytes == null || bytes.length == 0) {
+			return "";
+		}
 		return new String(bytes, charset);
 	}
 
