@@ -1,5 +1,6 @@
 package live.lingting.component.core.util;
 
+import com.baomidou.mybatisplus.annotation.IEnum;
 import com.fasterxml.jackson.annotation.JsonValue;
 import live.lingting.component.core.constant.StringConstants;
 import live.lingting.component.core.domain.ClassField;
@@ -10,7 +11,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -28,9 +28,12 @@ public class EnumUtils {
 	static final Map<Class<?>, ClassField> CACHE = new ConcurrentHashMap<>();
 
 	public static ClassField getByIEnum(Class<?> cls) {
+		if (!ClassUtils.isPresent(CLS_MYBATIS_PLUS_IENUM, EnumUtils.class.getClassLoader())) {
+			return null;
+		}
+
 		Method method = null;
-		// IEnum的getValue
-		if (Objects.equals(cls.getName(), CLS_MYBATIS_PLUS_IENUM)) {
+		if (IEnum.class.isAssignableFrom(cls)) {
 			method = ClassUtils.method(cls, METHOD_GET_VALUE);
 		}
 
