@@ -1,7 +1,5 @@
 package live.lingting.component.core;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import live.lingting.component.core.enums.GlobalResultCode;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -26,12 +24,6 @@ public class R<T> implements Serializable {
 
 	private String message;
 
-	public R(ResultCode resultCode, T data) {
-		this.data = data;
-		this.code = resultCode.getCode();
-		this.message = resultCode.getMessage();
-	}
-
 	public static <T> R<T> of(int code, String message) {
 		return of(code, message, null);
 	}
@@ -45,15 +37,15 @@ public class R<T> implements Serializable {
 	}
 
 	public static <T> R<T> ok(T data) {
-		return new R<>(GlobalResultCode.SUCCESS, data);
+		return ok(GlobalResultCode.SUCCESS, data);
 	}
 
 	public static <T> R<T> ok(ResultCode code, T data) {
-		return new R<>(code, data);
+		return of(code.getCode(), data, code.getMessage());
 	}
 
 	public static <T> R<T> failed(ResultCode code) {
-		return new R<>(code, null);
+		return of(code.getCode(), code.getMessage());
 	}
 
 	public static <T> R<T> failed(ResultCode code, String message) {
@@ -61,12 +53,10 @@ public class R<T> implements Serializable {
 	}
 
 	public static <T> R<T> failed(Integer code, String message) {
-		return new R<>(code, null, message);
+		return of(code, null, message);
 	}
 
-	@JsonCreator
-	public static <T> R<T> of(@JsonProperty("code") Integer code, @JsonProperty("message") String message,
-			@JsonProperty("data") T data) {
+	public static <T> R<T> of(Integer code, T data, String message) {
 		return new R<>(code, data, message);
 	}
 
