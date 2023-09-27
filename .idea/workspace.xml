@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":zap: 优化 TcpResponse, 返回数据流使用文件作为中转, 避免返回大文件时oom">
+    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":zap: 优化Tcp相关">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-tcp/src/main/java/live/lingting/compnent/tcp/TcpResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-tcp/src/main/java/live/lingting/compnent/tcp/TcpResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-tcp/src/main/java/live/lingting/compnent/tcp/TcpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-tcp/src/main/java/live/lingting/compnent/tcp/TcpServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-tcp/src/main/java/live/lingting/compnent/tcp/TcpServerSocketRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-tcp/src/main/java/live/lingting/compnent/tcp/TcpServerSocketRunnable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-tcp/src/test/java/live/lingting/component/tcp/TcpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-tcp/src/test/java/live/lingting/component/tcp/TcpTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/undertow/ComponentUndertowTimer.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/undertow/ComponentUndertowTimer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +39,11 @@
         <option name="threads" value="32" />
       </MavenGeneralSettings>
     </option>
+    <option name="enabledProfiles">
+      <list>
+        <option value="deploy" />
+      </list>
+    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -58,21 +60,21 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "git-widget-placeholder": "master",
-    "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "C:/Code/Project/lingting/lingting-components/component-spring/src/main/java/live/lingting/component",
-    "node.js.selected.package.stylelint": "",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.sourceCode.Java",
-    "spring.configuration.checksum": "12a2309bea3d58c99ac82eeed4532b90"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Code/Project/lingting/lingting-components/component-spring/src/main/java/live/lingting/component&quot;,
+    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;12a2309bea3d58c99ac82eeed4532b90&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Code\Project\lingting\lingting-components\component-spring\src\main\java\live\lingting\component" />
@@ -155,7 +157,8 @@
       <workItem from="1695367545932" duration="679000" />
       <workItem from="1695608331465" duration="14267000" />
       <workItem from="1695642809410" duration="1113000" />
-      <workItem from="1695697075915" duration="2554000" />
+      <workItem from="1695697075915" duration="7623000" />
+      <workItem from="1695783544914" duration="319000" />
     </task>
     <task id="LOCAL-00001" summary=":heavy_minus_sign: 移除针对 dependencies 的依赖">
       <option name="closed" value="true" />
@@ -237,7 +240,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695643313175</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary=":zap: 优化Tcp相关">
+      <option name="closed" value="true" />
+      <created>1695699681990</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1695699681990</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -264,6 +275,7 @@
     <MESSAGE value=":zap: 优化线程池任务执行方法, 允许执行的方法抛出异常" />
     <MESSAGE value=":zap: 优化FileUtils" />
     <MESSAGE value=":zap: 优化 TcpResponse, 返回数据流使用文件作为中转, 避免返回大文件时oom" />
-    <option name="LAST_COMMIT_MESSAGE" value=":zap: 优化 TcpResponse, 返回数据流使用文件作为中转, 避免返回大文件时oom" />
+    <MESSAGE value=":zap: 优化Tcp相关" />
+    <option name="LAST_COMMIT_MESSAGE" value=":zap: 优化Tcp相关" />
   </component>
 </project>
