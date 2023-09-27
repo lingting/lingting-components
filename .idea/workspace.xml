@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":zap: 优化 ComponentUndertowTimer 实现">
+    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":zap: 提出 R 对于jackson注解的依赖">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/R.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/EnumUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/EnumUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/JacksonUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/JacksonUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/src/test/java/live/lingting/component/jackson/JacksonUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/test/java/live/lingting/component/jackson/JacksonUtilsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/src/test/java/live/lingting/component/jackson/util/SensitiveUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/test/java/live/lingting/component/jackson/util/SensitiveTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +84,23 @@
       <recent name="C:\Code\Project\lingting\lingting-components\component-bcpkix\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TcpTest.client">
+  <component name="RunManager" selected="JUnit.RModuleTest.test">
+    <configuration name="RModuleTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="component-jackson" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="live.lingting.component.jackson.module.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="live.lingting.component.jackson.module" />
+      <option name="MAIN_CLASS_NAME" value="live.lingting.component.jackson.module.RModuleTest" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="T1.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="component-bcpkix" />
       <extension name="coverage">
@@ -135,6 +151,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.RModuleTest.test" />
         <item itemvalue="JUnit.TcpTest.client" />
         <item itemvalue="JUnit.TcpTest.server" />
         <item itemvalue="JUnit.T1.test" />
@@ -160,7 +177,7 @@
       <workItem from="1695608331465" duration="14267000" />
       <workItem from="1695642809410" duration="1113000" />
       <workItem from="1695697075915" duration="7623000" />
-      <workItem from="1695783544914" duration="1325000" />
+      <workItem from="1695783544914" duration="9778000" />
     </task>
     <task id="LOCAL-00001" summary=":heavy_minus_sign: 移除针对 dependencies 的依赖">
       <option name="closed" value="true" />
@@ -258,7 +275,23 @@
       <option name="project" value="LOCAL" />
       <updated>1695783940620</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary=":zap: 优化EnumUtils对于依赖的传递">
+      <option name="closed" value="true" />
+      <created>1695784904748</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1695784904748</updated>
+    </task>
+    <task id="LOCAL-00014" summary=":zap: 提出 R 对于jackson注解的依赖">
+      <option name="closed" value="true" />
+      <created>1695784919586</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1695784919586</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -287,6 +320,39 @@
     <MESSAGE value=":zap: 优化 TcpResponse, 返回数据流使用文件作为中转, 避免返回大文件时oom" />
     <MESSAGE value=":zap: 优化Tcp相关" />
     <MESSAGE value=":zap: 优化 ComponentUndertowTimer 实现" />
-    <option name="LAST_COMMIT_MESSAGE" value=":zap: 优化 ComponentUndertowTimer 实现" />
+    <MESSAGE value=":zap: 优化EnumUtils对于依赖的传递" />
+    <MESSAGE value=":zap: 提出 R 对于jackson注解的依赖" />
+    <option name="LAST_COMMIT_MESSAGE" value=":zap: 提出 R 对于jackson注解的依赖" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.13.5/jackson-databind-2.13.5-sources.jar!/com/fasterxml/jackson/databind/deser/BeanDeserializer.java</url>
+          <line>424</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.13.5/jackson-databind-2.13.5-sources.jar!/com/fasterxml/jackson/databind/deser/BeanDeserializer.java</url>
+          <line>438</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.13.5/jackson-databind-2.13.5-sources.jar!/com/fasterxml/jackson/databind/deser/BeanDeserializerBase.java</url>
+          <line>635</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.13.5/jackson-databind-2.13.5-sources.jar!/com/fasterxml/jackson/databind/deser/BeanDeserializer.java</url>
+          <line>563</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.13.5/jackson-databind-2.13.5-sources.jar!/com/fasterxml/jackson/databind/deser/BeanDeserializerBase.java</url>
+          <line>507</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
