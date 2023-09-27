@@ -1,8 +1,8 @@
 package live.lingting.component.web.argumentresolve;
 
 import cn.hutool.core.text.CharSequenceUtil;
-import cn.hutool.core.util.ArrayUtil;
 import live.lingting.component.core.page.PageLimitParams;
+import live.lingting.component.core.util.ArrayUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -71,12 +71,12 @@ public class PageLimitArgumentResolve implements HandlerMethodArgumentResolver {
 		Map<String, String[]> parameterMap = request.getParameterMap();
 		// sort 可以传多个，所以同时支持 sort 和 sort[]
 		String[] sort = parameterMap.get(sortParameterName);
-		if (ArrayUtil.isEmpty(sort)) {
+		if (ArrayUtils.isEmpty(sort)) {
 			sort = parameterMap.get(sortParameterName + "[]");
 		}
 
 		List<PageLimitParams.Sort> sorts = new ArrayList<>();
-		if (ArrayUtil.isNotEmpty(sort)) {
+		if (!ArrayUtils.isEmpty(sort)) {
 			sorts = getSortList(sort);
 		}
 		pageParam.setSorts(sorts);

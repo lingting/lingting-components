@@ -13,11 +13,6 @@
 
 
     <dependencies>
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-core</artifactId>
-        </dependency>
-
         <!--servlet-->
         <dependency>
             <groupId>javax.servlet</groupId>

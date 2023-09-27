@@ -16,6 +16,10 @@
             <groupId>live.lingting.components</groupId>
             <artifactId>component-okhttp</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

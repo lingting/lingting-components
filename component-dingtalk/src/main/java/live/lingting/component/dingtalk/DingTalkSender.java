@@ -1,7 +1,5 @@
 package live.lingting.component.dingtalk;
 
-import cn.hutool.core.codec.Base64;
-import cn.hutool.core.text.CharSequenceUtil;
 import live.lingting.component.core.util.StringUtils;
 import live.lingting.component.dingtalk.message.DingTalkMessage;
 import live.lingting.component.okhttp.OkHttpClient;
@@ -18,6 +16,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.function.Supplier;
 
 /**
@@ -57,11 +56,11 @@ public class DingTalkSender {
 	 *
 	 */
 	public DingTalkResponse sendMessage(DingTalkMessage message) {
-		if (CharSequenceUtil.isEmpty(getSecret())) {
-			return sendNormalMessage(message);
+		if (StringUtils.hasText(getSecret())) {
+			return sendSecretMessage(message);
 		}
 		else {
-			return sendSecretMessage(message);
+			return sendNormalMessage(message);
 		}
 	}
 
@@ -98,7 +97,7 @@ public class DingTalkSender {
 	@SneakyThrows
 	public String secret(long timestamp) {
 		byte[] secretBytes = (timestamp + "\n" + secret).getBytes(StandardCharsets.UTF_8);
-		String secretBase64 = Base64.encode(mac.doFinal(secretBytes));
+		String secretBase64 = Base64.getEncoder().encodeToString(mac.doFinal(secretBytes));
 		String sign = URLEncoder.encode(secretBase64, "utf-8");
 		return String.format("%s&timestamp=%s&sign=%s", url, timestamp, sign);
 	}
