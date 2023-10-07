@@ -4,18 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":sparkles: 添加针对R的json反序列化操作">
+    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":art: component-core 移除对hutool依赖">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/page/PageLimitParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/page/PageLimitParams.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/IdUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/IdUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-dingtalk/src/main/java/live/lingting/component/dingtalk/DingTalkSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-dingtalk/src/main/java/live/lingting/component/dingtalk/DingTalkSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-easyexcel/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/component-easyexcel/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-grpc/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/component-grpc/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-mybatis/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/component-mybatis/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-redis/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-web/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/argumentresolve/PageLimitArgumentResolve.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-web/src/main/java/live/lingting/component/web/argumentresolve/PageLimitArgumentResolve.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/OkHttpClientBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/OkHttpClientBuilder.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,10 +71,13 @@
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reactor&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;12a2309bea3d58c99ac82eeed4532b90&quot;
   }
 }</component>
+  <component name="ReactorSettings">
+    <option name="debugInitializationType" value="HOOKS" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Code\Project\lingting\lingting-components\component-spring\src\main\java\live\lingting\component" />
@@ -184,7 +178,9 @@
       <workItem from="1695608331465" duration="14267000" />
       <workItem from="1695642809410" duration="1113000" />
       <workItem from="1695697075915" duration="7623000" />
-      <workItem from="1695783544914" duration="10547000" />
+      <workItem from="1695783544914" duration="11962000" />
+      <workItem from="1695802505836" duration="611000" />
+      <workItem from="1696682378156" duration="154000" />
     </task>
     <task id="LOCAL-00001" summary=":heavy_minus_sign: 移除针对 dependencies 的依赖">
       <option name="closed" value="true" />
@@ -306,7 +302,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695798486801</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary=":art: component-core 移除对hutool依赖">
+      <option name="closed" value="true" />
+      <created>1695799293912</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1695799293912</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -338,7 +342,8 @@
     <MESSAGE value=":zap: 优化EnumUtils对于依赖的传递" />
     <MESSAGE value=":zap: 提出 R 对于jackson注解的依赖" />
     <MESSAGE value=":sparkles: 添加针对R的json反序列化操作" />
-    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: 添加针对R的json反序列化操作" />
+    <MESSAGE value=":art: component-core 移除对hutool依赖" />
+    <option name="LAST_COMMIT_MESSAGE" value=":art: component-core 移除对hutool依赖" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

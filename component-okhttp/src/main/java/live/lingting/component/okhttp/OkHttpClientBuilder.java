@@ -47,17 +47,21 @@ public class OkHttpClientBuilder {
 
 	private CookieJar cookieJar = null;
 
+	public static OkHttpClientBuilder builder() {
+		return new OkHttpClientBuilder();
+	}
+
 	public okhttp3.OkHttpClient.Builder builder(okhttp3.OkHttpClient.Builder builder) {
 		if (builder == null) {
 			builder = new okhttp3.OkHttpClient.Builder();
 		}
 
 		if (socketFactory != null) {
-			builder.socketFactory(socketFactory);
+			builder.setSocketFactory$okhttp(socketFactory);
 		}
 
 		if (hostnameVerifier != null) {
-			builder.hostnameVerifier(hostnameVerifier);
+			builder.setHostnameVerifier$okhttp(hostnameVerifier);
 		}
 
 		if (sslSocketFactory != null) {
@@ -81,7 +85,7 @@ public class OkHttpClientBuilder {
 		}
 
 		if (cookieJar != null) {
-			builder.cookieJar(cookieJar);
+			builder.setCookieJar$okhttp(cookieJar);
 		}
 
 		return builder;
