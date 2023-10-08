@@ -23,9 +23,9 @@ import java.util.function.Consumer;
 public class JacksonUtils {
 
 	@Getter
-	static ObjectMapper mapper = new ObjectMapper();
+	static ObjectMapper mapper = defaultConfig(new ObjectMapper());
 
-	static {
+	public static ObjectMapper defaultConfig(ObjectMapper mapper) {
 		// 序列化时忽略未知属性
 		mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 		// 单值元素可以被设置成 array, 防止处理 ["a"] 为 List<String> 时报错
@@ -42,6 +42,7 @@ public class JacksonUtils {
 		mapper.registerModule(new RModule());
 		// 有特殊需要转义字符, 不报错
 		mapper.enable(JsonReadFeature.ALLOW_UNESCAPED_CONTROL_CHARS.mappedFeature());
+		return mapper;
 	}
 
 	public static void config(ObjectMapper mapper) {

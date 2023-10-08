@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":art: component-core 移除对hutool依赖">
+    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":bug: 修复okhttp部分方法调用异常">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/OkHttpClientBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/OkHttpClientBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/JacksonUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-jackson/src/main/java/live/lingting/component/jackson/JacksonUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,7 +180,8 @@
       <workItem from="1695697075915" duration="7623000" />
       <workItem from="1695783544914" duration="11962000" />
       <workItem from="1695802505836" duration="611000" />
-      <workItem from="1696682378156" duration="154000" />
+      <workItem from="1696682378156" duration="1426000" />
+      <workItem from="1696737599837" duration="97000" />
     </task>
     <task id="LOCAL-00001" summary=":heavy_minus_sign: 移除针对 dependencies 的依赖">
       <option name="closed" value="true" />
@@ -310,7 +311,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695799293912</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary=":bug: 修复okhttp部分方法调用异常">
+      <option name="closed" value="true" />
+      <created>1696682558707</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1696682558707</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -343,7 +352,8 @@
     <MESSAGE value=":zap: 提出 R 对于jackson注解的依赖" />
     <MESSAGE value=":sparkles: 添加针对R的json反序列化操作" />
     <MESSAGE value=":art: component-core 移除对hutool依赖" />
-    <option name="LAST_COMMIT_MESSAGE" value=":art: component-core 移除对hutool依赖" />
+    <MESSAGE value=":bug: 修复okhttp部分方法调用异常" />
+    <option name="LAST_COMMIT_MESSAGE" value=":bug: 修复okhttp部分方法调用异常" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
