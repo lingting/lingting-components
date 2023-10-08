@@ -175,4 +175,15 @@ public class StringUtils {
 		return writer.toString();
 	}
 
+	public static String hex(byte[] bytes) {
+		StringBuilder builder = new StringBuilder();
+
+		for (byte b : bytes) {
+			String hex = Integer.toHexString((b & 0xFF) | 0x100);
+			builder.append(hex, 1, 3);
+		}
+
+		return builder.toString();
+	}
+
 }
