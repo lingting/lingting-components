@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":zap: JacksonUtils 添加默认配置方法, 用于需要单独使用mapper时进行配置">
+    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":art: 从">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/StringUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/OkHttpClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/OkHttpClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/OkHttpUrlBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/OkHttpUrlBuilder.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,7 +73,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reactor&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;12a2309bea3d58c99ac82eeed4532b90&quot;
   }
 }</component>
@@ -182,7 +183,9 @@
       <workItem from="1695783544914" duration="11962000" />
       <workItem from="1695802505836" duration="611000" />
       <workItem from="1696682378156" duration="1426000" />
-      <workItem from="1696737599837" duration="1978000" />
+      <workItem from="1696737599837" duration="2312000" />
+      <workItem from="1696748201684" duration="567000" />
+      <workItem from="1696748805137" duration="1077000" />
     </task>
     <task id="LOCAL-00001" summary=":heavy_minus_sign: 移除针对 dependencies 的依赖">
       <option name="closed" value="true" />
@@ -328,7 +331,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696737725008</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary=":sparkles: 添加md5和hex相关方法">
+      <option name="closed" value="true" />
+      <created>1696748084306</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1696748084306</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -363,7 +374,8 @@
     <MESSAGE value=":art: component-core 移除对hutool依赖" />
     <MESSAGE value=":bug: 修复okhttp部分方法调用异常" />
     <MESSAGE value=":zap: JacksonUtils 添加默认配置方法, 用于需要单独使用mapper时进行配置" />
-    <option name="LAST_COMMIT_MESSAGE" value=":zap: JacksonUtils 添加默认配置方法, 用于需要单独使用mapper时进行配置" />
+    <MESSAGE value=":sparkles: 添加md5和hex相关方法" />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparkles: 添加md5和hex相关方法" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,7 +1,7 @@
 package live.lingting.component.okhttp;
 
-import live.lingting.component.core.util.CollectionUtils;
 import live.lingting.component.core.constant.HttpConstants;
+import live.lingting.component.core.util.CollectionUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +25,7 @@ public class OkHttpUrlBuilder {
 
 	private String uri;
 
-	private Map<String, List<String>> params = new HashMap<>();
+	private final Map<String, List<String>> params = new HashMap<>();
 
 	public static OkHttpUrlBuilder builder() {
 		return new OkHttpUrlBuilder();
@@ -87,6 +87,13 @@ public class OkHttpUrlBuilder {
 
 	public OkHttpUrlBuilder addParam(String name, String value) {
 		params.computeIfAbsent(name, k -> new ArrayList<>()).add(value);
+		return this;
+	}
+
+	public OkHttpUrlBuilder addParams(Map<String, String> params) {
+		for (Map.Entry<String, String> entry : params.entrySet()) {
+			addParam(entry.getKey(), entry.getValue());
+		}
 		return this;
 	}
 

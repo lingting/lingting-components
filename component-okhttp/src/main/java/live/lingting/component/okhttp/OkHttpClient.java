@@ -29,15 +29,13 @@ public class OkHttpClient {
 		return new OkHttpClientBuilder();
 	}
 
-	protected final okhttp3.OkHttpClient okHttpClient;
+	protected final okhttp3.OkHttpClient client;
 
 	protected final ProxyPool pool;
 
 	public Response request(Request request) {
-		okhttp3.OkHttpClient client = okHttpClient;
 		if (pool != null) {
-			ProxyConfig config = pool.proxy();
-			client = okHttpClient.newBuilder().proxy(config.getProxy()).build();
+			return callByProxy(request);
 		}
 
 		Call call = client.newCall(request);
@@ -47,10 +45,20 @@ public class OkHttpClient {
 		catch (IOException e) {
 			throw new OkHttpException(e);
 		}
+	}
+
+	Response callByProxy(Request request) {
+		ProxyConfig config = pool.proxy();
+		okhttp3.OkHttpClient proxyClient = this.client.newBuilder().proxy(config.getProxy()).build();
+		Call call = proxyClient.newCall(request);
+		try {
+			return call.execute();
+		}
+		catch (IOException e) {
+			throw new OkHttpException(e);
+		}
 		finally {
-			if (pool != null) {
-				pool.release();
-			}
+			pool.release();
 		}
 	}
 
@@ -117,15 +125,15 @@ public class OkHttpClient {
 
 	// region 配置相关
 	public okhttp3.OkHttpClient client() {
-		return okHttpClient;
+		return client;
 	}
 
 	public CookieJar cookieJar() {
-		return okHttpClient.cookieJar();
+		return client.cookieJar();
 	}
 
 	public OkHttpClientBuilder toBuilder() {
-		return builder().okHttpClientBuilder(okHttpClient.newBuilder());
+		return builder().okHttpClientBuilder(client.newBuilder());
 	}
 
 	// endregion
