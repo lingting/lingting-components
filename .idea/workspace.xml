@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":zap: 优化okhttp相关方法">
+    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":bug: 修复ClassUtils获取方法时异常">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/ClassUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-core/src/main/java/live/lingting/component/core/util/ClassUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/OkHttpClientBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/OkHttpClientBuilder.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,7 +184,7 @@
       <workItem from="1696737599837" duration="2312000" />
       <workItem from="1696748201684" duration="567000" />
       <workItem from="1696748805137" duration="4185000" />
-      <workItem from="1696924182695" duration="2413000" />
+      <workItem from="1696924182695" duration="3215000" />
     </task>
     <task id="LOCAL-00001" summary=":heavy_minus_sign: 移除针对 dependencies 的依赖">
       <option name="closed" value="true" />
@@ -346,7 +346,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696750002511</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary=":bug: 修复ClassUtils获取方法时异常">
+      <option name="closed" value="true" />
+      <created>1696930781383</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1696930781383</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -393,7 +401,8 @@
     <MESSAGE value=":zap: JacksonUtils 添加默认配置方法, 用于需要单独使用mapper时进行配置" />
     <MESSAGE value=":sparkles: 添加md5和hex相关方法" />
     <MESSAGE value=":zap: 优化okhttp相关方法" />
-    <option name="LAST_COMMIT_MESSAGE" value=":zap: 优化okhttp相关方法" />
+    <MESSAGE value=":bug: 修复ClassUtils获取方法时异常" />
+    <option name="LAST_COMMIT_MESSAGE" value=":bug: 修复ClassUtils获取方法时异常" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

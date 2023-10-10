@@ -57,11 +57,11 @@ public class OkHttpClientBuilder {
 		}
 
 		if (socketFactory != null) {
-			builder.setSocketFactory$okhttp(socketFactory);
+			builder.socketFactory(socketFactory);
 		}
 
 		if (hostnameVerifier != null) {
-			builder.setHostnameVerifier$okhttp(hostnameVerifier);
+			builder.hostnameVerifier(hostnameVerifier);
 		}
 
 		if (sslSocketFactory != null) {
