@@ -232,7 +232,17 @@ public class ClassUtils {
 	}
 
 	public static Method[] methods(Class<?> cls) {
-		return CACHE_METHODS.computeIfAbsent(cls, Class::getDeclaredMethods);
+		return CACHE_METHODS.computeIfAbsent(cls, k -> {
+			List<Method> methods = new ArrayList<>();
+			while (k != null && !k.isAssignableFrom(Object.class)) {
+				for (Method method : k.getDeclaredMethods()) {
+					method.setAccessible(true);
+					methods.add(method);
+				}
+				k = k.getSuperclass();
+			}
+			return methods.toArray(new Method[0]);
+		});
 	}
 
 	public static Method method(Class<?> cls, String name) {
