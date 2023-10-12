@@ -1,27 +1,12 @@
 package live.lingting.component.redis.operation;
 
+import live.lingting.component.core.function.ThrowingFunction;
 import live.lingting.component.redis.properties.CachePropertiesHolder;
-import org.aspectj.lang.ProceedingJoinPoint;
 
 /**
- * @author Hccake
- * @version 1.0
+ * @author lingting 2023-10-12 11:38
  */
 public abstract class AbstractCacheOps {
-
-	protected AbstractCacheOps(ProceedingJoinPoint joinPoint) {
-		this.joinPoint = joinPoint;
-	}
-
-	private final ProceedingJoinPoint joinPoint;
-
-	/**
-	 * 织入方法
-	 * @return ProceedingJoinPoint
-	 */
-	public ProceedingJoinPoint joinPoint() {
-		return joinPoint;
-	}
 
 	/**
 	 * 检查缓存数据是否是空值
@@ -29,7 +14,21 @@ public abstract class AbstractCacheOps {
 	 * @return true: 是空值
 	 */
 	public boolean nullValue(Object cacheData) {
-		return CachePropertiesHolder.nullValue().equals(cacheData);
+		return nullValue().equals(cacheData);
 	}
+
+	public String nullValue() {
+		return CachePropertiesHolder.nullValue();
+	}
+
+	public String dbToCache(Object object, ThrowingFunction<Object, String> serialize) throws Exception {
+		if (object == null) {
+			return nullValue();
+		}
+		return serialize.apply(object);
+	}
+
+	@SuppressWarnings("java:S112")
+	public abstract Object process() throws Throwable;
 
 }

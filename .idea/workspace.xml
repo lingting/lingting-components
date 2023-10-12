@@ -4,9 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":bug: 修复ClassUtils获取方法时异常">
+    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":art: 重写 CacheStringAspect">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/OkHttpClientBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/OkHttpClientBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/configuration/ComponentRedisAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/configuration/ComponentRedisAutoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/core/CacheStringAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/core/CacheStringAspect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/AbstractCacheOps.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/AbstractCacheOps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/CacheDelOps.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/CacheDelOps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/CacheDelsOps.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/CachePutOps.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/CachePutOps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/CachedOps.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/CachedOps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/function/ResultMethod.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/function/VoidMethod.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +91,9 @@
       <recent name="C:\Code\Project\lingting\lingting-components\component-spring\src\main\java\live\lingting\component" />
       <recent name="C:\Code\Project\lingting\lingting-components\component-spring\src\main\resources" />
       <recent name="C:\Code\Project\lingting\lingting-components\component-bcpkix\src\main\resources" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="live.lingting.component.redis.operation.tmp" />
     </key>
   </component>
   <component name="RunManager" selected="JUnit.RModuleTest.test">
@@ -184,7 +195,9 @@
       <workItem from="1696737599837" duration="2312000" />
       <workItem from="1696748201684" duration="567000" />
       <workItem from="1696748805137" duration="4185000" />
-      <workItem from="1696924182695" duration="3215000" />
+      <workItem from="1696924182695" duration="5201000" />
+      <workItem from="1697013450487" duration="3223000" />
+      <workItem from="1697079734518" duration="4729000" />
     </task>
     <task id="LOCAL-00001" summary=":heavy_minus_sign: 移除针对 dependencies 的依赖">
       <option name="closed" value="true" />
@@ -354,7 +367,23 @@
       <option name="project" value="LOCAL" />
       <updated>1696930781383</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary=":bug: OkHttpClientBuilder构建时方法异常">
+      <option name="closed" value="true" />
+      <created>1696931436595</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1696931436595</updated>
+    </task>
+    <task id="LOCAL-00023" summary=":bug: 修复Spring下不发解析R">
+      <option name="closed" value="true" />
+      <created>1697089807216</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1697089807216</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -402,7 +431,10 @@
     <MESSAGE value=":sparkles: 添加md5和hex相关方法" />
     <MESSAGE value=":zap: 优化okhttp相关方法" />
     <MESSAGE value=":bug: 修复ClassUtils获取方法时异常" />
-    <option name="LAST_COMMIT_MESSAGE" value=":bug: 修复ClassUtils获取方法时异常" />
+    <MESSAGE value=":bug: OkHttpClientBuilder构建时方法异常" />
+    <MESSAGE value=":bug: 修复Spring下不发解析R" />
+    <MESSAGE value=":art: 重写 CacheStringAspect" />
+    <option name="LAST_COMMIT_MESSAGE" value=":art: 重写 CacheStringAspect" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

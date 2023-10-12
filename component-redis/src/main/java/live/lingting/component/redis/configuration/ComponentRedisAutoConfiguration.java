@@ -103,8 +103,8 @@ public class ComponentRedisAutoConfiguration {
 	 */
 	@Bean
 	@ConditionalOnMissingBean
-	public CacheStringAspect cacheStringAspect(StringRedisTemplate stringRedisTemplate, CacheSerializer cacheSerializer,
-			RedisTemplateBeanPostProcessor postProcessor) {
+	public CacheStringAspect cacheStringAspect(StringRedisTemplate stringRedisTemplate,
+			CacheSerializer cacheSerializer) {
 		return new CacheStringAspect(stringRedisTemplate, cacheSerializer);
 	}
 

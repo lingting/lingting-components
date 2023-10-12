@@ -1,16 +1,12 @@
 package live.lingting.component.redis.core;
 
-import live.lingting.component.redis.RedisHelper;
 import live.lingting.component.redis.core.annotation.CacheDel;
 import live.lingting.component.redis.core.annotation.CacheDels;
 import live.lingting.component.redis.core.annotation.CachePut;
 import live.lingting.component.redis.core.annotation.Cached;
-import live.lingting.component.redis.lock.DistributedLock;
 import live.lingting.component.redis.operation.CacheDelOps;
-import live.lingting.component.redis.operation.CacheDelsOps;
 import live.lingting.component.redis.operation.CachePutOps;
 import live.lingting.component.redis.operation.CachedOps;
-import live.lingting.component.redis.operation.function.VoidMethod;
 import live.lingting.component.redis.properties.CachePropertiesHolder;
 import live.lingting.component.redis.serialize.CacheSerializer;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -23,11 +19,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.annotation.Order;
-import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
@@ -46,13 +40,16 @@ public class CacheStringAspect {
 
 	Logger log = LoggerFactory.getLogger(CacheStringAspect.class);
 
-	private final CacheSerializer cacheSerializer;
+	protected final CacheSerializer cacheSerializer;
 
-	private final StringRedisTemplate redisTemplate;
+	protected final StringRedisTemplate redisTemplate;
+
+	protected final ValueOperations<String, String> operations;
 
 	public CacheStringAspect(StringRedisTemplate redisTemplate, CacheSerializer cacheSerializer) {
-		this.redisTemplate = redisTemplate;
 		this.cacheSerializer = cacheSerializer;
+		this.redisTemplate = redisTemplate;
+		this.operations = redisTemplate.opsForValue();
 	}
 
 	@Pointcut("execution(@(@live.lingting.component.redis.core.annotation.MetaCacheAnnotation *) * *(..))")
@@ -62,7 +59,6 @@ public class CacheStringAspect {
 
 	@Around("pointCut()")
 	public Object around(ProceedingJoinPoint point) throws Throwable {
-
 		// 获取目标方法
 		MethodSignature signature = (MethodSignature) point.getSignature();
 		Method method = signature.getMethod();
@@ -76,198 +72,76 @@ public class CacheStringAspect {
 		Object[] arguments = point.getArgs();
 		KeyGenerator keyGenerator = new KeyGenerator(target, method, arguments);
 
-		ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
-
 		// 缓存处理
 		Cached cachedAnnotation = AnnotationUtils.getAnnotation(method, Cached.class);
 		if (cachedAnnotation != null) {
-			// 缓存key
-			String key = keyGenerator.getKey(cachedAnnotation.key(), cachedAnnotation.keyJoint());
-			// redis 分布式锁的 key
-			String lockKey = key + CachePropertiesHolder.lockKeySuffix();
+			Type returnType = method.getGenericReturnType();
+			CachedOps ops = new CachedOps(point, cachedAnnotation, keyGenerator,
+					str -> cacheSerializer.deserialize(str, returnType), cacheSerializer::serialize);
+
 			long ttl = cachedAnnotation.ttl();
 			TimeUnit unit = cachedAnnotation.timeUnit();
-			// 缓存获取
-			Supplier<String> cacheQuery = prodCacheQueryFunction(valueOperations, key, ttl, unit);
-			// 缓存插入
-			Consumer<Object> cachePut = prodCachePutFunction(valueOperations, key, ttl, unit);
 
-			return cached(new CachedOps(point, lockKey, cacheQuery, cachePut, method.getGenericReturnType()));
+			return ops.query(prodCacheQueryFunction(ops.getKey(), ttl, unit))
+				.put(prodCachePutFunction(ops.getKey(), ttl, unit))
+				.process();
 		}
 
 		// 缓存更新处理
 		CachePut cachePutAnnotation = AnnotationUtils.getAnnotation(method, CachePut.class);
 		if (cachePutAnnotation != null) {
-			// 缓存key
-			String key = keyGenerator.getKey(cachePutAnnotation.key(), cachePutAnnotation.keyJoint());
-			// 失效时间控制
-			Consumer<Object> cachePut = prodCachePutFunction(valueOperations, key, cachePutAnnotation.ttl(),
-					cachePutAnnotation.timeUnit());
-			return cachePut(new CachePutOps(point, cachePut));
+			CachePutOps ops = new CachePutOps(point, cachePutAnnotation, keyGenerator, cacheSerializer::serialize);
+
+			return ops.put(prodCachePutFunction(ops.getKey(), cachePutAnnotation.ttl(), cachePutAnnotation.timeUnit()))
+				.process();
 		}
 
 		// 缓存删除处理
 		CacheDel cacheDelAnnotation = AnnotationUtils.getAnnotation(method, CacheDel.class);
 		if (cacheDelAnnotation != null) {
-			return cacheDel(new CacheDelOps(point, buildCacheDelExecution(cacheDelAnnotation, keyGenerator)));
+			return new CacheDelOps(point, cacheDelAnnotation, keyGenerator, redisTemplate::delete).process();
 		}
 
 		// 多个缓存删除处理
 		CacheDels cacheDelsAnnotation = AnnotationUtils.getAnnotation(method, CacheDels.class);
 		if (cacheDelsAnnotation != null) {
-			int annotationCount = cacheDelsAnnotation.value().length;
-			VoidMethod[] cacheDels = new VoidMethod[annotationCount];
-			for (int i = 0; i < annotationCount; i++) {
-				cacheDels[i] = buildCacheDelExecution(cacheDelsAnnotation.value()[i], keyGenerator);
-			}
-			return cacheDels(new CacheDelsOps(point, cacheDels));
+			return new CacheDelOps(point, cacheDelsAnnotation, keyGenerator, redisTemplate::delete).process();
 		}
 
 		return point.proceed();
 	}
 
-	protected Supplier<String> prodCacheQueryFunction(ValueOperations<String, String> valueOperations, String key,
-			long ttl, TimeUnit unit) {
+	protected Supplier<String> prodCacheQueryFunction(String key, long ttl, TimeUnit unit) {
 		Supplier<String> cacheQuery;
 		if (ttl < 0) {
-			cacheQuery = () -> valueOperations.get(key);
+			cacheQuery = () -> operations.get(key);
 		}
 		else if (ttl == 0) {
 			long expireTime = CachePropertiesHolder.expireTime();
-			cacheQuery = () -> valueOperations.getAndExpire(key, expireTime, unit);
+			cacheQuery = () -> getAndExpire(key, expireTime, unit);
 		}
 		else {
-			cacheQuery = () -> valueOperations.getAndExpire(key, ttl, unit);
+			cacheQuery = () -> getAndExpire(key, ttl, unit);
 		}
 		return cacheQuery;
 	}
 
-	protected Consumer<Object> prodCachePutFunction(ValueOperations<String, String> valueOperations, String key,
-			long ttl, TimeUnit unit) {
+	protected String getAndExpire(String key, long timeout, TimeUnit unit) {
+		return operations.getAndExpire(key, timeout, unit);
+	}
+
+	protected Consumer<Object> prodCachePutFunction(String key, long ttl, TimeUnit unit) {
 		Consumer<Object> cachePut;
 		if (ttl < 0) {
-			cachePut = value -> valueOperations.set(key, (String) value);
+			cachePut = value -> operations.set(key, (String) value);
 		}
 		else if (ttl == 0) {
-			cachePut = value -> valueOperations.set(key, (String) value, CachePropertiesHolder.expireTime(), unit);
+			cachePut = value -> operations.set(key, (String) value, CachePropertiesHolder.expireTime(), unit);
 		}
 		else {
-			cachePut = value -> valueOperations.set(key, (String) value, ttl, unit);
+			cachePut = value -> operations.set(key, (String) value, ttl, unit);
 		}
 		return cachePut;
-	}
-
-	/**
-	 * cached 类型的模板方法 1. 先查缓存 若有数据则直接返回 2. 尝试获取锁 若成功执行目标方法（一般是去查数据库） 3. 将数据库获取到数据同步至缓存
-	 * @param ops 缓存操作类
-	 * @return result
-	 * @throws IOException IO 异常
-	 */
-	public Object cached(CachedOps ops) throws Throwable {
-
-		// 缓存查询方法
-		Supplier<String> cacheQuery = ops.cacheQuery();
-		// 返回数据类型
-		Type dataClazz = ops.returnType();
-
-		// 1.==================尝试从缓存获取数据==========================
-		String cacheData = cacheQuery.get();
-		// 如果是空值 则return null | 不是空值且不是null 则直接返回
-		if (ops.nullValue(cacheData)) {
-			return null;
-		}
-		else if (cacheData != null) {
-			return cacheSerializer.deserialize(cacheData, dataClazz);
-		}
-
-		// 2.==========如果缓存为空 则需查询数据库并更新===============
-		cacheData = DistributedLock.<String>instance().action(ops.lockKey(), () -> {
-			String cacheValue = cacheQuery.get();
-			if (cacheValue == null) {
-				// 从数据库查询数据
-				Object dbValue = ops.joinPoint().proceed();
-				// 如果数据库中没数据，填充一个String，防止缓存击穿
-				cacheValue = dbValue == null ? CachePropertiesHolder.nullValue() : cacheSerializer.serialize(dbValue);
-				// 设置缓存
-				ops.cachePut().accept(cacheValue);
-			}
-			return cacheValue;
-		}).onLockFail(cacheQuery).lock();
-		// 自旋时间内未获取到锁，或者数据库中数据为空，返回null
-		if (cacheData == null || ops.nullValue(cacheData)) {
-			return null;
-		}
-		return cacheSerializer.deserialize(cacheData, dataClazz);
-	}
-
-	/**
-	 * 缓存操作模板方法
-	 */
-	private Object cachePut(CachePutOps ops) throws Throwable {
-
-		// 先执行目标方法 并拿到返回值
-		Object data = ops.joinPoint().proceed();
-
-		// 将返回值放置入缓存中
-		String cacheData = data == null ? CachePropertiesHolder.nullValue() : cacheSerializer.serialize(data);
-		ops.cachePut().accept(cacheData);
-
-		return data;
-	}
-
-	/**
-	 * 缓存删除的模板方法 在目标方法执行后 执行删除
-	 */
-	private Object cacheDel(CacheDelOps ops) throws Throwable {
-
-		// 先执行目标方法 并拿到返回值
-		Object data = ops.joinPoint().proceed();
-		// 将删除缓存
-		ops.cacheDel().run();
-
-		return data;
-	}
-
-	/**
-	 * 缓存批量删除的模板方法 在目标方法执行后 执行删除
-	 */
-	private Object cacheDels(CacheDelsOps ops) throws Throwable {
-
-		// 先执行目标方法 并拿到返回值
-		Object data = ops.joinPoint().proceed();
-		// 将删除缓存
-		for (VoidMethod voidMethod : ops.cacheDel()) {
-			voidMethod.run();
-		}
-		return data;
-	}
-
-	/**
-	 * 构建缓存删除执行方法
-	 * @param cacheDelAnnotation 缓存删除注解
-	 * @param keyGenerator 缓存键生成器
-	 * @return 用于执行的无返回值方法
-	 */
-	private VoidMethod buildCacheDelExecution(CacheDel cacheDelAnnotation, KeyGenerator keyGenerator) {
-		VoidMethod cacheDel;
-		if (cacheDelAnnotation.allEntries()) {
-			// 优先判断是否是删除名称空间下所有的键值对
-			cacheDel = () -> {
-				Cursor<String> scan = RedisHelper.scan(cacheDelAnnotation.key().concat("*"));
-				while (scan.hasNext()) {
-					redisTemplate.delete(scan.next());
-				}
-				if (!scan.isClosed()) {
-					scan.close();
-				}
-			};
-		}
-		else {
-			// 缓存key
-			String key = keyGenerator.getKey(cacheDelAnnotation.key(), cacheDelAnnotation.keyJoint());
-			cacheDel = () -> redisTemplate.delete(key);
-		}
-		return cacheDel;
 	}
 
 }
