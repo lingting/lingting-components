@@ -10,6 +10,7 @@ import live.lingting.component.jackson.JacksonUtils;
 import live.lingting.component.jackson.module.BooleanModule;
 import live.lingting.component.jackson.module.EnumModule;
 import live.lingting.component.jackson.module.JavaTimeModule;
+import live.lingting.component.jackson.module.RModule;
 import live.lingting.component.jackson.provider.NullSerializerProvider;
 import live.lingting.component.jackson.spring.ObjectMapperAfter;
 import live.lingting.component.jackson.spring.ObjectMapperCustomizer;
@@ -82,6 +83,12 @@ public class JacksonComponentAutoConfiguration {
 	@ConditionalOnMissingBean
 	public BooleanModule booleanModule() {
 		return new BooleanModule();
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public RModule rModule() {
+		return new RModule();
 	}
 
 	@Bean
