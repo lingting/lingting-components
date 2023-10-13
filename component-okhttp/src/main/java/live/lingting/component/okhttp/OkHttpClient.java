@@ -132,10 +132,13 @@ public class OkHttpClient {
 		return client.cookieJar();
 	}
 
-	public OkHttpClientBuilder toBuilder() {
+	public OkHttpClientBuilder newBuilder() {
 		return builder().okHttpClientBuilder(client.newBuilder());
 	}
 
+	public OkHttpClient copy() {
+		return newBuilder().build();
+	}
 	// endregion
 
 }

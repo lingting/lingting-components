@@ -4,17 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment=":art: 重写 CacheStringAspect">
+    <list default="true" id="9808268e-61be-4e3d-b97c-0126c9a58a37" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/configuration/ComponentRedisAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/configuration/ComponentRedisAutoConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/core/CacheStringAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/core/CacheStringAspect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/AbstractCacheOps.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/AbstractCacheOps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/CacheDelOps.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/CacheDelOps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/CacheDelsOps.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/CachePutOps.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/CachePutOps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/CachedOps.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/CachedOps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/function/ResultMethod.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/component-redis/src/main/java/live/lingting/component/redis/operation/function/VoidMethod.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/OkHttpClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/component-okhttp/src/main/java/live/lingting/component/okhttp/OkHttpClient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,9 +30,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -47,17 +37,12 @@
         <option name="threads" value="32" />
       </MavenGeneralSettings>
     </option>
-    <option name="enabledProfiles">
-      <list>
-        <option value="deploy" />
-      </list>
-    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 2
 }</component>
-  <component name="ProjectId" id="2UKPptn8IIyD8ZKKJU0lL0dXxUN" />
+  <component name="ProjectId" id="2WgwjQ5gzvL1r8ClDigIR9UEUND" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
@@ -68,403 +53,38 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Code/Project/lingting/lingting-components/component-spring/src/main/java/live/lingting/component&quot;,
-    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;12a2309bea3d58c99ac82eeed4532b90&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "git-widget-placeholder": "master",
+    "node.js.selected.package.stylelint": "",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "Errors"
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="debugInitializationType" value="HOOKS" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Code\Project\lingting\lingting-components\component-spring\src\main\java\live\lingting\component" />
-      <recent name="C:\Code\Project\lingting\lingting-components\component-spring\src\main\resources" />
-      <recent name="C:\Code\Project\lingting\lingting-components\component-bcpkix\src\main\resources" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="live.lingting.component.redis.operation.tmp" />
-    </key>
-  </component>
-  <component name="RunManager" selected="JUnit.RModuleTest.test">
-    <configuration name="RModuleTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="component-jackson" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="live.lingting.component.jackson.module.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="live.lingting.component.jackson.module" />
-      <option name="MAIN_CLASS_NAME" value="live.lingting.component.jackson.module.RModuleTest" />
-      <option name="METHOD_NAME" value="test" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="T1.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="component-bcpkix" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="live.lingting.component.bcprov.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="live.lingting.component.bcprov" />
-      <option name="MAIN_CLASS_NAME" value="live.lingting.component.bcprov.T1" />
-      <option name="METHOD_NAME" value="test" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TcpTest.client" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="component-tcp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="live.lingting.component.tcp.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="live.lingting.component.tcp" />
-      <option name="MAIN_CLASS_NAME" value="live.lingting.component.tcp.TcpTest" />
-      <option name="METHOD_NAME" value="client" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TcpTest.server" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="component-tcp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="live.lingting.component.tcp.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="live.lingting.component.tcp" />
-      <option name="MAIN_CLASS_NAME" value="live.lingting.component.tcp.TcpTest" />
-      <option name="METHOD_NAME" value="server" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JUnit.RModuleTest.test" />
-        <item itemvalue="JUnit.TcpTest.client" />
-        <item itemvalue="JUnit.TcpTest.server" />
-        <item itemvalue="JUnit.T1.test" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="b8f5d88d-183b-40b2-b7a6-54286fdad193" name="Changes" comment="" />
-      <created>1692685485877</created>
+      <changelist id="9808268e-61be-4e3d-b97c-0126c9a58a37" name="Changes" comment="" />
+      <created>1697167666569</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1692685485877</updated>
-      <workItem from="1692685486927" duration="762000" />
-      <workItem from="1692791385249" duration="612000" />
-      <workItem from="1692847831842" duration="609000" />
-      <workItem from="1692870012517" duration="651000" />
-      <workItem from="1693187798606" duration="985000" />
-      <workItem from="1693819656159" duration="6000" />
-      <workItem from="1695188726449" duration="7797000" />
-      <workItem from="1695367545932" duration="679000" />
-      <workItem from="1695608331465" duration="14267000" />
-      <workItem from="1695642809410" duration="1113000" />
-      <workItem from="1695697075915" duration="7623000" />
-      <workItem from="1695783544914" duration="11962000" />
-      <workItem from="1695802505836" duration="611000" />
-      <workItem from="1696682378156" duration="1426000" />
-      <workItem from="1696737599837" duration="2312000" />
-      <workItem from="1696748201684" duration="567000" />
-      <workItem from="1696748805137" duration="4185000" />
-      <workItem from="1696924182695" duration="5201000" />
-      <workItem from="1697013450487" duration="3223000" />
-      <workItem from="1697079734518" duration="4729000" />
+      <updated>1697167666569</updated>
+      <workItem from="1697167667602" duration="10000" />
+      <workItem from="1697167682984" duration="4000" />
+      <workItem from="1697167699229" duration="12000" />
+      <workItem from="1697185512623" duration="1597000" />
     </task>
-    <task id="LOCAL-00001" summary=":heavy_minus_sign: 移除针对 dependencies 的依赖">
-      <option name="closed" value="true" />
-      <created>1695189983919</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1695189983919</updated>
-    </task>
-    <task id="LOCAL-00002" summary=":wrench: 更新编辑配置">
-      <option name="closed" value="true" />
-      <created>1695190006556</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1695190006556</updated>
-    </task>
-    <task id="LOCAL-00003" summary=":art: FileUtils 临时文件创建方法优化, 固定前缀, 仅允许修改后缀">
-      <option name="closed" value="true" />
-      <created>1695609072926</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1695609072926</updated>
-    </task>
-    <task id="LOCAL-00004" summary=":sparkles: 添加 bcpkix 模块, 目前支持pkcs12相关管理">
-      <option name="closed" value="true" />
-      <created>1695609106611</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1695609106611</updated>
-    </task>
-    <task id="LOCAL-00005" summary=":sparkles: 添加 tcp 模块, 基础的TcpServer和TcpClient 测试通过">
-      <option name="closed" value="true" />
-      <created>1695635398512</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1695635398512</updated>
-    </task>
-    <task id="LOCAL-00006" summary=":art: 剥离component-core中的spring相关到 component-spring">
-      <option name="closed" value="true" />
-      <created>1695640994524</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1695640994524</updated>
-    </task>
-    <task id="LOCAL-00007" summary=":sparkles: TcpServer 支持使用线程池异步处理请求">
-      <option name="closed" value="true" />
-      <created>1695641893402</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1695641893402</updated>
-    </task>
-    <task id="LOCAL-00008" summary=":zap: 优化线程池任务执行方法, 允许执行的方法抛出异常">
-      <option name="closed" value="true" />
-      <created>1695642376994</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1695642376994</updated>
-    </task>
-    <task id="LOCAL-00009" summary=":zap: 优化FileUtils">
-      <option name="closed" value="true" />
-      <created>1695643270189</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1695643270189</updated>
-    </task>
-    <task id="LOCAL-00010" summary=":zap: 优化 TcpResponse, 返回数据流使用文件作为中转, 避免返回大文件时oom">
-      <option name="closed" value="true" />
-      <created>1695643313175</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1695643313175</updated>
-    </task>
-    <task id="LOCAL-00011" summary=":zap: 优化Tcp相关">
-      <option name="closed" value="true" />
-      <created>1695699681990</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1695699681990</updated>
-    </task>
-    <task id="LOCAL-00012" summary=":zap: 优化 ComponentUndertowTimer 实现">
-      <option name="closed" value="true" />
-      <created>1695783940620</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1695783940620</updated>
-    </task>
-    <task id="LOCAL-00013" summary=":zap: 优化EnumUtils对于依赖的传递">
-      <option name="closed" value="true" />
-      <created>1695784904748</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1695784904748</updated>
-    </task>
-    <task id="LOCAL-00014" summary=":zap: 提出 R 对于jackson注解的依赖">
-      <option name="closed" value="true" />
-      <created>1695784919586</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1695784919586</updated>
-    </task>
-    <task id="LOCAL-00015" summary=":sparkles: 添加针对R的json反序列化操作">
-      <option name="closed" value="true" />
-      <created>1695798486801</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1695798486801</updated>
-    </task>
-    <task id="LOCAL-00016" summary=":art: component-core 移除对hutool依赖">
-      <option name="closed" value="true" />
-      <created>1695799293912</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1695799293912</updated>
-    </task>
-    <task id="LOCAL-00017" summary=":bug: 修复okhttp部分方法调用异常">
-      <option name="closed" value="true" />
-      <created>1696682558707</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1696682558707</updated>
-    </task>
-    <task id="LOCAL-00018" summary=":zap: JacksonUtils 添加默认配置方法, 用于需要单独使用mapper时进行配置">
-      <option name="closed" value="true" />
-      <created>1696737725008</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1696737725008</updated>
-    </task>
-    <task id="LOCAL-00019" summary=":sparkles: 添加md5和hex相关方法">
-      <option name="closed" value="true" />
-      <created>1696748084306</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1696748084306</updated>
-    </task>
-    <task id="LOCAL-00020" summary=":zap: 优化okhttp相关方法">
-      <option name="closed" value="true" />
-      <created>1696750002511</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1696750002511</updated>
-    </task>
-    <task id="LOCAL-00021" summary=":bug: 修复ClassUtils获取方法时异常">
-      <option name="closed" value="true" />
-      <created>1696930781383</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1696930781383</updated>
-    </task>
-    <task id="LOCAL-00022" summary=":bug: OkHttpClientBuilder构建时方法异常">
-      <option name="closed" value="true" />
-      <created>1696931436595</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1696931436595</updated>
-    </task>
-    <task id="LOCAL-00023" summary=":bug: 修复Spring下不发解析R">
-      <option name="closed" value="true" />
-      <created>1697089807216</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1697089807216</updated>
-    </task>
-    <option name="localTasksCounter" value="24" />
     <servers />
-  </component>
-  <component name="Vcs.Log.History.Properties">
-    <option name="COLUMN_ID_ORDER">
-      <list>
-        <option value="Default.Root" />
-        <option value="Default.Author" />
-        <option value="Default.Date" />
-        <option value="Default.Subject" />
-      </list>
-    </option>
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value=":heavy_minus_sign: 移除针对 dependencies 的依赖" />
-    <MESSAGE value=":wrench: 更新编辑配置" />
-    <MESSAGE value=":art: FileUtils 临时文件创建方法优化, 固定前缀, 仅允许修改后缀" />
-    <MESSAGE value=":sparkles: 添加 bcpkix 模块, 目前支持pkcs12相关管理" />
-    <MESSAGE value=":sparkles: 添加 tcp 模块, 基础的TcpServer和TcpClient 测试通过" />
-    <MESSAGE value=":art: 剥离component-core中的spring相关到 component-spring" />
-    <MESSAGE value=":sparkles: TcpServer 支持使用线程池异步处理请求" />
-    <MESSAGE value=":zap: 优化线程池任务执行方法, 允许执行的方法抛出异常" />
-    <MESSAGE value=":zap: 优化FileUtils" />
-    <MESSAGE value=":zap: 优化 TcpResponse, 返回数据流使用文件作为中转, 避免返回大文件时oom" />
-    <MESSAGE value=":zap: 优化Tcp相关" />
-    <MESSAGE value=":zap: 优化 ComponentUndertowTimer 实现" />
-    <MESSAGE value=":zap: 优化EnumUtils对于依赖的传递" />
-    <MESSAGE value=":zap: 提出 R 对于jackson注解的依赖" />
-    <MESSAGE value=":sparkles: 添加针对R的json反序列化操作" />
-    <MESSAGE value=":art: component-core 移除对hutool依赖" />
-    <MESSAGE value=":bug: 修复okhttp部分方法调用异常" />
-    <MESSAGE value=":zap: JacksonUtils 添加默认配置方法, 用于需要单独使用mapper时进行配置" />
-    <MESSAGE value=":sparkles: 添加md5和hex相关方法" />
-    <MESSAGE value=":zap: 优化okhttp相关方法" />
-    <MESSAGE value=":bug: 修复ClassUtils获取方法时异常" />
-    <MESSAGE value=":bug: OkHttpClientBuilder构建时方法异常" />
-    <MESSAGE value=":bug: 修复Spring下不发解析R" />
-    <MESSAGE value=":art: 重写 CacheStringAspect" />
-    <option name="LAST_COMMIT_MESSAGE" value=":art: 重写 CacheStringAspect" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.13.5/jackson-databind-2.13.5-sources.jar!/com/fasterxml/jackson/databind/deser/BeanDeserializer.java</url>
-          <line>424</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.13.5/jackson-databind-2.13.5-sources.jar!/com/fasterxml/jackson/databind/deser/BeanDeserializer.java</url>
-          <line>438</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.13.5/jackson-databind-2.13.5-sources.jar!/com/fasterxml/jackson/databind/deser/BeanDeserializerBase.java</url>
-          <line>635</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.13.5/jackson-databind-2.13.5-sources.jar!/com/fasterxml/jackson/databind/deser/BeanDeserializer.java</url>
-          <line>563</line>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.13.5/jackson-databind-2.13.5-sources.jar!/com/fasterxml/jackson/databind/deser/BeanDeserializerBase.java</url>
-          <line>507</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
