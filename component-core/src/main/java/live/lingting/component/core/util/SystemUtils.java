@@ -79,6 +79,10 @@ public class SystemUtils {
 		return System.getProperty("user.name");
 	}
 
+	public static String javaVersion() {
+		return System.getProperty("java.version");
+	}
+
 	public static void proxy(String host, Integer port) {
 		proxyHttp(host, port);
 		proxyHttps(host, port);
