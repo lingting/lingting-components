@@ -1,8 +1,8 @@
 package live.lingting.component.bcpkix;
 
+import live.lingting.component.core.util.StringUtils;
 import lombok.Getter;
 
-import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyStore;
@@ -18,6 +18,7 @@ import java.util.Enumeration;
 /**
  * @author lingting 2023-09-25 10:20
  */
+@SuppressWarnings("unused")
 public class Pkcs12 {
 
 	private final KeyStore store;
@@ -36,20 +37,20 @@ public class Pkcs12 {
 		this.store = store;
 		this.password = password;
 		// 私钥
-		PrivateKey privateKey = null;
+		PrivateKey priKey = null;
 		// 证书
-		Certificate certificate = null;
+		Certificate localCertificate = null;
 		Enumeration<String> aliases = store.aliases();
 		while (aliases.hasMoreElements()) {
 			String element = aliases.nextElement();
 			if (store.isKeyEntry(element)) {
-				privateKey = (PrivateKey) store.getKey(element, password);
-				certificate = store.getCertificate(element);
+				priKey = (PrivateKey) store.getKey(element, password);
+				localCertificate = store.getCertificate(element);
 			}
 		}
 
-		this.privateKey = privateKey;
-		this.certificate = certificate;
+		this.privateKey = priKey;
+		this.certificate = localCertificate;
 	}
 
 	public static Pkcs12 ofPfx(InputStream in, char[] password) throws KeyStoreException, CertificateException,
@@ -61,13 +62,13 @@ public class Pkcs12 {
 
 	public String privateKey() {
 		return "-----BEGIN PRIVATE KEY-----\n"
-				+ DatatypeConverter.printBase64Binary(privateKey.getEncoded()).replaceAll("(.{64})", "$1\n")
+				+ StringUtils.base64(privateKey.getEncoded()).replaceAll("(.{64})", "$1\n")
 				+ "\n-----END PRIVATE KEY-----\n";
 	}
 
 	public String certificate() throws CertificateEncodingException {
 		return "-----BEGIN CERTIFICATE-----\n"
-				+ DatatypeConverter.printBase64Binary(certificate.getEncoded()).replaceAll("(.{64})", "$1\n")
+				+ StringUtils.base64(certificate.getEncoded()).replaceAll("(.{64})", "$1\n")
 				+ "\n-----END CERTIFICATE-----\n";
 	}
 

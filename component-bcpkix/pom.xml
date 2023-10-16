@@ -20,7 +20,6 @@
         <dependency>
             <groupId>live.lingting.components</groupId>
             <artifactId>component-core</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
