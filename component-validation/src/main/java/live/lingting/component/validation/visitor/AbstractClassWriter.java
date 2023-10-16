@@ -4,12 +4,19 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
 import javassist.NotFoundException;
+import live.lingting.component.core.util.StringUtils;
+import live.lingting.component.core.util.SystemUtils;
 
 /**
  * @author lingting 2022/11/2 11:24
  */
 @SuppressWarnings({ "java:S112", "java:S1610" })
 public abstract class AbstractClassWriter {
+
+	boolean isJdk8() {
+		String version = SystemUtils.javaVersion();
+		return StringUtils.hasText(version) && version.startsWith("1.8");
+	}
 
 	/**
 	 * 写入字节码
@@ -26,7 +33,12 @@ public abstract class AbstractClassWriter {
 		}
 		write(ctClass);
 		// 转class
-		ctClass.toClass();
+		if (isJdk8()) {
+			ctClass.toClass();
+		}
+		else {
+			ctClass.toClass(getPackageClass());
+		}
 		// 释放
 		ctClass.detach();
 	}
