@@ -4,6 +4,7 @@ import live.lingting.component.core.constant.StringConstants;
 import lombok.experimental.UtilityClass;
 
 import java.io.CharArrayWriter;
+import java.util.Base64;
 import java.util.Iterator;
 
 /**
@@ -184,6 +185,38 @@ public class StringUtils {
 		}
 
 		return builder.toString();
+	}
+
+	public static byte[] hex(String hex) {
+		int length = hex.length();
+		if (length % 2 != 0) {
+			throw new IllegalArgumentException("Invalid hexadecimal string");
+		}
+
+		byte[] byteArray = new byte[length / 2];
+		for (int i = 0; i < length; i += 2) {
+			// 16进制单字符
+			String h = hex.substring(i, i + 2);
+			// 转byte
+			byte b = (byte) Integer.parseInt(h, 16);
+			byteArray[i / 2] = b;
+		}
+
+		return byteArray;
+	}
+
+	/**
+	 * 字节码转base64字符串
+	 */
+	public static String base64(byte[] bytes) {
+		return Base64.getEncoder().encodeToString(bytes);
+	}
+
+	/**
+	 * base64字符串转字节码
+	 */
+	public static byte[] base64(String base64) {
+		return Base64.getDecoder().decode(base64);
 	}
 
 }
