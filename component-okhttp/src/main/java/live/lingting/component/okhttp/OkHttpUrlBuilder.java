@@ -90,9 +90,15 @@ public class OkHttpUrlBuilder {
 		return this;
 	}
 
-	public OkHttpUrlBuilder addParams(Map<String, String> params) {
-		for (Map.Entry<String, String> entry : params.entrySet()) {
-			addParam(entry.getKey(), entry.getValue());
+	public OkHttpUrlBuilder addParams(Map<String, ?> params) {
+		for (Map.Entry<String, ?> entry : params.entrySet()) {
+			String key = entry.getKey();
+			Object value = entry.getValue();
+
+			if (value == null) {
+				continue;
+			}
+			addParam(key, value.toString());
 		}
 		return this;
 	}
