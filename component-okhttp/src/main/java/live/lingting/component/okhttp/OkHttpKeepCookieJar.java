@@ -9,9 +9,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -19,7 +19,23 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class OkHttpKeepCookieJar implements CookieJar {
 
-	private final Map<String, List<Cookie>> cache = new ConcurrentHashMap<>();
+	private final Map<String, Map<String, Cookie>> cache = new ConcurrentHashMap<>();
+
+	protected Map<String, Cookie> cookieMap(String domain) {
+		return cache.computeIfAbsent(domain, k -> new ConcurrentHashMap<>());
+	}
+
+	public Set<String> domains() {
+		return cache.keySet();
+	}
+
+	public Collection<Cookie> cookies(String domain) {
+		return cookieMap(domain).values();
+	}
+
+	public Cookie cookie(String domain, String name) {
+		return cookieMap(domain).get(name);
+	}
 
 	@NotNull
 	@Override
@@ -27,8 +43,8 @@ public class OkHttpKeepCookieJar implements CookieJar {
 		String host = httpUrl.host();
 		String privateDomain = httpUrl.topPrivateDomain();
 
-		List<Cookie> hostCookies = cache.get(host);
-		List<Cookie> privateDomainCookies = cache.get(privateDomain);
+		Collection<Cookie> hostCookies = cookies(host);
+		Collection<Cookie> privateDomainCookies = cookies(privateDomain);
 
 		List<Cookie> cookies = new ArrayList<>();
 		if (!CollectionUtils.isEmpty(hostCookies)) {
@@ -42,40 +58,17 @@ public class OkHttpKeepCookieJar implements CookieJar {
 
 	@Override
 	public void saveFromResponse(@NotNull HttpUrl httpUrl, @NotNull List<Cookie> list) {
-		Map<String, List<Cookie>> map = new HashMap<>();
+		putAll(list);
+	}
 
-		for (Cookie cookie : list) {
-			List<Cookie> cookies = map.computeIfAbsent(cookie.domain(), k -> new ArrayList<>());
-			cookies.add(cookie);
+	public void put(Cookie cookie) {
+		putAll(Collections.singleton(cookie));
+	}
+
+	public void putAll(Collection<Cookie> cookies) {
+		for (Cookie cookie : cookies) {
+			cookieMap(cookie.domain()).put(cookie.name(), cookie);
 		}
-
-		for (Map.Entry<String, List<Cookie>> entry : map.entrySet()) {
-			addAll(entry.getKey(), entry.getValue());
-		}
-	}
-
-	public void addAll(String domain, Collection<Cookie> collection) {
-		cache.compute(domain, (k, val) -> {
-			List<Cookie> cookies = val == null ? new ArrayList<>() : val;
-			cookies.addAll(collection);
-			return cookies;
-		});
-	}
-
-	public void add(Cookie cookie) {
-		addAll(cookie.domain(), Collections.singleton(cookie));
-	}
-
-	public List<Cookie> get(String domain) {
-		List<Cookie> cookies = cache.get(domain);
-		if (CollectionUtils.isEmpty(cookies)) {
-			return Collections.emptyList();
-		}
-		return Collections.unmodifiableList(cookies);
-	}
-
-	public Map<String, List<Cookie>> all() {
-		return Collections.unmodifiableMap(cache);
 	}
 
 	public void clean(String domain) {
