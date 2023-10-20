@@ -27,6 +27,8 @@ public abstract class AbstractQueueThread<E> extends AbstractThreadContextCompon
 	 */
 	protected static final long POLL_TIMEOUT_MS = 5 * 1000L;
 
+	protected final List<E> data = new ArrayList<>(getBatchSize());
+
 	/**
 	 * 用于子类自定义缓存数据数量
 	 * @return long
@@ -72,12 +74,12 @@ public abstract class AbstractQueueThread<E> extends AbstractThreadContextCompon
 	protected abstract E poll(long time) throws InterruptedException;
 
 	/**
-	 * 处理接收的数据
-	 * @param list 当前所有数据
+	 * 处理单个接收的数据
 	 * @param e 接收的数据
+	 * @return 返回要放入队列的数据
 	 */
-	protected void receiveProcess(List<E> list, E e) {
-		list.add(e);
+	protected E process(E e) {
+		return e;
 	}
 
 	/**
@@ -90,58 +92,40 @@ public abstract class AbstractQueueThread<E> extends AbstractThreadContextCompon
 
 	@Override
 	@SuppressWarnings("java:S1181")
-	public void run() {
-		init();
-		List<E> list;
-		while (isRun()) {
-			list = new ArrayList<>(getBatchSize());
-
-			try {
-				preProcess();
-				fillList(list);
-
-				if (!isRun()) {
-					shutdown(list);
-				}
-				else {
-					process(list);
-				}
-			}
-			catch (InterruptedException e) {
-				shutdown(list);
-				Thread.currentThread().interrupt();
-			}
-			catch (Exception e) {
-				error(e, list);
-			}
-			// Throwable 异常直接结束. 这里捕获用来保留信息. 方便排查问题
-			catch (Throwable t) {
-				log.error("线程队列运行异常!", t);
-				throw t;
-			}
+	protected void doRun() throws Exception {
+		preProcess();
+		fill();
+		if (!CollectionUtils.isEmpty(data)) {
+			process(new ArrayList<>(data));
+			data.clear();
 		}
 	}
 
-	protected void fillList(List<E> list) {
+	/**
+	 * 填充数据
+	 */
+	protected void fill() {
 		long timestamp = 0;
 		int count = 0;
 
 		while (count < getBatchSize()) {
 			E e = poll();
+			E p = process(e);
 
-			if (e != null) {
+			if (p != null) {
 				// 第一次插入数据
 				if (count++ == 0) {
 					// 记录时间
 					timestamp = System.currentTimeMillis();
 				}
-				receiveProcess(list, e);
+				// 数据存入列表
+				data.add(p);
 			}
 
 			// 无法继续运行
 			final boolean isBreak = !isRun()
 					// 或者 已有数据且超过设定的等待时间
-					|| (!CollectionUtils.isEmpty(list) && System.currentTimeMillis() - timestamp >= getBatchTimeout());
+					|| (!CollectionUtils.isEmpty(data) && System.currentTimeMillis() - timestamp >= getBatchTimeout());
 			if (isBreak) {
 				break;
 			}
@@ -161,18 +145,11 @@ public abstract class AbstractQueueThread<E> extends AbstractThreadContextCompon
 	}
 
 	/**
-	 * 发生异常时处理异常
-	 * @param e 异常
-	 * @param list 当时的数据
-	 */
-	protected abstract void error(Throwable e, List<E> list);
-
-	/**
 	 * 线程被中断后的处理. 如果有缓存手段可以让数据进入缓存.
-	 * @param list 当前数据
 	 */
-	protected void shutdown(List<E> list) {
-		log.warn("{} 类 线程: {} 被关闭. 数据:{}", this.getClass().getSimpleName(), getId(), list);
+	@Override
+	protected void shutdown() {
+		log.warn("{} 类 线程: {} 被关闭. 数据:{}", this.getClass().getSimpleName(), getId(), data);
 	}
 
 }

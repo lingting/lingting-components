@@ -40,7 +40,7 @@ public abstract class AbstractDynamicTimer<T> extends AbstractThreadContextCompo
 			interrupt();
 		}
 		catch (Exception e) {
-			log.error("{} put error, param: {}", this.getClass().toString(), t, e);
+			log.error("{} put error, param: {}", getSimpleName(), t, e);
 		}
 	}
 
@@ -52,38 +52,26 @@ public abstract class AbstractDynamicTimer<T> extends AbstractThreadContextCompo
 	}
 
 	@Override
-	public void run() {
-		init();
-		while (isRun()) {
-			try {
-				T t = pool();
-				lock.runByInterruptibly(() -> {
-					if (t == null) {
-						lock.await(24, TimeUnit.HOURS);
-						return;
-					}
+	protected void doRun() throws Exception {
+		T t = pool();
+		lock.runByInterruptibly(() -> {
+			if (t == null) {
+				lock.await(24, TimeUnit.HOURS);
+				return;
+			}
 
-					long sleepTime = sleepTime(t);
-					// 需要休眠
-					if (sleepTime > 0) {
-						// 如果是被唤醒
-						if (lock.await(sleepTime, TimeUnit.MILLISECONDS)) {
-							replay(t);
-							return;
-						}
-					}
+			long sleepTime = sleepTime(t);
+			// 需要休眠
+			if (sleepTime > 0) {
+				// 如果是被唤醒
+				if (lock.await(sleepTime, TimeUnit.MILLISECONDS)) {
+					replay(t);
+					return;
+				}
+			}
 
-					process(t);
-				});
-			}
-			catch (InterruptedException e) {
-				interrupt();
-				shutdown();
-			}
-			catch (Exception e) {
-				error(e);
-			}
-		}
+			process(t);
+		});
 	}
 
 	protected T pool() {
@@ -92,10 +80,7 @@ public abstract class AbstractDynamicTimer<T> extends AbstractThreadContextCompo
 
 	protected abstract void process(T t);
 
-	protected void error(Exception e) {
-		log.error("类: {}; 线程: {}; 运行异常! ", getSimpleName(), getId(), e);
-	}
-
+	@Override
 	protected void shutdown() {
 		log.warn("类: {}; 线程: {}; 被中断! 剩余数据: {}", getSimpleName(), getId(), queue.size());
 	}

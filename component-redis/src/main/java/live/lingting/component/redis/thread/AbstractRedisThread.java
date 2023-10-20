@@ -10,7 +10,6 @@ import org.springframework.util.StringUtils;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
@@ -93,7 +92,7 @@ public abstract class AbstractRedisThread<E> extends AbstractQueueThread<E> {
 				Thread.currentThread().interrupt();
 			}
 			catch (Exception ex) {
-				log.error("{} put error, param: {}", this.getClass().toString(), e, ex);
+				log.error("{} put error, param: {}", getSimpleName(), e, ex);
 			}
 		}
 	}
@@ -143,10 +142,10 @@ public abstract class AbstractRedisThread<E> extends AbstractQueueThread<E> {
 	}
 
 	@Override
-	protected void shutdown(List<E> list) {
+	protected void shutdown() {
 		// 修改运行标志
 		run = false;
-		for (E e : list) {
+		for (E e : data) {
 			// 所有数据插入redis
 			put(e);
 			log.error("{}", e);

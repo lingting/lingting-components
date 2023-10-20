@@ -37,6 +37,34 @@ public abstract class AbstractThreadContextComponent extends Thread implements C
 	}
 
 	@Override
-	public abstract void run();
+	public void run() {
+		init();
+		while (isRun()) {
+			try {
+				doRun();
+			}
+			catch (InterruptedException e) {
+				interrupt();
+				shutdown();
+			}
+			catch (Exception e) {
+				error(e);
+			}
+		}
+	}
+
+	@SuppressWarnings("java:S112")
+	protected abstract void doRun() throws Exception;
+
+	/**
+	 * 线程被中断触发.
+	 */
+	protected void shutdown() {
+		log.warn("{} 类 线程: {} 被关闭.", getSimpleName(), getId());
+	}
+
+	protected void error(Exception e) {
+		log.error("{} 类 线程: {} 出现异常!", getSimpleName(), getId(), e);
+	}
 
 }
