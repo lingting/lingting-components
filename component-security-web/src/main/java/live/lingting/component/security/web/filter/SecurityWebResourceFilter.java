@@ -1,11 +1,12 @@
 package live.lingting.component.security.web.filter;
 
+import live.lingting.component.core.util.StringUtils;
 import live.lingting.component.security.resource.SecurityResourceService;
 import live.lingting.component.security.resource.SecurityScope;
 import live.lingting.component.security.token.SecurityToken;
 import live.lingting.component.security.web.constant.SecurityWebConstants;
-import live.lingting.component.core.util.StringUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -18,6 +19,7 @@ import java.io.IOException;
 /**
  * @author lingting 2023-03-29 21:18
  */
+@Slf4j
 @RequiredArgsConstructor
 public class SecurityWebResourceFilter extends OncePerRequestFilter {
 
@@ -29,8 +31,13 @@ public class SecurityWebResourceFilter extends OncePerRequestFilter {
 
 		SecurityToken token = getTokenHeader(request);
 		if (StringUtils.hasText(token.getToken())) {
-			SecurityScope scope = service.resolve(token);
-			service.setScope(scope);
+			try {
+				SecurityScope scope = service.resolve(token);
+				service.setScope(scope);
+			}
+			catch (Exception e) {
+				log.error("resolve token error! token: {}", token, e);
+			}
 		}
 		try {
 			filterChain.doFilter(request, response);
