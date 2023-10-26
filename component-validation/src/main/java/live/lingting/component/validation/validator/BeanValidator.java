@@ -26,13 +26,13 @@ public interface BeanValidator<A extends Annotation, V> {
 	/**
 	 * 注解校验执行
 	 * @param annotation 注解
-	 * @param val 校验对象
+	 * @param oldValue 校验值
 	 * @param validatorContext 当前校验对象上下文
 	 * @param valueContext 值上下文
-	 * @return boolean
+	 * @return boolean true 表示校验通过
 	 * @throws Exception 异常
 	 */
-	boolean valid(A annotation, V val, ConstraintValidatorContext validatorContext,
+	boolean valid(A annotation, V oldValue, ConstraintValidatorContext validatorContext,
 			ValueContext<Object, V> valueContext) throws Exception;
 
 	/**
