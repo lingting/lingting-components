@@ -5,9 +5,11 @@ import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URLConnection;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
@@ -144,6 +146,17 @@ public class FileUtils {
 		}
 	}
 
+	public static File createFile(String filename, File dir) throws IOException {
+		if (!createDir(dir)) {
+			throw new IOException("dir create error! path : " + dir.getAbsolutePath());
+		}
+		File file = new File(dir, filename);
+		if (createFile(file)) {
+			return file;
+		}
+		throw new IOException("file create error! path : " + file.getAbsolutePath());
+	}
+
 	/**
 	 * 创建临时文件
 	 */
@@ -202,6 +215,15 @@ public class FileUtils {
 		}
 
 		return Files.copy(source.toPath(), target.toPath(), list.toArray(new CopyOption[0]));
+	}
+
+	public static void write(File file, InputStream in) throws IOException {
+		if (!createFile(file)) {
+			throw new FileNotFoundException("path: " + file.getAbsolutePath());
+		}
+		try (OutputStream out = Files.newOutputStream(file.toPath())) {
+			StreamUtils.write(in, out);
+		}
 	}
 
 	public static boolean delete(File file) {
