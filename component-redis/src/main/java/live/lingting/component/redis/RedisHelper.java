@@ -1,5 +1,6 @@
 package live.lingting.component.redis;
 
+import live.lingting.component.core.util.CollectionUtils;
 import live.lingting.component.core.value.WaitValue;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
@@ -44,6 +45,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -400,21 +402,36 @@ public class RedisHelper {
 	 * @return map，key 和 value 的键值对集合，当 value 获取为 null 时，不存入此 map
 	 */
 	public static Map<String, String> mGetToMap(Collection<String> keys) {
-		List<String> values = valueOps().multiGet(keys);
-		Map<String, String> map = new HashMap<>(keys.size());
-		if (values == null || values.isEmpty()) {
+		return mGetToMap(keys, t -> t);
+	}
+
+	/**
+	 * 获取多个key 并且值组装为map
+	 * @param keys key
+	 * @param convert 值序列化方法
+	 * @return java.util.Map<java.lang.String,T> map，key 和 value 的键值对集合，当 value 获取为 null
+	 * 时，不存入此 map
+	 */
+	public static <T> Map<String, T> mGetToMap(Collection<String> keys, Function<String, T> convert) {
+		Map<String, T> map = new HashMap<>();
+		if (CollectionUtils.isEmpty(keys)) {
 			return map;
 		}
-
+		List<String> values = valueOps().multiGet(keys);
+		if (CollectionUtils.isEmpty(values)) {
+			return map;
+		}
 		Iterator<String> keysIterator = keys.iterator();
 		Iterator<String> valuesIterator = values.iterator();
 		while (keysIterator.hasNext()) {
 			String key = keysIterator.next();
 			String value = valuesIterator.next();
 			if (value != null) {
-				map.put(key, value);
+				T t = convert.apply(value);
+				map.put(key, t);
 			}
 		}
+
 		return map;
 	}
 

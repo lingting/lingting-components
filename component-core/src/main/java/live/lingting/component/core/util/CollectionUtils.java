@@ -5,6 +5,7 @@ import lombok.experimental.UtilityClass;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -94,6 +95,25 @@ public class CollectionUtils {
 			}
 		}
 		return list;
+	}
+
+	public static <K, V> Map<K, V> toMap(Collection<K> keys, Collection<V> values) {
+		Map<K, V> map = new HashMap<>();
+
+		if (keys == null || keys.isEmpty()) {
+			return map;
+		}
+
+		Iterator<K> keyIterator = keys.iterator();
+		Iterator<V> valueIterator = values.iterator();
+
+		while (keyIterator.hasNext() && valueIterator.hasNext()) {
+			K key = keyIterator.next();
+			V value = valueIterator.next();
+			map.put(key, value);
+		}
+
+		return map;
 	}
 
 }
