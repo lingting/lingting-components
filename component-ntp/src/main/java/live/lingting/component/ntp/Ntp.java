@@ -1,10 +1,7 @@
 package live.lingting.component.ntp;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.net.ntp.NTPUDPClient;
-import org.apache.commons.net.ntp.TimeInfo;
 
-import java.net.InetAddress;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -29,8 +26,9 @@ public class Ntp {
 
 	public Ntp(String host) {
 		try {
-			diff = diff(host);
-			log.warn("授时中心时间与系统时间差为 {} 毫秒", diff);
+			NtpDiff ntpDiff = new NtpDiff(host);
+			this.diff = ntpDiff.getDiff();
+			log.warn("授时中心时间[{}]与系统时间[{}]差为 {} 毫秒", ntpDiff.getNtp(), ntpDiff.getSystem(), ntpDiff.getDiff());
 		}
 		catch (Exception e) {
 			throw new NtpException("ntp初始化异常!", e);
@@ -55,22 +53,6 @@ public class Ntp {
 	 */
 	public Ntp use(String host) {
 		return new Ntp(host);
-	}
-
-	/**
-	 * 计算时差
-	 */
-	public long diff(String host) {
-		try {
-			NTPUDPClient client = new NTPUDPClient();
-			TimeInfo time = client.getTime(InetAddress.getByName(host));
-			long systemMillis = System.currentTimeMillis();
-			long ntpMillis = time.getMessage().getTransmitTimeStamp().getTime();
-			return ntpMillis - systemMillis;
-		}
-		catch (Exception e) {
-			throw new NtpException("ntp获取时差异常!", e);
-		}
 	}
 
 	public long diff() {
