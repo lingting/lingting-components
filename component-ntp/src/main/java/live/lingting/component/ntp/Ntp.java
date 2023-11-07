@@ -9,6 +9,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.util.concurrent.TimeUnit;
 
 /**
  * ntp 校时服务
@@ -18,7 +19,7 @@ import java.time.ZoneOffset;
 @Slf4j
 public class Ntp {
 
-	public static final ZoneOffset DEFAULT_ZONE_OFFSET = ZoneOffset.of("+8");
+	public static final ZoneOffset DEFAULT_ZONE_OFFSET = ZoneOffset.of("+0");
 
 	public static final ZoneId DEFAULT_ZONE_ID = DEFAULT_ZONE_OFFSET.normalized();
 
@@ -68,14 +69,30 @@ public class Ntp {
 			return ntpMillis - systemMillis;
 		}
 		catch (Exception e) {
-			throw new NtpException("ntp初始化异常!", e);
+			throw new NtpException("ntp获取时差异常!", e);
 		}
 	}
 
-	public LocalDateTime now() {
+	public Instant instant() {
 		long millis = currentMillis();
-		Instant instant = Instant.ofEpochMilli(millis);
+		return Instant.ofEpochMilli(millis);
+	}
+
+	public LocalDateTime now() {
+		Instant instant = instant();
 		return LocalDateTime.ofInstant(instant, zoneId);
+	}
+
+	public long plusSeconds(long seconds) {
+		return plusMillis(seconds * 1000);
+	}
+
+	public long plusMillis(long millis) {
+		return currentMillis() + millis;
+	}
+
+	public long plus(long time, TimeUnit unit) {
+		return plusMillis(unit.toMillis(time));
 	}
 
 }
