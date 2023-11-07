@@ -73,6 +73,10 @@ public class Ntp {
 		}
 	}
 
+	public long diff() {
+		return diff;
+	}
+
 	public Instant instant() {
 		long millis = currentMillis();
 		return Instant.ofEpochMilli(millis);

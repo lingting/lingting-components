@@ -41,6 +41,14 @@ public class NtpCn {
 		return instance;
 	}
 
+	public long diff() {
+		return instance().diff();
+	}
+
+	public long currentMillis() {
+		return instance().currentMillis();
+	}
+
 	public Instant instant() {
 		return instance().instant();
 	}
