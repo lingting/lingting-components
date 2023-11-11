@@ -1,6 +1,6 @@
 package live.lingting.component.aliyun.oss;
 
-import com.aliyun.sts20150401.models.AssumeRoleResponseBody;
+import com.aliyuncs.auth.sts.AssumeRoleResponse;
 import live.lingting.component.aliyun.oss.domain.AliOssCredentials;
 import live.lingting.component.aliyun.oss.proerties.AliOssProperties;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class AliOss {
 	private final AliSts sts;
 
 	public AliOssCredentials credentials(String action, String objectKey) {
-		AssumeRoleResponseBody.AssumeRoleResponseBodyCredentials stsCredentials = sts.credentials(action,
+		AssumeRoleResponse.Credentials stsCredentials = sts.credentials(action,
 				String.format("acs:oss:*:*:%s/%s", properties.getBucket(), objectKey));
 
 		AliOssCredentials credentials = new AliOssCredentials();

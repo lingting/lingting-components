@@ -1,10 +1,9 @@
 package live.lingting.component.aliyun.oss;
 
-import com.aliyun.sts20150401.Client;
-import com.aliyun.sts20150401.models.AssumeRoleRequest;
-import com.aliyun.sts20150401.models.AssumeRoleResponse;
-import com.aliyun.sts20150401.models.AssumeRoleResponseBody;
-import com.aliyun.teaopenapi.models.Config;
+import com.aliyuncs.DefaultAcsClient;
+import com.aliyuncs.auth.sts.AssumeRoleRequest;
+import com.aliyuncs.auth.sts.AssumeRoleResponse;
+import com.aliyuncs.profile.DefaultProfile;
 import live.lingting.component.aliyun.oss.constant.AliConstants;
 import live.lingting.component.aliyun.oss.domain.AliPolicy;
 import live.lingting.component.aliyun.oss.domain.AliStatement;
@@ -26,23 +25,26 @@ public class AliSts {
 
 	private final AliStsProperties properties;
 
-	private final Client client;
+	private final DefaultProfile profile;
 
-	public AliSts(AliStsProperties properties) throws Exception {
-		this.properties = properties;
-		Config config = new Config().setAccessKeyId(properties.getAccessKey())
-			.setAccessKeySecret(properties.getAccessSecret())
-			.setEndpoint(String.format("sts.%s.aliyuncs.com", properties.getRegion()))
-			.setProtocol(properties.getProtocol());
-		this.client = new Client(config);
+	private final DefaultAcsClient client;
+
+	public AliSts(AliStsProperties properties) {
+		this(properties, DefaultProfile.getProfile(properties.getRegion(), properties.getAccessKey(),
+				properties.getAccessSecret()));
 	}
 
-	public AssumeRoleResponseBody.AssumeRoleResponseBodyCredentials credentials(String action, String resource) {
+	public AliSts(AliStsProperties properties, DefaultProfile profile) {
+		this.properties = properties;
+		this.profile = profile;
+		this.client = new DefaultAcsClient(profile);
+	}
+
+	public AssumeRoleResponse.Credentials credentials(String action, String resource) {
 		return credentials(Collections.singleton(action), Collections.singleton(resource));
 	}
 
-	public AssumeRoleResponseBody.AssumeRoleResponseBodyCredentials credentials(Set<String> actions,
-			Set<String> resources) {
+	public AssumeRoleResponse.Credentials credentials(Set<String> actions, Set<String> resources) {
 		AliPolicy policy = new AliPolicy();
 		AliStatement statement = new AliStatement();
 		statement.setEffect(AliConstants.EFFECT_ALLOW);
@@ -52,17 +54,17 @@ public class AliSts {
 		return credentials(policy);
 	}
 
-	public AssumeRoleResponseBody.AssumeRoleResponseBodyCredentials credentials(AliPolicy policy) {
-		AssumeRoleRequest request = new AssumeRoleRequest().setDurationSeconds(properties.getDurationSeconds())
-			.setRoleSessionName(properties.getRoleSessionName())
-			.setRoleArn(properties.getRoleArn())
-			.setPolicy(JacksonUtils.toJson(policy));
+	public AssumeRoleResponse.Credentials credentials(AliPolicy policy) {
+		AssumeRoleRequest request = new AssumeRoleRequest();
+		request.setDurationSeconds(properties.getDurationSeconds());
+		request.setRoleSessionName(properties.getRoleSessionName());
+		request.setRoleArn(properties.getRoleArn());
+		request.setPolicy(JacksonUtils.toJson(policy));
 
 		try {
-			AssumeRoleResponse response = client.assumeRole(request);
-			AssumeRoleResponseBody body = response.getBody();
-			AssumeRoleResponseBody.AssumeRoleResponseBodyCredentials credentials = body.getCredentials();
-			Assert.notNull(credentials, "credentials 为null");
+			AssumeRoleResponse response = client.getAcsResponse(request);
+			AssumeRoleResponse.Credentials credentials = response.getCredentials();
+			Assert.notNull(credentials, "返回credentials 为 null");
 			return credentials;
 		}
 		catch (Exception e) {

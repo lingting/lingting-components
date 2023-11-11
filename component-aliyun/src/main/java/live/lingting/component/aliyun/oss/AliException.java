@@ -1,8 +1,7 @@
 package live.lingting.component.aliyun.oss;
 
-import com.aliyun.tea.TeaException;
-import com.aliyun.tea.TeaRequest;
-import com.aliyun.tea.TeaUnretryableException;
+import com.aliyuncs.exceptions.ClientException;
+import com.aliyuncs.exceptions.ServerException;
 
 /**
  * @author lingting 2023-11-11 15:16
@@ -14,20 +13,25 @@ public class AliException extends RuntimeException {
 	}
 
 	static String convertMessage(Throwable e) {
-		if (e instanceof TeaUnretryableException) {
-			TeaRequest request = ((TeaUnretryableException) e).getLastRequest();
-			if (request != null) {
-				return "path: " + request.pathname;
-			}
+		String prefix;
+
+		if (e instanceof ServerException) {
+			String code = ((ServerException) e).getErrCode();
+			String msg = ((ServerException) e).getErrMsg();
+			String requestId = ((ServerException) e).getRequestId();
+			prefix = String.format("code: %s; message: %s; requestId: %s;", code, msg, requestId);
+		}
+		else if (e instanceof ClientException) {
+			String code = ((ClientException) e).getErrCode();
+			String msg = ((ClientException) e).getErrMsg();
+			String requestId = ((ClientException) e).getRequestId();
+			prefix = String.format("code: %s; message: %s; requestId: %s;", code, msg, requestId);
+		}
+		else {
+			prefix = "";
 		}
 
-		if (e instanceof TeaException) {
-			String code = ((TeaException) e).getCode();
-			String message = e.getMessage();
-			return String.format("code: %s; message: %s", code, message);
-		}
-
-		return "";
+		return String.format("%s\t%s", prefix, e.getMessage());
 	}
 
 }
