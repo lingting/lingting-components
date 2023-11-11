@@ -66,7 +66,7 @@ public class AliSts {
 			return credentials;
 		}
 		catch (Exception e) {
-			log.error("获取阿里云sts权限异常!", e);
+			log.error("获取阿里云sts权限异常!", new AliException(e));
 			throw new BizException(GlobalResultCode.ALI_ERROR, "获取资源权限异常!");
 		}
 	}
