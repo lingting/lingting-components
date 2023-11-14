@@ -1,4 +1,4 @@
-package live.lingting.component.aliyun.oss;
+package live.lingting.component.aliyun;
 
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;

@@ -1,26 +1,23 @@
-package live.lingting.component.aliyun.oss.proerties;
+package live.lingting.component.aliyun.proerties;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author lingting 2023-04-21 14:18
  */
-@Data
+@Getter
+@Setter
 @ConfigurationProperties(AliStsProperties.PREFIX)
-public class AliStsProperties {
+public class AliStsProperties extends AbstractProperties {
 
 	public static final String PREFIX = "lingting.aliyun.sts";
 
-	private String protocol = "https";
-
+	/**
+	 * 默认sts过期时间, 单位: 秒
+	 */
 	private Long durationSeconds = 3600L;
-
-	private String region;
-
-	private String accessKey;
-
-	private String accessSecret;
 
 	private String roleArn;
 

@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  live.lingting.component.aliyun.oss.configuration.AliAutoConfiguration
+  live.lingting.component.aliyun.configuration.AliAutoConfiguration
