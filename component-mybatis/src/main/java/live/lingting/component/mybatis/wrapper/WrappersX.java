@@ -64,6 +64,15 @@ public final class WrappersX {
 
 	/**
 	 * 获取 LambdaUpdateWrapper&lt;T&gt; 复制 com.baomidou.mybatisplus.core.toolkit.Wrappers
+	 * @param <T> 实体类泛型
+	 * @return LambdaUpdateWrapper&lt;T&gt;
+	 */
+	public static <T> LambdaUpdateWrapper<T> lambdaUpdate() {
+		return new LambdaUpdateWrapper<>();
+	}
+
+	/**
+	 * 获取 LambdaUpdateWrapper&lt;T&gt; 复制 com.baomidou.mybatisplus.core.toolkit.Wrappers
 	 * @param entity 实体类
 	 * @param <T> 实体类泛型
 	 * @return LambdaUpdateWrapper&lt;T&gt;
