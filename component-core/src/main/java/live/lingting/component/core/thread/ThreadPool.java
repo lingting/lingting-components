@@ -1,6 +1,7 @@
 package live.lingting.component.core.thread;
 
 import live.lingting.component.core.function.ThrowingRunnable;
+import live.lingting.component.core.util.IdUtils;
 import live.lingting.component.core.util.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -74,11 +75,19 @@ public class ThreadPool {
 	}
 
 	public void execute(String name, ThrowingRunnable runnable) {
+		// 获取当前线程的traceId
+		String traceId = IdUtils.getTraceId();
+
 		getPool().execute(() -> {
 			Thread thread = Thread.currentThread();
 			String oldName = thread.getName();
 			if (StringUtils.hasText(name)) {
 				thread.setName(name);
+			}
+
+			// 存在则填充
+			if (StringUtils.hasText(traceId)) {
+				IdUtils.fillTraceId(traceId);
 			}
 
 			try {
@@ -93,6 +102,7 @@ public class ThreadPool {
 			}
 			finally {
 				thread.setName(oldName);
+				IdUtils.remoteTraceId();
 			}
 		});
 	}
