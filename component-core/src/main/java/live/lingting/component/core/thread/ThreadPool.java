@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
  * @author lingting 2022/11/17 20:15
  */
 @Slf4j
+@Getter
 @AllArgsConstructor
 @SuppressWarnings("java:S6548")
 public class ThreadPool {
@@ -23,7 +24,6 @@ public class ThreadPool {
 
 	protected static final Integer QUEUE_MAX = 100;
 
-	@Getter
 	protected ThreadPoolExecutor pool;
 
 	static {
@@ -60,7 +60,7 @@ public class ThreadPool {
 	 * 线程池是否活跃
 	 */
 	public boolean isRunning() {
-		return getCount() > 0;
+		return !getPool().isShutdown();
 	}
 
 	/**
