@@ -7,9 +7,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 /**
  * @author lingting 2022/11/17 20:15
@@ -105,6 +109,14 @@ public class ThreadPool {
 				IdUtils.remoteTraceId();
 			}
 		});
+	}
+
+	public <T> CompletableFuture<T> async(Supplier<T> supplier) {
+		return CompletableFuture.supplyAsync(supplier, pool);
+	}
+
+	public <T> Future<T> submit(Callable<T> callable) {
+		return pool.submit(callable);
 	}
 
 }
