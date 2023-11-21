@@ -80,12 +80,12 @@ public class RedisHelper {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static RedisSerializer<String> getKeySerializer() {
+	public static RedisSerializer<String> getKeySerializer() {
 		return (RedisSerializer<String>) getRedisTemplate().getKeySerializer();
 	}
 
 	@SuppressWarnings("unchecked")
-	private static RedisSerializer<String> getValueSerializer() {
+	public static RedisSerializer<String> getValueSerializer() {
 		return (RedisSerializer<String>) getRedisTemplate().getValueSerializer();
 	}
 
