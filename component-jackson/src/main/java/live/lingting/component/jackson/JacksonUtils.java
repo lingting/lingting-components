@@ -3,6 +3,8 @@ package live.lingting.component.jackson;
 import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import live.lingting.component.jackson.module.EnumModule;
@@ -80,6 +82,27 @@ public class JacksonUtils {
 		catch (Exception e) {
 			return defaultVal;
 		}
+	}
+
+	@SneakyThrows
+	public static <T> T toObj(JsonNode node, Class<T> r) {
+		return mapper.treeToValue(node, r);
+	}
+
+	@SneakyThrows
+	public static <T> T toObj(JsonNode node, Type t) {
+		return mapper.treeToValue(node, mapper.constructType(t));
+	}
+
+	@SneakyThrows
+	public static <T> T toObj(JsonNode node, TypeReference<T> t) {
+		JavaType javaType = mapper.constructType(t.getType());
+		return mapper.treeToValue(node, javaType);
+	}
+
+	@SneakyThrows
+	public static JsonNode toNode(String json) {
+		return mapper.readTree(json);
 	}
 
 }
