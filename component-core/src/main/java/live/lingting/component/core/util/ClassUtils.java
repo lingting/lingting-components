@@ -7,6 +7,7 @@ import lombok.experimental.UtilityClass;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.AccessibleObject;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -52,6 +53,8 @@ public class ClassUtils {
 	private static final Map<Class<?>, ClassField[]> CACHE_CLASS_FIELDS = new ConcurrentHashMap<>(16);
 
 	private static final Map<Class<?>, Type[]> CACHE_TYPE_ARGUMENTS = new ConcurrentHashMap<>();
+
+	private static final Map<Class<?>, Constructor<?>[]> CACHE_CONSTRUCTOR = new ConcurrentHashMap<>();
 
 	/**
 	 * 获取指定类的泛型
@@ -382,6 +385,11 @@ public class ClassUtils {
 		}
 
 		return methodName;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T> Constructor<T>[] constructors(Class<T> cls) {
+		return (Constructor<T>[]) CACHE_CONSTRUCTOR.computeIfAbsent(cls, Class::getConstructors);
 	}
 
 }
