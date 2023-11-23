@@ -82,7 +82,7 @@ public class CollectionUtils {
 	 * 提取集合中指定数量的元素,
 	 * @param number 提取元素数量, 不足则有多少提取多少
 	 */
-	public static <T extends Collection<D>, D> List<D> extract(T collection, int number) {
+	public static <D> List<D> extract(Collection<D> collection, int number) {
 		return extract(collection.iterator(), number);
 	}
 
@@ -94,6 +94,38 @@ public class CollectionUtils {
 				break;
 			}
 		}
+		return list;
+	}
+
+	/**
+	 * 分割为多个小list, 每个list最多拥有 size个元素
+	 * @param collection 原始数据
+	 * @param size 单个list最多元素数量
+	 * @return java.util.List<java.util.List<D>>
+	 */
+	public static <D> List<List<D>> split(Collection<D> collection, int size) {
+		return split(collection.iterator(), size);
+	}
+
+	public static <D> List<List<D>> split(Iterator<D> iterator, int size) {
+		List<List<D>> list = new ArrayList<>();
+
+		List<D> items = new ArrayList<>(size);
+
+		while (iterator.hasNext()) {
+			D next = iterator.next();
+			items.add(next);
+
+			if (items.size() == size) {
+				list.add(items);
+				items = new ArrayList<>(size);
+			}
+		}
+
+		if (!CollectionUtils.isEmpty(items)) {
+			list.add(items);
+		}
+
 		return list;
 	}
 

@@ -160,7 +160,7 @@ public class RepeatRedisScript<T> implements RedisScript<T>, InitializingBean {
 		return ScriptUtils.deserializeResult(valueSerializer, result);
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes","java:S2259" })
+	@SuppressWarnings({ "unchecked", "rawtypes", "java:S2259" })
 	protected <K> byte[][] keysAndArgs(RedisSerializer<K> keySerializer, RedisSerializer argsSerializer, List<K> keys,
 			Object[] args) {
 		final int keySize = keys != null ? keys.size() : 0;
