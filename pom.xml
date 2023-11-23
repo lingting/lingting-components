@@ -204,6 +204,11 @@
                 <artifactId>component-security-web</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
+                <artifactId>component-bcpkix</artifactId>
+                <version>${revision}</version>
+            </dependency>
 
             <!--spring-->
             <dependency>
