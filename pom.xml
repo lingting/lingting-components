@@ -18,7 +18,6 @@
         <module>component-dingtalk</module>
         <module>component-datascope</module>
         <module>component-web</module>
-        <module>component-grpc</module>
         <module>component-aliyun</module>
         <module>component-mybatis</module>
         <module>component-validation</module>
@@ -30,6 +29,8 @@
         <module>component-bcpkix</module>
         <module>component-tcp</module>
         <module>component-spring</module>
+        <module>component-grpc-client</module>
+        <module>component-grpc-server</module>
     </modules>
 
     <properties>
@@ -151,7 +152,12 @@
             </dependency>
             <dependency>
                 <groupId>live.lingting.components</groupId>
-                <artifactId>component-grpc</artifactId>
+                <artifactId>component-grpc-client</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
+                <artifactId>component-grpc-server</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
@@ -207,6 +213,11 @@
             <dependency>
                 <groupId>live.lingting.components</groupId>
                 <artifactId>component-bcpkix</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
+                <artifactId>component-actuator</artifactId>
                 <version>${revision}</version>
             </dependency>
 
