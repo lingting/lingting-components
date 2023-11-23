@@ -57,7 +57,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @UtilityClass
-@SuppressWarnings("ConstantConditions")
+@SuppressWarnings({ "ConstantConditions" })
 public class RedisHelper {
 
 	/**
@@ -87,6 +87,10 @@ public class RedisHelper {
 	@SuppressWarnings("unchecked")
 	public static RedisSerializer<String> getValueSerializer() {
 		return (RedisSerializer<String>) getRedisTemplate().getValueSerializer();
+	}
+
+	public static RedisSerializer<String> getStringSerializer() {
+		return getRedisTemplate().getStringSerializer();
 	}
 
 	public static HashOperations<String, String, String> hashOps() {
@@ -135,8 +139,8 @@ public class RedisHelper {
 	}
 
 	public static long del(Collection<String> keys) {
-		Long deleteNumber = getRedisTemplate().delete(keys);
-		return deleteNumber == null ? 0 : deleteNumber;
+		Long l = getRedisTemplate().delete(keys);
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -160,8 +164,8 @@ public class RedisHelper {
 	}
 
 	public static long exists(Collection<String> keys) {
-		Long number = getRedisTemplate().countExistingKeys(keys);
-		return number == null ? 0 : number;
+		Long l = getRedisTemplate().countExistingKeys(keys);
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -218,7 +222,8 @@ public class RedisHelper {
 	 * @see <a href="http://redis.io/commands/ttl">TTL Command</a>
 	 */
 	public static long ttl(String key) {
-		return getRedisTemplate().getExpire(key);
+		Long l = getRedisTemplate().getExpire(key);
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -263,7 +268,8 @@ public class RedisHelper {
 	 * @see #decrBy(String, long)
 	 */
 	public static long decr(String key) {
-		return valueOps().decrement(key);
+		Long l = valueOps().decrement(key);
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -274,7 +280,8 @@ public class RedisHelper {
 	 * @see <a href="http://redis.io/commands/decrby">DecrBy Command</a>
 	 */
 	public static long decrBy(String key, long delta) {
-		return valueOps().decrement(key, delta);
+		Long l = valueOps().decrement(key, delta);
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -338,7 +345,8 @@ public class RedisHelper {
 	 * @see #incrBy(String, long)
 	 */
 	public static long incr(String key) {
-		return valueOps().increment(key);
+		Long l = valueOps().increment(key);
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -357,7 +365,8 @@ public class RedisHelper {
 	 * @see <a href="http://redis.io/commands/incrby">IncrBy Command</a>
 	 */
 	public static long incrBy(String key, long delta) {
-		return valueOps().increment(key, delta);
+		Long l = valueOps().increment(key, delta);
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -368,15 +377,17 @@ public class RedisHelper {
 	 * @return 自增后的 value 值
 	 */
 	public static long incrByAndExpire(String key, long delta, long timeout) {
-		return getRedisTemplate().execute(INCR_BY_EXPIRE_LUA_SCRIPT, Collections.singletonList(key),
+		Long l = getRedisTemplate().execute(INCR_BY_EXPIRE_LUA_SCRIPT, Collections.singletonList(key),
 				String.valueOf(delta), String.valueOf(timeout));
+		return l == null ? 0 : l;
 	}
 
 	/**
 	 * @see #incrBy(String, long)
 	 */
 	public static double incrByFloat(String key, double delta) {
-		return valueOps().increment(key, delta);
+		Double d = valueOps().increment(key, delta);
+		return d == null ? 0 : d;
 	}
 
 	/**
@@ -418,7 +429,7 @@ public class RedisHelper {
 			return map;
 		}
 		List<String> values = valueOps().multiGet(keys);
-		if (CollectionUtils.isEmpty(values)) {
+		if (values == null || CollectionUtils.isEmpty(values)) {
 			return map;
 		}
 		Iterator<String> keysIterator = keys.iterator();
@@ -719,7 +730,8 @@ public class RedisHelper {
 	 * @see <a href="https://redis.io/commands/llen/">LLen Command</a>
 	 */
 	public static long lLen(String key) {
-		return listOps().size(key);
+		Long l = listOps().size(key);
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -764,7 +776,8 @@ public class RedisHelper {
 	 * @see <a href="https://redis.io/commands/lpush/">LPush Command</a>
 	 */
 	public static long lPush(String key, String... elements) {
-		return listOps().leftPushAll(key, elements);
+		Long l = listOps().leftPushAll(key, elements);
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -775,7 +788,8 @@ public class RedisHelper {
 	 * @see <a href="https://redis.io/commands/lpush/">LPush Command</a>
 	 */
 	public static long lPush(String key, List<String> elements) {
-		return listOps().leftPushAll(key, elements);
+		Long l = listOps().leftPushAll(key, elements);
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -805,7 +819,8 @@ public class RedisHelper {
 	 * @see <a href="https://redis.io/commands/lrem/">LRem Command</a>
 	 */
 	public static long lRem(String key, long count, String value) {
-		return listOps().remove(key, count, value);
+		Long l = listOps().remove(key, count, value);
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -862,7 +877,8 @@ public class RedisHelper {
 	 * @see <a href="https://redis.io/commands/rpush/">RPush Command</a>
 	 */
 	public static long rPush(String key, String... values) {
-		return listOps().rightPushAll(key, values);
+		Long l = listOps().rightPushAll(key, values);
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -873,7 +889,8 @@ public class RedisHelper {
 	 * @see <a href="https://redis.io/commands/rpush/">RPush Command</a>
 	 */
 	public static long rPush(String key, List<String> values) {
-		return listOps().rightPushAll(key, values);
+		Long l = listOps().rightPushAll(key, values);
+		return l == null ? 0 : l;
 	}
 
 	// -------------------------- list command end --------------------------------
@@ -890,7 +907,8 @@ public class RedisHelper {
 	 * @see <a href="https://redis.io/commands/sadd/">SAdd Command</a>
 	 */
 	public static long sAdd(String key, String... members) {
-		return setOps().add(key, members);
+		Long l = setOps().add(key, members);
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -903,7 +921,8 @@ public class RedisHelper {
 	 * @see <a href="https://redis.io/commands/sadd/">SAdd Command</a>
 	 */
 	public static long sAdd(String key, List<String> members) {
-		return setOps().add(key, members.toArray(new String[0]));
+		Long l = setOps().add(key, members.toArray(new String[0]));
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -913,7 +932,8 @@ public class RedisHelper {
 	 * @see <a href="https://redis.io/commands/scard/">SCard Command</a>
 	 */
 	public static long sCard(String key) {
-		return setOps().size(key);
+		Long l = setOps().size(key);
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -926,7 +946,8 @@ public class RedisHelper {
 	 * @see <a href="https://redis.io/commands/sismember/">SIsMember Command</a>
 	 */
 	public static boolean sIsMember(String key, String value) {
-		return setOps().isMember(key, value);
+		Boolean member = setOps().isMember(key, value);
+		return Boolean.TRUE.equals(member);
 	}
 
 	/**
@@ -1003,7 +1024,8 @@ public class RedisHelper {
 	 * @see <a href="https://redis.io/commands/srem/">SRem Command</a>
 	 */
 	public static long sRem(String key, String... members) {
-		return setOps().remove(key, (Object[]) members);
+		Long l = setOps().remove(key, (Object[]) members);
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -1032,7 +1054,8 @@ public class RedisHelper {
 	 * @see <a href="https://redis.io/commands/zadd/">ZAdd Command</>
 	 */
 	public static boolean zAdd(String key, double score, String member) {
-		return zSetOps().add(key, member, score);
+		Boolean add = zSetOps().add(key, member, score);
+		return Boolean.TRUE.equals(add);
 	}
 
 	/**
@@ -1050,7 +1073,8 @@ public class RedisHelper {
 			.stream()
 			.map(x -> ZSetOperations.TypedTuple.of(x.getKey(), x.getValue()))
 			.collect(Collectors.toSet());
-		return zSetOps().add(key, tuples);
+		Long l = zSetOps().add(key, tuples);
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -1062,7 +1086,8 @@ public class RedisHelper {
 	 * @see <a href="https://redis.io/commands/zcard/">ZCard Command</a>
 	 */
 	public static long zCard(String key) {
-		return zSetOps().size(key);
+		Long l = zSetOps().size(key);
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -1078,7 +1103,8 @@ public class RedisHelper {
 	 * @see <a href="https://redis.io/commands/zincrby/">ZIncrBy Command</a>
 	 */
 	public static double zIncrBy(String key, double increment, String member) {
-		return zSetOps().incrementScore(key, member, increment);
+		Double d = zSetOps().incrementScore(key, member, increment);
+		return d == null ? 0 : d;
 	}
 
 	/**
@@ -1227,7 +1253,8 @@ public class RedisHelper {
 	 * @see <a href="https://redis.io/commands/zrem/">ZRem Command</a>
 	 */
 	public static long zRem(String key, String... members) {
-		return zSetOps().remove(key, (Object[]) members);
+		Long l = zSetOps().remove(key, (Object[]) members);
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -1366,11 +1393,13 @@ public class RedisHelper {
 	 * @since Redis 5.0.0
 	 */
 	public static long xAck(String key, String group, String... ids) {
-		return streamOps().acknowledge(key, group, ids);
+		Long l = streamOps().acknowledge(key, group, ids);
+		return l == null ? 0 : l;
 	}
 
 	public static long xAck(String key, String group, RecordId... ids) {
-		return streamOps().acknowledge(key, group, ids);
+		Long l = streamOps().acknowledge(key, group, ids);
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -1415,11 +1444,13 @@ public class RedisHelper {
 	 * @since Redis 5.0.0
 	 */
 	public static long xDel(String key, String... ids) {
-		return streamOps().delete(key, ids);
+		Long l = streamOps().delete(key, ids);
+		return l == null ? 0 : l;
 	}
 
 	public static long xDel(String key, RecordId... ids) {
-		return streamOps().delete(key, ids);
+		Long l = streamOps().delete(key, ids);
+		return l == null ? 0 : l;
 	}
 
 	/**
@@ -1449,7 +1480,8 @@ public class RedisHelper {
 	 * @since Redis 5.0.0
 	 */
 	public static long xLen(String key) {
-		return streamOps().size(key);
+		Long l = streamOps().size(key);
+		return l == null ? 0 : l;
 	}
 
 	/**
