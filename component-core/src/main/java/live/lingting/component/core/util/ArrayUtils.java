@@ -2,6 +2,7 @@ package live.lingting.component.core.util;
 
 import lombok.experimental.UtilityClass;
 
+import java.lang.reflect.Array;
 import java.util.Objects;
 
 /**
@@ -11,6 +12,24 @@ import java.util.Objects;
 public class ArrayUtils {
 
 	public static final int NOT_FOUNT = -1;
+
+	/**
+	 * 数组是否为空
+	 * @param obj 对象
+	 * @return true表示为空, 如果对象不为数组, 返回false
+	 */
+	public static boolean isEmpty(Object obj) {
+		if (obj == null) {
+			return true;
+		}
+
+		if (!obj.getClass().isArray()) {
+			return false;
+		}
+
+		int length = Array.getLength(obj);
+		return length < 1;
+	}
 
 	public static <T> boolean isEmpty(T[] array) {
 		return array == null || array.length == 0;

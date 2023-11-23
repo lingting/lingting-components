@@ -9,6 +9,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 /**
  * @author lingting 2022/11/28 10:12
@@ -118,6 +119,19 @@ public class LocalDateTimeUtils {
 
 	public static String format(LocalTime time, DateTimeFormatter formatter) {
 		return formatter.format(time);
+	}
+
+	// endregion
+
+	// region Date
+
+	public static Date toDate(LocalDateTime dateTime) {
+		Long timestamp = toTimestamp(dateTime);
+		return new Date(timestamp);
+	}
+
+	public static LocalDateTime parse(Date date) {
+		return parse(date.getTime());
 	}
 
 	// endregion
