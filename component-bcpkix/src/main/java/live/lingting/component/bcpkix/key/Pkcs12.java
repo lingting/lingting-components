@@ -1,6 +1,6 @@
-package live.lingting.component.bcpkix;
+package live.lingting.component.bcpkix.key;
 
-import live.lingting.component.core.util.StringUtils;
+import live.lingting.component.bcpkix.BcpkixUtils;
 import lombok.Getter;
 
 import java.io.IOException;
@@ -61,15 +61,11 @@ public class Pkcs12 {
 	}
 
 	public String privateKey() {
-		return "-----BEGIN PRIVATE KEY-----\n"
-				+ StringUtils.base64(privateKey.getEncoded()).replaceAll("(.{64})", "$1\n")
-				+ "\n-----END PRIVATE KEY-----\n";
+		return BcpkixUtils.privateKey(privateKey);
 	}
 
 	public String certificate() throws CertificateEncodingException {
-		return "-----BEGIN CERTIFICATE-----\n"
-				+ StringUtils.base64(certificate.getEncoded()).replaceAll("(.{64})", "$1\n")
-				+ "\n-----END CERTIFICATE-----\n";
+		return BcpkixUtils.certificate(certificate);
 	}
 
 }
