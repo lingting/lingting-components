@@ -31,6 +31,7 @@
         <module>component-spring</module>
         <module>component-grpc-client</module>
         <module>component-grpc-server</module>
+        <module>component-actuator</module>
     </modules>
 
     <properties>

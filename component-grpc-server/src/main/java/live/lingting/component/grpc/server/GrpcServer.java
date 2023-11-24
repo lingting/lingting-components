@@ -20,6 +20,14 @@ public class GrpcServer implements ContextComponent {
 		this.server = server;
 	}
 
+	public boolean isRunning() {
+		return !server.isShutdown() && !server.isTerminated();
+	}
+
+	public int port() {
+		return server.getPort();
+	}
+
 	@Override
 	@SneakyThrows
 	public void onApplicationStart() {
