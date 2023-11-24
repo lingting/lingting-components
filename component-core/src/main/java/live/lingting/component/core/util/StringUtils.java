@@ -219,4 +219,20 @@ public class StringUtils {
 		return Base64.getDecoder().decode(base64);
 	}
 
+	/**
+	 * 往前缀追加 指定数量的指定字符
+	 * @param prefix 前缀
+	 * @param count 数量
+	 * @param str 指定字符
+	 * @return 追加完成后的字符串
+	 */
+	public static String append(String prefix, int count, String str) {
+		StringBuilder builder = new StringBuilder(prefix);
+
+		for (int i = 0; i < count; i++) {
+			builder.append(str);
+		}
+		return builder.toString();
+	}
+
 }
