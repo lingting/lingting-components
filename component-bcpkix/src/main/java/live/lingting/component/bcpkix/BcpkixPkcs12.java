@@ -1,6 +1,5 @@
-package live.lingting.component.bcpkix.key;
+package live.lingting.component.bcpkix;
 
-import live.lingting.component.bcpkix.BcpkixUtils;
 import lombok.Getter;
 
 import java.io.IOException;
@@ -19,7 +18,7 @@ import java.util.Enumeration;
  * @author lingting 2023-09-25 10:20
  */
 @SuppressWarnings("unused")
-public class Pkcs12 {
+public class BcpkixPkcs12 {
 
 	private final KeyStore store;
 
@@ -32,7 +31,7 @@ public class Pkcs12 {
 	@Getter
 	private final Certificate certificate;
 
-	public Pkcs12(KeyStore store, char[] password)
+	public BcpkixPkcs12(KeyStore store, char[] password)
 			throws KeyStoreException, UnrecoverableKeyException, NoSuchAlgorithmException {
 		this.store = store;
 		this.password = password;
@@ -53,11 +52,11 @@ public class Pkcs12 {
 		this.certificate = localCertificate;
 	}
 
-	public static Pkcs12 ofPfx(InputStream in, char[] password) throws KeyStoreException, CertificateException,
+	public static BcpkixPkcs12 ofPfx(InputStream in, char[] password) throws KeyStoreException, CertificateException,
 			IOException, NoSuchAlgorithmException, UnrecoverableKeyException {
 		KeyStore pkcs12 = KeyStore.getInstance("PKCS12");
 		pkcs12.load(in, password);
-		return new Pkcs12(pkcs12, password);
+		return new BcpkixPkcs12(pkcs12, password);
 	}
 
 	public String privateKey() {
