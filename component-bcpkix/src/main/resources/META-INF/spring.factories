@@ -1,0 +1,2 @@
+org.springframework.context.ApplicationListener=\
+  live.lingting.component.bcpkix.spring.BcpkixSpringBootInitialized

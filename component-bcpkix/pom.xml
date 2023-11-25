@@ -22,6 +22,11 @@
             <groupId>live.lingting.components</groupId>
             <artifactId>component-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>live.lingting.components</groupId>
+            <artifactId>component-spring</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
 </project>
