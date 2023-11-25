@@ -59,12 +59,10 @@
         <jsqlparser.version>4.5</jsqlparser.version>
 
         <!--other-->
+        <bouncycastle.version>1.77</bouncycastle.version>
         <hutool.version>5.8.10</hutool.version>
         <commons-net.version>3.9.0</commons-net.version>
         <javassist.version>3.29.2-GA</javassist.version>
-
-        <!--bcprov-->
-        <bcprov.version>1.76</bcprov.version>
 
         <!--插件版本-->
         <maven-compiler-plugin.verison>3.10.1</maven-compiler-plugin.verison>
@@ -351,11 +349,11 @@
                 <version>${org.projectlombok.version}</version>
             </dependency>
 
-            <!--bcprov-->
+            <!--bouncycastle-->
             <dependency>
                 <groupId>org.bouncycastle</groupId>
-                <artifactId>bcprov-jdk18on</artifactId>
-                <version>${bcprov.version}</version>
+                <artifactId>bcpkix-jdk18on</artifactId>
+                <version>${bouncycastle.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
