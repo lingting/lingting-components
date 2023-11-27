@@ -12,11 +12,11 @@ import okhttp3.RequestBody;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import java.util.function.Supplier;
 
 /**
@@ -35,8 +35,6 @@ public class DingTalkSender {
 	 */
 	private final String url;
 
-	private final Mac mac;
-
 	/**
 	 * 密钥
 	 */
@@ -45,10 +43,8 @@ public class DingTalkSender {
 	@Setter
 	private Supplier<Long> currentTimeMillisSupplier = System::currentTimeMillis;
 
-	@SneakyThrows(NoSuchAlgorithmException.class)
 	public DingTalkSender(String url) {
 		this.url = url;
-		mac = Mac.getInstance("HmacSHA256");
 	}
 
 	/**
@@ -81,12 +77,8 @@ public class DingTalkSender {
 	/**
 	 * 设置密钥
 	 */
-	@SneakyThrows(InvalidKeyException.class)
 	public DingTalkSender setSecret(String secret) {
-		if (StringUtils.hasText(secret)) {
-			this.secret = secret;
-			mac.init(new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256"));
-		}
+		this.secret = org.springframework.util.StringUtils.hasText(secret) ? secret : null;
 		return this;
 	}
 
@@ -94,11 +86,18 @@ public class DingTalkSender {
 	 * 获取签名后的请求路径
 	 * @param timestamp 当前时间戳
 	 */
-	@SneakyThrows
+	@SneakyThrows({ UnsupportedEncodingException.class, NoSuchAlgorithmException.class, InvalidKeyException.class })
 	public String secret(long timestamp) {
+		SecretKeySpec key = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+
+		Mac mac = Mac.getInstance("HmacSHA256");
+		mac.init(key);
+
 		byte[] secretBytes = (timestamp + "\n" + secret).getBytes(StandardCharsets.UTF_8);
-		String secretBase64 = Base64.getEncoder().encodeToString(mac.doFinal(secretBytes));
-		String sign = URLEncoder.encode(secretBase64, "utf-8");
+		byte[] bytes = mac.doFinal(secretBytes);
+
+		String base64 = java.util.Base64.getEncoder().encodeToString(bytes);
+		String sign = URLEncoder.encode(base64, "UTF-8");
 		return String.format("%s&timestamp=%s&sign=%s", url, timestamp, sign);
 	}
 

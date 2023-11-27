@@ -1,6 +1,6 @@
 package live.lingting.component.dingtalk;
 
-import cn.hutool.core.convert.Convert;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,7 +10,6 @@ import lombok.SneakyThrows;
 import lombok.experimental.Accessors;
 
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * 钉钉返回信息
@@ -22,26 +21,26 @@ import java.util.Map;
 @Accessors(chain = true)
 public class DingTalkResponse {
 
+	@Setter
+	private static ObjectMapper mapper = new ObjectMapper();
+
 	public static final Long SUCCESS_CODE = 0L;
 
 	@SneakyThrows({ StreamReadException.class, DatabindException.class, IOException.class })
-	public DingTalkResponse(String res) {
-		Map<?, ?> resMap = new ObjectMapper().readValue(res.getBytes(), Map.class);
-		this.response = res;
-		this.code = Convert.toLong(resMap.get("errcode"));
-		this.message = Convert.toStr(resMap.get("errmsg"));
-		this.success = SUCCESS_CODE.equals(this.code);
-	}
-
 	public static DingTalkResponse of(String res) {
-		return new DingTalkResponse(res);
+		DingTalkResponse value = mapper.readValue(res, DingTalkResponse.class);
+		value.setResponse(res);
+		value.setSuccess(SUCCESS_CODE.equals(value.code));
+		return value;
 	}
 
+	@JsonProperty("errcode")
 	private Long code;
 
 	/**
 	 * 值为ok表示无异常
 	 */
+	@JsonProperty("errmsg")
 	private String message;
 
 	/**
