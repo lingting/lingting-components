@@ -130,7 +130,8 @@ public class RepeatRedisScript<T> implements RedisScript<T>, InitializingBean {
 		if (connection.isPipelined() || connection.isQueueing()) {
 			// We could script load first and then do evalsha to ensure sha is present,
 			// but this adds a sha1 to exec/closePipeline results. Instead, just eval
-			connection.eval(bytes(), returnType, keySize, keysAndArgs);
+			byte[] scriptBytes = bytes();
+			connection.eval(scriptBytes, returnType, keySize, keysAndArgs);
 			return null;
 		}
 		return eval(connection, returnType, keySize, keysAndArgs, valueSerializer);

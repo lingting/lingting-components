@@ -142,7 +142,9 @@ public class CollectionUtils {
 		while (keyIterator.hasNext() && valueIterator.hasNext()) {
 			K key = keyIterator.next();
 			V value = valueIterator.next();
-			map.put(key, value);
+			if (key != null && value != null) {
+				map.put(key, value);
+			}
 		}
 
 		return map;
