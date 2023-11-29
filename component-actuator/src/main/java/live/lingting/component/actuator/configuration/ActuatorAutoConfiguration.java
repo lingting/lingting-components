@@ -4,6 +4,7 @@ import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.binder.MeterBinder;
 import live.lingting.component.actuator.MeterRegisterHandler;
 import live.lingting.component.actuator.health.DiskSpaceReadableHealthIndicator;
+import live.lingting.component.actuator.health.ThreadPoolHealthIndicator;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
 import org.springframework.boot.actuate.autoconfigure.system.DiskSpaceHealthContributorAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.system.DiskSpaceHealthIndicatorProperties;
@@ -26,6 +27,12 @@ public class ActuatorAutoConfiguration {
 	@ConditionalOnBean(MeterRegistry.class)
 	public MeterRegisterHandler meterRegisterHandler(MeterRegistry registry, List<MeterBinder> binders) {
 		return new MeterRegisterHandler(registry, binders);
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public ThreadPoolHealthIndicator threadPoolHealthIndicator() {
+		return new ThreadPoolHealthIndicator();
 	}
 
 	@Bean
