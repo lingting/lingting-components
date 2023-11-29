@@ -26,7 +26,7 @@ public class ThreadPool {
 
 	protected static final ThreadPool THREAD_POOL;
 
-	protected static final Integer QUEUE_MAX = 100;
+	protected static final Integer QUEUE_MAX = 10;
 
 	protected ThreadPoolExecutor pool;
 
@@ -34,8 +34,8 @@ public class ThreadPool {
 		THREAD_POOL = new ThreadPool(new ThreadPoolExecutor(
 				// 核心线程数大小. 不论是否空闲都存在的线程
 				300,
-				// 最大线程数 - 10万个
-				100000,
+				// 最大线程数 - 1万个
+				10000,
 				// 存活时间. 非核心线程数如果空闲指定时间. 就回收
 				// 存活时间不宜过长. 避免任务量遇到尖峰情况时. 大量空闲线程占用资源
 				10,
@@ -61,7 +61,7 @@ public class ThreadPool {
 	}
 
 	/**
-	 * 线程池是否活跃
+	 * 线程池是否运行中
 	 */
 	public boolean isRunning() {
 		ThreadPoolExecutor executor = getPool();
@@ -69,10 +69,48 @@ public class ThreadPool {
 	}
 
 	/**
-	 * 线程当前活跃数量
+	 * 核心线程数
 	 */
-	public long getCount() {
+	public long getCorePoolSize() {
+		return getPool().getCorePoolSize();
+	}
+
+	/**
+	 * 活跃线程数
+	 */
+	public long getActiveCount() {
+		return getPool().getActiveCount();
+	}
+
+	/**
+	 * 已执行任务总数
+	 */
+	public long getTaskCount() {
 		return getPool().getTaskCount();
+	}
+
+	/**
+	 * 允许的最大线程数量
+	 */
+	public long getMaximumPoolSize() {
+		return getPool().getMaximumPoolSize();
+	}
+
+	/**
+	 * 是否可能触发拒绝策略, 仅为估算
+	 */
+	public boolean isReject() {
+		long activeCount = getActiveCount();
+		long size = getMaximumPoolSize();
+
+		// 活跃线程占比未达到 90% 不可能
+		long per = activeCount / size;
+		if (per <= 90) {
+			return false;
+		}
+
+		// 占比达到90%的情况下, 剩余可用线程数小于10 则可能触发拒绝
+		return size - activeCount < 10;
 	}
 
 	public void execute(ThrowingRunnable runnable) {

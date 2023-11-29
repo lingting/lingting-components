@@ -5,8 +5,6 @@ import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.Status;
 
-import java.util.concurrent.ThreadPoolExecutor;
-
 /**
  * @author lingting 2023-07-25 14:35
  */
@@ -15,13 +13,12 @@ public class ThreadPoolHealthIndicator extends AbstractHealthIndicator {
 	@Override
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
 		ThreadPool instance = ThreadPool.instance();
-		ThreadPoolExecutor pool = instance.getPool();
 
 		builder.status(instance.isRunning() ? Status.UP : Status.DOWN)
-			.withDetail("CorePoolSize", pool.getCorePoolSize())
-			.withDetail("TaskCount", pool.getTaskCount())
-			.withDetail("ActiveCount", pool.getActiveCount())
-			.withDetail("MaximumPoolSize", pool.getMaximumPoolSize());
+			.withDetail("CorePoolSize", instance.getCorePoolSize())
+			.withDetail("TaskCount", instance.getTaskCount())
+			.withDetail("ActiveCount", instance.getActiveCount())
+			.withDetail("MaximumPoolSize", instance.getMaximumPoolSize());
 	}
 
 }
