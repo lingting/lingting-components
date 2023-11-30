@@ -20,7 +20,7 @@ public abstract class AbstractThreadContextComponent extends Thread implements C
 
 	@Override
 	public void onApplicationStart() {
-		setName(getClass().getSimpleName());
+		setName(getSimpleName());
 		if (!isAlive()) {
 			start();
 		}
@@ -28,7 +28,7 @@ public abstract class AbstractThreadContextComponent extends Thread implements C
 
 	@Override
 	public void onApplicationStop() {
-		log.warn("{} 线程: {}; 开始关闭!", getClass().getSimpleName(), getId());
+		log.warn("{} 线程: {}; 开始关闭!", getSimpleName(), getId());
 		interrupt();
 	}
 
