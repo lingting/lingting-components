@@ -57,7 +57,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @UtilityClass
-@SuppressWarnings({ "ConstantConditions" })
+@SuppressWarnings({ "ConstantConditions", "unused" })
 public class RedisHelper {
 
 	/**
@@ -117,7 +117,7 @@ public class RedisHelper {
 		return getRedisTemplate().opsForStream();
 	}
 
-	// --------------------- key command start -----------------
+	// region key
 
 	/**
 	 * 删除指定的 key
@@ -257,9 +257,9 @@ public class RedisHelper {
 		ScanOptions scanOptions = ScanOptions.scanOptions().match(patten).count(count).build();
 		return scan(scanOptions);
 	}
-	// ====================== key command end ==================
+	// endregion
 
-	// ---------------------- string command start ---------------
+	// region string
 
 	/**
 	 * 当 key 存在时，对其值进行自减操作 （自减步长为 1），当 key 不存在时，则先赋值为 0 再进行自减
@@ -556,9 +556,9 @@ public class RedisHelper {
 		return Boolean.TRUE.equals(valueOps().setIfAbsent(key, value, timeout, timeUnit));
 	}
 
-	// ----------------------- string command end -------------
+	// endregion
 
-	// ---------------------- hash command start ---------------
+	// region hash
 	/**
 	 * 删除指定 hash 的 fields
 	 * @param key hash 的 key
@@ -708,9 +708,9 @@ public class RedisHelper {
 		return hashOps().values(key);
 	}
 
-	// -------------------------- hash command end --------------------------------
+	// endregion
 
-	// -------------------------- list command start --------------------------------
+	// region list
 
 	/**
 	 * 获取指定 list 指定索引位置的元素
@@ -893,9 +893,9 @@ public class RedisHelper {
 		return l == null ? 0 : l;
 	}
 
-	// -------------------------- list command end --------------------------------
+	// endregion
 
-	// -------------------------- Set command start --------------------------------
+	// region Set
 
 	/**
 	 * 将指定的 member 添加到 Set 中，如果 Set 中已有该 member 则忽略。如果 Set 不存在，则先创建一个新的 Set，再进行添加
@@ -1038,9 +1038,9 @@ public class RedisHelper {
 		return setOps().scan(key, scanOptions);
 	}
 
-	// -------------------------- Set command end --------------------------------
+	// endregion
 
-	// ---------------------- Sorted Set command start ----------------------------
+	// region Sorted Set
 
 	/**
 	 * 添加拥有指定 score 的 member 到 Sorted Set 中。如果 member 在 Sorted Set 中已存在，则更新 score，并进行重排序。
@@ -1307,7 +1307,7 @@ public class RedisHelper {
 		return zSetOps().score(key, member);
 	}
 
-	// -------------------------------- lua 脚本 --------------------------
+	// region lua 脚本
 	/**
 	 * 执行 lua脚本
 	 * @param action redis 操作
@@ -1340,7 +1340,7 @@ public class RedisHelper {
 		return getRedisTemplate().execute(script, argsSerializer, resultSerializer, keys, args);
 	}
 
-	// ----------------------- pipelined 操作 --------------------
+	// region pipelined 操作
 
 	public static List<Object> executePipelined(SessionCallback<?> session) {
 		return getRedisTemplate().executePipelined(session);
@@ -1360,7 +1360,7 @@ public class RedisHelper {
 		return getRedisTemplate().executePipelined(action, resultSerializer);
 	}
 
-	// =================== PUB/SUB command start =================
+	// endregion
 
 	/**
 	 * Publish 一条消息
@@ -1380,9 +1380,11 @@ public class RedisHelper {
 		getRedisTemplate().convertAndSend(channel, message);
 	}
 
-	// =================== PUB/SUB command end =================
+	// endregion
 
-	// =================== Stream command start =================
+	// endregion
+
+	// region x
 
 	/**
 	 * XACK key group ID [ID ...]
@@ -1542,5 +1544,51 @@ public class RedisHelper {
 			StreamReadOptions streamReadOptions, StreamOffset<String>... streams) {
 		return streamOps().read(Consumer.from(group, consumer), streamReadOptions, streams);
 	}
+
+	// endregion
+
+	// region pipelined
+
+	public static void pipelined(java.util.function.Consumer<RedisConnection> consumer) {
+		getRedisTemplate().executePipelined((RedisCallback<Object>) connection -> {
+			consumer.accept(connection);
+			return null;
+		});
+	}
+
+	public static void pipelinedSetEx(String key, String value, long seconds) {
+		pipelinedSetEx(key, getValueSerializer().serialize(value), seconds);
+	}
+
+	public static void pipelinedSetEx(String key, byte[] value, long seconds) {
+		if (value == null) {
+			return;
+		}
+		byte[] bytes = getKeySerializer().serialize(key);
+		if (bytes == null) {
+			return;
+		}
+		pipelined(connection -> pipelinedSetEx(connection, bytes, value, seconds));
+	}
+
+	public static void pipelinedSetEx(RedisConnection connection, String key, String value, long seconds) {
+		pipelinedSetEx(connection, key, getValueSerializer().serialize(value), seconds);
+	}
+
+	public static void pipelinedSetEx(RedisConnection connection, String key, byte[] value, long seconds) {
+		if (value == null) {
+			return;
+		}
+		pipelinedSetEx(connection, getKeySerializer().serialize(key), value, seconds);
+	}
+
+	public static void pipelinedSetEx(RedisConnection connection, byte[] key, byte[] value, long seconds) {
+		if (key == null || value == null) {
+			return;
+		}
+		connection.setEx(key, seconds, value);
+	}
+
+	// endregion
 
 }
