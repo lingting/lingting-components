@@ -34,11 +34,18 @@ public class CachedOps extends AbstractCacheOps {
 
 	private Consumer<Object> put;
 
+	/**
+	 * 在Redis中锁竞争失败时的重试次数
+	 */
+	private final int retryCount;
+
 	public CachedOps(ProceedingJoinPoint point, Cached annotation, KeyGenerator generator,
-			ThrowingFunction<String, Object> deserializer, ThrowingFunction<Object, String> serializer) {
+			ThrowingFunction<String, Object> deserializer, ThrowingFunction<Object, String> serializer,
+			int retryCount) {
 		this.point = point;
 		this.deserializer = deserializer;
 		this.serializer = serializer;
+		this.retryCount = retryCount;
 		this.key = generator.getKey(annotation.key(), annotation.keyJoint());
 		// redis 分布式锁的 key
 		this.lockKey = key + CachePropertiesHolder.lockKeySuffix();
@@ -82,26 +89,32 @@ public class CachedOps extends AbstractCacheOps {
 			return deserializer.apply(cache);
 		}
 		// 2.==========如果缓存为空 则需查询数据库并更新===============
-		cache = DistributedLock.<String>instance().action(lockKey, () -> {
-			// 再次查询
-			String value = query();
-			if (value != null) {
-				return value;
-			}
-
-			// 从数据库查询数据
-			Object object = point.proceed();
-			// 如果数据库中没数据，填充一个String，防止缓存击穿
-			value = dbToCache(object, serializer);
-			put(value);
-			return value;
-		}).onLockFail(this::query).lock();
+		cache = DistributedLock.<String>instance()
+			.action(lockKey, this::byDb)
+			.onLockFail(this::query)
+			.retryCount(retryCount)
+			.lock();
 
 		// 自旋时间内未获取到锁，或者数据库中数据为空，返回null
 		if (cache == null || nullValue(cache)) {
 			return null;
 		}
 		return deserializer.apply(cache);
+	}
+
+	protected String byDb() throws Throwable {
+		// 再次查询
+		String value = query();
+		if (value != null) {
+			return value;
+		}
+
+		// 从数据库查询数据
+		Object object = point.proceed();
+		// 如果数据库中没数据，填充一个String，防止缓存击穿
+		value = dbToCache(object, serializer);
+		put(value);
+		return value;
 	}
 
 }

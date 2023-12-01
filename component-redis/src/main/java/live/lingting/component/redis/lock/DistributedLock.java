@@ -2,6 +2,7 @@ package live.lingting.component.redis.lock;
 
 import live.lingting.component.redis.lock.function.ExceptionHandler;
 import live.lingting.component.redis.lock.function.ThrowingExecutor;
+import lombok.SneakyThrows;
 import org.springframework.util.Assert;
 
 import java.util.UUID;
@@ -22,6 +23,8 @@ public final class DistributedLock<T> implements Action<T>, StateHandler<T> {
 	Long timeout;
 
 	TimeUnit timeUnit;
+
+	int retryCount;
 
 	ThrowingExecutor<T> executeAction;
 
@@ -71,9 +74,35 @@ public final class DistributedLock<T> implements Action<T>, StateHandler<T> {
 	}
 
 	@Override
+	public StateHandler<T> retryCount(int retryCount) {
+		this.retryCount = retryCount;
+		return this;
+	}
+
+	@SneakyThrows
+	Boolean tryLock(String requestId) {
+		Fibonacci fibonacci = new Fibonacci(50);
+		int tryCount = 0;
+		while (true) {
+			tryCount++;
+
+			Boolean lockSuccess = CacheLock.lock(this.key, requestId, this.timeout, this.timeUnit);
+			if (Boolean.TRUE.equals(lockSuccess)) {
+				return true;
+			}
+
+			if (this.retryCount >= 0 && tryCount > this.retryCount) {
+				return false;
+			}
+
+			Thread.sleep(fibonacci.next());
+		}
+	}
+
+	@Override
 	public T lock() {
 		String requestId = UUID.randomUUID().toString();
-		if (Boolean.TRUE.equals(CacheLock.lock(this.key, requestId, this.timeout, this.timeUnit))) {
+		if (Boolean.TRUE.equals(tryLock(requestId))) {
 			T value = null;
 			boolean exResolved = false;
 			try {
@@ -100,6 +129,32 @@ public final class DistributedLock<T> implements Action<T>, StateHandler<T> {
 	@SuppressWarnings("unchecked")
 	private static <E extends Throwable> void throwException(Throwable t) throws E {
 		throw (E) t;
+	}
+
+	static class Fibonacci {
+
+		private long current;
+
+		private long prev = 0;
+
+		private boolean first = true;
+
+		public Fibonacci(int initial) {
+			this.current = initial;
+		}
+
+		public long next() {
+			long next = this.current + this.prev;
+			if (first) {
+				first = false;
+			}
+			else {
+				this.prev = this.current;
+				this.current = next;
+			}
+			return next;
+		}
+
 	}
 
 }

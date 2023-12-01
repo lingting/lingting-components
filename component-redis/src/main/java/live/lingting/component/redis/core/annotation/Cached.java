@@ -47,4 +47,10 @@ public @interface Cached {
 	 */
 	TimeUnit timeUnit() default TimeUnit.SECONDS;
 
+	/**
+	 * 锁竞争失败时的重试次数
+	 * @return 负数: 无限重试， 0: 不重试， 正数: 重试次数
+	 */
+	int retryCount() default 3;
+
 }

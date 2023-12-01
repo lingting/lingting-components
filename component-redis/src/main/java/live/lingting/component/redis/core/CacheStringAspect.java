@@ -77,7 +77,8 @@ public class CacheStringAspect {
 		if (cachedAnnotation != null) {
 			Type returnType = method.getGenericReturnType();
 			CachedOps ops = new CachedOps(point, cachedAnnotation, keyGenerator,
-					str -> cacheSerializer.deserialize(str, returnType), cacheSerializer::serialize);
+					str -> cacheSerializer.deserialize(str, returnType), cacheSerializer::serialize,
+					cachedAnnotation.retryCount());
 
 			long ttl = cachedAnnotation.ttl();
 			TimeUnit unit = cachedAnnotation.timeUnit();
