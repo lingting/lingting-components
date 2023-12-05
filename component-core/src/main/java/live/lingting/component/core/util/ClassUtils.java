@@ -294,6 +294,7 @@ public class ClassUtils {
 			List<ClassField> fields = new ArrayList<>();
 			while (k != null && !k.isAssignableFrom(Object.class)) {
 				for (Field field : k.getDeclaredFields()) {
+					field.setAccessible(true);
 					String fieldName = StringUtils.firstUpper(field.getName());
 					// 尝试获取get方法
 					String getMethodName = StringConstants.GET + fieldName;
