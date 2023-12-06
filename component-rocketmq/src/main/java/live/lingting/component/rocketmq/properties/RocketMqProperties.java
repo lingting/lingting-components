@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 @ConfigurationProperties(RocketMqProperties.PREFIX)
 public class RocketMqProperties {
 
-	public static final String PREFIX = "live.lingting.rocketmq";
+	public static final String PREFIX = "lingting.rocketmq";
 
 	private String host;
 
