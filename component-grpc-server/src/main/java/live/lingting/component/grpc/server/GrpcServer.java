@@ -1,7 +1,7 @@
 package live.lingting.component.grpc.server;
 
 import io.grpc.Server;
-import live.lingting.component.core.ContextComponent;
+import live.lingting.component.core.context.ContextComponent;
 import live.lingting.component.core.util.ThreadUtils;
 import lombok.Getter;
 import lombok.SneakyThrows;

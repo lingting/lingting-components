@@ -1,6 +1,7 @@
 package live.lingting.component.core.thread;
 
-import live.lingting.component.core.ContextComponent;
+import live.lingting.component.core.context.ContextComponent;
+import live.lingting.component.core.context.ContextHolder;
 import org.slf4j.Logger;
 
 /**
@@ -15,7 +16,7 @@ public abstract class AbstractThreadContextComponent extends Thread implements C
 	}
 
 	public boolean isRun() {
-		return !isInterrupted() && isAlive();
+		return !isInterrupted() && isAlive() && ContextHolder.isStop();
 	}
 
 	@Override

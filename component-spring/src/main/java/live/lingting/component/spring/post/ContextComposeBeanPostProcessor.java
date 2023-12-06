@@ -1,6 +1,6 @@
 package live.lingting.component.spring.post;
 
-import live.lingting.component.core.ContextComponent;
+import live.lingting.component.core.context.ContextComponent;
 import live.lingting.component.spring.ComponentBeanPostProcessor;
 
 /**

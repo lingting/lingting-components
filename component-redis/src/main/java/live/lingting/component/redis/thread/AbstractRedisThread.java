@@ -155,7 +155,7 @@ public abstract class AbstractRedisThread<E> extends AbstractQueueThread<E> {
 	@Override
 	public boolean isRun() {
 		// 运行中 且 未被中断
-		return run && !isInterrupted();
+		return super.isRun() && run;
 	}
 
 }

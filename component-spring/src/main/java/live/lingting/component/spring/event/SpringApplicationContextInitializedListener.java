@@ -4,6 +4,7 @@ import live.lingting.component.spring.util.SpringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationContextInitializedEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
 /**
@@ -12,8 +13,9 @@ import org.springframework.core.annotation.Order;
  * @author lingting 2022/10/15 15:27
  */
 @Slf4j
-@Order
-public class SpringApplicationContextInitialized implements ApplicationListener<ApplicationContextInitializedEvent> {
+@Order(Ordered.HIGHEST_PRECEDENCE)
+public class SpringApplicationContextInitializedListener
+		implements ApplicationListener<ApplicationContextInitializedEvent> {
 
 	@Override
 	public void onApplicationEvent(ApplicationContextInitializedEvent event) {
