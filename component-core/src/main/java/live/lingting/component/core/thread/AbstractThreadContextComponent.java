@@ -16,7 +16,7 @@ public abstract class AbstractThreadContextComponent extends Thread implements C
 	}
 
 	public boolean isRun() {
-		return !isInterrupted() && isAlive() && ContextHolder.isStop();
+		return !isInterrupted() && isAlive() && !ContextHolder.isStop();
 	}
 
 	@Override
