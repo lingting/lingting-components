@@ -33,6 +33,7 @@
         <module>component-grpc-server</module>
         <module>component-actuator</module>
         <module>component-rocketmq</module>
+        <module>component-elasticsearch</module>
     </modules>
 
     <properties>
@@ -66,6 +67,7 @@
         <hutool.version>5.8.10</hutool.version>
         <commons-net.version>3.9.0</commons-net.version>
         <javassist.version>3.29.2-GA</javassist.version>
+        <elasticsearch.version>7.17.9</elasticsearch.version>
 
         <!--插件版本-->
         <maven-compiler-plugin.verison>3.10.1</maven-compiler-plugin.verison>
@@ -227,6 +229,11 @@
                 <artifactId>component-rocketmq</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
+                <artifactId>component-elasticsearch</artifactId>
+                <version>${revision}</version>
+            </dependency>
 
             <!--spring-->
             <dependency>
@@ -370,6 +377,19 @@
                 <artifactId>bcpkix-jdk18on</artifactId>
                 <version>${bouncycastle.version}</version>
             </dependency>
+
+            <!--elastic-->
+            <dependency>
+                <groupId>co.elastic.clients</groupId>
+                <artifactId>elasticsearch-java</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
