@@ -32,6 +32,7 @@
         <module>component-grpc-client</module>
         <module>component-grpc-server</module>
         <module>component-actuator</module>
+        <module>component-rocketmq</module>
     </modules>
 
     <properties>
@@ -45,6 +46,8 @@
         <ali.sdk.version>4.5.10</ali.sdk.version>
         <ali.oss.version>3.16.2</ali.oss.version>
         <ali.easyexcel.version>3.2.1</ali.easyexcel.version>
+
+        <rocketmq.version>4.9.6</rocketmq.version>
 
         <!--grpc-->
         <grpc.version>1.53.0</grpc.version>
@@ -219,6 +222,11 @@
                 <artifactId>component-actuator</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
+                <artifactId>component-rocketmq</artifactId>
+                <version>${revision}</version>
+            </dependency>
 
             <!--spring-->
             <dependency>
@@ -274,6 +282,13 @@
                 <groupId>com.aliyun.oss</groupId>
                 <artifactId>aliyun-sdk-oss</artifactId>
                 <version>${ali.oss.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-all</artifactId>
+                <version>${rocketmq.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
             </dependency>
 
             <!-- grpc -->
