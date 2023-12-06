@@ -83,4 +83,8 @@ public class WaitValue<T> {
 		}
 	}
 
+	public boolean isNull() {
+		return value == null;
+	}
+
 }
