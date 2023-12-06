@@ -1,4 +1,4 @@
-package live.lingting.component.core;
+package live.lingting.component.core.r;
 
 import live.lingting.component.core.enums.GlobalResultCode;
 import lombok.AccessLevel;

@@ -2,7 +2,7 @@ package live.lingting.component.security.web.exception;
 
 import live.lingting.component.security.exception.AuthorizationException;
 import live.lingting.component.security.exception.PermissionsException;
-import live.lingting.component.core.R;
+import live.lingting.component.core.r.R;
 import live.lingting.component.core.enums.GlobalResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;

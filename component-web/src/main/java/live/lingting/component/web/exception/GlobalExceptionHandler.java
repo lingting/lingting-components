@@ -1,7 +1,7 @@
 
 package live.lingting.component.web.exception;
 
-import live.lingting.component.core.R;
+import live.lingting.component.core.r.R;
 import live.lingting.component.core.enums.GlobalResultCode;
 import live.lingting.component.core.exception.BizException;
 import live.lingting.component.web.constant.WebConstants;

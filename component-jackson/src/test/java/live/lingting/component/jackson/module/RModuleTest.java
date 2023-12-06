@@ -1,7 +1,7 @@
 package live.lingting.component.jackson.module;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import live.lingting.component.core.R;
+import live.lingting.component.core.r.R;
 import live.lingting.component.jackson.JacksonUtils;
 import lombok.Data;
 import lombok.experimental.Accessors;

@@ -1,6 +1,6 @@
 package live.lingting.component.money.enums;
 
-import live.lingting.component.core.ResultCode;
+import live.lingting.component.core.r.ResultCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

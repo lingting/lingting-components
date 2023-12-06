@@ -1,6 +1,5 @@
 package live.lingting.component.jackson.module;
 
-import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.BeanDescription;
@@ -15,7 +14,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.node.IntNode;
 import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.TextNode;
-import live.lingting.component.core.R;
+import live.lingting.component.core.r.R;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
@@ -59,7 +58,7 @@ public class RModule extends SimpleModule {
 		private final BeanDescription beanDesc;
 
 		@Override
-		public R<?> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
+		public R<?> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
 			TreeNode root = p.getCodec().readTree(p);
 			int code = getCode(root);
 			String message = getMessage(root);
@@ -89,9 +88,9 @@ public class RModule extends SimpleModule {
 			if (isNull(node)) {
 				return null;
 			}
-			JavaType type = definition.getPrimaryType();
+			JavaType javaType = definition.getPrimaryType();
 
-			JsonDeserializer<Object> deserializer = ctxt.findRootValueDeserializer(type);
+			JsonDeserializer<Object> deserializer = ctxt.findRootValueDeserializer(javaType);
 
 			try (JsonParser parser = node.traverse()) {
 				parser.nextToken();

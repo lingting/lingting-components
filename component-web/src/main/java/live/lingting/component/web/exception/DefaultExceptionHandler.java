@@ -1,6 +1,6 @@
 package live.lingting.component.web.exception;
 
-import live.lingting.component.core.R;
+import live.lingting.component.core.r.R;
 import live.lingting.component.core.enums.GlobalResultCode;
 import live.lingting.component.web.constant.WebConstants;
 import lombok.extern.slf4j.Slf4j;

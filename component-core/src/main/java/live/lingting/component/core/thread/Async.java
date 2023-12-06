@@ -1,4 +1,4 @@
-package live.lingting.component.core;
+package live.lingting.component.core.thread;
 
 import live.lingting.component.core.function.ThrowingRunnable;
 import live.lingting.component.core.thread.ThreadPool;

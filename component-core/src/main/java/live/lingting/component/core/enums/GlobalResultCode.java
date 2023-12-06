@@ -1,6 +1,6 @@
 package live.lingting.component.core.enums;
 
-import live.lingting.component.core.ResultCode;
+import live.lingting.component.core.r.ResultCode;
 import live.lingting.component.core.constant.GlobalConstants;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

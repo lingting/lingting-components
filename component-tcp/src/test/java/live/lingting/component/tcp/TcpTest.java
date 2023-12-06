@@ -3,7 +3,7 @@ package live.lingting.component.tcp;
 import live.lingting.compnent.tcp.TcpClient;
 import live.lingting.compnent.tcp.TcpResponse;
 import live.lingting.compnent.tcp.TcpServer;
-import live.lingting.component.core.Async;
+import live.lingting.component.core.thread.Async;
 import live.lingting.component.core.util.RandomUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
