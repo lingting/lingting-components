@@ -16,7 +16,7 @@ class NtpTest {
 
 	@Test
 	void ip() {
-		Ntp ntp = new Ntp(NtpCn.DEFAULT_TIME_SERVER_SH_IP);
+		Ntp ntp = new Ntp(NtpCn.DEFAULT_TIME_SERVER);
 		Assertions.assertNotNull(ntp);
 	}
 

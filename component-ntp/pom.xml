@@ -16,6 +16,10 @@
             <groupId>commons-net</groupId>
             <artifactId>commons-net</artifactId>
         </dependency>
+        <dependency>
+            <groupId>live.lingting.components</groupId>
+            <artifactId>component-core</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

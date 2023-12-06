@@ -1,5 +1,8 @@
 package live.lingting.component.ntp;
 
+import live.lingting.component.core.util.ThreadUtils;
+import live.lingting.component.core.value.WaitValue;
+import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
@@ -7,7 +10,9 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * 中国 ntp 类
@@ -27,18 +32,43 @@ public class NtpCn {
 	 */
 	public static final String DEFAULT_TIME_SERVER = "time.7x24s.com";
 
-	/**
-	 * 上海解析出来的ip
-	 */
-	public static final String DEFAULT_TIME_SERVER_SH_IP = "203.107.6.88";
+	static WaitValue<Ntp> instance = WaitValue.of();
 
-	static Ntp instance = null;
+	static {
+		ThreadUtils.execute("NTP-INIT", NtpCn::initNtpCN);
+	}
 
-	public static Ntp instance() {
-		if (instance == null) {
-			instance = new Ntp(DEFAULT_TIME_SERVER).zoneId(DEFAULT_ZONE_ID);
+	static void initNtpCN() {
+		while (instance.isNull()) {
+			CompletableFuture<Ntp> future = CompletableFuture.supplyAsync(NtpCn::newNtp);
+
+			try {
+				Ntp ntp = future.get(1, TimeUnit.SECONDS);
+				instance.update(ntp);
+			}
+			catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+				break;
+			}
+			catch (TimeoutException e) {
+				log.warn("Ntp初始化超时!");
+			}
+			catch (Exception e) {
+				log.warn("Ntp初始化异常!", e);
+			}
+			finally {
+				future.cancel(true);
+			}
 		}
-		return instance;
+	}
+
+	public static Ntp newNtp() {
+		return new Ntp(DEFAULT_TIME_SERVER).zoneId(DEFAULT_ZONE_ID);
+	}
+
+	@SneakyThrows
+	public static Ntp instance() {
+		return instance.notNull();
 	}
 
 	public long diff() {
