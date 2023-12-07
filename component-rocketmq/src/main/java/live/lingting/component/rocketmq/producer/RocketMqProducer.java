@@ -1,12 +1,12 @@
 package live.lingting.component.rocketmq.producer;
 
+import live.lingting.component.core.context.ContextComponent;
+import live.lingting.component.core.function.ThrowingSupplier;
+import live.lingting.component.core.util.CollectionUtils;
 import live.lingting.component.rocketmq.RocketMqMessage;
 import live.lingting.component.rocketmq.RocketMqTarget;
 import live.lingting.component.rocketmq.properties.RocketMqProperties;
 import live.lingting.component.rocketmq.util.RocketMqUtils;
-import live.lingting.component.core.context.ContextComponent;
-import live.lingting.component.core.function.ThrowingSupplier;
-import live.lingting.component.core.util.CollectionUtils;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.exception.MQClientException;
@@ -14,6 +14,7 @@ import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.client.producer.SendStatus;
 import org.apache.rocketmq.common.message.Message;
+import org.springframework.util.unit.DataSize;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -43,10 +44,15 @@ public class RocketMqProducer implements ContextComponent {
 
 	@SneakyThrows
 	DefaultMQProducer createProducer(String group) {
-		DefaultMQProducer producer = new DefaultMQProducer(group);
+		DataSize maxMessageSize = DataSize.ofMegabytes(20);
+
+		DefaultMQProducer producer = new DefaultMQProducer();
 		producer.setNamesrvAddr(properties.address());
+		producer.setProducerGroup(group);
 		producer.setRetryAnotherBrokerWhenNotStoreOK(true);
 		producer.setSendMsgTimeout((int) properties.getSendTimeout());
+		producer.setMaxMessageSize((int) maxMessageSize.toBytes());
+		producer.setMqClientApiTimeout((int) properties.getApiTimeout());
 		producer.start();
 		return producer;
 	}

@@ -1,5 +1,7 @@
 package live.lingting.component.rocketmq.admin;
 
+import live.lingting.component.core.function.ThrowingBiConsumer;
+import live.lingting.component.core.function.ThrowingBiFunction;
 import live.lingting.component.rocketmq.properties.RocketMqProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,8 +13,10 @@ import org.apache.rocketmq.client.impl.MQAdminImpl;
 import org.apache.rocketmq.client.impl.MQClientAPIImpl;
 import org.apache.rocketmq.client.impl.factory.MQClientInstance;
 import org.apache.rocketmq.common.TopicConfig;
+import org.apache.rocketmq.common.protocol.body.SubscriptionGroupWrapper;
 import org.apache.rocketmq.common.protocol.body.TopicConfigSerializeWrapper;
 import org.apache.rocketmq.common.protocol.route.BrokerData;
+import org.apache.rocketmq.common.subscription.SubscriptionGroupConfig;
 import org.apache.rocketmq.remoting.exception.RemotingConnectException;
 import org.apache.rocketmq.remoting.exception.RemotingException;
 import org.apache.rocketmq.remoting.exception.RemotingSendRequestException;
@@ -30,6 +34,7 @@ import static live.lingting.component.rocketmq.util.RocketMqUtils.toConfig;
  * @author lingting 2023-12-06 18:43
  */
 @Slf4j
+@SuppressWarnings("java:S1117")
 public class RocketMqAdmin {
 
 	protected final ClientConfig config;
@@ -56,6 +61,10 @@ public class RocketMqAdmin {
 		this.instance = new MQClientInstance(config, 0, config.buildMQClientId());
 		this.api = instance.getMQClientAPIImpl();
 		this.impl = new MQAdminImpl(instance);
+	}
+
+	public List<BrokerData> listBroker() throws RemotingException, InterruptedException, MQClientException {
+		return api.getTopicRouteInfoFromNameServer(getDefaultTopic(), getTimeout()).getBrokerDatas();
 	}
 
 	public Set<String> listTopic() throws RemotingException, InterruptedException, MQClientException {
@@ -88,11 +97,65 @@ public class RocketMqAdmin {
 		return wrapper.getTopicConfigTable();
 	}
 
-	public List<BrokerData> listBroker() throws RemotingException, InterruptedException, MQClientException {
-		return api.getTopicRouteInfoFromNameServer(getDefaultTopic(), getTimeout()).getBrokerDatas();
+	public Set<String> listGroup(BrokerData broker) throws RemotingException, InterruptedException, MQBrokerException {
+		return allGroupConfig(broker).keySet();
+	}
+
+	public boolean upsertGroup(BrokerData broker, String group, SubscriptionGroupConfig config)
+			throws InterruptedException {
+		try {
+			Optional<Map.Entry<Long, String>> optional = broker.getBrokerAddrs().entrySet().stream().findFirst();
+			if (!optional.isPresent()) {
+				return false;
+			}
+			Map.Entry<Long, String> entry = optional.get();
+			Long brokerId = entry.getKey();
+			String address = entry.getValue();
+
+			if (brokerId == null) {
+				return false;
+			}
+
+			config.setBrokerId(brokerId);
+			api.createSubscriptionGroup(address, config, getTimeout());
+			return true;
+		}
+		catch (InterruptedException e) {
+			throw e;
+		}
+		catch (Exception e) {
+			log.error("创建分组时异常!  group: {}; config: {};", group, config, e);
+			return false;
+		}
+	}
+
+	/**
+	 * 获取指定broker的所有消费者组
+	 * @return key: group, value: config
+	 */
+	public Map<String, SubscriptionGroupConfig> allGroupConfig(BrokerData broker) throws RemotingSendRequestException,
+			RemotingConnectException, RemotingTimeoutException, MQBrokerException, InterruptedException {
+		Optional<String> optional = broker.getBrokerAddrs().values().stream().findAny();
+		if (!optional.isPresent()) {
+			return Collections.emptyMap();
+		}
+		String address = optional.get();
+		SubscriptionGroupWrapper wrapper = api.getAllSubscriptionGroup(address, getTimeout());
+		return wrapper.getSubscriptionGroupTable();
 	}
 
 	// region 其他
+
+	public void execute(ThrowingBiConsumer<MQClientAPIImpl, MQAdminImpl> consumer) throws Exception {
+		execute((api, impl) -> {
+			consumer.accept(api, impl);
+			return null;
+		});
+	}
+
+	public <T> T execute(ThrowingBiFunction<MQClientAPIImpl, MQAdminImpl, T> function) throws Exception {
+		return function.apply(api, impl);
+	}
 
 	public long getTimeout() {
 		return config.getMqClientApiTimeout();
