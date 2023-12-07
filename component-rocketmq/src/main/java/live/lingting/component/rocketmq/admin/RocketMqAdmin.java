@@ -101,8 +101,7 @@ public class RocketMqAdmin {
 		return allGroupConfig(broker).keySet();
 	}
 
-	public boolean upsertGroup(BrokerData broker, String group, SubscriptionGroupConfig config)
-			throws InterruptedException {
+	public boolean upsertGroup(BrokerData broker, SubscriptionGroupConfig config) throws InterruptedException {
 		try {
 			Optional<Map.Entry<Long, String>> optional = broker.getBrokerAddrs().entrySet().stream().findFirst();
 			if (!optional.isPresent()) {
@@ -124,7 +123,7 @@ public class RocketMqAdmin {
 			throw e;
 		}
 		catch (Exception e) {
-			log.error("创建分组时异常!  group: {}; config: {};", group, config, e);
+			log.error("创建分组时异常!  group: {}; config: {};", config.getGroupName(), config, e);
 			return false;
 		}
 	}
