@@ -9,9 +9,9 @@ import org.springframework.context.ApplicationContext;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 /**
@@ -20,9 +20,9 @@ import java.util.function.Function;
 @UtilityClass
 public class SpringUtils {
 
-	private static final Map<Class<?>, Object> BEAN_CLS_CACHE = new HashMap<>();
+	private static final Map<Class<?>, Object> BEAN_CLS_CACHE = new ConcurrentHashMap<>();
 
-	private static final Map<String, Object> BEAN_NAME_CACHE = new HashMap<>();
+	private static final Map<String, Object> BEAN_NAME_CACHE = new ConcurrentHashMap<>();
 
 	@Setter
 	@Getter
@@ -77,6 +77,19 @@ public class SpringUtils {
 		}
 
 		return constructor.newInstance(arguments.toArray());
+	}
+
+	public static void clearCache(Class<?> cls) {
+		BEAN_CLS_CACHE.remove(cls);
+	}
+
+	public static void clearCache(String name) {
+		BEAN_NAME_CACHE.remove(name);
+	}
+
+	public static void clearCache() {
+		BEAN_CLS_CACHE.clear();
+		BEAN_NAME_CACHE.clear();
 	}
 
 }
