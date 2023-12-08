@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
-import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
@@ -29,24 +28,18 @@ import java.util.Map;
 /**
  * @author lingting 2022/10/25 11:37
  */
+@Setter
+@Getter
 @Slf4j
 @SuppressWarnings({ "java:S3740" })
 public class PageLimitArgumentResolve implements HandlerMethodArgumentResolver {
 
-	@Setter
-	@Getter
 	private String pageParameterName = PageLimitParams.DEFAULT_PAGE_PARAMETER;
 
-	@Setter
-	@Getter
 	private String sizeParameterName = PageLimitParams.DEFAULT_SIZE_PARAMETER;
 
-	@Setter
-	@Getter
 	private String sortParameterName = PageLimitParams.DEFAULT_SORT_PARAMETER;
 
-	@Setter
-	@Getter
 	private int maxPageSize = PageLimitParams.DEFAULT_MAX_PAGE_SIZE;
 
 	protected PageLimitParams getPageParam(MethodParameter parameter, HttpServletRequest request) {
