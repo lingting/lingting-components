@@ -1,4 +1,4 @@
-package live.lingting.component.rocketmq;
+package live.lingting.component.rocketmq.message;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package live.lingting.component.rocketmq.consumer;
 
-import live.lingting.component.rocketmq.RocketMqMessage;
 import live.lingting.component.core.util.IdUtils;
 import live.lingting.component.core.util.ThreadUtils;
+import live.lingting.component.rocketmq.message.RocketMqMessage;
 
 import java.util.List;
 

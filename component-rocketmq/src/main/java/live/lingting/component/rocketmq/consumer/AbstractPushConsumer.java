@@ -1,9 +1,10 @@
 package live.lingting.component.rocketmq.consumer;
 
-import live.lingting.component.rocketmq.RocketMqMessage;
-import live.lingting.component.rocketmq.RocketMqMessageConsumer;
-import live.lingting.component.rocketmq.properties.RocketMqProperties;
+import live.lingting.component.core.util.CollectionUtils;
 import live.lingting.component.core.util.StringUtils;
+import live.lingting.component.rocketmq.message.RocketMqMessage;
+import live.lingting.component.rocketmq.message.RocketMqMessageConsumer;
+import live.lingting.component.rocketmq.properties.RocketMqProperties;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
@@ -57,14 +58,16 @@ abstract class AbstractPushConsumer<C extends AbstractPushConsumer<C>>
 
 		if (messageConsumer != null) {
 			consumer.registerMessageListener((MessageListenerConcurrently) (list, context) -> {
-				List<RocketMqMessage> messages = list.stream().map(this::of).collect(Collectors.toList());
-				messageConsumer.batch(messages);
+				if (!CollectionUtils.isEmpty(list)) {
+					List<RocketMqMessage> messages = list.stream().map(this::ofExt).collect(Collectors.toList());
+					messageConsumer.batch(messages);
+				}
 				return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
 			});
 		}
 
-		if (operator != null) {
-			operator.accept(consumer);
+		if (customize != null) {
+			customize.push(consumer);
 		}
 
 		consumer.start();

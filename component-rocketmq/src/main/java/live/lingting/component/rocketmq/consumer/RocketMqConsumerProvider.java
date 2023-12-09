@@ -1,20 +1,21 @@
 package live.lingting.component.rocketmq.consumer;
 
 import live.lingting.component.rocketmq.RocketMqTarget;
+import live.lingting.component.rocketmq.message.RocketMqMessageConvert;
 import live.lingting.component.rocketmq.properties.RocketMqProperties;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author lingting 2023-05-26 13:34
  */
 @Slf4j
+@RequiredArgsConstructor
 public class RocketMqConsumerProvider {
 
 	private final RocketMqProperties properties;
 
-	public RocketMqConsumerProvider(RocketMqProperties properties) {
-		this.properties = properties;
-	}
+	private final RocketMqMessageConvert convert;
 
 	/**
 	 * 集群模式消费
@@ -24,7 +25,11 @@ public class RocketMqConsumerProvider {
 	}
 
 	public RocketMqConsumer.ClusterPush cluster(String group, String topic, String tags) {
-		return new RocketMqConsumer.ClusterPush().properties(properties).group(group).topic(topic).tags(tags);
+		return new RocketMqConsumer.ClusterPush().properties(properties)
+			.convert(convert)
+			.group(group)
+			.topic(topic)
+			.tags(tags);
 	}
 
 	public RocketMqConsumer.ClusterPush cluster(RocketMqTarget target) {
@@ -36,7 +41,11 @@ public class RocketMqConsumerProvider {
 	}
 
 	public RocketMqConsumer.ClusterPull clusterPull(String group, String topic, String tags) {
-		return new RocketMqConsumer.ClusterPull().properties(properties).group(group).topic(topic).tags(tags);
+		return new RocketMqConsumer.ClusterPull().properties(properties)
+			.convert(convert)
+			.group(group)
+			.topic(topic)
+			.tags(tags);
 	}
 
 	public RocketMqConsumer.ClusterPull clusterPull(RocketMqTarget target) {
@@ -51,7 +60,11 @@ public class RocketMqConsumerProvider {
 	}
 
 	public RocketMqConsumer.BoardPush board(String group, String topic, String tags) {
-		return new RocketMqConsumer.BoardPush().properties(properties).group(group).topic(topic).tags(tags);
+		return new RocketMqConsumer.BoardPush().properties(properties)
+			.convert(convert)
+			.group(group)
+			.topic(topic)
+			.tags(tags);
 	}
 
 	public RocketMqConsumer.BoardPush board(RocketMqTarget target) {
@@ -63,7 +76,11 @@ public class RocketMqConsumerProvider {
 	}
 
 	public RocketMqConsumer.BoardPull boardPull(String group, String topic, String tags) {
-		return new RocketMqConsumer.BoardPull().properties(properties).group(group).topic(topic).tags(tags);
+		return new RocketMqConsumer.BoardPull().properties(properties)
+			.convert(convert)
+			.group(group)
+			.topic(topic)
+			.tags(tags);
 	}
 
 	public RocketMqConsumer.BoardPull boardPull(RocketMqTarget target) {

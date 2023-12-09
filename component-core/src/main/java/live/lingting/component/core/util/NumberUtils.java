@@ -145,4 +145,20 @@ public class NumberUtils {
 		return new BigInteger(binary, 2);
 	}
 
+	public static BigDecimal toNumber(Object val) {
+		if (val == null) {
+			return null;
+		}
+		String string = val.toString();
+		if (!StringUtils.hasText(string)) {
+			return null;
+		}
+		try {
+			return new BigDecimal(string.trim());
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
 }

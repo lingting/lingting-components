@@ -1,9 +1,9 @@
 package live.lingting.component.rocketmq.consumer;
 
-import live.lingting.component.rocketmq.RocketMqMessage;
-import live.lingting.component.rocketmq.RocketMqMessageConsumer;
 import live.lingting.component.core.thread.AbstractTimer;
 import live.lingting.component.core.util.CollectionUtils;
+import live.lingting.component.rocketmq.message.RocketMqMessage;
+import live.lingting.component.rocketmq.message.RocketMqMessageConsumer;
 import lombok.RequiredArgsConstructor;
 import org.apache.rocketmq.client.consumer.DefaultLitePullConsumer;
 import org.apache.rocketmq.common.message.MessageExt;
@@ -47,9 +47,10 @@ public class RocketMqConsumerTimer extends AbstractTimer {
 			return;
 		}
 		List<RocketMqMessage> collect = poll.stream()
-			.map(pull::of)
+			.map(pull::ofExt)
 			.filter(message -> message.getTopic() != null)
 			.collect(Collectors.toList());
+
 		try {
 			consumer(collect);
 		}

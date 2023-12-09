@@ -1,7 +1,7 @@
 package live.lingting.component.rocketmq.consumer;
 
 import live.lingting.component.core.context.ContextComponent;
-import live.lingting.component.rocketmq.RocketMqMessage;
+import live.lingting.component.rocketmq.message.RocketMqMessage;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;

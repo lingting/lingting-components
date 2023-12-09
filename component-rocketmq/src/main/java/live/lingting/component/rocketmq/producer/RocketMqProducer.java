@@ -3,10 +3,10 @@ package live.lingting.component.rocketmq.producer;
 import live.lingting.component.core.context.ContextComponent;
 import live.lingting.component.core.function.ThrowingSupplier;
 import live.lingting.component.core.util.CollectionUtils;
-import live.lingting.component.rocketmq.RocketMqMessage;
 import live.lingting.component.rocketmq.RocketMqTarget;
-import live.lingting.component.rocketmq.properties.RocketMqProperties;
-import live.lingting.component.rocketmq.util.RocketMqUtils;
+import live.lingting.component.rocketmq.message.RocketMqMessage;
+import live.lingting.component.rocketmq.message.RocketMqMessageConvert;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.exception.MQClientException;
@@ -14,7 +14,6 @@ import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.client.producer.SendStatus;
 import org.apache.rocketmq.common.message.Message;
-import org.springframework.util.unit.DataSize;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -22,65 +21,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
  * @author lingting 2023-05-26 09:42
  */
 @Slf4j
+@RequiredArgsConstructor
 public class RocketMqProducer implements ContextComponent {
 
-	private final RocketMqProperties properties;
+	private final RocketMqProducerCustomize customize;
+
+	private final RocketMqMessageConvert convert;
 
 	private final Map<String, DefaultMQProducer> producerMap = new ConcurrentHashMap<>();
-
-	public RocketMqProducer(RocketMqProperties properties) {
-		this.properties = properties;
-	}
-
-	DefaultMQProducer producer(String group) {
-		return producerMap.computeIfAbsent(group, k -> createProducer(group));
-	}
-
-	@SneakyThrows
-	DefaultMQProducer createProducer(String group) {
-		DataSize maxMessageSize = DataSize.ofMegabytes(20);
-
-		DefaultMQProducer producer = new DefaultMQProducer();
-		producer.setNamesrvAddr(properties.address());
-		producer.setProducerGroup(group);
-		producer.setRetryAnotherBrokerWhenNotStoreOK(true);
-		producer.setSendMsgTimeout((int) properties.getSendTimeout());
-		producer.setMaxMessageSize((int) maxMessageSize.toBytes());
-		producer.setMqClientApiTimeout((int) properties.getApiTimeout());
-		producer.start();
-		return producer;
-	}
-
-	public byte[] toBytes(RocketMqMessage message) {
-		return toBytes(message.getBody());
-	}
-
-	public byte[] toBytes(String body) {
-		return RocketMqUtils.toBytes(body, properties.getCharset());
-	}
-
-	protected Message toMessage(RocketMqMessage message) {
-		return RocketMqUtils.toMessage(message, properties.getCharset());
-	}
-
-	protected Message toMessage(String topic, String tags, String keys, byte[] body) {
-		return new Message(topic, tags, keys, body);
-	}
-
-	/**
-	 * 按照设置的批量消息大小最大值进行分割
-	 * @param messages 消息队列
-	 * @return 分割后的消息组合
-	 */
-	protected List<List<Message>> split(Collection<Message> messages) {
-		return RocketMqUtils.split(messages, properties.getBatchMaxSize(), properties.getCharset());
-	}
 
 	// region 同步发送
 	/**
@@ -94,18 +49,18 @@ public class RocketMqProducer implements ContextComponent {
 	}
 
 	public RocketMqSendResult send(RocketMqTarget target, String tags, String keys, String body) {
-		return send(new RocketMqMessage(target.getGroup(), target.getTopic(), tags, keys, body));
+		return send(RocketMqMessage.send(target, tags, keys, body));
 	}
 
 	public RocketMqSendResult send(RocketMqMessage message) {
-		byte[] bytes = toBytes(message);
+		byte[] bytes = convert.toBytes(message);
 		return send(message.getGroup(), message.getTopic(), message.getTags(), message.getKeys(), bytes);
 	}
 
 	public RocketMqSendResult send(String group, String topic, String tags, String keys, byte[] body) {
 		try {
 			DefaultMQProducer producer = producer(group);
-			Message message = toMessage(topic, tags, keys, body);
+			Message message = convert.of(topic, tags, keys, body);
 			SendResult result = producer.send(message);
 			if (!SendStatus.SEND_OK.equals(result.getSendStatus())) {
 				log.warn("消息发送结果状态异常! mqId: {}; status: {}", result.getMsgId(), result.getSendStatus());
@@ -131,16 +86,16 @@ public class RocketMqProducer implements ContextComponent {
 	}
 
 	public void send(RocketMqTarget target, String tags, String keys, String body, RocketMqSendCallback callback) {
-		send(new RocketMqMessage(target.getGroup(), target.getTopic(), tags, keys, body), callback);
+		send(RocketMqMessage.send(target, tags, keys, body), callback);
 	}
 
 	public void send(RocketMqMessage message, RocketMqSendCallback callback) {
-		byte[] bytes = toBytes(message);
+		byte[] bytes = convert.toBytes(message);
 		send(message.getGroup(), message.getTopic(), message.getTags(), message.getKeys(), bytes, callback);
 	}
 
 	public void send(String group, String topic, String tags, String keys, byte[] body, RocketMqSendCallback callback) {
-		Message message = toMessage(topic, tags, keys, body);
+		Message message = convert.of(topic, tags, keys, body);
 		send(group, topic, () -> Collections.singletonList(message), callback);
 	}
 
@@ -150,7 +105,7 @@ public class RocketMqProducer implements ContextComponent {
 
 	public void send(String group, String topic, Collection<RocketMqMessage> messages, RocketMqSendCallback callback) {
 		send(group, topic,
-				() -> messages.stream().filter(Objects::nonNull).map(this::toMessage).collect(Collectors.toList()),
+				() -> messages.stream().filter(Objects::nonNull).map(convert::of).collect(Collectors.toList()),
 				callback);
 	}
 
@@ -158,7 +113,7 @@ public class RocketMqProducer implements ContextComponent {
 		try {
 			DefaultMQProducer producer = producer(group);
 			List<Message> rawMessages = supplier.get();
-			List<List<Message>> split = split(rawMessages);
+			List<List<Message>> split = convert.split(rawMessages);
 
 			for (List<Message> messages : split) {
 				if (CollectionUtils.isEmpty(messages)) {
@@ -198,18 +153,18 @@ public class RocketMqProducer implements ContextComponent {
 	}
 
 	public void sendOneway(RocketMqTarget target, String tags, String keys, String body) {
-		sendOneway(new RocketMqMessage(target.getGroup(), target.getTopic(), tags, keys, body));
+		sendOneway(RocketMqMessage.send(target, tags, keys, body));
 	}
 
 	public void sendOneway(RocketMqMessage message) {
-		byte[] bytes = toBytes(message);
+		byte[] bytes = convert.toBytes(message);
 		sendOneway(message.getGroup(), message.getTopic(), message.getTags(), message.getKeys(), bytes);
 	}
 
 	public void sendOneway(String group, String topic, String tags, String keys, byte[] body) {
 		try {
 			DefaultMQProducer producer = producer(group);
-			Message message = toMessage(topic, tags, keys, body);
+			Message message = convert.of(topic, tags, keys, body);
 			producer.sendOneway(message);
 		}
 		catch (InterruptedException e) {
@@ -220,6 +175,20 @@ public class RocketMqProducer implements ContextComponent {
 		}
 	}
 	// endregion
+
+	// region 其他
+
+	DefaultMQProducer producer(String group) {
+		return producerMap.computeIfAbsent(group, new Function<String, DefaultMQProducer>() {
+			@SneakyThrows
+			@Override
+			public DefaultMQProducer apply(String k) {
+				DefaultMQProducer producer = customize.apply(new DefaultMQProducer(group));
+				producer.start();
+				return producer;
+			}
+		});
+	}
 
 	@Override
 	public void onApplicationStart() {
@@ -232,5 +201,7 @@ public class RocketMqProducer implements ContextComponent {
 			producer.shutdown();
 		}
 	}
+
+	// endregion
 
 }

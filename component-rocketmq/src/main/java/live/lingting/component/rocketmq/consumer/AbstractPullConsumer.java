@@ -1,9 +1,9 @@
 package live.lingting.component.rocketmq.consumer;
 
-import live.lingting.component.rocketmq.RocketMqMessageConsumer;
-import live.lingting.component.rocketmq.properties.RocketMqProperties;
 import live.lingting.component.core.domain.ClassField;
 import live.lingting.component.core.util.ClassUtils;
+import live.lingting.component.rocketmq.message.RocketMqMessageConsumer;
+import live.lingting.component.rocketmq.properties.RocketMqProperties;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.apache.rocketmq.client.consumer.DefaultLitePullConsumer;
@@ -75,8 +75,8 @@ abstract class AbstractPullConsumer<C extends AbstractPullConsumer<C>>
 		consumer.setAutoCommit(isAutoCommit());
 		consumer.setPullBatchSize(getBatchSize());
 
-		if (operator != null) {
-			operator.accept(consumer);
+		if (customize != null) {
+			customize.litePull(consumer);
 		}
 
 		consumer.start();
