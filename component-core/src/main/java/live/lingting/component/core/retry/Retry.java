@@ -45,7 +45,7 @@ public class Retry<T> {
 	private Predicate<Exception> isRetry = e -> !(e instanceof InterruptedException);
 
 	public Retry(ThrowingSupplier<T> supplier) {
-		this(supplier, 3, Duration.ZERO);
+		this(supplier, 3, Duration.ofMillis(10));
 	}
 
 	public Retry(ThrowingSupplier<T> supplier, int maxCount, Duration delay) {

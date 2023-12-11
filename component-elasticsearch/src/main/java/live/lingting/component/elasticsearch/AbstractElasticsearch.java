@@ -39,6 +39,7 @@ import live.lingting.component.core.util.StringUtils;
 import live.lingting.component.elasticsearch.builder.ScriptBuilder;
 import live.lingting.component.elasticsearch.datascope.DataPermissionHandler;
 import live.lingting.component.elasticsearch.datascope.DataScope;
+import live.lingting.component.elasticsearch.properties.ElasticsearchProperties;
 import live.lingting.component.elasticsearch.util.ElasticSearchUtils;
 import live.lingting.component.elasticsearch.wrapper.Queries;
 import live.lingting.component.elasticsearch.wrapper.SortWrapper;
@@ -86,6 +87,9 @@ public abstract class AbstractElasticsearch<T> {
 	@Autowired
 	protected DataPermissionHandler dataPermissionHandler;
 
+	@Autowired
+	protected ElasticsearchProperties properties;
+
 	protected final String index = ElasticSearchUtils.index(cls());
 
 	protected final Class<T> cls = cls();
@@ -107,7 +111,14 @@ public abstract class AbstractElasticsearch<T> {
 	}
 
 	protected <R> R retry(ThrowingSupplier<R> supplier) throws Exception {
-		Retry<R> retry = new Retry<>(supplier);
+		ElasticsearchProperties.Retry propertiesRetry = properties.getRetry();
+		Retry<R> retry;
+		if (propertiesRetry == null) {
+			retry = new Retry<>(supplier);
+		}
+		else {
+			retry = new Retry<>(supplier, propertiesRetry.getMaxCount(), propertiesRetry.getDelay());
+		}
 		return retry.get();
 	}
 

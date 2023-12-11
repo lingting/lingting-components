@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import live.lingting.component.elasticsearch.datascope.DataPermissionHandler;
 import live.lingting.component.elasticsearch.datascope.DataScope;
 import live.lingting.component.elasticsearch.datascope.DefaultDataPermissionHandler;
+import live.lingting.component.elasticsearch.properties.ElasticsearchProperties;
 import org.apache.http.impl.nio.reactor.IOReactorConfig;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
@@ -17,6 +18,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchRestClientAutoConfiguration;
 import org.springframework.boot.autoconfigure.elasticsearch.RestClientBuilderCustomizer;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
 import java.util.List;
@@ -24,6 +26,7 @@ import java.util.List;
 /**
  * @author lingting 2023-06-06 14:51
  */
+@EnableConfigurationProperties(ElasticsearchProperties.class)
 @AutoConfiguration(after = ElasticsearchRestClientAutoConfiguration.class)
 public class ElasticsearchAutoConfiguration {
 
