@@ -1,7 +1,9 @@
 package live.lingting.component.redis.script;
 
-import live.lingting.component.core.util.ArrayUtils;
 import live.lingting.component.redis.RedisHelper;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.data.redis.RedisSystemException;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -21,17 +23,23 @@ public class RepeatRedisScript<T> implements RedisScript<T>, InitializingBean {
 
 	private final DefaultRedisScript<T> script;
 
-	private final String sha1;
+	protected final String sha1;
 
-	private final Class<T> resultType;
+	protected final Class<T> resultType;
 
-	private final ReturnType returnType;
+	protected final ReturnType returnType;
 
-	private final String source;
+	protected final String source;
 
-	private byte[] bytes;
+	protected byte[] bytes;
 
-	public RepeatRedisScript(DefaultRedisScript<T> script) {
+	/**
+	 * 脚本sha1是否存在于redis中
+	 */
+	@Setter
+	protected boolean existsSha1 = false;
+
+	protected RepeatRedisScript(DefaultRedisScript<T> script) {
 		this.script = script;
 		this.sha1 = script.getSha1();
 		this.resultType = script.getResultType();
@@ -67,16 +75,20 @@ public class RepeatRedisScript<T> implements RedisScript<T>, InitializingBean {
 		return source;
 	}
 
+	boolean isEmptyBytes() {
+		return bytes == null || bytes.length < 1;
+	}
+
 	public byte[] bytes(RedisSerializer<String> serializer) {
 		byte[] serialize = serializer.serialize(getScriptAsString());
-		if (ArrayUtils.isEmpty(bytes)) {
+		if (isEmptyBytes()) {
 			bytes = serialize;
 		}
 		return serialize;
 	}
 
 	public byte[] bytes() {
-		if (ArrayUtils.isEmpty(bytes)) {
+		if (isEmptyBytes()) {
 			RedisSerializer<String> serializer = RedisHelper.getStringSerializer();
 			return bytes(serializer);
 		}
@@ -127,38 +139,47 @@ public class RepeatRedisScript<T> implements RedisScript<T>, InitializingBean {
 			final Object... args) {
 		final byte[][] keysAndArgs = keysAndArgs(keySerializer, argsSerializer, keys, args);
 		final int keySize = keys != null ? keys.size() : 0;
-		if (connection.isPipelined() || connection.isQueueing()) {
-			// We could script load first and then do evalsha to ensure sha is present,
-			// but this adds a sha1 to exec/closePipeline results. Instead, just eval
-			byte[] scriptBytes = bytes();
-			connection.eval(scriptBytes, returnType, keySize, keysAndArgs);
+
+		// 依据sha1执行
+		ScriptExecuteResult result = evalBySha1(connection, keySize, keysAndArgs);
+
+		// 执行失败, 依据字节执行
+		if (!result.isSuccess()) {
+			result = evalByBytes(connection, keySize, keysAndArgs);
+		}
+
+		// 管道或者队列不需要处理返回值. 如果结果类型为null也不处理返回值
+		if (connection.isPipelined() || connection.isQueueing() || getResultType() == null) {
 			return null;
 		}
-		return eval(connection, returnType, keySize, keysAndArgs, valueSerializer);
 
+		return ScriptUtils.deserializeResult(valueSerializer, result.getResult());
 	}
 
-	protected T eval(RedisConnection connection, ReturnType returnType, int numKeys, byte[][] keysAndArgs,
-			RedisSerializer<T> valueSerializer) {
-
-		Object result;
+	protected ScriptExecuteResult evalBySha1(RedisConnection connection, int keySize, byte[][] keysAndArgs) {
+		if (!existsSha1) {
+			return ScriptExecuteResult.FAILED;
+		}
 		try {
-			result = connection.evalSha(script.getSha1(), returnType, numKeys, keysAndArgs);
+			Object o = connection.evalSha(getSha1(), returnType, keySize, keysAndArgs);
+			return ScriptExecuteResult.success(o);
 		}
 		catch (Exception e) {
 			if (!ScriptUtils.exceptionContainsNoScriptError(e)) {
 				throw e instanceof RuntimeException ? (RuntimeException) e
 						: new RedisSystemException(e.getMessage(), e);
 			}
-
-			result = connection.eval(bytes(), returnType, numKeys, keysAndArgs);
+			// 脚本不存在异常! 重置标识
+			existsSha1 = false;
+			return ScriptExecuteResult.FAILED;
 		}
+	}
 
-		if (script.getResultType() == null) {
-			return null;
-		}
-
-		return ScriptUtils.deserializeResult(valueSerializer, result);
+	protected ScriptExecuteResult evalByBytes(RedisConnection connection, int keySize, byte[][] keysAndArgs) {
+		byte[] scriptBytes = bytes();
+		Object o = connection.eval(scriptBytes, returnType, keySize, keysAndArgs);
+		existsSha1 = true;
+		return ScriptExecuteResult.success(o);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes", "java:S2259" })
@@ -186,6 +207,22 @@ public class RepeatRedisScript<T> implements RedisScript<T>, InitializingBean {
 			}
 		}
 		return keysAndArgs;
+	}
+
+	@Getter
+	@RequiredArgsConstructor
+	protected static class ScriptExecuteResult {
+
+		public static final ScriptExecuteResult FAILED = new ScriptExecuteResult(false, null);
+
+		private final boolean success;
+
+		private final Object result;
+
+		public static ScriptExecuteResult success(Object o) {
+			return new ScriptExecuteResult(true, o);
+		}
+
 	}
 
 }
