@@ -323,6 +323,10 @@ public abstract class AbstractElasticsearch<T> {
 	}
 
 	protected void saveBatch(Collection<T> collection) throws IOException {
+		saveBatch(builder -> builder, collection);
+	}
+
+	protected void saveBatch(UnaryOperator<BulkRequest.Builder> operator, Collection<T> collection) throws IOException {
 		if (CollectionUtils.isEmpty(collection)) {
 			return;
 		}
@@ -337,7 +341,7 @@ public abstract class AbstractElasticsearch<T> {
 			operations.add(ob.build());
 		}
 
-		bulk(operations);
+		bulk(operator, operations);
 	}
 
 	protected boolean deleteByQuery(Query... queries) {
