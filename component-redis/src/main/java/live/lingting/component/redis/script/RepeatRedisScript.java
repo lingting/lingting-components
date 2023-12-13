@@ -39,6 +39,12 @@ public class RepeatRedisScript<T> implements RedisScript<T>, InitializingBean {
 	@Setter
 	protected boolean existsSha1 = false;
 
+	/**
+	 * 是否允许在 管道, 队列中使用 sha1执行
+	 */
+	@Setter
+	protected boolean useSha1ByPipelined = false;
+
 	protected RepeatRedisScript(DefaultRedisScript<T> script) {
 		this.script = script;
 		this.sha1 = script.getSha1();
@@ -157,6 +163,10 @@ public class RepeatRedisScript<T> implements RedisScript<T>, InitializingBean {
 	}
 
 	protected ScriptExecuteResult evalBySha1(RedisConnection connection, int keySize, byte[][] keysAndArgs) {
+		// 是否不在 管道或者队列中使用sha1
+		if (!useSha1ByPipelined && (connection.isPipelined() || connection.isQueueing())) {
+			return ScriptExecuteResult.FAILED;
+		}
 		if (!existsSha1) {
 			return ScriptExecuteResult.FAILED;
 		}
