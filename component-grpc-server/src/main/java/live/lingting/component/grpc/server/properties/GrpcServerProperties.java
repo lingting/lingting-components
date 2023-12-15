@@ -25,11 +25,11 @@ public class GrpcServerProperties {
 	/**
 	 * 单位: 毫秒
 	 */
-	private long keepAliveTime = TimeUnit.SECONDS.toMillis(10);
+	private long keepAliveTime = TimeUnit.HOURS.toMillis(2);
 
 	/**
 	 * 单位: 毫秒
 	 */
-	private long keepAliveTimeout = TimeUnit.MINUTES.toMillis(1);
+	private long keepAliveTimeout = TimeUnit.SECONDS.toMillis(20);
 
 }
