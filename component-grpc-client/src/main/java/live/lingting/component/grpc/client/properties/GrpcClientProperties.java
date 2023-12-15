@@ -25,14 +25,16 @@ public class GrpcClientProperties {
 
 	private boolean enableRetry = true;
 
-	/**
-	 * 单位: 毫秒
-	 */
-	private long keepAliveTime = TimeUnit.SECONDS.toMillis(10);
+	private boolean enableKeepAlive = true;
 
 	/**
 	 * 单位: 毫秒
 	 */
-	private long keepAliveTimeout = TimeUnit.MINUTES.toMillis(1);
+	private long keepAliveTime = TimeUnit.MINUTES.toMillis(30);
+
+	/**
+	 * 单位: 毫秒
+	 */
+	private long keepAliveTimeout = TimeUnit.SECONDS.toMillis(2);
 
 }
