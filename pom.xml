@@ -26,6 +26,7 @@
         <module>component-money</module>
         <module>component-security</module>
         <module>component-security-web</module>
+        <module>component-security-grpc</module>
         <module>component-bcpkix</module>
         <module>component-tcp</module>
         <module>component-spring</module>
@@ -37,7 +38,7 @@
     </modules>
 
     <properties>
-        <revision>2023.11.30-SNAPSHOT</revision>
+        <revision>2023.12.15-SNAPSHOT</revision>
 
         <!--spring-->
         <spring-boot.version>2.7.17</spring-boot.version>
@@ -212,6 +213,11 @@
             <dependency>
                 <groupId>live.lingting.components</groupId>
                 <artifactId>component-security-web</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>live.lingting.components</groupId>
+                <artifactId>component-security-grpc</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>

@@ -1,9 +1,9 @@
 package live.lingting.component.security.web.exception;
 
+import live.lingting.component.core.enums.GlobalResultCode;
+import live.lingting.component.core.r.R;
 import live.lingting.component.security.exception.AuthorizationException;
 import live.lingting.component.security.exception.PermissionsException;
-import live.lingting.component.core.r.R;
-import live.lingting.component.core.enums.GlobalResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 @ResponseStatus(HttpStatus.OK)
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class SecurityExceptionHandler {
+public class SecurityWebExceptionHandler {
 
 	/**
 	 * 鉴权异常
