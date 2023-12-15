@@ -1,10 +1,10 @@
 package live.lingting.component.security.web.aspectj;
 
+import live.lingting.component.core.util.CollectionUtils;
+import live.lingting.component.security.annotation.Authorize;
 import live.lingting.component.security.authorize.SecurityAuthorize;
 import live.lingting.component.security.constant.SecurityConstants;
-import live.lingting.component.security.annotation.Authorize;
 import live.lingting.component.security.web.properties.SecurityWebProperties;
-import live.lingting.component.core.util.CollectionUtils;
 import live.lingting.component.spring.util.AspectUtils;
 import live.lingting.component.web.filter.WebScope;
 import lombok.RequiredArgsConstructor;

@@ -14,16 +14,16 @@ import okhttp3.Request;
 /**
  * @author lingting 2023-03-31 10:53
  */
-public class SecurityDefaultRemoteResourceServiceImpl implements SecurityResourceService {
+public class SecurityWebDefaultRemoteResourceServiceImpl implements SecurityResourceService {
 
 	protected final OkHttpClient client;
 
-	protected final SecurityRemoteResourceRequestCustomer customer;
+	protected final SecurityWebRemoteResourceRequestCustomer customer;
 
 	protected final String urlResolve;
 
-	public SecurityDefaultRemoteResourceServiceImpl(String host, OkHttpClient client,
-			SecurityRemoteResourceRequestCustomer customer) {
+	public SecurityWebDefaultRemoteResourceServiceImpl(String host, OkHttpClient client,
+			SecurityWebRemoteResourceRequestCustomer customer) {
 		this.client = client;
 		this.customer = customer;
 		this.urlResolve = join(host, SecurityWebConstants.URI_RESOLVE);

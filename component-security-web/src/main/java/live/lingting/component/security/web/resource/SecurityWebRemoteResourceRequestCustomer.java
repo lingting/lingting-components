@@ -5,7 +5,7 @@ import okhttp3.Request;
 /**
  * @author lingting 2023-06-13 17:48
  */
-public interface SecurityRemoteResourceRequestCustomer {
+public interface SecurityWebRemoteResourceRequestCustomer {
 
 	default Request.Builder apply(Request.Builder builder) {
 		return builder;

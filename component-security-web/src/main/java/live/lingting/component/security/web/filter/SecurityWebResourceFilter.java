@@ -28,9 +28,21 @@ public class SecurityWebResourceFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response,
 			@NotNull FilterChain filterChain) throws ServletException, IOException {
+		handlerScope(request);
 
-		SecurityToken token = getTokenHeader(request);
-		if (StringUtils.hasText(token.getToken())) {
+		try {
+			filterChain.doFilter(request, response);
+		}
+		finally {
+			service.removeScope();
+		}
+
+	}
+
+	protected void handlerScope(HttpServletRequest request) {
+		SecurityToken token = getToken(request);
+		// token有效, 设置上下文
+		if (token.isAvailable()) {
 			try {
 				SecurityScope scope = service.resolve(token);
 				service.setScope(scope);
@@ -39,46 +51,22 @@ public class SecurityWebResourceFilter extends OncePerRequestFilter {
 				log.error("resolve token error! token: {}", token, e);
 			}
 		}
-		try {
-			filterChain.doFilter(request, response);
-		}
-		finally {
-			service.removeScope();
-		}
 	}
 
-	public SecurityToken getTokenHeader(HttpServletRequest request) {
+	public SecurityToken getToken(HttpServletRequest request) {
 		String raw = request.getHeader(SecurityWebConstants.TOKEN_HEADER);
 
 		// 走参数
 		if (!StringUtils.hasText(raw)) {
 			return getTokenByParams(request);
 		}
-		SecurityToken token = new SecurityToken();
 
-		String[] split = raw.split(SecurityWebConstants.TOKEN_DELIMITER, 2);
-
-		token.setRaw(raw);
-
-		if (split.length > 1) {
-			token.setType(split[0]);
-			token.setToken(split[1]);
-		}
-		else {
-			token.setType(null);
-			token.setToken(split[0]);
-		}
-
-		return token;
+		return SecurityToken.ofDelimiter(raw, SecurityWebConstants.TOKEN_DELIMITER);
 	}
 
 	public SecurityToken getTokenByParams(HttpServletRequest request) {
-		SecurityToken token = new SecurityToken();
 		String value = request.getParameter(SecurityWebConstants.TOKEN_PARAMETER);
-		token.setType(SecurityWebConstants.TOKEN_TYPE_BEARER);
-		token.setToken(value);
-		token.setRaw(value);
-		return token;
+		return SecurityToken.of(SecurityWebConstants.TOKEN_TYPE_BEARER, value, value);
 	}
 
 }

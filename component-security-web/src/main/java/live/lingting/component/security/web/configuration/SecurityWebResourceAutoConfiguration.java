@@ -6,11 +6,13 @@ import live.lingting.component.security.configuration.SecurityResourceConfigurat
 import live.lingting.component.security.constant.SecurityConstants;
 import live.lingting.component.security.properties.SecurityProperties;
 import live.lingting.component.security.resource.SecurityResourceService;
+import live.lingting.component.security.store.SecurityStore;
 import live.lingting.component.security.web.aspectj.SecurityWebResourceAspectj;
 import live.lingting.component.security.web.filter.SecurityWebResourceFilter;
 import live.lingting.component.security.web.properties.SecurityWebProperties;
-import live.lingting.component.security.web.resource.SecurityDefaultRemoteResourceServiceImpl;
-import live.lingting.component.security.web.resource.SecurityRemoteResourceRequestCustomer;
+import live.lingting.component.security.web.resource.SecurityWebDefaultRemoteResourceServiceImpl;
+import live.lingting.component.security.web.resource.SecurityWebDefaultResourceServiceImpl;
+import live.lingting.component.security.web.resource.SecurityWebRemoteResourceRequestCustomer;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -30,7 +32,7 @@ public class SecurityWebResourceAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingFilterBean
-	public FilterRegistrationBean<SecurityWebResourceFilter> securityWebResourceFilterRegistrationBean(
+	public FilterRegistrationBean<SecurityWebResourceFilter> securityWebResourceFilterFilterRegistrationBean(
 			SecurityResourceService service) {
 		SecurityWebResourceFilter filter = new SecurityWebResourceFilter(service);
 		FilterRegistrationBean<SecurityWebResourceFilter> bean = new FilterRegistrationBean<>(filter);
@@ -38,26 +40,40 @@ public class SecurityWebResourceAutoConfiguration {
 		return bean;
 	}
 
+	/**
+	 * 使用本地解析token
+	 */
+	@Bean
+	@ConditionalOnMissingBean
+	@ConditionalOnProperty(prefix = SecurityProperties.PREFIX + ".authorization", value = "remote",
+			havingValue = "false", matchIfMissing = true)
+	public SecurityResourceService securityStoreResourceService(SecurityStore store) {
+		return new SecurityWebDefaultResourceServiceImpl(store);
+	}
+
+	/**
+	 * 指定远端解析token
+	 */
 	@Bean
 	@ConditionalOnMissingBean
 	@ConditionalOnProperty(prefix = SecurityProperties.PREFIX + ".authorization", value = "remote",
 			havingValue = "true")
-	public SecurityResourceService securityResourceService(SecurityProperties properties,
-			SecurityRemoteResourceRequestCustomer customer) {
+	public SecurityResourceService securityRemoteResourceService(SecurityProperties properties,
+			SecurityWebRemoteResourceRequestCustomer customer) {
 		String host = properties.getAuthorization().getRemoteHost();
 
 		OkHttpClientBuilder builder = new OkHttpClientBuilder().disableSsl()
 			.timeout(Duration.ofSeconds(5), Duration.ofSeconds(10));
 
-		return new SecurityDefaultRemoteResourceServiceImpl(host, builder.build(), customer);
+		return new SecurityWebDefaultRemoteResourceServiceImpl(host, builder.build(), customer);
 	}
 
 	@Bean
 	@ConditionalOnMissingBean
 	@ConditionalOnProperty(prefix = SecurityProperties.PREFIX + ".authorization", value = "remote",
 			havingValue = "true")
-	public SecurityRemoteResourceRequestCustomer remoteResourceRequestCustomer() {
-		return new SecurityRemoteResourceRequestCustomer() {
+	public SecurityWebRemoteResourceRequestCustomer securityWebRemoteResourceRequestCustomer() {
+		return new SecurityWebRemoteResourceRequestCustomer() {
 		};
 	}
 
