@@ -29,6 +29,10 @@ public class SecurityToken {
 	}
 
 	public static SecurityToken ofDelimiter(String raw, String delimiter) {
+		if (!StringUtils.hasText(raw)) {
+			return EMPTY;
+		}
+
 		String[] split = raw.split(delimiter, 2);
 		if (split.length > 1) {
 			return of(split[0], split[1], raw);
