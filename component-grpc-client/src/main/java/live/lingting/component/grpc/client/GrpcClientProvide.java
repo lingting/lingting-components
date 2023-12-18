@@ -40,7 +40,11 @@ public class GrpcClientProvide {
 		if (port == null || port < 0) {
 			throw new IllegalArgumentException(GrpcClientProperties.PREFIX + ".port值不能为: " + port);
 		}
-		ManagedChannelBuilder<?> builder = ManagedChannelBuilder.forAddress(host, port);
+		return channel(String.format("%s:%d", host, port), operator);
+	}
+
+	public ManagedChannel channel(String target, UnaryOperator<ManagedChannelBuilder<?>> operator) {
+		ManagedChannelBuilder<?> builder = ManagedChannelBuilder.forTarget(target);
 
 		// 开启心跳
 		if (properties.isEnableKeepAlive()) {
