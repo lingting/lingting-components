@@ -45,15 +45,12 @@ public class SecurityWebDefaultRemoteResourceServiceImpl implements SecurityReso
 		return SecurityMapstruct.INSTANCE.ofVo(vo);
 	}
 
-	Request.Builder fillSecurity(Request.Builder builder, SecurityToken token) {
-		builder.header(SecurityWebConstants.TOKEN_HEADER,
-				String.format("%s %s",
-						StringUtils.hasText(token.getType()) ? token.getType() : SecurityWebConstants.TOKEN_TYPE_BEARER,
-						token.getToken()));
+	protected Request.Builder fillSecurity(Request.Builder builder, SecurityToken token) {
+		builder.header(SecurityWebConstants.TOKEN_HEADER, token.getRaw());
 		return builder;
 	}
 
-	String join(String host, String uri) {
+	protected String join(String host, String uri) {
 		if (!StringUtils.hasText(host)) {
 			throw new IllegalArgumentException("remoteHost is not Null!");
 		}

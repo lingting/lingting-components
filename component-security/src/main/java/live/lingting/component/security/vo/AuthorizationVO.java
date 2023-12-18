@@ -2,6 +2,7 @@ package live.lingting.component.security.vo;
 
 import lombok.Data;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -32,5 +33,7 @@ public class AuthorizationVO {
 	private Set<String> roles;
 
 	private Set<String> permissions;
+
+	private Map<String, Object> attributes;
 
 }

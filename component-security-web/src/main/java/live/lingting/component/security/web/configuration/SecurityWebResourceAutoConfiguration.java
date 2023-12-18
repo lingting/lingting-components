@@ -11,7 +11,6 @@ import live.lingting.component.security.web.aspectj.SecurityWebResourceAspectj;
 import live.lingting.component.security.web.filter.SecurityWebResourceFilter;
 import live.lingting.component.security.web.properties.SecurityWebProperties;
 import live.lingting.component.security.web.resource.SecurityWebDefaultRemoteResourceServiceImpl;
-import live.lingting.component.security.web.resource.SecurityWebDefaultResourceServiceImpl;
 import live.lingting.component.security.web.resource.SecurityWebRemoteResourceRequestCustomer;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -41,18 +40,8 @@ public class SecurityWebResourceAutoConfiguration {
 	}
 
 	/**
-	 * 使用本地解析token
-	 */
-	@Bean
-	@ConditionalOnMissingBean
-	@ConditionalOnProperty(prefix = SecurityProperties.PREFIX + ".authorization", value = "remote",
-			havingValue = "false", matchIfMissing = true)
-	public SecurityResourceService securityStoreResourceService(SecurityStore store) {
-		return new SecurityWebDefaultResourceServiceImpl(store);
-	}
-
-	/**
 	 * 指定远端解析token
+	 * @see SecurityResourceConfiguration#securityStoreResourceService(SecurityStore)
 	 */
 	@Bean
 	@ConditionalOnMissingBean

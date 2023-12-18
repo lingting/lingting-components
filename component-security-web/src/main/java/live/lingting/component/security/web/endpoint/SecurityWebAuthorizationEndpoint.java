@@ -2,7 +2,6 @@ package live.lingting.component.security.web.endpoint;
 
 import live.lingting.component.security.annotation.Authorize;
 import live.lingting.component.security.authorize.SecurityAuthorizationService;
-import live.lingting.component.security.configuration.SecurityAuthorizationConfiguration;
 import live.lingting.component.security.exception.AuthorizationException;
 import live.lingting.component.security.password.SecurityPassword;
 import live.lingting.component.security.po.AuthorizationPasswordPO;
@@ -12,7 +11,6 @@ import live.lingting.component.security.store.SecurityStore;
 import live.lingting.component.security.vo.AuthorizationVO;
 import live.lingting.component.security.web.constant.SecurityWebConstants;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,8 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequiredArgsConstructor
-@ConditionalOnBean(SecurityAuthorizationConfiguration.class)
-public class AuthorizationEndpoint {
+public class SecurityWebAuthorizationEndpoint {
 
 	private final SecurityAuthorizationService service;
 
