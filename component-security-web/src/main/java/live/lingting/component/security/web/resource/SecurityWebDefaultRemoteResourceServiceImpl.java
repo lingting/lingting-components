@@ -1,9 +1,9 @@
 package live.lingting.component.security.web.resource;
 
 import live.lingting.component.core.constant.GlobalConstants;
+import live.lingting.component.core.constant.HttpConstants;
 import live.lingting.component.core.util.StringUtils;
 import live.lingting.component.okhttp.OkHttpClient;
-import live.lingting.component.security.mapstruct.SecurityMapstruct;
 import live.lingting.component.security.resource.SecurityResourceService;
 import live.lingting.component.security.resource.SecurityScope;
 import live.lingting.component.security.token.SecurityToken;
@@ -39,10 +39,11 @@ public class SecurityWebDefaultRemoteResourceServiceImpl implements SecurityReso
 
 	@Override
 	public SecurityScope resolve(SecurityToken token) {
-		Request.Builder builder = resolveBuilder(token);
-		Request request = customer.resolve(builder);
-		AuthorizationVO vo = client.request(request, AuthorizationVO.class);
-		return SecurityMapstruct.INSTANCE.ofVo(vo);
+		AuthorizationVO vo = customer.doRequest(client, () -> {
+			Request.Builder builder = resolveBuilder(token);
+			return customer.resolve(builder);
+		});
+		return customer.toScope(vo);
 	}
 
 	protected Request.Builder fillSecurity(Request.Builder builder, SecurityToken token) {
@@ -55,6 +56,10 @@ public class SecurityWebDefaultRemoteResourceServiceImpl implements SecurityReso
 			throw new IllegalArgumentException("remoteHost is not Null!");
 		}
 		StringBuilder builder = new StringBuilder(host);
+		if (!host.startsWith(HttpConstants.HTTP)) {
+			builder.append(HttpConstants.HTTP).append(HttpConstants.URL_DELIMITER);
+		}
+
 		if (!host.endsWith(GlobalConstants.SLASH)) {
 			builder.append(GlobalConstants.SLASH);
 		}
