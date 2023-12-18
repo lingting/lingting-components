@@ -32,7 +32,7 @@ import java.util.Set;
  */
 @Slf4j
 @Order(Ordered.HIGHEST_PRECEDENCE + 100)
-public class SecurityGrpcResourceInterceptor implements ServerInterceptor {
+public class SecurityGrpcResourceServerInterceptor implements ServerInterceptor {
 
 	private static final AntPathMatcher ANT_PATH_MATCHER = new AntPathMatcher();
 
@@ -46,10 +46,10 @@ public class SecurityGrpcResourceInterceptor implements ServerInterceptor {
 
 	private final SecurityGrpcExceptionHandler exceptionHandler;
 
-	public SecurityGrpcResourceInterceptor(SecurityGrpcProperties properties, SecurityResourceService service,
+	public SecurityGrpcResourceServerInterceptor(SecurityGrpcProperties properties, SecurityResourceService service,
 			SecurityAuthorize securityAuthorize, SecurityGrpcExceptionHandler exceptionHandler) {
 		this.properties = properties;
-		this.authorizationKey = Metadata.Key.of(properties.getAuthorizationKey(), Metadata.ASCII_STRING_MARSHALLER);
+		this.authorizationKey = properties.authorizationKey();
 		this.service = service;
 		this.securityAuthorize = securityAuthorize;
 		this.exceptionHandler = exceptionHandler;

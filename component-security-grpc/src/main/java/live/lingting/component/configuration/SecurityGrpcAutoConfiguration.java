@@ -1,5 +1,7 @@
 package live.lingting.component.configuration;
 
+import live.lingting.component.convert.SecurityGrpcConvert;
+import live.lingting.component.convert.SecurityGrpcDefaultConvert;
 import live.lingting.component.exception.SecurityGrpcExceptionHandler;
 import live.lingting.component.properties.SecurityGrpcProperties;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -18,6 +20,12 @@ public class SecurityGrpcAutoConfiguration {
 	@ConditionalOnMissingBean
 	public SecurityGrpcExceptionHandler securityGrpcExceptionHandler() {
 		return new SecurityGrpcExceptionHandler();
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public SecurityGrpcConvert securityGrpcConvert() {
+		return new SecurityGrpcDefaultConvert();
 	}
 
 }

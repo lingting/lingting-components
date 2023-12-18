@@ -15,6 +15,10 @@
     <dependencies>
         <dependency>
             <groupId>live.lingting.components</groupId>
+            <artifactId>component-jackson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>live.lingting.components</groupId>
             <artifactId>component-security</artifactId>
         </dependency>
         <dependency>
@@ -24,6 +28,10 @@
         <dependency>
             <groupId>live.lingting.components</groupId>
             <artifactId>component-grpc-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>live.lingting.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>

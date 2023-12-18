@@ -1,5 +1,6 @@
 package live.lingting.component.properties;
 
+import io.grpc.Metadata;
 import live.lingting.component.security.properties.SecurityProperties;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -18,5 +19,9 @@ public class SecurityGrpcProperties {
 	private Set<String> ignoreAntPatterns;
 
 	private String authorizationKey = "Authorization";
+
+	public Metadata.Key<String> authorizationKey() {
+		return Metadata.Key.of(getAuthorizationKey(), Metadata.ASCII_STRING_MARSHALLER);
+	}
 
 }
