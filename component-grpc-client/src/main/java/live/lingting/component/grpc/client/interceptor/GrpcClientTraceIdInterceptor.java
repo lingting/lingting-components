@@ -4,12 +4,12 @@ import io.grpc.CallOptions;
 import io.grpc.Channel;
 import io.grpc.ClientCall;
 import io.grpc.ClientInterceptor;
-import io.grpc.ForwardingClientCall;
 import io.grpc.Metadata;
 import io.grpc.MethodDescriptor;
 import live.lingting.component.core.util.IdUtils;
 import live.lingting.component.core.util.StringUtils;
 import live.lingting.component.grpc.client.properties.GrpcClientProperties;
+import live.lingting.component.grpc.client.sample.SimpleForwardingClientCall;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
@@ -39,15 +39,16 @@ public class GrpcClientTraceIdInterceptor implements ClientInterceptor {
 		String traceId = traceId();
 
 		ClientCall<S, R> call = next.newCall(method, callOptions);
-		return new ForwardingClientCall.SimpleForwardingClientCall<S, R>(call) {
+
+		return new SimpleForwardingClientCall<S, R>(call) {
 			@Override
-			public void start(Listener<R> responseListener, Metadata headers) {
+			public void onStartBefore(Listener<R> responseListener, Metadata headers) {
 				if (StringUtils.hasText(traceId)) {
 					headers.put(traceIdKey, traceId);
 				}
-				super.start(responseListener, headers);
 			}
 		};
+
 	}
 
 }
