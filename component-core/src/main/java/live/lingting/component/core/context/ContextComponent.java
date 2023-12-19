@@ -22,7 +22,14 @@ public interface ContextComponent {
 	void onApplicationStart();
 
 	/**
-	 * 在上下文销毁前调用, 内部做线程停止和数据缓存相关
+	 * 上下文销毁前调用, 内部可以做使用wait等待数据处理完毕
+	 */
+	default void onApplicationStopBefore() {
+
+	}
+
+	/**
+	 * 在上下文销毁时调用, 内部做线程停止和数据缓存相关
 	 */
 	void onApplicationStop();
 
