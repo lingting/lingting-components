@@ -74,6 +74,10 @@ public class NtpCn {
 
 	@SneakyThrows
 	public static Ntp instance() {
+		if (!instance.isNull()) {
+			return instance.getValue();
+		}
+
 		return instance.compute(new UnaryOperator<Ntp>() {
 			@Override
 			@SneakyThrows
