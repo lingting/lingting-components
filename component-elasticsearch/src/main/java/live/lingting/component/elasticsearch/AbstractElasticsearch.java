@@ -119,6 +119,22 @@ public abstract class AbstractElasticsearch<T> {
 		return retry.get();
 	}
 
+	protected void tryCatch(ThrowingRunnable runnable) {
+		tryCatch(() -> {
+			runnable.run();
+			return null;
+		}, e -> null);
+	}
+
+	protected <R> R tryCatch(ThrowingSupplier<R> supplier, Function<Exception, R> onCatch) {
+		try {
+			return supplier.get();
+		}
+		catch (Exception e) {
+			return onCatch.apply(e);
+		}
+	}
+
 	protected Query.Builder mergeQuery(Query... queries) {
 		return mergeQuery(Arrays.stream(queries).filter(Objects::nonNull).collect(Collectors.toList()));
 	}
