@@ -208,12 +208,12 @@ public abstract class AbstractElasticsearch<T> {
 	}
 
 	protected void aggregations(BiConsumer<String, Aggregate> consumer, Map<String, Aggregation> aggregationMap,
-			Query... queries) {
+			Query... queries) throws IOException {
 		aggregations(builder -> builder, consumer, aggregationMap, queries);
 	}
 
 	protected void aggregations(UnaryOperator<SearchRequest.Builder> operator, BiConsumer<String, Aggregate> consumer,
-			Map<String, Aggregation> aggregationMap, Query... queries) {
+			Map<String, Aggregation> aggregationMap, Query... queries) throws IOException {
 		aggregations(operator, response -> {
 			Map<String, Aggregate> aggregations = response.aggregations();
 			Set<Map.Entry<String, Aggregate>> entries = aggregations.entrySet();
@@ -226,7 +226,7 @@ public abstract class AbstractElasticsearch<T> {
 	}
 
 	protected void aggregations(UnaryOperator<SearchRequest.Builder> operator, Consumer<SearchResponse<T>> consumer,
-			Map<String, Aggregation> aggregationMap, Query... queries) {
+			Map<String, Aggregation> aggregationMap, Query... queries) throws IOException {
 
 		Query.Builder qb = mergeQuery(queries);
 
@@ -240,52 +240,45 @@ public abstract class AbstractElasticsearch<T> {
 		builder.query(qb.build());
 		builder.aggregations(aggregationMap);
 
-		try {
-			SearchResponse<T> response = client.search(builder.build(), cls);
-			consumer.accept(response);
-		}
-		catch (IOException e) {
-			log.error("elastic聚合搜索异常!", e);
-		}
+		SearchResponse<T> response = client.search(builder.build(), cls);
+		consumer.accept(response);
 	}
 
-	protected boolean update(String documentId, Function<Script.Builder, ObjectBuilder<Script>> scriptOperator) {
+	protected boolean update(String documentId, Function<Script.Builder, ObjectBuilder<Script>> scriptOperator)
+			throws IOException {
 		return update(documentId, scriptOperator.apply(new Script.Builder()).build());
 	}
 
-	protected boolean update(String documentId, Script script) {
+	protected boolean update(String documentId, Script script) throws IOException {
 		return update(builder -> builder, documentId, script);
 	}
 
-	protected boolean update(UnaryOperator<UpdateRequest.Builder<T, T>> operator, String documentId, Script script) {
-		try {
-			UpdateRequest.Builder<T, T> builder = operator.apply(new UpdateRequest.Builder<T, T>()
-				// 刷新策略
-				.refresh(Refresh.WaitFor)
-				// 版本冲突时自动重试次数
-				.retryOnConflict(5));
+	protected boolean update(UnaryOperator<UpdateRequest.Builder<T, T>> operator, String documentId, Script script)
+			throws IOException {
+		UpdateRequest.Builder<T, T> builder = operator.apply(new UpdateRequest.Builder<T, T>()
+			// 刷新策略
+			.refresh(Refresh.WaitFor)
+			// 版本冲突时自动重试次数
+			.retryOnConflict(5));
 
-			builder.index(index).id(documentId).script(script);
+		builder.index(index).id(documentId).script(script);
 
-			UpdateResponse<T> response = client.update(builder.build(), cls);
-			Result result = response.result();
-			return Result.Updated.equals(result);
-		}
-		catch (IOException e) {
-			return false;
-		}
+		UpdateResponse<T> response = client.update(builder.build(), cls);
+		Result result = response.result();
+		return Result.Updated.equals(result);
 	}
 
-	protected boolean updateByQuery(Function<Script.Builder, ObjectBuilder<Script>> scriptOperator, Query... queries) {
+	protected boolean updateByQuery(Function<Script.Builder, ObjectBuilder<Script>> scriptOperator, Query... queries)
+			throws IOException {
 		return updateByQuery(scriptOperator.apply(new Script.Builder()).build(), queries);
 	}
 
-	protected boolean updateByQuery(Script script, Query... queries) {
+	protected boolean updateByQuery(Script script, Query... queries) throws IOException {
 		return updateByQuery(builder -> builder, script, queries);
 	}
 
 	protected boolean updateByQuery(UnaryOperator<UpdateByQueryRequest.Builder> operator, Script script,
-			Query... queries) {
+			Query... queries) throws IOException {
 		Query.Builder qb = mergeQuery(queries);
 
 		UpdateByQueryRequest.Builder builder = operator.apply(new UpdateByQueryRequest.Builder()
@@ -293,15 +286,9 @@ public abstract class AbstractElasticsearch<T> {
 			.refresh(false));
 		builder.index(index).query(qb.build()).script(script);
 
-		try {
-			UpdateByQueryResponse response = retry(() -> client.updateByQuery(builder.build()));
-			Long total = response.total();
-			return total != null && total > 0;
-		}
-		catch (Exception e) {
-			log.error("elastic更新方法执行异常!", e);
-			return false;
-		}
+		UpdateByQueryResponse response = client.updateByQuery(builder.build());
+		Long total = response.total();
+		return total != null && total > 0;
 	}
 
 	protected BulkResponse bulk(BulkOperation... operations) throws IOException {
@@ -346,25 +333,21 @@ public abstract class AbstractElasticsearch<T> {
 		bulk(operator, operations);
 	}
 
-	protected boolean deleteByQuery(Query... queries) {
+	protected boolean deleteByQuery(Query... queries) throws IOException {
 		return deleteByQuery(builder -> builder, queries);
 	}
 
-	protected boolean deleteByQuery(UnaryOperator<DeleteByQueryRequest.Builder> operator, Query... queries) {
+	protected boolean deleteByQuery(UnaryOperator<DeleteByQueryRequest.Builder> operator, Query... queries)
+			throws IOException {
 		Query.Builder qb = mergeQuery(queries);
 
 		DeleteByQueryRequest.Builder builder = operator.apply(new DeleteByQueryRequest.Builder().refresh(false));
 		builder.index(index);
 		builder.query(qb.build());
 
-		try {
-			DeleteByQueryResponse response = client.deleteByQuery(builder.build());
-			Long deleted = response.deleted();
-			return deleted != null && deleted > 0;
-		}
-		catch (IOException e) {
-			return false;
-		}
+		DeleteByQueryResponse response = client.deleteByQuery(builder.build());
+		Long deleted = response.deleted();
+		return deleted != null && deleted > 0;
 	}
 
 	protected List<T> list(Query... queries) {
