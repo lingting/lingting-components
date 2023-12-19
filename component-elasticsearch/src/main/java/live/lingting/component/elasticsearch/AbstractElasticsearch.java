@@ -114,10 +114,10 @@ public abstract class AbstractElasticsearch<T> {
 		ElasticsearchProperties.Retry propertiesRetry = properties.getRetry();
 		Retry<R> retry;
 		if (propertiesRetry == null) {
-			retry = new Retry<>(supplier);
+			retry = Retry.simple(supplier);
 		}
 		else {
-			retry = new Retry<>(supplier, propertiesRetry.getMaxCount(), propertiesRetry.getDelay());
+			retry = Retry.simple(propertiesRetry.getMaxRetryCount(), propertiesRetry.getDelay(), supplier);
 		}
 		return retry.get();
 	}

@@ -28,14 +28,14 @@ class RetryTest {
 			throw new IllegalStateException("异常");
 		};
 
-		Retry<Integer> retry = new Retry<>(supplier, 4, Duration.ZERO);
+		Retry<Integer> retry = Retry.simple(4, Duration.ZERO, supplier);
 		RetryValue<Integer> value = retry.value();
 		Assertions.assertTrue(value.isSuccess());
 		Assertions.assertEquals(expected, value.get());
 		Assertions.assertEquals(4, value.getLogs().size());
 
 		atomic.set(0);
-		retry = new Retry<>(supplier, 3, Duration.ZERO);
+		retry = Retry.simple(2, Duration.ZERO, supplier);
 		value = retry.value();
 		Assertions.assertFalse(value.isSuccess());
 		Assertions.assertNull(value.getValue());

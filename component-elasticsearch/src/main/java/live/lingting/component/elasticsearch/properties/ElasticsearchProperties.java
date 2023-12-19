@@ -25,7 +25,7 @@ public class ElasticsearchProperties {
 		/**
 		 * 最大重试次数
 		 */
-		private Integer maxCount = 3;
+		private int maxRetryCount = 3;
 
 		/**
 		 * 每次重试延迟
