@@ -2,6 +2,7 @@ package live.lingting.component.rocketmq.consumer;
 
 import live.lingting.component.core.domain.ClassField;
 import live.lingting.component.core.util.ClassUtils;
+import live.lingting.component.core.util.StringUtils;
 import live.lingting.component.rocketmq.message.RocketMqMessageConsumer;
 import live.lingting.component.rocketmq.properties.RocketMqProperties;
 import lombok.Getter;
@@ -118,6 +119,11 @@ abstract class AbstractPullConsumer<C extends AbstractPullConsumer<C>>
 		}
 
 		return diff;
+	}
+
+	@Override
+	public boolean isStart() {
+		return StringUtils.hasText(consumer.getNamesrvAddr()) || consumer.isRunning();
 	}
 
 }

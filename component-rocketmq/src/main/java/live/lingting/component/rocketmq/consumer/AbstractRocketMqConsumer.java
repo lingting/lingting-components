@@ -32,10 +32,22 @@ public abstract class AbstractRocketMqConsumer implements ContextComponent {
 	}
 
 	@Override
-	@SneakyThrows
 	public void onApplicationStart() {
-		consumer = buildConsumer();
-		consumer.start(this::batch);
+		setConsumer();
+		startConsumer();
+	}
+
+	protected void setConsumer() {
+		if (consumer == null) {
+			consumer = buildConsumer();
+		}
+	}
+
+	@SneakyThrows
+	protected void startConsumer() {
+		if (!consumer.isStart()) {
+			consumer.start(this::batch);
+		}
 	}
 
 	@Override

@@ -104,4 +104,9 @@ abstract class AbstractPushConsumer<C extends AbstractPushConsumer<C>>
 		return diff;
 	}
 
+	@Override
+	public boolean isStart() {
+		return StringUtils.hasText(consumer.getNamesrvAddr());
+	}
+
 }

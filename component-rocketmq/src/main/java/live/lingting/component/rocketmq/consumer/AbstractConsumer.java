@@ -115,4 +115,6 @@ public abstract class AbstractConsumer<C extends AbstractConsumer<C, I>, I exten
 		return currentConvert.of(currentGroup, ext);
 	}
 
+	public abstract boolean isStart();
+
 }
