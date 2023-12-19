@@ -10,6 +10,7 @@ import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -29,11 +30,20 @@ public class SpringContextClosedListener implements ApplicationListener<ContextC
 		contextComponentStop(applicationContext);
 	}
 
-	private static void contextComponentStop(ApplicationContext applicationContext) {
-		Map<String, ContextComponent> contextComponentMap = applicationContext.getBeansOfType(ContextComponent.class);
+	void contextComponentStop(ApplicationContext applicationContext) {
+		Map<String, ContextComponent> map = applicationContext.getBeansOfType(ContextComponent.class);
+		Collection<ContextComponent> values = map.values();
 
-		for (Map.Entry<String, ContextComponent> entry : contextComponentMap.entrySet()) {
-			entry.getValue().onApplicationStop();
+		log.debug("context component stop before");
+		for (ContextComponent component : values) {
+			log.trace("class [{}] stop before", component.getClass());
+			component.onApplicationStopBefore();
+		}
+
+		log.debug("context component stop");
+		for (ContextComponent component : values) {
+			log.trace("class [{}] stop", component.getClass());
+			component.onApplicationStop();
 		}
 	}
 
