@@ -40,6 +40,7 @@ import live.lingting.component.elasticsearch.builder.ScriptBuilder;
 import live.lingting.component.elasticsearch.datascope.DataPermissionHandler;
 import live.lingting.component.elasticsearch.datascope.DataScope;
 import live.lingting.component.elasticsearch.properties.ElasticsearchProperties;
+import live.lingting.component.elasticsearch.retry.ElasticsearchRetry;
 import live.lingting.component.elasticsearch.util.ElasticSearchUtils;
 import live.lingting.component.elasticsearch.wrapper.Queries;
 import live.lingting.component.elasticsearch.wrapper.SortWrapper;
@@ -111,14 +112,10 @@ public abstract class AbstractElasticsearch<T> {
 	}
 
 	protected <R> R retry(ThrowingSupplier<R> supplier) throws Exception {
-		ElasticsearchProperties.Retry propertiesRetry = properties.getRetry();
-		Retry<R> retry;
-		if (propertiesRetry == null) {
-			retry = Retry.simple(supplier);
-		}
-		else {
-			retry = Retry.simple(propertiesRetry.getMaxRetryCount(), propertiesRetry.getDelay(), supplier);
-		}
+		ElasticsearchProperties.Retry propertiesRetry = properties.getRetry() == null
+				? new ElasticsearchProperties.Retry() : properties.getRetry();
+
+		Retry<R> retry = new ElasticsearchRetry<>(propertiesRetry, supplier);
 		return retry.get();
 	}
 
@@ -262,8 +259,11 @@ public abstract class AbstractElasticsearch<T> {
 
 	protected boolean update(UnaryOperator<UpdateRequest.Builder<T, T>> operator, String documentId, Script script) {
 		try {
-			UpdateRequest.Builder<T, T> builder = operator
-				.apply(new UpdateRequest.Builder<T, T>().refresh(Refresh.WaitFor));
+			UpdateRequest.Builder<T, T> builder = operator.apply(new UpdateRequest.Builder<T, T>()
+				// 刷新策略
+				.refresh(Refresh.WaitFor)
+				// 版本冲突时自动重试次数
+				.retryOnConflict(5));
 
 			builder.index(index).id(documentId).script(script);
 
@@ -288,7 +288,9 @@ public abstract class AbstractElasticsearch<T> {
 			Query... queries) {
 		Query.Builder qb = mergeQuery(queries);
 
-		UpdateByQueryRequest.Builder builder = operator.apply(new UpdateByQueryRequest.Builder().refresh(true));
+		UpdateByQueryRequest.Builder builder = operator.apply(new UpdateByQueryRequest.Builder()
+			// 刷新策略
+			.refresh(false));
 		builder.index(index).query(qb.build()).script(script);
 
 		try {

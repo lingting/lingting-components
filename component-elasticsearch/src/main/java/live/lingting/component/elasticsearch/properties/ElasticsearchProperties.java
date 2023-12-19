@@ -30,7 +30,20 @@ public class ElasticsearchProperties {
 		/**
 		 * 每次重试延迟
 		 */
-		private Duration delay = Duration.ofMillis(200);
+		private Duration delay = Duration.ofMillis(50);
+
+		/**
+		 * 触发版本冲突时重试次数, 小于0表示无限重试
+		 * <p>
+		 * 此重试独立计数, 不论是否达到 {@link Retry#getMaxRetryCount()} 均会按照此配置进行重试
+		 * </p>
+		 */
+		private int versionConflictMaxRetryCount = 50;
+
+		/**
+		 * 版本冲突重试延迟
+		 */
+		private Duration versionConflictDelay = Duration.ofMillis(500);
 
 	}
 

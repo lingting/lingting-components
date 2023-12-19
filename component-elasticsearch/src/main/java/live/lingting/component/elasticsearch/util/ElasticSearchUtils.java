@@ -1,12 +1,15 @@
 package live.lingting.component.elasticsearch.util;
 
-import live.lingting.component.elasticsearch.EFunction;
 import live.lingting.component.core.constant.StringConstants;
 import live.lingting.component.core.domain.ClassField;
 import live.lingting.component.core.util.ClassUtils;
 import live.lingting.component.core.util.StringUtils;
+import live.lingting.component.elasticsearch.EFunction;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.StatusLine;
+import org.elasticsearch.client.Response;
+import org.elasticsearch.client.ResponseException;
 
 import java.lang.invoke.SerializedLambda;
 import java.lang.reflect.Field;
@@ -108,6 +111,30 @@ public class ElasticSearchUtils {
 			}
 
 		});
+	}
+
+	public static boolean isVersionConflictException(Exception e) {
+		if (!(e instanceof ResponseException)) {
+			return false;
+		}
+
+		Response response = ((ResponseException) e).getResponse();
+
+		StatusLine line = response.getStatusLine();
+		int statusCode = line.getStatusCode();
+
+		if (statusCode != 409) {
+			return false;
+		}
+
+		String phrase = line.getReasonPhrase();
+
+		if (!StringUtils.hasText(phrase)) {
+			return false;
+		}
+
+		// type为版本冲突
+		return phrase.toLowerCase().contains("version_conflict_engine_exception");
 	}
 
 }
