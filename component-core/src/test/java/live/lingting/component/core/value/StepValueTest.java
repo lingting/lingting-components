@@ -15,33 +15,54 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class StepValueTest {
 
 	@Test
-	void test() {
-		StepValue simple3 = StepValue.simple(1, 3L, null);
-		assertEquals(0, simple3.getCount());
-		assertTrue(simple3.hasNext());
-		assertEquals(1, simple3.next());
-		assertTrue(simple3.hasNext());
-		assertEquals(2, simple3.next());
-		assertTrue(simple3.hasNext());
-		assertEquals(3, simple3.next());
-		assertFalse(simple3.hasNext());
-		assertThrowsExactly(NoSuchElementException.class, simple3::next);
+	void testMaxCount() {
+		StepValue simple = StepValue.simple(1, 3L, null);
+		assertEquals(0, simple.getCount());
+		assertTrue(simple.hasNext());
+		assertEquals(1, simple.next());
+		assertTrue(simple.hasNext());
+		assertEquals(2, simple.next());
+		assertTrue(simple.hasNext());
+		assertEquals(3, simple.next());
+		assertFalse(simple.hasNext());
+		assertThrowsExactly(NoSuchElementException.class, simple::next);
+	}
 
-		StepValue simple30 = StepValue.simple(5, null, 30L);
-		assertTrue(simple30.hasNext());
-		assertEquals(5, simple30.next());
-		assertTrue(simple30.hasNext());
-		assertEquals(10, simple30.next());
-		assertTrue(simple30.hasNext());
-		assertEquals(15, simple30.next());
-		assertTrue(simple30.hasNext());
-		assertEquals(20, simple30.next());
-		assertTrue(simple30.hasNext());
-		assertEquals(25, simple30.next());
-		assertTrue(simple30.hasNext());
-		assertEquals(30, simple30.next());
-		assertFalse(simple30.hasNext());
-		assertThrowsExactly(NoSuchElementException.class, simple30::next);
+	@Test
+	void testMaxValue() {
+		StepValue simple = StepValue.simple(5, null, 30L);
+		assertTrue(simple.hasNext());
+		assertEquals(5, simple.next());
+		assertTrue(simple.hasNext());
+		assertEquals(10, simple.next());
+		assertTrue(simple.hasNext());
+		assertEquals(15, simple.next());
+		assertTrue(simple.hasNext());
+		assertEquals(20, simple.next());
+		assertTrue(simple.hasNext());
+		assertEquals(25, simple.next());
+		assertTrue(simple.hasNext());
+		assertEquals(30, simple.next());
+		assertFalse(simple.hasNext());
+		assertThrowsExactly(NoSuchElementException.class, simple::next);
+	}
+
+	@Test
+	void testCopy() {
+		StepValue simple = StepValue.simple(5, null, 50L).start(40).copy();
+		assertTrue(simple.hasNext());
+		assertEquals(45, simple.next());
+		assertTrue(simple.hasNext());
+		assertEquals(50, simple.next());
+	}
+
+	@Test
+	void testStartValue() {
+		StepValue simple = StepValue.simple(5, null, 50L).start(40);
+		assertTrue(simple.hasNext());
+		assertEquals(45, simple.next());
+		assertTrue(simple.hasNext());
+		assertEquals(50, simple.next());
 	}
 
 }

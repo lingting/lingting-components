@@ -12,6 +12,11 @@ import java.util.NoSuchElementException;
 @Getter
 public class StepValue implements Iterator<Long> {
 
+	/**
+	 * 初始值
+	 */
+	protected final long startValue;
+
 	protected final StepFunction function;
 
 	/**
@@ -40,6 +45,11 @@ public class StepValue implements Iterator<Long> {
 	}
 
 	public StepValue(StepFunction function) {
+		this(0, function);
+	}
+
+	public StepValue(long startValue, StepFunction function) {
+		this.startValue = startValue;
 		this.function = function;
 		this.next = getFirst();
 	}
@@ -66,11 +76,7 @@ public class StepValue implements Iterator<Long> {
 	}
 
 	public Long getFirst() {
-		return function.next(0, null);
-	}
-
-	public StepValue copy() {
-		return new StepValue(function);
+		return function.next(0, startValue);
 	}
 
 	public void reset() {
@@ -79,6 +85,17 @@ public class StepValue implements Iterator<Long> {
 		this.next = getFirst();
 	}
 
+	public StepValue copy() {
+		return new StepValue(startValue, function);
+	}
+
+	public StepValue start(long startValue) {
+		return new StepValue(startValue, function);
+	}
+
+	/**
+	 * 简单步进器, 第一个值为 startValue + step
+	 */
 	@Getter
 	public static class SimpleStepValue extends StepValue {
 
