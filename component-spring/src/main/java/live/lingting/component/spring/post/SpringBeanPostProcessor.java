@@ -1,4 +1,4 @@
-package live.lingting.component.spring;
+package live.lingting.component.spring.post;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -7,7 +7,7 @@ import org.springframework.core.Ordered;
 /**
  * @author lingting 2022/10/22 15:11
  */
-public interface ComponentBeanPostProcessor extends BeanPostProcessor, Ordered {
+public interface SpringBeanPostProcessor extends BeanPostProcessor, Ordered {
 
 	/**
 	 * 判断是否处理该bean

@@ -1,12 +1,11 @@
 package live.lingting.component.spring.post;
 
 import live.lingting.component.core.context.ContextComponent;
-import live.lingting.component.spring.ComponentBeanPostProcessor;
 
 /**
  * @author lingting 2022/10/22 15:10
  */
-public class ContextComposeBeanPostProcessor implements ComponentBeanPostProcessor {
+public class ContextComposeBeanPostProcessor implements SpringBeanPostProcessor {
 
 	@Override
 	public boolean isProcess(Object bean, String beanName, boolean isBefore) {

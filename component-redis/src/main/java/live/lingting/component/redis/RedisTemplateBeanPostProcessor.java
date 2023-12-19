@@ -1,6 +1,6 @@
 package live.lingting.component.redis;
 
-import live.lingting.component.spring.ComponentBeanPostProcessor;
+import live.lingting.component.spring.post.SpringBeanPostProcessor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
@@ -8,7 +8,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
  * @author lingting 2023-04-25 14:11
  */
 @SuppressWarnings("unchecked")
-public class RedisTemplateBeanPostProcessor implements ComponentBeanPostProcessor {
+public class RedisTemplateBeanPostProcessor implements SpringBeanPostProcessor {
 
 	@Override
 	public boolean isProcess(Object bean, String beanName, boolean isBefore) {
