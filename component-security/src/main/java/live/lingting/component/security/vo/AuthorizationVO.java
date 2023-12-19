@@ -13,9 +13,9 @@ public class AuthorizationVO {
 
 	private String token;
 
-	private String userId;
-
 	private String tenantId;
+
+	private String userId;
 
 	private String username;
 

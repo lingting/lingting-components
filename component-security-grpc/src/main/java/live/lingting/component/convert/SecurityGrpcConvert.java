@@ -25,8 +25,8 @@ public interface SecurityGrpcConvert {
 		SecurityGrpcAuthorization.AuthorizationVO.Builder builder = SecurityGrpcAuthorization.AuthorizationVO
 			.newBuilder()
 			.setToken(vo.getToken())
-			.setUserId(vo.getUserId())
 			.setTenantId(vo.getTenantId())
+			.setUserId(vo.getUserId())
 			.setUsername(vo.getUsername())
 			.setAvatar(vo.getAvatar())
 			.setNickname(vo.getNickname())
@@ -49,6 +49,7 @@ public interface SecurityGrpcConvert {
 	default AuthorizationVO toJava(SecurityGrpcAuthorization.AuthorizationVO authorizationVO) {
 		AuthorizationVO vo = new AuthorizationVO();
 		vo.setToken(authorizationVO.getToken());
+		vo.setTenantId(authorizationVO.getTenantId());
 		vo.setUserId(authorizationVO.getUserId());
 		vo.setUsername(authorizationVO.getUsername());
 		vo.setAvatar(authorizationVO.getAvatar());
