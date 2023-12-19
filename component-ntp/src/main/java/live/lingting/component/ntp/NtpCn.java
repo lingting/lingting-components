@@ -1,6 +1,8 @@
 package live.lingting.component.ntp;
 
 import live.lingting.component.core.util.ThreadUtils;
+import live.lingting.component.core.value.CycleValue;
+import live.lingting.component.core.value.StepValue;
 import live.lingting.component.core.value.WaitValue;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
@@ -13,6 +15,7 @@ import java.time.ZoneOffset;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.function.UnaryOperator;
 
 /**
  * 中国 ntp 类
@@ -23,27 +26,30 @@ import java.util.concurrent.TimeoutException;
 @UtilityClass
 public class NtpCn {
 
+	/**
+	 * 初始化间隔, 单位: 秒
+	 */
+	public static final StepValue STEP_INIT = StepValue.simple(1, null, 10L);
+
 	public static final ZoneOffset DEFAULT_ZONE_OFFSET = ZoneOffset.of("+8");
 
 	public static final ZoneId DEFAULT_ZONE_ID = DEFAULT_ZONE_OFFSET.normalized();
 
 	/**
-	 * time.7x24s.com 中国国家授时中心, 使用域名请求超时的话, 解析IP,然后直接请IP
+	 * 中国授时中心, 使用域名请求超时的话, 解析IP,然后直接请IP
 	 */
-	public static final String DEFAULT_TIME_SERVER = "time.7x24s.com";
+	public static final String DEFAULT_TIME_SERVER = "ntp.ntsc.ac.cn";
 
 	static WaitValue<Ntp> instance = WaitValue.of();
 
-	static {
-		ThreadUtils.execute("NTP-INIT", NtpCn::initNtpCN);
-	}
-
 	static void initNtpCN() {
+		CycleValue<Long> value = CycleValue.ofStep(STEP_INIT);
 		while (instance.isNull()) {
 			CompletableFuture<Ntp> future = CompletableFuture.supplyAsync(NtpCn::newNtp);
 
 			try {
-				Ntp ntp = future.get(1, TimeUnit.SECONDS);
+				Long next = value.next();
+				Ntp ntp = future.get(next, TimeUnit.SECONDS);
 				instance.update(ntp);
 			}
 			catch (InterruptedException e) {
@@ -68,7 +74,18 @@ public class NtpCn {
 
 	@SneakyThrows
 	public static Ntp instance() {
-		return instance.notNull();
+		return instance.compute(new UnaryOperator<Ntp>() {
+			@Override
+			@SneakyThrows
+			public Ntp apply(Ntp v) {
+				if (v != null) {
+					return v;
+				}
+
+				ThreadUtils.execute("NTP-INIT", NtpCn::initNtpCN);
+				return instance.notNull();
+			}
+		});
 	}
 
 	public long diff() {
