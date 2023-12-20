@@ -3,6 +3,7 @@ package live.lingting.component.core.value;
 import live.lingting.component.core.lock.JavaReentrantLock;
 import live.lingting.component.core.util.CollectionUtils;
 import live.lingting.component.core.util.StringUtils;
+import live.lingting.component.core.util.ValueUtils;
 import lombok.Getter;
 
 import java.util.Collection;
@@ -82,13 +83,7 @@ public class WaitValue<T> {
 	public T wait(Predicate<T> predicate) throws InterruptedException {
 		lock.lockInterruptibly();
 		try {
-			while (true) {
-				if (predicate.test(value)) {
-					return value;
-				}
-
-				lock.await(1, TimeUnit.HOURS);
-			}
+			return ValueUtils.await(() -> value, predicate, () -> lock.await(1, TimeUnit.HOURS));
 		}
 		finally {
 			lock.unlock();
