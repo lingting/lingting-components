@@ -46,7 +46,6 @@ import live.lingting.component.elasticsearch.wrapper.Queries;
 import live.lingting.component.elasticsearch.wrapper.SortWrapper;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -161,11 +160,11 @@ public abstract class AbstractElasticsearch<T> {
 		return qb;
 	}
 
-	protected T getByQuery(Query... queries) {
+	protected T getByQuery(Query... queries) throws IOException {
 		return getByQuery(builder -> builder, queries);
 	}
 
-	protected T getByQuery(UnaryOperator<SearchRequest.Builder> operator, Query... queries) {
+	protected T getByQuery(UnaryOperator<SearchRequest.Builder> operator, Query... queries) throws IOException {
 		return search(builder -> operator.apply(builder).size(1), queries).hits()
 			.stream()
 			.findFirst()
@@ -173,18 +172,18 @@ public abstract class AbstractElasticsearch<T> {
 			.orElse(null);
 	}
 
-	protected long count(Query... queries) {
+	protected long count(Query... queries) throws IOException {
 		HitsMetadata<T> metadata = search(builder -> builder.size(0), queries);
 		TotalHits hits = metadata.total();
 		return hits == null ? 0 : hits.value();
 	}
 
-	protected HitsMetadata<T> search(Query... queries) {
+	protected HitsMetadata<T> search(Query... queries) throws IOException {
 		return search(builder -> builder, queries);
 	}
 
-	@SneakyThrows
-	protected HitsMetadata<T> search(UnaryOperator<SearchRequest.Builder> operator, Query... queries) {
+	protected HitsMetadata<T> search(UnaryOperator<SearchRequest.Builder> operator, Query... queries)
+			throws IOException {
 		Query.Builder qb = mergeQuery(queries);
 
 		SearchRequest.Builder builder = operator.apply(new SearchRequest.Builder()
@@ -209,7 +208,7 @@ public abstract class AbstractElasticsearch<T> {
 		}).collect(Collectors.toList());
 	}
 
-	protected PageLimitResult<T> page(PageLimitParams params, Query... queries) {
+	protected PageLimitResult<T> page(PageLimitParams params, Query... queries) throws IOException {
 		List<SortOptions> sorts = ofLimitSort(params.getSorts());
 
 		int from = (int) params.start();
@@ -366,11 +365,11 @@ public abstract class AbstractElasticsearch<T> {
 		return deleted != null && deleted > 0;
 	}
 
-	protected List<T> list(Query... queries) {
+	protected List<T> list(Query... queries) throws IOException {
 		return list(builder -> builder, queries);
 	}
 
-	protected List<T> list(UnaryOperator<SearchRequest.Builder> operator, Query... queries) {
+	protected List<T> list(UnaryOperator<SearchRequest.Builder> operator, Query... queries) throws IOException {
 		List<T> list = new ArrayList<>();
 
 		PageScrollParams params = new PageScrollParams(getDefaultScrollSize(), null);
@@ -391,13 +390,12 @@ public abstract class AbstractElasticsearch<T> {
 		return list;
 	}
 
-	protected PageScrollResult<T> scroll(PageScrollParams params, Query... queries) {
+	protected PageScrollResult<T> scroll(PageScrollParams params, Query... queries) throws IOException {
 		return scroll(builder -> builder, params, queries);
 	}
 
-	@SneakyThrows
 	protected PageScrollResult<T> scroll(UnaryOperator<SearchRequest.Builder> operator, PageScrollParams params,
-			Query... queries) {
+			Query... queries) throws IOException {
 		String scrollId = null;
 		if (params.getCursor() != null) {
 			scrollId = params.getCursor().toString();
@@ -433,8 +431,8 @@ public abstract class AbstractElasticsearch<T> {
 		return PageScrollResult.of(collect, nextScrollId);
 	}
 
-	@SneakyThrows
-	protected PageScrollResult<T> scroll(UnaryOperator<ScrollRequest.Builder> operator, String scrollId) {
+	protected PageScrollResult<T> scroll(UnaryOperator<ScrollRequest.Builder> operator, String scrollId)
+			throws IOException {
 		ScrollRequest.Builder builder = operator.apply(new ScrollRequest.Builder()).scrollId(scrollId);
 
 		ScrollResponse<T> response = client.scroll(builder.build(), cls);
@@ -448,8 +446,7 @@ public abstract class AbstractElasticsearch<T> {
 		return PageScrollResult.of(collect, nextScrollId);
 	}
 
-	@SneakyThrows
-	protected void clearScroll(String scrollId) {
+	protected void clearScroll(String scrollId) throws IOException {
 		if (!StringUtils.hasText(scrollId)) {
 			return;
 		}
