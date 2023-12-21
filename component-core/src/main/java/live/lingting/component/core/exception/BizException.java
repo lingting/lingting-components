@@ -6,16 +6,15 @@ import lombok.Getter;
 /**
  * @author lingting 2022/9/22 12:11
  */
+@Getter
 public class BizException extends RuntimeException {
 
-	@Getter
 	private final Integer code;
 
-	@Getter
 	private final String message;
 
-	public BizException(ResultCode resultCode, Object... args) {
-		this(resultCode.getCode(), String.format(resultCode.getMessage(), args), null);
+	public BizException(ResultCode resultCode) {
+		this(resultCode.getCode(), resultCode.getMessage(), null);
 	}
 
 	public BizException(ResultCode resultCode, Exception e) {
