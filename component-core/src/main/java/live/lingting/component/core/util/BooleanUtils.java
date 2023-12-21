@@ -14,7 +14,7 @@ public class BooleanUtils {
 
 	public static boolean isTrue(Object obj) {
 		if (obj instanceof String) {
-			return ArrayUtils.contains(STR_TRUE, obj);
+			return ArrayUtils.containsIgnoreCase(STR_TRUE, (String) obj);
 		}
 		if (obj instanceof Number) {
 			return ((Number) obj).doubleValue() > 0;
@@ -27,7 +27,7 @@ public class BooleanUtils {
 
 	public static boolean isFalse(Object obj) {
 		if (obj instanceof String) {
-			return ArrayUtils.contains(STR_FALSE, obj);
+			return ArrayUtils.containsIgnoreCase(STR_FALSE, (String) obj);
 		}
 		if (obj instanceof Number) {
 			return ((Number) obj).doubleValue() <= 0;
