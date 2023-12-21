@@ -1,1 +1,4 @@
-live.lingting.component.easyexcel.ComponentEasyExcelAutoConfiguration
+live.lingting.component.easyexcel.configuration.ComponentEasyExcelAutoConfiguration
+live.lingting.component.easyexcel.configuration.ComponentEasyExcelHandlerAutoConfiguration
+live.lingting.component.easyexcel.configuration.ComponentEasyExcelConverterConfiguration
+live.lingting.component.easyexcel.configuration.ComponentEasyExcelSpringMvcAutoConfiguration

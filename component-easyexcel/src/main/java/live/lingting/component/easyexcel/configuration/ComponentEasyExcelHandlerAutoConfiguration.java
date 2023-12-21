@@ -1,6 +1,5 @@
-package live.lingting.component.easyexcel;
+package live.lingting.component.easyexcel.configuration;
 
-import com.alibaba.excel.converters.Converter;
 import live.lingting.component.easyexcel.aop.ResponseExcelReturnValueHandler;
 import live.lingting.component.easyexcel.enhance.DefaultWriterBuilderEnhancer;
 import live.lingting.component.easyexcel.enhance.WriterBuilderEnhancer;
@@ -8,9 +7,10 @@ import live.lingting.component.easyexcel.handler.ManySheetWriteHandler;
 import live.lingting.component.easyexcel.handler.SheetWriteHandler;
 import live.lingting.component.easyexcel.handler.SingleSheetWriteHandler;
 import live.lingting.component.easyexcel.head.I18nHeaderCellWriteHandler;
+import live.lingting.component.easyexcel.kit.EasyExcelProvider;
 import live.lingting.component.easyexcel.properties.ExcelConfigProperties;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.MessageSource;
@@ -22,12 +22,11 @@ import java.util.List;
  * @author Hccake 2020/10/28
  * @version 1.0
  */
+@AutoConfiguration
 @RequiredArgsConstructor
-public class ComponentEasyExcelHandlerConfiguration {
+public class ComponentEasyExcelHandlerAutoConfiguration {
 
 	private final ExcelConfigProperties configProperties;
-
-	private final ObjectProvider<List<Converter<?>>> converterProvider;
 
 	/**
 	 * ExcelBuild增强
@@ -44,8 +43,8 @@ public class ComponentEasyExcelHandlerConfiguration {
 	 */
 	@Bean
 	@ConditionalOnMissingBean
-	public SingleSheetWriteHandler singleSheetWriteHandler() {
-		return new SingleSheetWriteHandler(configProperties, converterProvider, writerBuilderEnhancer());
+	public SingleSheetWriteHandler singleSheetWriteHandler(EasyExcelProvider provider) {
+		return new SingleSheetWriteHandler(configProperties, provider, writerBuilderEnhancer());
 	}
 
 	/**
@@ -53,8 +52,8 @@ public class ComponentEasyExcelHandlerConfiguration {
 	 */
 	@Bean
 	@ConditionalOnMissingBean
-	public ManySheetWriteHandler manySheetWriteHandler() {
-		return new ManySheetWriteHandler(configProperties, converterProvider, writerBuilderEnhancer());
+	public ManySheetWriteHandler manySheetWriteHandler(EasyExcelProvider provider) {
+		return new ManySheetWriteHandler(configProperties, provider, writerBuilderEnhancer());
 	}
 
 	/**
@@ -74,8 +73,8 @@ public class ComponentEasyExcelHandlerConfiguration {
 	 * @param messageSource 国际化源
 	 */
 	@Bean
-	@ConditionalOnBean(MessageSource.class)
 	@ConditionalOnMissingBean
+	@ConditionalOnBean(MessageSource.class)
 	public I18nHeaderCellWriteHandler i18nHeaderCellWriteHandler(MessageSource messageSource) {
 		return new I18nHeaderCellWriteHandler(messageSource);
 	}

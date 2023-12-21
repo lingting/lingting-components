@@ -9,26 +9,21 @@ import com.alibaba.excel.write.handler.WriteHandler;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import live.lingting.component.easyexcel.annotation.ResponseExcel;
 import live.lingting.component.easyexcel.aop.DynamicNameAspect;
-import live.lingting.component.easyexcel.properties.ExcelConfigProperties;
-import live.lingting.component.easyexcel.converters.ListStringConverter;
-import live.lingting.component.easyexcel.converters.LocalDateStringConverter;
-import live.lingting.component.easyexcel.converters.LocalDateTimeStringConverter;
 import live.lingting.component.easyexcel.domain.SheetBuildProperties;
 import live.lingting.component.easyexcel.enhance.WriterBuilderEnhancer;
 import live.lingting.component.easyexcel.head.HeadGenerator;
 import live.lingting.component.easyexcel.head.HeadMeta;
 import live.lingting.component.easyexcel.head.I18nHeaderCellWriteHandler;
+import live.lingting.component.easyexcel.kit.EasyExcelProvider;
 import live.lingting.component.easyexcel.kit.ExcelException;
+import live.lingting.component.easyexcel.properties.ExcelConfigProperties;
+import live.lingting.component.spring.util.SpringUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -45,7 +40,6 @@ import java.io.InputStream;
 import java.lang.reflect.Modifier;
 import java.net.URLEncoder;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -53,17 +47,16 @@ import java.util.UUID;
  * @author lengleng
  * @author L.cm
  * @author Hccake
+ * @author lingting
  */
 @RequiredArgsConstructor
-public abstract class AbstractSheetWriteHandler implements SheetWriteHandler, ApplicationContextAware {
+public abstract class AbstractSheetWriteHandler implements SheetWriteHandler {
 
 	private final ExcelConfigProperties configProperties;
 
-	private final ObjectProvider<List<Converter<?>>> converterProvider;
+	private final EasyExcelProvider provider;
 
 	private final WriterBuilderEnhancer excelWriterBuilderEnhance;
-
-	private ApplicationContext applicationContext;
 
 	@Getter
 	@Setter
@@ -107,12 +100,8 @@ public abstract class AbstractSheetWriteHandler implements SheetWriteHandler, Ap
 	 */
 	@SneakyThrows(IOException.class)
 	public ExcelWriter getExcelWriter(HttpServletResponse response, ResponseExcel responseExcel) {
-		ExcelWriterBuilder writerBuilder = EasyExcelFactory.write(response.getOutputStream())
-			.registerConverter(LocalDateStringConverter.INSTANCE)
-			.registerConverter(LocalDateTimeStringConverter.INSTANCE)
-			.registerConverter(ListStringConverter.INSTANCE)
+		ExcelWriterBuilder writerBuilder = provider.writer(response.getOutputStream())
 			.registerWriteHandler(CustomCellWriteHandler.INSTANCE)
-			.autoCloseStream(true)
 			.excelType(responseExcel.suffix())
 			.inMemory(responseExcel.inMemory());
 
@@ -137,9 +126,6 @@ public abstract class AbstractSheetWriteHandler implements SheetWriteHandler, Ap
 			writerBuilder.registerWriteHandler(i18nHeaderCellWriteHandler);
 		}
 
-		// 自定义注入的转换器
-		registerCustomConverter(writerBuilder);
-
 		for (Class<? extends Converter> clazz : responseExcel.converter()) {
 			writerBuilder.registerConverter(BeanUtils.instantiateClass(clazz));
 		}
@@ -154,14 +140,6 @@ public abstract class AbstractSheetWriteHandler implements SheetWriteHandler, Ap
 
 		writerBuilder = excelWriterBuilderEnhance.enhanceExcel(writerBuilder, response, responseExcel, templatePath);
 		return writerBuilder.build();
-	}
-
-	/**
-	 * 自定义注入转换器 如果有需要，子类自己重写
-	 * @param builder ExcelWriterBuilder
-	 */
-	public void registerCustomConverter(ExcelWriterBuilder builder) {
-		converterProvider.ifAvailable(converters -> converters.forEach(builder::registerConverter));
 	}
 
 	/**
@@ -232,7 +210,7 @@ public abstract class AbstractSheetWriteHandler implements SheetWriteHandler, Ap
 
 	private void fillCustomHeadInfo(Class<?> dataClass, Class<? extends HeadGenerator> headEnhancerClass,
 			ExcelWriterSheetBuilder writerSheetBuilder) {
-		HeadGenerator headGenerator = this.applicationContext.getBean(headEnhancerClass);
+		HeadGenerator headGenerator = SpringUtils.getBean(headEnhancerClass);
 		Assert.notNull(headGenerator, "The header generated bean does not exist.");
 		HeadMeta head = headGenerator.head(dataClass);
 		writerSheetBuilder.head(head.getHead());
@@ -246,11 +224,6 @@ public abstract class AbstractSheetWriteHandler implements SheetWriteHandler, Ap
 	 */
 	private boolean isNotInterface(Class<? extends HeadGenerator> headGeneratorClass) {
 		return !Modifier.isInterface(headGeneratorClass.getModifiers());
-	}
-
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		this.applicationContext = applicationContext;
 	}
 
 }

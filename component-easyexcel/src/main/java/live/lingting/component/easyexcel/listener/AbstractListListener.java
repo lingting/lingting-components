@@ -10,15 +10,23 @@ import java.util.List;
 /**
  * @author lingting 2023-04-12 20:11
  */
+@Getter
 public abstract class AbstractListListener<D> extends AnalysisEventListener<D> {
 
-	@Getter
 	private final List<D> values = new ArrayList<>();
 
 	@Override
 	public void invoke(D data, AnalysisContext analysisContext) {
-		Integer rowIndex = analysisContext.readRowHolder().getRowIndex();
+		Integer rowIndex = getRowIndex(analysisContext);
 		invoke(data, rowIndex, analysisContext);
+		addData(data);
+	}
+
+	protected Integer getRowIndex(AnalysisContext analysisContext) {
+		return analysisContext.readRowHolder().getRowIndex();
+	}
+
+	protected void addData(D data) {
 		getValues().add(data);
 	}
 
@@ -27,6 +35,6 @@ public abstract class AbstractListListener<D> extends AnalysisEventListener<D> {
 		//
 	}
 
-	public abstract void invoke(D data, Integer rowIndex, AnalysisContext analysisContext);
+	protected abstract void invoke(D data, Integer rowIndex, AnalysisContext analysisContext);
 
 }

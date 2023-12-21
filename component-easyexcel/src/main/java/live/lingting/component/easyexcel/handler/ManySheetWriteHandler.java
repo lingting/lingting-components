@@ -1,15 +1,14 @@
 package live.lingting.component.easyexcel.handler;
 
 import com.alibaba.excel.ExcelWriter;
-import com.alibaba.excel.converters.Converter;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import live.lingting.component.easyexcel.annotation.ResponseExcel;
 import live.lingting.component.easyexcel.annotation.Sheet;
-import live.lingting.component.easyexcel.properties.ExcelConfigProperties;
 import live.lingting.component.easyexcel.domain.SheetBuildProperties;
 import live.lingting.component.easyexcel.enhance.WriterBuilderEnhancer;
+import live.lingting.component.easyexcel.kit.EasyExcelProvider;
 import live.lingting.component.easyexcel.kit.ExcelException;
-import org.springframework.beans.factory.ObjectProvider;
+import live.lingting.component.easyexcel.properties.ExcelConfigProperties;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -20,9 +19,9 @@ import java.util.List;
  */
 public class ManySheetWriteHandler extends AbstractSheetWriteHandler {
 
-	public ManySheetWriteHandler(ExcelConfigProperties configProperties,
-			ObjectProvider<List<Converter<?>>> converterProvider, WriterBuilderEnhancer excelWriterBuilderEnhance) {
-		super(configProperties, converterProvider, excelWriterBuilderEnhance);
+	public ManySheetWriteHandler(ExcelConfigProperties configProperties, EasyExcelProvider provider,
+			WriterBuilderEnhancer excelWriterBuilderEnhance) {
+		super(configProperties, provider, excelWriterBuilderEnhance);
 	}
 
 	/**
