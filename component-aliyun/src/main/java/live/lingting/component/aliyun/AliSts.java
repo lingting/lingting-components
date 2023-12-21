@@ -10,7 +10,6 @@ import live.lingting.component.aliyun.domain.AliStsCredentials;
 import live.lingting.component.aliyun.domain.AliStsPolicy;
 import live.lingting.component.aliyun.domain.AliStsStatement;
 import live.lingting.component.aliyun.proerties.AliStsProperties;
-import live.lingting.component.core.enums.GlobalResultCode;
 import live.lingting.component.core.exception.BizException;
 import live.lingting.component.jackson.JacksonUtils;
 import lombok.Getter;
@@ -20,6 +19,8 @@ import org.springframework.util.Assert;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Collections;
+
+import static live.lingting.component.core.enums.GlobalResultCode.ALI_ERROR;
 
 /**
  * @author lingting 2023-04-21 14:23
@@ -74,7 +75,7 @@ public class AliSts {
 		return credentials(policy);
 	}
 
-	public AliStsCredentials credentials(AliStsPolicy policy) {
+	public AliStsCredentials credentials(AliStsPolicy policy) throws BizException {
 		AssumeRoleRequest request = new AssumeRoleRequest();
 		request.setRoleArn(roleArn);
 		request.setRoleSessionName(roleSessionName);
@@ -104,7 +105,7 @@ public class AliSts {
 		}
 		catch (Exception e) {
 			log.error("获取阿里云sts权限异常!", new AliException(e));
-			throw new BizException(GlobalResultCode.ALI_ERROR, "获取资源权限异常!");
+			throw ALI_ERROR.with("获取资源权限异常!").toException();
 		}
 	}
 
