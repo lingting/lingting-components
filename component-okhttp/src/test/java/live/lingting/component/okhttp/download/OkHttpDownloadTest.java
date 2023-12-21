@@ -25,6 +25,8 @@ class OkHttpDownloadTest {
 
 	String url = "https://mirrors.huaweicloud.com/repository/maven/live/lingting/components/component-validation/0.0.1/component-validation-0.0.1.pom";
 
+	String filename = "component-validation-0.0.1.pom";
+
 	String md5 = "2ce519cf7373a533e1fd297edb9ad1c3";
 
 	File file = null;
@@ -34,6 +36,12 @@ class OkHttpDownloadTest {
 		if (file != null) {
 			FileUtils.delete(file);
 		}
+	}
+
+	@Test
+	void resolveFilename() {
+		OkHttpDownload download = OkHttpDownload.single(url).build();
+		assertEquals(filename, download.filename);
 	}
 
 	@Test

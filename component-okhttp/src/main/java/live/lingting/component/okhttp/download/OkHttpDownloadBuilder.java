@@ -1,5 +1,6 @@
 package live.lingting.component.okhttp.download;
 
+import live.lingting.component.core.constant.HttpConstants;
 import live.lingting.component.core.util.FileUtils;
 import live.lingting.component.core.util.SystemUtils;
 
@@ -28,7 +29,10 @@ public class OkHttpDownloadBuilder {
 	private boolean multi = false;
 
 	public OkHttpDownloadBuilder(String url) {
+		String[] split = url.split(HttpConstants.HOST_DELIMITER);
+
 		this.url = url;
+		this.filename = split[split.length - 1];
 	}
 
 	public OkHttpDownloadBuilder dir(File dir) {
