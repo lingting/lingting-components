@@ -4,6 +4,7 @@ import lombok.experimental.UtilityClass;
 
 import java.lang.reflect.Array;
 import java.util.Objects;
+import java.util.function.BiPredicate;
 
 /**
  * @author lingting
@@ -36,10 +37,14 @@ public class ArrayUtils {
 	}
 
 	public static <T> int indexOf(T[] array, T val) {
+		return indexOf(array, val, Objects::equals);
+	}
+
+	public static <T> int indexOf(T[] array, T val, BiPredicate<T, T> predicate) {
 		if (!isEmpty(array)) {
 			for (int i = 0; i < array.length; i++) {
 				T t = array[i];
-				if (Objects.equals(t, val)) {
+				if (predicate.test(t, val)) {
 					return i;
 				}
 			}
@@ -49,6 +54,20 @@ public class ArrayUtils {
 
 	public static <T> boolean contains(T[] array, T val) {
 		return indexOf(array, val) > NOT_FOUNT;
+	}
+
+	public static boolean containsIgnoreCase(String[] array, String val) {
+		return indexOf(array, val, (s, t) -> {
+			if (Objects.equals(s, t)) {
+				return true;
+			}
+
+			if (s == null || t == null) {
+				return false;
+			}
+
+			return s.equalsIgnoreCase(t);
+		}) > NOT_FOUNT;
 	}
 
 }
