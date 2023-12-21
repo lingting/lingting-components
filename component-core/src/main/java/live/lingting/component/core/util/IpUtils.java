@@ -1,12 +1,15 @@
 package live.lingting.component.core.util;
 
-import javax.servlet.http.HttpServletRequest;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Predicate;
 
 /**
  * @author psh 2022-04-21 16:55
@@ -19,9 +22,13 @@ public class IpUtils {
 
 	public static final String UNKNOWN = "UNKNOWN";
 
-	public static final String IP_SPLIT = ",";
+	public static final String MULTI_IP_SPLIT = ",";
 
-	public static final Integer IPV4_LENGTH = 16;
+	public static final String IPV4_SPLIT = ".";
+
+	public static final String IPV6_SPLIT = ":";
+
+	public static final Integer IPV4_LENGTH_MAX = 16;
 
 	private static final List<String> HEADERS;
 
@@ -39,17 +46,20 @@ public class IpUtils {
 	public static String getFirstIp(HttpServletRequest request) {
 		String ip;
 		for (String header : HEADERS) {
-			// ip 通过校验
-			ip = validIp(request.getHeader(header));
+			// 处理IP
+			ip = handlerIp(request.getHeader(header));
 			if (ip != null) {
 				return ip;
 			}
 		}
 
-		return validIp(request.getRemoteAddr());
+		return handlerIp(request.getRemoteAddr());
 	}
 
-	public static String validIp(String originIp) {
+	/**
+	 * 处理IP, 可能是多个IP拼接, 处理成单个IP
+	 */
+	public static String handlerIp(String originIp) {
 		if (isLocalhost(originIp)) {
 			return LOCALHOST;
 		}
@@ -58,12 +68,12 @@ public class IpUtils {
 			return null;
 		}
 
-		if (originIp.contains(IP_SPLIT)) {
-			originIp = originIp.substring(0, originIp.indexOf(IP_SPLIT));
+		if (originIp.contains(MULTI_IP_SPLIT)) {
+			originIp = originIp.substring(0, originIp.indexOf(MULTI_IP_SPLIT));
 		}
 
-		if (originIp.length() >= IPV4_LENGTH) {
-			originIp = originIp.substring(0, IPV4_LENGTH);
+		if (originIp.length() >= IPV4_LENGTH_MAX) {
+			originIp = originIp.substring(0, IPV4_LENGTH_MAX);
 		}
 
 		return originIp;
@@ -84,14 +94,55 @@ public class IpUtils {
 		}
 	}
 
+	/**
+	 * 是否为正确的IP地址
+	 * @param raw 原始值
+	 * @param predicate 附加判断,
+	 * @return true 满足是IP地址和附加判断时返回true
+	 */
+	public static boolean isIp(String raw, Predicate<InetAddress> predicate) {
+		if (!StringUtils.hasText(raw)) {
+			return false;
+		}
+		try {
+			String rawTrim = raw.trim();
+			String rawNormalize = rawTrim.contains(IPV6_SPLIT) ? rawTrim.replaceAll("(^|:)0+(\\w+)", "$1$2")
+					: rawTrim.replaceAll("(^|.)0+(\\w+)", "$1$2");
+
+			InetAddress address = InetAddress.getByName(raw);
+			String hostAddress = address.getHostAddress();
+			// 解析出来的host地址与原始值一致则表示原始值为IP地址
+			if (!Objects.equals(hostAddress, rawTrim) && !Objects.equals(hostAddress, rawNormalize)) {
+				return false;
+			}
+			// 执行附加判断
+			return predicate.test(address);
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public static boolean isIp(String raw) {
+		return isIp(raw, i -> true);
+	}
+
+	public static boolean isIpv4(String raw) {
+		return isIp(raw, address -> address.getAddress().length == 4);
+	}
+
+	public static boolean isIpv6(String raw) {
+		return isIp(raw, address -> address.getAddress().length == 16);
+	}
+
 	public static List<String> list(HttpServletRequest request) {
 		List<String> list = new ArrayList<>();
 
 		for (String header : HEADERS) {
 			String val = request.getHeader(header);
 			if (StringUtils.hasText(val) && !UNKNOWN.equalsIgnoreCase(val)) {
-				if (val.contains(IP_SPLIT)) {
-					list.addAll(Arrays.asList(val.split(IP_SPLIT)));
+				if (val.contains(MULTI_IP_SPLIT)) {
+					list.addAll(Arrays.asList(val.split(MULTI_IP_SPLIT)));
 				}
 				else {
 					list.add(val);
