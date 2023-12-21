@@ -2,6 +2,7 @@ package live.lingting.component.core.thread;
 
 import live.lingting.component.core.context.ContextComponent;
 import live.lingting.component.core.context.ContextHolder;
+import live.lingting.component.core.util.StringUtils;
 import org.slf4j.Logger;
 
 /**
@@ -34,7 +35,11 @@ public abstract class AbstractThreadContextComponent extends Thread implements C
 	}
 
 	public String getSimpleName() {
-		return getClass().getSimpleName();
+		String simpleName = getClass().getSimpleName();
+		if (StringUtils.hasText(simpleName)) {
+			return simpleName;
+		}
+		return getClass().getName();
 	}
 
 	@Override
