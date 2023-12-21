@@ -34,25 +34,53 @@ public class JavaReentrantLock {
 		getLock().lockInterruptibly();
 	}
 
+	public boolean lockTry() throws InterruptedException {
+		return lockTry(1, TimeUnit.MILLISECONDS);
+	}
+
+	public boolean lockTry(long timeout, TimeUnit unit) throws InterruptedException {
+		return getLock().tryLock(timeout, unit);
+	}
+
 	public void run(LockRunnable runnable) throws InterruptedException {
-		ReentrantLock reentrantLock = getLock();
-		reentrantLock.lock();
+		lock();
 		try {
 			runnable.run();
 		}
 		finally {
-			reentrantLock.unlock();
+			unlock();
 		}
 	}
 
 	public void runByInterruptibly(LockRunnable runnable) throws InterruptedException {
-		ReentrantLock reentrantLock = getLock();
-		reentrantLock.lockInterruptibly();
+		lockInterruptibly();
 		try {
 			runnable.run();
 		}
 		finally {
-			reentrantLock.unlock();
+			unlock();
+		}
+	}
+
+	public void runByTry(LockRunnable runnable) throws InterruptedException {
+		if (lockTry()) {
+			try {
+				runnable.run();
+			}
+			finally {
+				unlock();
+			}
+		}
+	}
+
+	public void runByTry(LockRunnable runnable, long timeout, TimeUnit unit) throws InterruptedException {
+		if (lockTry(timeout, unit)) {
+			try {
+				runnable.run();
+			}
+			finally {
+				unlock();
+			}
 		}
 	}
 
