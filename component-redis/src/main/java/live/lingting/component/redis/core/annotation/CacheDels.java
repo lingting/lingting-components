@@ -11,10 +11,10 @@ import java.lang.annotation.Target;
  *
  * @author lishangbu
  */
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
 @Documented
 @MetaCacheAnnotation
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface CacheDels {
 
 	CacheDel[] value();

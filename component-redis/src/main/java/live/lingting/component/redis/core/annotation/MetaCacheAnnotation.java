@@ -10,9 +10,9 @@ import java.lang.annotation.Target;
  * @author Hccake
  * @version 1.0
  */
+@Documented
 @Target(ElementType.ANNOTATION_TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Documented
 public @interface MetaCacheAnnotation {
 
 }
