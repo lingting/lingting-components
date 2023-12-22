@@ -1,5 +1,6 @@
 package live.lingting.component.core.util;
 
+import live.lingting.component.core.function.ThrowingBiConsumerE;
 import lombok.experimental.UtilityClass;
 
 import java.io.ByteArrayOutputStream;
@@ -12,6 +13,13 @@ import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.BiConsumer;
+
+import static live.lingting.component.core.util.ByteUtils.isLine;
+import static live.lingting.component.core.util.ByteUtils.trimEndLine;
 
 /**
  * @author lingting
@@ -32,22 +40,34 @@ public class StreamUtils {
 		}
 	}
 
-	public static void write(InputStream in, OutputStream out) throws IOException {
-		write(in, out, DEFAULT_SIZE);
-	}
-
-	public static void write(InputStream in, OutputStream out, int size) throws IOException {
+	/**
+	 * 读取流
+	 * @param in 流
+	 * @param size 缓冲区大小
+	 * @param consumer 消费读取到的数据, int: byte[] 可用长度, byte[] 数据
+	 * @exception IOException 读取异常
+	 */
+	public static void read(InputStream in, int size, ThrowingBiConsumerE<Integer, byte[], IOException> consumer)
+			throws IOException {
 		byte[] bytes = new byte[size];
 		int len;
 
 		while (true) {
 			len = in.read(bytes);
-			if (len <= 0) {
+			if (len < 1) {
 				break;
 			}
 
-			out.write(bytes, 0, len);
+			consumer.accept(len, bytes);
 		}
+	}
+
+	public static void write(InputStream in, OutputStream out) throws IOException {
+		write(in, out, DEFAULT_SIZE);
+	}
+
+	public static void write(InputStream in, OutputStream out, int size) throws IOException {
+		read(in, size, (len, bytes) -> out.write(bytes, 0, len));
 	}
 
 	public static String toString(InputStream in) throws IOException {
@@ -55,20 +75,10 @@ public class StreamUtils {
 	}
 
 	public static String toString(InputStream in, int size, Charset charset) throws IOException {
-		byte[] bytes = new byte[size];
-		int len;
-
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-		while (true) {
-			len = in.read(bytes);
-			if (len <= 0) {
-				break;
-			}
-			outputStream.write(bytes, 0, len);
+		try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+			write(in, out, size);
+			return out.toString(charset.name());
 		}
-
-		return outputStream.toString(charset.name());
 	}
 
 	/**
@@ -111,6 +121,7 @@ public class StreamUtils {
 		return clone(stream, amounts, DEFAULT_SIZE);
 	}
 
+	@SuppressWarnings("java:S2093")
 	public static InputStream[] clone(InputStream stream, Integer amounts, int size) throws IOException {
 		InputStream[] streams = new InputStream[amounts];
 		File[] files = new File[amounts];
@@ -119,30 +130,117 @@ public class StreamUtils {
 		byte[] buffer = new byte[size < 1 ? DEFAULT_SIZE : size];
 		int len;
 
-		while ((len = stream.read(buffer)) > -1) {
-			for (int i = 0, outsLength = outs.length; i < outsLength; i++) {
-				FileOutputStream out = outs[i];
-				if (out == null) {
-					files[i] = FileUtils.createTemp("clone." + i + "." + System.currentTimeMillis());
-					out = new FileOutputStream(files[i]);
-					outs[i] = out;
+		try {
+			while ((len = stream.read(buffer)) > -1) {
+				for (int i = 0, outsLength = outs.length; i < outsLength; i++) {
+					FileOutputStream out = outs[i];
+					if (out == null) {
+						files[i] = FileUtils.createTemp("clone." + i + "." + System.currentTimeMillis());
+						out = new FileOutputStream(files[i]);
+						outs[i] = out;
+					}
+					out.write(buffer, 0, len);
 				}
-				out.write(buffer, 0, len);
+			}
+		}
+		finally {
+			for (FileOutputStream out : outs) {
+				close(out);
 			}
 		}
 
 		for (int i = 0; i < files.length; i++) {
-			try {
-				outs[i].close();
-			}
-			catch (IOException e) {
-				//
-			}
-
 			streams[i] = Files.newInputStream(files[i].toPath());
 		}
 
 		return streams;
+	}
+
+	/**
+	 * 读取流, 当读取完一行数据时, 消费该数据
+	 * <p>
+	 * 不会自动关闭流
+	 * </p>
+	 * @param in 流
+	 * @param charset 字符集
+	 * @param consumer 行数据消费, int: 行索引
+	 * @throws IOException 异常
+	 */
+	public static void readLine(InputStream in, Charset charset, BiConsumer<Integer, String> consumer)
+			throws IOException {
+		readLine(in, charset, DEFAULT_SIZE, consumer);
+	}
+
+	/**
+	 * 读取流, 当读取完一行数据时, 消费该数据
+	 * <p>
+	 * 不会自动关闭流
+	 * </p>
+	 * @param in 流
+	 * @param charset 字符集
+	 * @param consumer 行数据消费, int: 行索引
+	 * @throws IOException 异常
+	 */
+	public static void readLine(InputStream in, Charset charset, int size, BiConsumer<Integer, String> consumer)
+			throws IOException {
+		readLine(in, size, (index, bytes) -> {
+			String string = new String(bytes, charset);
+			consumer.accept(index, string);
+		});
+	}
+
+	/**
+	 * 读取流, 当读取完一行数据时, 消费该数据
+	 * <p>
+	 * 不会自动关闭流
+	 * </p>
+	 * @param in 流
+	 * @param consumer 行数据消费, int: 行索引
+	 * @throws IOException 异常
+	 */
+	public static void readLine(InputStream in, BiConsumer<Integer, byte[]> consumer) throws IOException {
+		readLine(in, DEFAULT_SIZE, consumer);
+	}
+
+	/**
+	 * 读取流, 当读取完一行数据时, 消费该数据
+	 * <p>
+	 * 不会自动关闭流
+	 * </p>
+	 * @param in 流
+	 * @param size 一次读取数据大小
+	 * @param consumer 行数据消费, int: 行索引
+	 * @throws IOException 异常
+	 */
+	public static void readLine(InputStream in, int size, BiConsumer<Integer, byte[]> consumer) throws IOException {
+		BiConsumer<Integer, List<Byte>> doConsumer = (index, list) -> {
+			byte[] bytes = trimEndLine(list);
+			consumer.accept(index, bytes);
+		};
+
+		List<Byte> list = new ArrayList<>();
+		AtomicInteger atomic = new AtomicInteger(0);
+
+		read(in, size, (len, bytes) -> {
+			for (int i = 0; i < len; i++) {
+				list.add(bytes[i]);
+				// 如果是一整行数据, 则消费
+				if (isLine(list)) {
+					// 获取行索引, 并自增
+					int index = atomic.getAndIncrement();
+					doConsumer.accept(index, list);
+					// 消费完毕, 结算
+					list.clear();
+				}
+			}
+		});
+
+		// 消费剩余的数据
+		if (!list.isEmpty()) {
+			int index = atomic.get();
+			doConsumer.accept(index, list);
+		}
+
 	}
 
 }
