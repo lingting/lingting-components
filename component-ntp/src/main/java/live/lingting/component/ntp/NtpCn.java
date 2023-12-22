@@ -1,5 +1,7 @@
 package live.lingting.component.ntp;
 
+import live.lingting.component.core.util.IpUtils;
+import live.lingting.component.core.util.NumberUtils;
 import live.lingting.component.core.util.ThreadUtils;
 import live.lingting.component.core.value.CycleValue;
 import live.lingting.component.core.value.StepValue;
@@ -42,14 +44,23 @@ public class NtpCn {
 
 	static WaitValue<Ntp> instance = WaitValue.of();
 
+	@SneakyThrows
 	static void initNtpCN() {
+		int index = 0;
+		String host = DEFAULT_TIME_SERVER;
+		String ip = IpUtils.resolve(host);
 		CycleValue<Long> value = CycleValue.ofStep(STEP_INIT);
 		while (instance.isNull()) {
-			CompletableFuture<Ntp> future = CompletableFuture.supplyAsync(NtpCn::newNtp);
+			index++;
+			CompletableFuture<Ntp> future = NumberUtils.isEven(index)
+					// 偶数用IP
+					? CompletableFuture.supplyAsync(() -> new Ntp(ip))
+					// 奇数用host
+					: CompletableFuture.supplyAsync(() -> new Ntp(host));
 
 			try {
 				Long next = value.next();
-				Ntp ntp = future.get(next, TimeUnit.SECONDS);
+				Ntp ntp = future.get(next, TimeUnit.SECONDS).zoneId(DEFAULT_ZONE_ID);
 				instance.update(ntp);
 			}
 			catch (InterruptedException e) {
@@ -57,19 +68,15 @@ public class NtpCn {
 				break;
 			}
 			catch (TimeoutException e) {
-				log.warn("Ntp初始化超时!");
+				log.warn("[{}] Ntp初始化超时!", index);
 			}
 			catch (Exception e) {
-				log.warn("Ntp初始化异常!", e);
+				log.warn("[{}] Ntp初始化异常!", index, e);
 			}
 			finally {
 				future.cancel(true);
 			}
 		}
-	}
-
-	public static Ntp newNtp() {
-		return new Ntp(DEFAULT_TIME_SERVER).zoneId(DEFAULT_ZONE_ID);
 	}
 
 	@SneakyThrows

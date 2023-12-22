@@ -1,6 +1,9 @@
 package live.lingting.component.ntp;
 
+import live.lingting.component.core.util.IpUtils;
 import org.junit.jupiter.api.Test;
+
+import java.net.UnknownHostException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,6 +23,13 @@ class NtpTest {
 	void cn() {
 		long millis = NtpCn.currentMillis();
 		assertTrue(millis > 0);
+	}
+
+	@Test
+	void ip() throws UnknownHostException {
+		String ip = IpUtils.resolve(NtpCn.DEFAULT_TIME_SERVER);
+		Ntp ntp = new Ntp(ip).zoneId(Ntp.DEFAULT_ZONE_ID);
+		assertNotNull(ntp);
 	}
 
 }
