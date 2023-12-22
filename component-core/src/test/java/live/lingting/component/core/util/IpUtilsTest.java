@@ -2,7 +2,10 @@ package live.lingting.component.core.util;
 
 import org.junit.jupiter.api.Test;
 
+import java.net.UnknownHostException;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -32,6 +35,13 @@ class IpUtilsTest {
 		assertFalse(IpUtils.isIpv6(ip2));
 		assertTrue(IpUtils.isIpv6(ip3));
 		assertFalse(IpUtils.isIpv6(ip4));
+	}
+
+	@Test
+	void resolve() throws UnknownHostException {
+		String resolve = IpUtils.resolve("ntp.ntsc.ac.cn");
+		System.out.println(resolve);
+		assertNotNull(resolve);
 	}
 
 }

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -133,6 +134,11 @@ public class IpUtils {
 
 	public static boolean isIpv6(String raw) {
 		return isIp(raw, address -> address.getAddress().length == 16);
+	}
+
+	public static String resolve(String host) throws UnknownHostException {
+		InetAddress address = InetAddress.getByName(host);
+		return address.getHostAddress();
 	}
 
 	public static List<String> list(HttpServletRequest request) {
