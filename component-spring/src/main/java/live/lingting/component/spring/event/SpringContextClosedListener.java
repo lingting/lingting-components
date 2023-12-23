@@ -8,10 +8,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.core.Ordered;
+import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 import org.springframework.core.annotation.Order;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author lingting 2022/10/22 17:45
@@ -32,7 +34,11 @@ public class SpringContextClosedListener implements ApplicationListener<ContextC
 
 	void contextComponentStop(ApplicationContext applicationContext) {
 		Map<String, ContextComponent> map = applicationContext.getBeansOfType(ContextComponent.class);
-		Collection<ContextComponent> values = map.values();
+		// 依照spring生态的@Order排序, 优先级高的先执行停止
+		List<ContextComponent> values = map.values()
+			.stream()
+			.sorted(AnnotationAwareOrderComparator.INSTANCE)
+			.collect(Collectors.toList());
 
 		log.debug("context component stop before");
 		for (ContextComponent component : values) {
