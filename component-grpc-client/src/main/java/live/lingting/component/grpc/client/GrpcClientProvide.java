@@ -4,12 +4,17 @@ import io.grpc.Channel;
 import io.grpc.ClientInterceptor;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.netty.GrpcSslContexts;
+import io.grpc.netty.NettyChannelBuilder;
 import io.grpc.stub.AbstractAsyncStub;
 import io.grpc.stub.AbstractBlockingStub;
 import io.grpc.stub.AbstractFutureStub;
 import io.grpc.stub.AbstractStub;
+import io.netty.handler.ssl.SslContextBuilder;
+import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import live.lingting.component.grpc.client.properties.GrpcClientProperties;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 import org.springframework.util.CollectionUtils;
 
@@ -45,7 +50,11 @@ public class GrpcClientProvide {
 
 	public ManagedChannel channel(String target, UnaryOperator<ManagedChannelBuilder<?>> operator) {
 		ManagedChannelBuilder<?> builder = ManagedChannelBuilder.forTarget(target);
+		ManagedChannelBuilder<?> apply = operator.apply(builder);
+		return channel(apply);
+	}
 
+	public ManagedChannel channel(ManagedChannelBuilder<?> builder) {
 		// 开启心跳
 		if (properties.isEnableKeepAlive()) {
 			builder.keepAliveTime(properties.getKeepAliveTime(), TimeUnit.MILLISECONDS)
@@ -69,8 +78,10 @@ public class GrpcClientProvide {
 			builder.intercept(interceptors);
 		}
 
-		ManagedChannelBuilder<?> apply = operator.apply(builder);
-		return apply.build();
+		// ssl配置
+		buildSsl(builder);
+
+		return builder.build();
 	}
 
 	public <R extends AbstractStub<R>> R stub(Channel channel, Function<Channel, R> function) {
@@ -87,6 +98,20 @@ public class GrpcClientProvide {
 
 	public <R extends AbstractFutureStub<R>> R future(Channel channel, Function<Channel, R> function) {
 		return stub(channel, function);
+	}
+
+	@SneakyThrows
+	@SuppressWarnings("java:S1066")
+	protected void buildSsl(ManagedChannelBuilder<?> builder) {
+		// 关闭ssl
+		if (!properties.isUsePlaintext() && properties.isDisableSsl()) {
+			if (builder instanceof NettyChannelBuilder) {
+				SslContextBuilder sslContextBuilder = GrpcSslContexts.forClient()
+					.trustManager(InsecureTrustManagerFactory.INSTANCE);
+
+				((NettyChannelBuilder) builder).sslContext(sslContextBuilder.build());
+			}
+		}
 	}
 
 }

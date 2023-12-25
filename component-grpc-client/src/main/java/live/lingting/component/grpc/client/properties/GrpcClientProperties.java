@@ -21,7 +21,12 @@ public class GrpcClientProperties {
 
 	private String traceIdKey = IdUtils.TRACE_ID;
 
-	private boolean usePlaintext = true;
+	private boolean usePlaintext = false;
+
+	/**
+	 * 仅在支持此操作时生效
+	 */
+	private boolean disableSsl = false;
 
 	private boolean enableRetry = true;
 
