@@ -40,8 +40,12 @@ public class GrpcServer implements ContextComponent {
 
 	public GrpcServer(GrpcServerProperties properties, List<ServerInterceptor> interceptors,
 			List<BindableService> services) {
+		this(ServerBuilder.forPort(properties.getPort()), properties, interceptors, services);
+	}
 
-		ServerBuilder<?> builder = ServerBuilder.forPort(properties.getPort())
+	public GrpcServer(ServerBuilder<?> builder, GrpcServerProperties properties, List<ServerInterceptor> interceptors,
+			List<BindableService> services) {
+		builder
 			// 单个消息最大大小
 			.maxInboundMessageSize((int) properties.getMessageSize().toBytes())
 			.keepAliveTime(properties.getKeepAliveTime(), TimeUnit.MILLISECONDS)
