@@ -345,7 +345,7 @@ public abstract class AbstractElasticsearch<T> {
 			operations.add(ob.build());
 		}
 
-		bulk(operator, operations);
+		bulk(builder -> operator.apply(builder.refresh(Refresh.WaitFor)), operations);
 	}
 
 	protected boolean deleteByQuery(Query... queries) throws IOException {
