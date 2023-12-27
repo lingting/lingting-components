@@ -1,5 +1,6 @@
 package live.lingting.component.ntp;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
@@ -20,6 +21,9 @@ public class Ntp {
 
 	public static final ZoneId DEFAULT_ZONE_ID = DEFAULT_ZONE_OFFSET.normalized();
 
+	@Getter
+	private final String host;
+
 	private final long diff;
 
 	private ZoneId zoneId = DEFAULT_ZONE_ID;
@@ -27,6 +31,7 @@ public class Ntp {
 	public Ntp(String host) {
 		try {
 			NtpDiff ntpDiff = new NtpDiff(host);
+			this.host = host;
 			this.diff = ntpDiff.getDiff();
 			log.warn("授时中心时间[{}]与系统时间[{}]差为 {} 毫秒", ntpDiff.getNtp(), ntpDiff.getSystem(), ntpDiff.getDiff());
 		}

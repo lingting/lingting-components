@@ -1,10 +1,6 @@
 package live.lingting.component.ntp;
 
-import live.lingting.component.core.util.IpUtils;
-import live.lingting.component.core.util.NumberUtils;
 import live.lingting.component.core.util.ThreadUtils;
-import live.lingting.component.core.value.CycleValue;
-import live.lingting.component.core.value.StepValue;
 import live.lingting.component.core.value.WaitValue;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
@@ -14,9 +10,8 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.concurrent.CompletableFuture;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 import java.util.function.UnaryOperator;
 
 /**
@@ -28,54 +23,27 @@ import java.util.function.UnaryOperator;
 @UtilityClass
 public class NtpCn {
 
-	/**
-	 * 初始化间隔, 单位: 秒
-	 */
-	public static final StepValue STEP_INIT = StepValue.simple(1, null, 10L);
-
 	public static final ZoneOffset DEFAULT_ZONE_OFFSET = ZoneOffset.of("+8");
 
 	public static final ZoneId DEFAULT_ZONE_ID = DEFAULT_ZONE_OFFSET.normalized();
-
-	/**
-	 * 中国授时中心, 使用域名请求超时的话, 解析IP,然后直接请IP
-	 */
-	public static final String DEFAULT_TIME_SERVER = "ntp.ntsc.ac.cn";
 
 	static WaitValue<Ntp> instance = WaitValue.of();
 
 	@SneakyThrows
 	static void initNtpCN() {
+		NtpFactory factory = NtpFactory.getDefault();
+		Set<String> hosts = NtpFactory.getDefaultHosts();
+
 		int index = 0;
-		String host = DEFAULT_TIME_SERVER;
-		String ip = IpUtils.resolve(host);
-		CycleValue<Long> value = CycleValue.ofStep(STEP_INIT);
 		while (instance.isNull()) {
 			index++;
-			CompletableFuture<Ntp> future = NumberUtils.isEven(index)
-					// 偶数用IP
-					? CompletableFuture.supplyAsync(() -> new Ntp(ip))
-					// 奇数用host
-					: CompletableFuture.supplyAsync(() -> new Ntp(host));
 
-			try {
-				Long next = value.next();
-				Ntp ntp = future.get(next, TimeUnit.SECONDS).zoneId(DEFAULT_ZONE_ID);
-				instance.update(ntp);
+			Ntp ntp = factory.initBy(hosts);
+			if (ntp != null) {
+				instance.update(ntp.zoneId(DEFAULT_ZONE_ID));
+				return;
 			}
-			catch (InterruptedException e) {
-				Thread.currentThread().interrupt();
-				break;
-			}
-			catch (TimeoutException e) {
-				log.warn("[{}] Ntp初始化超时!", index);
-			}
-			catch (Exception e) {
-				log.warn("[{}] Ntp初始化异常!", index, e);
-			}
-			finally {
-				future.cancel(true);
-			}
+			log.warn("Ntp初始化失败, 已尝试次数: {}", index);
 		}
 	}
 
