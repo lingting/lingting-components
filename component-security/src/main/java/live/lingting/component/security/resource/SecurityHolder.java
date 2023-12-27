@@ -14,6 +14,22 @@ public class SecurityHolder {
 
 	static final ThreadLocal<SecurityScope> SCOPE_THREAD_LOCAL = new ThreadLocal<>();
 
+	public static void set(SecurityScope scope) {
+		SCOPE_THREAD_LOCAL.set(scope);
+	}
+
+	public static void clear() {
+		SCOPE_THREAD_LOCAL.remove();
+	}
+
+	public static SecurityScope get() {
+		return scope();
+	}
+
+	public static Optional<SecurityScope> option() {
+		return scopeOption();
+	}
+
 	public static SecurityScope scope() {
 		return SCOPE_THREAD_LOCAL.get();
 	}
