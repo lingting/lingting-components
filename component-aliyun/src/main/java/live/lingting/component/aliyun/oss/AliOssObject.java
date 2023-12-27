@@ -64,4 +64,8 @@ public class AliOssObject {
 		return oss.objectAppend(bucket, objectKey, position, in, acl);
 	}
 
+	public String url() {
+		return String.format("https://%s.%s/%s", bucket, oss.getEndpoint(), objectKey);
+	}
+
 }

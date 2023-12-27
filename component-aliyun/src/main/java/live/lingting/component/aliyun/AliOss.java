@@ -38,6 +38,8 @@ public class AliOss {
 
 	private final String region;
 
+	private final String endpoint;
+
 	private final String accessKey;
 
 	private final String accessSecret;
@@ -45,7 +47,7 @@ public class AliOss {
 	private final String securityToken;
 
 	protected AliOss(AliOssProperties properties, OSSClientBuilder.OSSClientBuilderImpl builder) {
-		String endpoint = String.format("oss-%s.aliyuncs.com", properties.getRegion());
+		this.endpoint = String.format("oss-%s.aliyuncs.com", properties.getRegion());
 		builder.endpoint(endpoint).region(properties.getRegion());
 
 		this.client = (OSSClient) builder.build();
@@ -63,7 +65,7 @@ public class AliOss {
 	}
 
 	public AliOss(AliOssProperties properties, AliOssCredentials credentials) {
-		this(properties, of(credentials));
+		this(properties.using(credentials), of(credentials));
 	}
 
 	static OSSClientBuilder.OSSClientBuilderImpl of(AliOssProperties properties) {
@@ -189,6 +191,9 @@ public class AliOss {
 		return response.getNextPosition();
 	}
 
+	public String objectUrl(String bucket, String key) {
+		return object(bucket, key).url();
+	}
 	// endregion
 
 }

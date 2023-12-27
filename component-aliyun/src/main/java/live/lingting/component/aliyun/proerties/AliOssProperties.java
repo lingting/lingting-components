@@ -1,6 +1,8 @@
 package live.lingting.component.aliyun.proerties;
 
+import live.lingting.component.aliyun.domain.AliOssCredentials;
 import live.lingting.component.aliyun.enums.AliOssAcl;
+import live.lingting.component.aliyun.mapstruct.AliMapstruct;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -18,5 +20,11 @@ public class AliOssProperties extends AbstractProperties {
 	private String bucket;
 
 	private AliOssAcl acl = AliOssAcl.DEFAULT;
+
+	public AliOssProperties using(AliOssCredentials credentials) {
+		AliOssProperties properties = AliMapstruct.INSTANCE.ofCredentials(credentials);
+		properties.setAcl(getAcl());
+		return properties;
+	}
 
 }
