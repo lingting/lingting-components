@@ -21,8 +21,8 @@ public class CycleValue<T> {
 	 */
 	protected BigInteger count = BigInteger.ZERO;
 
-	public static CycleValue<Long> ofStep(StepValue stepValue) {
-		StepValue value = stepValue.copy();
+	public static CycleValue<Long> ofStep(StepValue<Long> stepValue) {
+		StepValue<Long> value = stepValue.copy();
 		return new CycleValue<>(new CycleValueFunction<Long>() {
 			@Override
 			public boolean hasNext() {

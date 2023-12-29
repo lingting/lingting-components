@@ -16,7 +16,7 @@ class StepValueTest {
 
 	@Test
 	void testMaxCount() {
-		StepValue simple = StepValue.simple(1, 3L, null);
+		StepValue<Long> simple = StepValue.simple(1, 3L, null);
 		assertEquals(0, simple.getCount());
 		assertTrue(simple.hasNext());
 		assertEquals(1, simple.next());
@@ -30,7 +30,7 @@ class StepValueTest {
 
 	@Test
 	void testMaxValue() {
-		StepValue simple = StepValue.simple(5, null, 30L);
+		StepValue<Long> simple = StepValue.simple(5, null, 30L);
 		assertTrue(simple.hasNext());
 		assertEquals(5, simple.next());
 		assertTrue(simple.hasNext());
@@ -49,7 +49,7 @@ class StepValueTest {
 
 	@Test
 	void testCopy() {
-		StepValue simple = StepValue.simple(5, null, 50L).start(40).copy();
+		StepValue<Long> simple = StepValue.simple(5, null, 50L).start(40L).copy();
 		assertTrue(simple.hasNext());
 		assertEquals(45, simple.next());
 		assertTrue(simple.hasNext());
@@ -58,7 +58,7 @@ class StepValueTest {
 
 	@Test
 	void testStartValue() {
-		StepValue simple = StepValue.simple(5, null, 50L).start(40);
+		StepValue<Long> simple = StepValue.simple(5, null, 50L).start(40L);
 		assertTrue(simple.hasNext());
 		assertEquals(45, simple.next());
 		assertTrue(simple.hasNext());

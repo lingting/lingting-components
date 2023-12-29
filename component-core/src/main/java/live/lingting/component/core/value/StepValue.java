@@ -10,14 +10,14 @@ import java.util.NoSuchElementException;
  * @author lingting 2023-12-19 10:58
  */
 @Getter
-public class StepValue implements Iterator<Long> {
+public class StepValue<T> implements Iterator<T> {
 
 	/**
 	 * 初始值
 	 */
-	protected final long startValue;
+	protected final T startValue;
 
-	protected final StepFunction function;
+	protected final StepFunction<T> function;
 
 	/**
 	 * 已获取值次数
@@ -27,12 +27,12 @@ public class StepValue implements Iterator<Long> {
 	/**
 	 * 上一次获取的值
 	 */
-	protected Long previous = null;
+	protected T previous = null;
 
 	/**
 	 * 下一个值
 	 */
-	protected Long next;
+	protected T next;
 
 	/**
 	 * 简单步进值
@@ -40,15 +40,11 @@ public class StepValue implements Iterator<Long> {
 	 * @param maxStepCount 最大步进次数, 为null表示无限步进次数
 	 * @param maxStepValue 最大步进值, 为null表示无最大值限制
 	 */
-	public static StepValue simple(long step, Long maxStepCount, Long maxStepValue) {
+	public static StepValue<Long> simple(long step, Long maxStepCount, Long maxStepValue) {
 		return new SimpleStepValue(step, maxStepCount, maxStepValue);
 	}
 
-	public StepValue(StepFunction function) {
-		this(0, function);
-	}
-
-	public StepValue(long startValue, StepFunction function) {
+	public StepValue(T startValue, StepFunction<T> function) {
 		this.startValue = startValue;
 		this.function = function;
 		this.next = getFirst();
@@ -60,10 +56,10 @@ public class StepValue implements Iterator<Long> {
 	}
 
 	@Override
-	public Long next() {
+	public T next() {
 		// 如果下一个值为null,则不再进行步进了
 		if (next == null) {
-			throw new NoSuchElementException(String.format("count: %d, previous: %d", count, previous));
+			throw new NoSuchElementException(String.format("count: %d", count));
 		}
 		// 替换值
 		previous = next;
@@ -75,7 +71,7 @@ public class StepValue implements Iterator<Long> {
 		return previous;
 	}
 
-	public Long getFirst() {
+	public T getFirst() {
 		return function.next(0, startValue);
 	}
 
@@ -85,19 +81,32 @@ public class StepValue implements Iterator<Long> {
 		this.next = getFirst();
 	}
 
-	public StepValue copy() {
-		return new StepValue(startValue, function);
+	public StepValue<T> copy() {
+		return new StepValue<>(startValue, function);
 	}
 
-	public StepValue start(long startValue) {
-		return new StepValue(startValue, function);
+	public StepValue<T> start(T startValue) {
+		return new StepValue<>(startValue, function);
+	}
+
+	@FunctionalInterface
+	public interface StepFunction<T> {
+
+		/**
+		 * 获取下一个值
+		 * @param count 当前已获取值的次数, 初始值为0
+		 * @param previous 上一个获取的值, 初始值为 null
+		 * @return 返回下一个获取的值, 为null表示结束
+		 */
+		T next(long count, T previous);
+
 	}
 
 	/**
 	 * 简单步进器, 第一个值为 startValue + step
 	 */
 	@Getter
-	public static class SimpleStepValue extends StepValue {
+	public static class SimpleStepValue extends StepValue<Long> {
 
 		/**
 		 * 每次步进值
@@ -115,7 +124,7 @@ public class StepValue implements Iterator<Long> {
 		protected final Long maxStepValue;
 
 		public SimpleStepValue(long step, Long maxStepCount, Long maxStepValue) {
-			super(new SimpleStepFunction(step, maxStepCount, maxStepValue));
+			super(0L, new SimpleStepFunction(step, maxStepCount, maxStepValue));
 			this.step = step;
 			this.maxStepCount = maxStepCount;
 			this.maxStepValue = maxStepValue;
@@ -123,22 +132,9 @@ public class StepValue implements Iterator<Long> {
 
 	}
 
-	@FunctionalInterface
-	public interface StepFunction {
-
-		/**
-		 * 获取下一个值
-		 * @param count 当前已获取值的次数, 初始值为0
-		 * @param previous 上一个获取的值, 初始值为 null
-		 * @return 返回下一个获取的值, 为null表示结束
-		 */
-		Long next(long count, Long previous);
-
-	}
-
 	@Getter
 	@RequiredArgsConstructor
-	public static class SimpleStepFunction implements StepFunction {
+	public static class SimpleStepFunction implements StepFunction<Long> {
 
 		/**
 		 * 每次步进值
