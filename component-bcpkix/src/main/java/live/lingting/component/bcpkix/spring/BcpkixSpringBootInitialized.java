@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.springframework.boot.context.event.ApplicationContextInitializedEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
 import java.security.Security;
@@ -14,7 +15,7 @@ import java.security.Security;
  * @author lingting
  */
 @Slf4j
-@Order
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class BcpkixSpringBootInitialized implements ApplicationListener<ApplicationContextInitializedEvent> {
 
 	@Override
