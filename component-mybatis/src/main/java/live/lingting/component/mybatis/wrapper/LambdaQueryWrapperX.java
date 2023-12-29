@@ -150,8 +150,7 @@ public class LambdaQueryWrapperX<T> extends AbstractLambdaWrapper<T, LambdaQuery
 	 * @param obj 值
 	 * @return boolean 不为空返回true
 	 */
-	@SuppressWarnings("rawtypes")
-	private boolean isPresent(Object obj) {
+	protected boolean isPresent(Object obj) {
 		if (null == obj) {
 			return false;
 		}

@@ -54,8 +54,8 @@ import java.util.stream.Collectors;
  * @version 1.0
  */
 @Slf4j
-@SuppressWarnings({ "java:S2692", "java:S3776", "java:S6204", "java:S6201", "java:S135" })
 @RequiredArgsConstructor
+@SuppressWarnings({ "java:S2692", "java:S3776", "java:S6204", "java:S6201", "java:S135", "unchecked" })
 public class DataScopeSqlProcessor extends JsqlParserSupport {
 
 	/**
@@ -337,7 +337,8 @@ public class DataScopeSqlProcessor extends JsqlParserSupport {
 	 * <Table>
 	 * 右连接查询的 Table 列表
 	 */
-	private List<Table> processJoins(List<Table> mainTables, List<Join> joins) {
+	@SuppressWarnings("java:S6541")
+	protected List<Table> processJoins(List<Table> mainTables, List<Join> joins) {
 		if (mainTables == null) {
 			mainTables = new ArrayList<>();
 		}

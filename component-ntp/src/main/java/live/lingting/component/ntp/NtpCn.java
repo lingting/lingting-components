@@ -27,7 +27,7 @@ public class NtpCn {
 
 	public static final ZoneId DEFAULT_ZONE_ID = DEFAULT_ZONE_OFFSET.normalized();
 
-	static WaitValue<Ntp> instance = WaitValue.of();
+	static final WaitValue<Ntp> instance = WaitValue.of();
 
 	@SneakyThrows
 	static void initNtpCN() {

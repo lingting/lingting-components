@@ -72,7 +72,7 @@ public class MoneyConfig {
 			return;
 		}
 		// 有效的分位配置 , 分位符号必须正常
-		if (quantileSymbol == null || quantileSymbol.length() < 1) {
+		if (quantileSymbol == null || quantileSymbol.isEmpty()) {
 			throw new BizException(MoneyResultCode.CONFIG_ERROR);
 		}
 	}

@@ -14,11 +14,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 class ByteUtilsTest {
 
-	byte byteR = '\r';
+	final byte byteR = '\r';
 
-	byte byteN = '\n';
+	final byte byteN = '\n';
 
-	byte byteT = '\t';
+	final byte byteT = '\t';
 
 	@Test
 	void isEndLine() {

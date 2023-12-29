@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
  * @author lingting 2023-11-17 13:34
  */
 @Getter
+@SuppressWarnings("unchecked")
 abstract class AbstractPushConsumer<C extends AbstractPushConsumer<C>>
 		extends AbstractConsumer<C, DefaultMQPushConsumer> {
 

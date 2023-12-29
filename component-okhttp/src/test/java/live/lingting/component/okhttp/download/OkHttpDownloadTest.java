@@ -23,11 +23,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 class OkHttpDownloadTest {
 
-	String url = "https://mirrors.huaweicloud.com/repository/maven/live/lingting/components/component-validation/0.0.1/component-validation-0.0.1.pom";
+	final String url = "https://mirrors.huaweicloud.com/repository/maven/live/lingting/components/component-validation/0.0.1/component-validation-0.0.1.pom";
 
-	String filename = "component-validation-0.0.1.pom";
+	final String filename = "component-validation-0.0.1.pom";
 
-	String md5 = "2ce519cf7373a533e1fd297edb9ad1c3";
+	final String md5 = "2ce519cf7373a533e1fd297edb9ad1c3";
 
 	File file = null;
 

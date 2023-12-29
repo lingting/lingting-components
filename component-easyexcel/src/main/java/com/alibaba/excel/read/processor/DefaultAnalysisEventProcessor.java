@@ -24,7 +24,7 @@ import java.util.Map;
  *
  * @author jipengfei
  */
-@SuppressWarnings({ "java:S3776", "java:S3740", "java:S5411", "java:S135" })
+@SuppressWarnings({ "java:S3776", "java:S3740", "java:S5411", "java:S135", "unchecked" })
 public class DefaultAnalysisEventProcessor implements AnalysisEventProcessor {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultAnalysisEventProcessor.class);

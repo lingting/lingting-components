@@ -67,7 +67,7 @@ public class RedisHelper {
 			"local r = redis.call('INCRBY', KEYS[1], ARGV[1]) redis.call('EXPIRE', KEYS[1], ARGV[2]) return r",
 			Long.class);
 
-	static WaitValue<RedisTemplate<String, String>> templateValue = WaitValue.of();
+	static final WaitValue<RedisTemplate<String, String>> templateValue = WaitValue.of();
 
 	@SneakyThrows
 	public static RedisTemplate<String, String> getRedisTemplate() {

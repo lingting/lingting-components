@@ -13,6 +13,7 @@ import static live.lingting.component.core.constant.GlobalConstants.SLASH;
 /**
  * @author lingting 2023-10-13 17:04
  */
+@SuppressWarnings("unchecked")
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractCipher {
 

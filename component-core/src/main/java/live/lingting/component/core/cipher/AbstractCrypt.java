@@ -15,6 +15,7 @@ import java.security.NoSuchAlgorithmException;
  * @author lingting 2023-10-16 14:50
  */
 @RequiredArgsConstructor
+@SuppressWarnings("unchecked")
 public abstract class AbstractCrypt<C extends AbstractCrypt<C>> {
 
 	/**

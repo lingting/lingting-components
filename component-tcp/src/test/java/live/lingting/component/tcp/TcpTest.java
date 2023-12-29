@@ -12,25 +12,29 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 /**
  * @author lingting 2023-09-25 17:15
  */
 @Slf4j
+@SuppressWarnings("java:S2925")
 class TcpTest {
 
-	String host = "127.0.0.1";
+	final String host = "127.0.0.1";
 
-	int port = 9025;
+	final int port = 9025;
 
-	Charset charset = StandardCharsets.UTF_8;
+	final Charset charset = StandardCharsets.UTF_8;
 
-	TcpClient client = new TcpClient(host, port).charset(charset);
+	final TcpClient client = new TcpClient(host, port).charset(charset);
 
 	@Test
 	void server() throws IOException {
 		try (TcpServer server = new TcpServer(host, port)) {
 			server.open().handler(bytes -> {
 				String body = new String(bytes, charset);
+				assertNotNull(body);
 				System.out.println("recv: " + body);
 				int millis = RandomUtils.nextInt(1000, 5000);
 				Thread.sleep(millis);
@@ -53,6 +57,7 @@ class TcpTest {
 			async.submit("tcp " + i, () -> {
 				try (TcpResponse response = client.call(body)) {
 					String string = response.string();
+					assertNotNull(string);
 					System.out.println("recv: " + string);
 				}
 			});

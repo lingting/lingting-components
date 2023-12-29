@@ -41,7 +41,7 @@ public class NtpFactory {
 	private static final String[] HOSTS = { TIME_WINDOWS, TIME_NIST, TIME_APPLE, TIME_ASIA, CN_NTP, NTP_NTSC,
 			CN_POOL, };
 
-	public static final StepValue STEP_INIT = StepValue.simple(1, null, 10L);
+	public static final StepValue<Long> STEP_INIT = StepValue.simple(1, null, 10L);
 
 	public static final NtpFactory INSTANCE = new NtpFactory();
 

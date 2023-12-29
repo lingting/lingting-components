@@ -39,7 +39,7 @@ import java.util.jar.JarFile;
  * @author lingting 2021/2/25 21:17
  */
 @UtilityClass
-@SuppressWarnings("java:S3011")
+@SuppressWarnings({ "java:S3011", "unchecked" })
 public class ClassUtils {
 
 	private static final Class<?>[] EMPTY_CLASS_ARRAY = new Class<?>[0];

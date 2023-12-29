@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
  * @author lingting 2023-11-17 13:34
  */
 @Getter
+@SuppressWarnings("unchecked")
 abstract class AbstractPullConsumer<C extends AbstractPullConsumer<C>>
 		extends AbstractConsumer<C, DefaultLitePullConsumer> {
 

@@ -13,13 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 class IpUtilsTest {
 
-	String ip1 = "192.168.000.1";
+	final String ip1 = "192.168.000.1";
 
-	String ip2 = "256.0.0.1";
+	final String ip2 = "256.0.0.1";
 
-	String ip3 = "2001:0db8:85a3:0000:0000:8a2e:0370:7334";
+	final String ip3 = "2001:0db8:85a3:0000:0000:8a2e:0370:7334";
 
-	String ip4 = "53543aa";
+	final String ip4 = "53543aa";
 
 	@Test
 	void isIpv4() {

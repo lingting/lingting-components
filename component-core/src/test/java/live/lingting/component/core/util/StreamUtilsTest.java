@@ -14,11 +14,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class StreamUtilsTest {
 
-	String line1 = "1\r\n2\n3";
+	final String line1 = "1\r\n2\n3";
 
-	String line2 = "1\t\r\n";
+	final String line2 = "1\t\r\n";
 
-	String line3 = "这是一行文本\n这是第二行文本\r\neng";
+	final String line3 = "这是一行文本\n这是第二行文本\r\neng";
 
 	InputStream of(String string) {
 		return new ByteArrayInputStream(string.getBytes(StandardCharsets.UTF_8));

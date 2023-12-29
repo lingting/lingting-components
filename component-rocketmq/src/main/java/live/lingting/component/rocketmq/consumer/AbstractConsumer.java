@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets;
  * @author lingting 2023-10-19 15:43
  */
 @Getter
+@SuppressWarnings("unchecked")
 public abstract class AbstractConsumer<C extends AbstractConsumer<C, I>, I extends ClientConfig> {
 
 	private final Logger log = org.slf4j.LoggerFactory.getLogger(getClass());

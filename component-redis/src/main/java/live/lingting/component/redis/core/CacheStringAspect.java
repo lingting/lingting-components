@@ -9,13 +9,12 @@ import live.lingting.component.redis.operation.CachePutOps;
 import live.lingting.component.redis.operation.CachedOps;
 import live.lingting.component.redis.properties.CachePropertiesHolder;
 import live.lingting.component.redis.serialize.CacheSerializer;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.annotation.Order;
@@ -35,10 +34,9 @@ import java.util.function.Supplier;
  * @version 1.0
  */
 @Aspect
+@Slf4j
 @Order(Ordered.LOWEST_PRECEDENCE - 1)
 public class CacheStringAspect {
-
-	Logger log = LoggerFactory.getLogger(CacheStringAspect.class);
 
 	protected final CacheSerializer cacheSerializer;
 

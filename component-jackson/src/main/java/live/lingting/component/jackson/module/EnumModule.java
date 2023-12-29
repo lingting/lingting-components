@@ -20,7 +20,7 @@ import java.util.Objects;
 /**
  * @author lingting 2022/12/20 14:11
  */
-@SuppressWarnings("java:S3740")
+@SuppressWarnings({ "java:S3740", "unchecked" })
 public class EnumModule extends SimpleModule {
 
 	public EnumModule() {

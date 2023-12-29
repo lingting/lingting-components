@@ -24,7 +24,7 @@ public class KeyGenerator {
 	/**
 	 * SpEL 上下文
 	 */
-	StandardEvaluationContext spelContext;
+	protected final StandardEvaluationContext spelContext;
 
 	public KeyGenerator(Object target, Method method, Object[] arguments) {
 		this.spelContext = SpelUtils.getSpelContext(target, method, arguments);
