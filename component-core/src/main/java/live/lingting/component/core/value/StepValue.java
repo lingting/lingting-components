@@ -3,7 +3,9 @@ package live.lingting.component.core.value;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -87,6 +89,15 @@ public class StepValue<T> implements Iterator<T> {
 
 	public StepValue<T> start(T startValue) {
 		return new StepValue<>(startValue, function);
+	}
+
+	public List<T> values() {
+		List<T> list = new ArrayList<>();
+		StepValue<T> copy = copy();
+		while (copy.hasNext()) {
+			list.add(copy.next());
+		}
+		return list;
 	}
 
 	@FunctionalInterface

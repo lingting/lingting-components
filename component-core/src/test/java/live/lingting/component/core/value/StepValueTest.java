@@ -2,6 +2,7 @@ package live.lingting.component.core.value;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -63,6 +64,16 @@ class StepValueTest {
 		assertEquals(45, simple.next());
 		assertTrue(simple.hasNext());
 		assertEquals(50, simple.next());
+	}
+
+	@Test
+	void testValues() {
+		StepValue<Long> simple = StepValue.simple(1, 3L, null);
+		List<Long> values = simple.values();
+		assertEquals(0, simple.getCount());
+		assertTrue(simple.hasNext());
+		assertEquals(3, values.size());
+		assertEquals(1, values.get(0));
 	}
 
 }
