@@ -37,6 +37,8 @@ import live.lingting.component.core.retry.Retry;
 import live.lingting.component.core.util.CollectionUtils;
 import live.lingting.component.core.util.StringUtils;
 import live.lingting.component.elasticsearch.builder.ScriptBuilder;
+import live.lingting.component.elasticsearch.cursor.LimitCursor;
+import live.lingting.component.elasticsearch.cursor.ScrollCursor;
 import live.lingting.component.elasticsearch.datascope.DataPermissionHandler;
 import live.lingting.component.elasticsearch.datascope.DataScope;
 import live.lingting.component.elasticsearch.properties.ElasticsearchProperties;
@@ -452,6 +454,25 @@ public abstract class AbstractElasticsearch<T> {
 		}
 		client.clearScroll(scr -> scr.scrollId(scrollId));
 	}
+
+	// region 游标方法
+
+	protected LimitCursor<T> pageCursor(PageLimitParams params, Query... queries) {
+		return new LimitCursor<>(page -> {
+			params.setPage(page);
+			return page(params, queries);
+		});
+	}
+
+	protected ScrollCursor<T> scrollCursor(PageScrollParams params, Query... queries) throws IOException {
+		PageScrollResult<T> scroll = scroll(params, queries);
+		return new ScrollCursor<>(scrollId -> {
+			params.setCursor(scroll);
+			return scroll(params, queries);
+		}, scroll.getCursor().toString(), scroll.getRecords());
+	}
+
+	// endregion
 
 	// region tools
 
