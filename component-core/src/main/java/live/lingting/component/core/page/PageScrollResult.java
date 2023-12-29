@@ -26,7 +26,7 @@ public class PageScrollResult<T> {
 	}
 
 	public static <T> PageScrollResult<T> empty() {
-		return new PageScrollResult<>(Collections.emptyList(), Collections.emptyList(), 0L);
+		return new PageScrollResult<>(Collections.emptyList(), null, 0L);
 	}
 
 }
