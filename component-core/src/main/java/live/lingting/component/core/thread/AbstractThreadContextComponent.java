@@ -3,6 +3,7 @@ package live.lingting.component.core.thread;
 import live.lingting.component.core.context.ContextComponent;
 import live.lingting.component.core.context.ContextHolder;
 import live.lingting.component.core.util.StringUtils;
+import live.lingting.component.core.util.ValueUtils;
 import org.slf4j.Logger;
 
 /**
@@ -71,6 +72,10 @@ public abstract class AbstractThreadContextComponent extends Thread implements C
 
 	protected void error(Exception e) {
 		log.error("{} 类 线程: {} 出现异常!", getSimpleName(), getId(), e);
+	}
+
+	public void awaitTerminated() {
+		ValueUtils.await(this::getState, State.TERMINATED::equals);
 	}
 
 }

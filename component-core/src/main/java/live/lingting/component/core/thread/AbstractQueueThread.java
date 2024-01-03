@@ -1,5 +1,6 @@
 package live.lingting.component.core.thread;
 
+import live.lingting.component.core.StopWatch;
 import live.lingting.component.core.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -105,9 +106,8 @@ public abstract class AbstractQueueThread<E> extends AbstractThreadContextCompon
 	 * 填充数据
 	 */
 	protected void fill() {
-		long timestamp = 0;
 		int count = 0;
-
+		StopWatch watch = new StopWatch();
 		while (count < getBatchSize()) {
 			E e = poll();
 			E p = process(e);
@@ -116,20 +116,37 @@ public abstract class AbstractQueueThread<E> extends AbstractThreadContextCompon
 				// 第一次插入数据
 				if (count++ == 0) {
 					// 记录时间
-					timestamp = System.currentTimeMillis();
+					watch.restart();
 				}
 				// 数据存入列表
 				data.add(p);
 			}
 
-			// 无法继续运行
-			final boolean isBreak = !isRun()
-					// 或者 已有数据且超过设定的等待时间
-					|| (!CollectionUtils.isEmpty(data) && System.currentTimeMillis() - timestamp >= getBatchTimeout());
-			if (isBreak) {
+			// 需要进行处理数据了
+			if (isBreak(watch)) {
 				break;
 			}
 		}
+	}
+
+	/**
+	 * 是否中断数据填充
+	 */
+	protected boolean isBreak(StopWatch watch) {
+		// 该停止运行了
+		if (!isRun()) {
+			return true;
+		}
+
+		// 已有数据且超过设定的等待时间
+		return isTimeout(watch);
+	}
+
+	/**
+	 * 已有数据且超过设定的等待时间
+	 */
+	protected boolean isTimeout(StopWatch watch) {
+		return !CollectionUtils.isEmpty(data) && watch.timeMillis() >= getBatchTimeout();
 	}
 
 	public E poll() {
