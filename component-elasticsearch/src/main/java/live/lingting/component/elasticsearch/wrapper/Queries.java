@@ -1,9 +1,9 @@
 package live.lingting.component.elasticsearch.wrapper;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import live.lingting.component.elasticsearch.EFunction;
 import live.lingting.component.core.util.CollectionUtils;
 import live.lingting.component.core.util.StringUtils;
+import live.lingting.component.elasticsearch.EFunction;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -168,7 +168,7 @@ public class Queries<E> {
 	// region range
 
 	/**
-	 * 大于
+	 * 小于
 	 */
 	public <T> Queries<E> lt(EFunction<E, T> func, T obj) {
 		return lt(true, func, obj);
@@ -183,7 +183,7 @@ public class Queries<E> {
 	}
 
 	/**
-	 * 大于等于
+	 * 小于等于
 	 */
 	public <T> Queries<E> le(EFunction<E, T> func, T obj) {
 		return le(true, func, obj);
@@ -198,7 +198,7 @@ public class Queries<E> {
 	}
 
 	/**
-	 * 小于
+	 * 大于
 	 */
 	public <T> Queries<E> gt(EFunction<E, T> func, T obj) {
 		return gt(true, func, obj);
@@ -213,7 +213,7 @@ public class Queries<E> {
 	}
 
 	/**
-	 * 小于等于
+	 * 大于等于
 	 */
 	public <T> Queries<E> ge(EFunction<E, T> func, T obj) {
 		return ge(true, func, obj);
