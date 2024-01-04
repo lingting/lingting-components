@@ -16,7 +16,7 @@ import java.util.Set;
  * @author lingting 2022/9/28 10:33
  */
 @RequiredArgsConstructor
-public class StringToCollectionConverter implements Converter {
+public class StringToCollectionConverter implements Converter<Collection<Object>> {
 
 	private final ConversionService conversionService;
 
@@ -37,7 +37,7 @@ public class StringToCollectionConverter implements Converter {
 
 	@Override
 	@Nullable
-	public Object convert(@Nullable Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
+	public Collection<Object> convert(@Nullable Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
 		String[] fields = toArray(source);
 
 		TypeDescriptor elementDesc = targetType.getElementTypeDescriptor();

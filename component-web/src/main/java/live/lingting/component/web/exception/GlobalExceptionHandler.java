@@ -1,12 +1,13 @@
 
 package live.lingting.component.web.exception;
 
-import live.lingting.component.core.r.R;
 import live.lingting.component.core.enums.GlobalResultCode;
 import live.lingting.component.core.exception.BizException;
+import live.lingting.component.core.r.R;
 import live.lingting.component.web.constant.WebConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
@@ -112,6 +113,15 @@ public class GlobalExceptionHandler {
 		}
 		log.error("请求地址: {}, 参数校验异常! {}", request.getRequestURI(), e.getMessage());
 		return R.failed(GlobalResultCode.PARAMS_ERROR, message);
+	}
+
+	/**
+	 * 参数类型转换异常
+	 */
+	@ExceptionHandler(ConversionFailedException.class)
+	public R<String> handlerConversionFailedException(ConversionFailedException e) {
+		log.error("参数类型转换异常!", e);
+		return R.failed(GlobalResultCode.PARAMS_ERROR);
 	}
 
 	/**

@@ -12,7 +12,8 @@ import java.util.Set;
 /**
  * @author lingting 2022/9/28 12:17
  */
-public class EnumConverter implements Converter {
+@SuppressWarnings("java:S3740")
+public class EnumConverter implements Converter<Enum> {
 
 	@Override
 	public boolean matches(TypeDescriptor sourceType, TypeDescriptor targetType) {
@@ -32,7 +33,7 @@ public class EnumConverter implements Converter {
 	}
 
 	@Override
-	public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
+	public Enum convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
 		if (source == null) {
 			return null;
 		}
@@ -46,7 +47,7 @@ public class EnumConverter implements Converter {
 		for (Object o : targetType.getType().getEnumConstants()) {
 			Object value = EnumUtils.getValue((Enum<?>) o);
 			if (Objects.equals(source, value)) {
-				return o;
+				return (Enum) o;
 			}
 		}
 		return null;

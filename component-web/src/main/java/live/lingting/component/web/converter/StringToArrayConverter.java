@@ -33,7 +33,7 @@ import java.util.Set;
  * @author Juergen Hoeller
  * @since 3.0
  */
-public class StringToArrayConverter implements Converter {
+public class StringToArrayConverter implements Converter<Object> {
 
 	private final ConversionService conversionService;
 
