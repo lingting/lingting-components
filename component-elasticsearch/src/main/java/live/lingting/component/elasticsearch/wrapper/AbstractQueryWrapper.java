@@ -53,7 +53,7 @@ class AbstractQueryWrapper {
 	}
 
 	/**
-	 * 大于
+	 * 小于
 	 */
 	public static Query lt(String field, Object obj) {
 		JsonData value = JsonData.of(obj);
@@ -61,7 +61,7 @@ class AbstractQueryWrapper {
 	}
 
 	/**
-	 * 大于等于
+	 * 小于等于
 	 */
 	public static Query le(String field, Object obj) {
 		JsonData value = JsonData.of(obj);
@@ -69,7 +69,7 @@ class AbstractQueryWrapper {
 	}
 
 	/**
-	 * 小于
+	 * 大于
 	 */
 	public static Query gt(String field, Object obj) {
 		JsonData value = JsonData.of(obj);
@@ -77,7 +77,7 @@ class AbstractQueryWrapper {
 	}
 
 	/**
-	 * 小于等于
+	 * 大于等于
 	 */
 	public static Query ge(String field, Object obj) {
 		JsonData value = JsonData.of(obj);
@@ -88,13 +88,13 @@ class AbstractQueryWrapper {
 	 * 大于等于 start 小于等于 end
 	 */
 	public static Query between(String field, Object start, Object end) {
-		return Query.of(q -> q.bool(bq -> bq.must(
-				// 大于等于 start
-				le(field, start),
-				// 小于等于 end
-				ge(field, end)
-
-		)));
+		JsonData startData = JsonData.of(start);
+		JsonData endData = JsonData.of(end);
+		return Query.of(q -> q.range(rb -> rb.field(field)
+			// 大于等于 start
+			.gte(startData)
+			// 小于等于 end
+			.lte(endData)));
 	}
 
 	public static Query exists(String field) {

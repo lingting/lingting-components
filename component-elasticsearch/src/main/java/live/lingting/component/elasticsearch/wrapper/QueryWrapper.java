@@ -40,7 +40,7 @@ public class QueryWrapper extends AbstractQueryWrapper {
 	}
 
 	/**
-	 * 大于
+	 * 小于
 	 */
 	public static <E, T> Query lt(EFunction<E, T> func, T obj) {
 		String field = field(func);
@@ -48,7 +48,7 @@ public class QueryWrapper extends AbstractQueryWrapper {
 	}
 
 	/**
-	 * 大于等于
+	 * 小于等于
 	 */
 	public static <E, T> Query le(EFunction<E, T> func, T obj) {
 		String field = field(func);
@@ -56,7 +56,7 @@ public class QueryWrapper extends AbstractQueryWrapper {
 	}
 
 	/**
-	 * 小于
+	 * 大于
 	 */
 	public static <E, T> Query gt(EFunction<E, T> func, T obj) {
 		String field = field(func);
@@ -64,7 +64,7 @@ public class QueryWrapper extends AbstractQueryWrapper {
 	}
 
 	/**
-	 * 小于等于
+	 * 大于等于
 	 */
 	public static <E, T> Query ge(EFunction<E, T> func, T obj) {
 		String field = field(func);
