@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static live.lingting.component.core.constant.FileConstants.POINT;
+import static live.lingting.component.core.constant.GlobalConstants.SLASH;
 
 /**
  * @author lingting
@@ -45,14 +45,14 @@ public class FileUtils {
 	/**
 	 * 文件路径获取文件扩展名
 	 * @param path 文件路径
-	 * @return java.lang.String
+	 * @return java.lang.String eg: .java
 	 */
 	public static String getExt(String path) {
-		if (!path.contains(POINT)) {
+		if (!path.contains(FileConstants.POINT)) {
 			return null;
 		}
 
-		return path.substring(path.lastIndexOf(POINT));
+		return path.substring(path.lastIndexOf(FileConstants.POINT));
 	}
 
 	/**
@@ -234,6 +234,44 @@ public class FileUtils {
 		catch (IOException e) {
 			return false;
 		}
+	}
+
+	/**
+	 * 依据系统文件路径分隔符解析
+	 */
+	public static String getFilename(String path) {
+		return getFilename(path, SystemUtils.fileSeparator());
+	}
+
+	public static String getFilenameByUrl(String url) {
+		return getFilename(url, SLASH);
+	}
+
+	/**
+	 * 依据指定分隔符解析
+	 */
+	public static String getFilename(String path, String delimiter) {
+		if (!StringUtils.hasText(path)) {
+			return "";
+		}
+		String[] split = path.split(delimiter);
+		return split[split.length - 1];
+	}
+
+	/**
+	 * 获取文件扩展名
+	 * @return java.lang.String eg: java
+	 */
+	public static String getFileExt(String filename) {
+		return getFileExt(filename, "\\.");
+	}
+
+	public static String getFileExt(String filename, String delimiter) {
+		if (!StringUtils.hasText(filename)) {
+			return "";
+		}
+		String[] split = filename.split(delimiter);
+		return split[split.length - 1];
 	}
 
 }
