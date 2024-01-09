@@ -2,6 +2,7 @@ package live.lingting.component.easyexcel.listener;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
+import live.lingting.component.easyexcel.kit.EasyExcelIndexObject;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -18,6 +19,9 @@ public abstract class AbstractListListener<D> extends AnalysisEventListener<D> {
 	@Override
 	public void invoke(D data, AnalysisContext analysisContext) {
 		Integer rowIndex = getRowIndex(analysisContext);
+		if (data instanceof EasyExcelIndexObject) {
+			((EasyExcelIndexObject) data).setIndex(rowIndex);
+		}
 		invoke(data, rowIndex, analysisContext);
 		addData(data);
 	}
@@ -35,6 +39,8 @@ public abstract class AbstractListListener<D> extends AnalysisEventListener<D> {
 		//
 	}
 
-	protected abstract void invoke(D data, Integer rowIndex, AnalysisContext analysisContext);
+	protected void invoke(D data, Integer rowIndex, AnalysisContext analysisContext) {
+		//
+	}
 
 }
