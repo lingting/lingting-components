@@ -1,6 +1,7 @@
 package live.lingting.component.core.util;
 
 import live.lingting.component.core.function.ThrowingBiConsumerE;
+import live.lingting.component.core.stream.CloneInputStream;
 import lombok.experimental.UtilityClass;
 
 import java.io.ByteArrayOutputStream;
@@ -12,7 +13,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -113,47 +113,19 @@ public class StreamUtils {
 	 * 注意: 在使用后及时关闭复制流
 	 * </p>
 	 * @param stream 源流
-	 * @param amounts 数量
 	 * @return 返回指定数量的从源流复制出来的只读流
 	 * @author lingting 2021-04-16 16:18
 	 */
-	public static InputStream[] clone(InputStream stream, Integer amounts) throws IOException {
-		return clone(stream, amounts, DEFAULT_SIZE);
+	public static CloneInputStream clone(InputStream stream) throws IOException {
+		return clone(stream, DEFAULT_SIZE);
 	}
 
-	@SuppressWarnings("java:S2093")
-	public static InputStream[] clone(InputStream stream, Integer amounts, int size) throws IOException {
-		InputStream[] streams = new InputStream[amounts];
-		File[] files = new File[amounts];
-		FileOutputStream[] outs = new FileOutputStream[amounts];
-
-		byte[] buffer = new byte[size < 1 ? DEFAULT_SIZE : size];
-		int len;
-
-		try {
-			while ((len = stream.read(buffer)) > -1) {
-				for (int i = 0, outsLength = outs.length; i < outsLength; i++) {
-					FileOutputStream out = outs[i];
-					if (out == null) {
-						files[i] = FileUtils.createTemp("clone." + i + "." + System.currentTimeMillis());
-						out = new FileOutputStream(files[i]);
-						outs[i] = out;
-					}
-					out.write(buffer, 0, len);
-				}
-			}
+	public static CloneInputStream clone(InputStream input, int size) throws IOException {
+		File file = FileUtils.createTemp(".clone");
+		try (FileOutputStream output = new FileOutputStream(file)) {
+			write(input, output, size);
 		}
-		finally {
-			for (FileOutputStream out : outs) {
-				close(out);
-			}
-		}
-
-		for (int i = 0; i < files.length; i++) {
-			streams[i] = Files.newInputStream(files[i].toPath());
-		}
-
-		return streams;
+		return new CloneInputStream(file);
 	}
 
 	/**

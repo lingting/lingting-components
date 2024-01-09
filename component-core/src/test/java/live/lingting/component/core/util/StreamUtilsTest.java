@@ -1,8 +1,10 @@
 package live.lingting.component.core.util;
 
+import live.lingting.component.core.stream.CloneInputStream;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -56,6 +58,14 @@ class StreamUtilsTest {
 					break;
 			}
 		});
+	}
+
+	@Test
+	void testClone() throws IOException {
+		CloneInputStream clone = StreamUtils.clone(of(line3));
+		assertEquals(line3, StreamUtils.toString(clone));
+		FileInputStream copy = clone.copy();
+		assertEquals(line3, StreamUtils.toString(copy));
 	}
 
 }
