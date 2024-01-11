@@ -7,6 +7,7 @@ import com.alibaba.excel.metadata.data.ReadCellData;
 import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import live.lingting.component.core.util.EnumUtils;
+import live.lingting.component.easyexcel.kit.EasyExcelEnum;
 import lombok.experimental.UtilityClass;
 
 import java.lang.reflect.Field;
@@ -20,11 +21,16 @@ import java.math.BigDecimal;
 public class EnumConverter {
 
 	public static WriteCellData<Object> toCellData(Enum<?> value) {
-		Object ev;
-		if (value == null || (ev = EnumUtils.getValue(value)) == null) {
+		if (value == null) {
 			return new WriteCellData<>("");
 		}
-		return new WriteCellData<>(ev.toString());
+
+		if (value instanceof EasyExcelEnum) {
+			return new WriteCellData<>(((EasyExcelEnum) value).getExcelValue());
+		}
+
+		Object ev = EnumUtils.getValue(value);
+		return new WriteCellData<>(ev == null ? "" : ev.toString());
 	}
 
 	public static Enum<?> of(BigDecimal decimal, ExcelContentProperty property) {
