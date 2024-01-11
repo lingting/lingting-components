@@ -18,7 +18,7 @@ public class AggWrapper {
 
 	@Getter
 	@Setter
-	private static int defaultSize = 100;
+	private static Integer defaultSize = 100;
 
 	static <E> String field(EFunction<E, ?> function) {
 		Field field = ElasticSearchUtils.resolveField(function);
@@ -44,7 +44,12 @@ public class AggWrapper {
 	public static Aggregation terms(String field, Integer size,
 			UnaryOperator<Aggregation.Builder.ContainerBuilder> operator) {
 		return Aggregation.of(agg -> {
-			Aggregation.Builder.ContainerBuilder builder = agg.terms(ta -> ta.field(field).size(size));
+			Aggregation.Builder.ContainerBuilder builder = agg.terms(ta -> {
+				if (size != null) {
+					ta.size(size);
+				}
+				return ta.field(field);
+			});
 			return operator.apply(builder);
 		});
 	}
