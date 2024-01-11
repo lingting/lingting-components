@@ -12,13 +12,13 @@ import com.alibaba.excel.metadata.data.CellData;
 import com.alibaba.excel.metadata.data.ReadCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import com.alibaba.excel.read.metadata.holder.ReadSheetHolder;
+import live.lingting.component.easyexcel.util.EasyExcelUtils;
 import lombok.experimental.UtilityClass;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Converting objects
@@ -140,28 +140,9 @@ public class ConverterUtils {
 			return null;
 		}
 
-		ConverterKey key = ConverterKeyBuild.buildKey(clazz, cellData.getType());
-
-		// 直接获取未找到
 		if (converter == null) {
-			converter = converterMap.get(key);
-		}
-
-		// 通过继承关系找
-		for (Map.Entry<ConverterKey, Converter<?>> entry : converterMap.entrySet()) {
-			ConverterKey converterKey = entry.getKey();
-			Converter<?> value = entry.getValue();
-
-			// 行数据类型不一致, 跳过
-			if (Objects.equals(converterKey.getCellDataTypeEnum(), key.getCellDataTypeEnum())) {
-				Class<?> converterClz = converterKey.getClazz();
-
-				// Java数据类型匹配
-				if (converterClz.isAssignableFrom(key.getClazz())) {
-					converter = value;
-					break;
-				}
-			}
+			ConverterKey key = ConverterKeyBuild.buildKey(clazz, cellData.getType());
+			converter = EasyExcelUtils.find(key, converterMap);
 		}
 
 		if (converter == null) {
