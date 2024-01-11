@@ -96,7 +96,7 @@ abstract class AbstractPullConsumer<C extends AbstractPullConsumer<C>>
 	@SneakyThrows
 	protected DefaultLitePullConsumerImpl getImpl(DefaultLitePullConsumer consumer) {
 		ClassField cf = ClassUtils.classField("defaultLitePullConsumerImpl", DefaultLitePullConsumer.class);
-		return (DefaultLitePullConsumerImpl) cf.invoke(consumer);
+		return (DefaultLitePullConsumerImpl) cf.get(consumer);
 	}
 
 	/**

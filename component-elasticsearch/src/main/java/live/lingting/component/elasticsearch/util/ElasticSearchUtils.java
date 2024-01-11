@@ -103,7 +103,7 @@ public class ElasticSearchUtils {
 				}
 				String fieldName = StringUtils.firstLower(implFieldName);
 				ClassField cf = ClassUtils.classField(fieldName, aClass);
-				return cf.getField();
+				return cf.field();
 			}
 			catch (Exception e) {
 				log.error("resolve method by lambda error!", e);

@@ -40,7 +40,7 @@ public class EnumUtils {
 		if (method == null) {
 			return null;
 		}
-		return new ClassField(null, method);
+		return new ClassField(null, method, null);
 	}
 
 	public static ClassField getByJsonValue(Class<?> cls) {
@@ -53,20 +53,20 @@ public class EnumUtils {
 		if (field != null) {
 			// public 字段
 			if (Modifier.isPublic(field.getModifiers())) {
-				return new ClassField(field, null);
+				return new ClassField(field, null, null);
 			}
 
 			String name = StringConstants.GET + StringUtils.firstUpper(field.getName());
 			// 获取 get 方法
 			method = ClassUtils.method(cls, name);
 			if (method != null) {
-				return new ClassField(null, method);
+				return new ClassField(null, method, null);
 			}
 		}
 
 		method = getJsonValueMethod(cls);
 		if (method != null) {
-			return new ClassField(null, method);
+			return new ClassField(null, method, null);
 		}
 		return null;
 	}
@@ -99,7 +99,7 @@ public class EnumUtils {
 	public static ClassField getByName(Class<?> cls) {
 		Method method = ClassUtils.method(cls, "name");
 		if (method != null) {
-			return new ClassField(null, method);
+			return new ClassField(null, method, null);
 		}
 		return null;
 	}
@@ -126,7 +126,7 @@ public class EnumUtils {
 		}
 		ClassField cf = getCf(e.getClass());
 		try {
-			return cf.invoke(e);
+			return cf.get(e);
 		}
 		catch (Exception ex) {
 			return null;

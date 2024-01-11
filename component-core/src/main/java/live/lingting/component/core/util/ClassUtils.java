@@ -299,19 +299,25 @@ public class ClassUtils {
 					// 尝试获取get方法
 					String getMethodName = StringConstants.GET + fieldName;
 
-					Optional<Method> optional = Arrays.stream(methods)
+					Optional<Method> optionalGet = Arrays.stream(methods)
 						.filter(method -> method.getName().equals(getMethodName) && method.getParameterCount() == 0)
 						.findFirst();
 
 					// get 不存在则尝试获取 is 方法
-					if (!optional.isPresent()) {
+					if (!optionalGet.isPresent()) {
 						String isMethodName = StringConstants.IS + fieldName;
-						optional = Arrays.stream(methods)
+						optionalGet = Arrays.stream(methods)
 							.filter(method -> method.getName().equals(isMethodName) && method.getParameterCount() == 0)
 							.findFirst();
 					}
 
-					fields.add(new ClassField(field, optional.orElse(null)));
+					// 尝试获取set方法
+					String setMethodName = StringConstants.SET + fieldName;
+					Optional<Method> optionalSet = Arrays.stream(methods)
+						.filter(method -> method.getName().equalsIgnoreCase(setMethodName))
+						.findFirst();
+
+					fields.add(new ClassField(field, optionalGet.orElse(null), optionalSet.orElse(null)));
 				}
 				k = k.getSuperclass();
 			}
