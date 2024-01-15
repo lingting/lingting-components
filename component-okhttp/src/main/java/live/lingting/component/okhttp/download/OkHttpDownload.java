@@ -1,16 +1,25 @@
 package live.lingting.component.okhttp.download;
 
 import live.lingting.component.core.util.ValueUtils;
+import live.lingting.component.okhttp.OkHttpClient;
 import live.lingting.component.okhttp.exception.OkHttpDownloadException;
 import lombok.Getter;
+import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author lingting 2023-12-20 16:43
  */
 public abstract class OkHttpDownload {
+
+	private final Logger log = org.slf4j.LoggerFactory.getLogger(getClass());
+
+	protected final OkHttpClient client;
+
+	protected final ThreadPoolExecutor executor;
 
 	protected final String url;
 
@@ -23,7 +32,9 @@ public abstract class OkHttpDownload {
 
 	protected OkHttpDownloadException ex = null;
 
-	protected OkHttpDownload(String url, File dir, String filename) {
+	protected OkHttpDownload(OkHttpClient client, ThreadPoolExecutor executor, String url, File dir, String filename) {
+		this.client = client;
+		this.executor = executor;
 		this.url = url;
 		this.dir = dir;
 		this.filename = filename;
@@ -51,7 +62,18 @@ public abstract class OkHttpDownload {
 		start = true;
 
 		if (!isFinished()) {
-			doStart();
+			String name = "DOWNLOAD-" + filename;
+			executor.execute(() -> {
+				Thread.currentThread().setName(name);
+				try {
+					doStart();
+				}
+				catch (Exception e) {
+					log.error("下载异常!", e);
+					ex = e instanceof OkHttpDownloadException ? (OkHttpDownloadException) e
+							: new OkHttpDownloadException("下载异常!", e);
+				}
+			});
 		}
 		return this;
 	}
@@ -66,7 +88,7 @@ public abstract class OkHttpDownload {
 	 */
 	public OkHttpDownload await() throws InterruptedException {
 		if (!isStart()) {
-			throw new OkHttpDownloadException("is not start");
+			throw new OkHttpDownloadException("download not start");
 		}
 		ValueUtils.await(this::isFinished, v -> v);
 		return this;

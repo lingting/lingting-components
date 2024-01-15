@@ -54,9 +54,10 @@ class OkHttpDownloadTest {
 		assertTrue(download.isSuccess());
 		assertFalse(download.isFinished());
 		assertThrowsExactly(OkHttpDownloadException.class, download::await);
-		download.start();
-		download.await();
 
+		OkHttpDownload await = download.start().await();
+
+		assertEquals(download, await);
 		assertTrue(download.isStart());
 		assertTrue(download.isSuccess());
 		assertTrue(download.isFinished());
