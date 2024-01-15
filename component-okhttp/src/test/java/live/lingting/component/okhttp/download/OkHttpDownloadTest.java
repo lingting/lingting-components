@@ -47,7 +47,7 @@ class OkHttpDownloadTest {
 	@Test
 	void single() throws IOException, InterruptedException, NoSuchAlgorithmException {
 		OkHttpDownload download = OkHttpDownload.single(url)
-			.filename(String.format("%d.%s.pom", System.currentTimeMillis(), RandomUtils.nextHex(3)))
+			.filename(String.format("%d.%s.s.pom", System.currentTimeMillis(), RandomUtils.nextHex(3)))
 			.build();
 
 		assertFalse(download.isStart());
@@ -63,6 +63,37 @@ class OkHttpDownloadTest {
 		assertTrue(download.isFinished());
 
 		file = download.getFile();
+		System.out.println(file.getAbsolutePath());
+		try (FileInputStream stream = new FileInputStream(file)) {
+			String string = StreamUtils.toString(stream);
+			String md5Hex = DigestUtils.md5Hex(string);
+			assertEquals(md5, md5Hex);
+		}
+	}
+
+	@Test
+	void multi() throws IOException, InterruptedException, NoSuchAlgorithmException {
+		OkHttpDownload download = OkHttpDownload.multi(url)
+			.filename(String.format("%d.%s.m.pom", System.currentTimeMillis(), RandomUtils.nextHex(3)))
+			.maxShardSize(69)
+			.build();
+
+		assertFalse(download.isStart());
+		assertTrue(download.isSuccess());
+		assertFalse(download.isFinished());
+		assertThrowsExactly(OkHttpDownloadException.class, download::await);
+
+		MultiDownload await = (MultiDownload) download.start().await();
+
+		assertEquals(download, await);
+		assertTrue(download.isStart());
+		assertTrue(download.isSuccess());
+		assertTrue(download.isFinished());
+
+		file = download.getFile();
+		System.out.println(file.getAbsolutePath());
+		System.out.printf("%d-%d%n", await.getMaxShard(), await.getFinishedShard());
+		assertEquals(await.getMaxShard(), await.getFinishedShard());
 		try (FileInputStream stream = new FileInputStream(file)) {
 			String string = StreamUtils.toString(stream);
 			String md5Hex = DigestUtils.md5Hex(string);

@@ -5,6 +5,7 @@ import live.lingting.component.core.util.FileUtils;
 import live.lingting.component.core.util.SystemUtils;
 import live.lingting.component.core.util.ThreadUtils;
 import live.lingting.component.okhttp.OkHttpClient;
+import org.springframework.util.unit.DataSize;
 
 import java.io.File;
 import java.time.Duration;
@@ -15,36 +16,58 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 public class OkHttpDownloadBuilder {
 
-	private static final OkHttpClient CLIENT_DEFAULT = OkHttpClient.builder()
+	static final OkHttpClient DEFAULT_CLIENT = OkHttpClient.builder()
 		.disableSsl()
 		.callTimeout(Duration.ofSeconds(10))
 		.connectTimeout(Duration.ofSeconds(10))
 		.readTimeout(Duration.ofSeconds(10))
 		.build();
 
+	static final int DEFAULT_MAX_THREAD_COUNT = 10;
+
+	static final long DEFAULT_MAX_SHARD_SIZE = DataSize.ofMegabytes(10).toBytes();
+
 	/**
 	 * 文件下载地址
 	 */
-	private final String url;
+	final String url;
 
 	/**
 	 * 文件存放文件夹
 	 */
-	private File dir = new File(SystemUtils.tmpDirLingting(), "download");
+	File dir = new File(SystemUtils.tmpDirLingting(), "download");
 
 	/**
 	 * 为空从url解析
 	 */
-	private String filename;
+	String filename;
 
 	/**
 	 * 客户端配置
 	 */
-	private OkHttpClient client = CLIENT_DEFAULT;
+	OkHttpClient client = DEFAULT_CLIENT;
 
-	private ThreadPoolExecutor executor = ThreadUtils.instance().getPool();
+	ThreadPoolExecutor executor = ThreadUtils.instance().getPool();
 
-	private boolean multi = false;
+	boolean multi = false;
+
+	/**
+	 * 文件大小, 用于多线程下载时进行分片. 单位: bytes
+	 * <p>
+	 * 设置为null或者小于1时自动解析文件具体大小
+	 * </p>
+	 */
+	Long fileSize;
+
+	/**
+	 * 最大启动线程数
+	 */
+	int maxThreadCount = DEFAULT_MAX_THREAD_COUNT;
+
+	/**
+	 * 每个分片的最大大小, 单位: bytes
+	 */
+	long maxShardSize = DEFAULT_MAX_SHARD_SIZE;
 
 	public OkHttpDownloadBuilder(String url) {
 		String[] split = url.split(HttpConstants.HOST_DELIMITER);
@@ -84,8 +107,36 @@ public class OkHttpDownloadBuilder {
 		return this;
 	}
 
+	public OkHttpDownloadBuilder fileSize(Long fileSize) {
+		this.fileSize = fileSize;
+		return this;
+	}
+
+	public OkHttpDownloadBuilder maxThreadCount(int maxThreadCount) {
+		this.maxThreadCount = safeDefault(maxThreadCount, DEFAULT_MAX_THREAD_COUNT);
+		return this;
+	}
+
+	public OkHttpDownloadBuilder maxShardSize(long maxShardSize) {
+		this.maxShardSize = safeDefault(maxShardSize, DEFAULT_MAX_SHARD_SIZE);
+		return this;
+	}
+
 	public OkHttpDownload build() {
-		return new SingleDownload(client, executor, url, dir, filename);
+		return multi ? new MultiDownload(this) : new SingleDownload(this);
+	}
+
+	/**
+	 * 将原值进行安装判断, 如果不满足则设置为默认值
+	 * @param t 原值
+	 * @param d 默认值
+	 * @return 结果
+	 */
+	protected <T extends Number> T safeDefault(T t, T d) {
+		if (t == null || t.longValue() < 1) {
+			return d;
+		}
+		return t;
 	}
 
 }

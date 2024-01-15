@@ -1,14 +1,19 @@
 package live.lingting.component.okhttp.download;
 
+import live.lingting.component.core.function.ThrowingRunnable;
+import live.lingting.component.core.util.FileUtils;
 import live.lingting.component.core.util.ValueUtils;
 import live.lingting.component.okhttp.OkHttpClient;
 import live.lingting.component.okhttp.exception.OkHttpDownloadException;
 import lombok.Getter;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.function.Consumer;
 
 /**
  * @author lingting 2023-12-20 16:43
@@ -32,12 +37,12 @@ public abstract class OkHttpDownload {
 
 	protected OkHttpDownloadException ex = null;
 
-	protected OkHttpDownload(OkHttpClient client, ThreadPoolExecutor executor, String url, File dir, String filename) {
-		this.client = client;
-		this.executor = executor;
-		this.url = url;
-		this.dir = dir;
-		this.filename = filename;
+	protected OkHttpDownload(OkHttpDownloadBuilder builder) {
+		this.client = builder.client;
+		this.executor = builder.executor;
+		this.url = builder.url;
+		this.dir = builder.dir;
+		this.filename = builder.filename;
 	}
 
 	public static OkHttpDownloadBuilder builder(String url) {
@@ -63,16 +68,9 @@ public abstract class OkHttpDownload {
 
 		if (!isFinished()) {
 			String name = "DOWNLOAD-" + filename;
-			executor.execute(() -> {
-				Thread.currentThread().setName(name);
-				try {
-					doStart();
-				}
-				catch (Exception e) {
-					log.error("下载异常!", e);
-					ex = e instanceof OkHttpDownloadException ? (OkHttpDownloadException) e
-							: new OkHttpDownloadException("下载异常!", e);
-				}
+			async(name, this::doStart, e -> {
+				log.error("下载异常!", e);
+				upsertEx(e);
 			});
 		}
 		return this;
@@ -116,6 +114,48 @@ public abstract class OkHttpDownload {
 
 	protected File target() {
 		return new File(dir, filename);
+	}
+
+	protected File createTarget() {
+		File target = target();
+
+		if (!FileUtils.createFile(target)) {
+			throw new OkHttpDownloadException("file create failed! file: " + target.getAbsolutePath());
+		}
+		return target;
+	}
+
+	protected ResponseBody getBody(Response response) {
+		if (!response.isSuccessful()) {
+			throw new OkHttpDownloadException(String.format("response status: %d", response.code()));
+		}
+		ResponseBody body = response.body();
+		if (body == null) {
+			throw new OkHttpDownloadException("download body is null!");
+		}
+		return body;
+	}
+
+	protected void async(String threadName, ThrowingRunnable runnable, Consumer<Exception> onException) {
+		executor.execute(() -> {
+			Thread thread = Thread.currentThread();
+			String oldName = thread.getName();
+			thread.setName(threadName);
+			try {
+				runnable.run();
+			}
+			catch (Exception e) {
+				onException.accept(e);
+			}
+			finally {
+				thread.setName(oldName);
+			}
+		});
+	}
+
+	protected void upsertEx(Exception e) {
+		ex = e instanceof OkHttpDownloadException ? (OkHttpDownloadException) e
+				: new OkHttpDownloadException("下载异常!", e);
 	}
 
 }

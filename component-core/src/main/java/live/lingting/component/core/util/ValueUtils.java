@@ -16,7 +16,7 @@ public class ValueUtils {
 	/**
 	 * 等待值满足条件, 不满足条件休眠 500 毫秒
 	 * @param supplier 值获取
-	 * @param predicate 值条件测试
+	 * @param predicate 值条件测试, 返回true表示该值为目标值, 当前函数会返回该值
 	 * @return 值
 	 * @param <T> 值类型
 	 */
@@ -27,7 +27,7 @@ public class ValueUtils {
 	/**
 	 * 等待值满足条件
 	 * @param supplier 值获取
-	 * @param predicate 值条件测试
+	 * @param predicate 值条件测试, 返回true表示该值为目标值, 当前函数会返回该值
 	 * @param sleep 休眠
 	 * @return 值
 	 * @param <T> 值类型
