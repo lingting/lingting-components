@@ -38,7 +38,7 @@
     </modules>
 
     <properties>
-        <revision>2024.01.09-SNAPSHOT</revision>
+        <revision>2024.01.15-SNAPSHOT</revision>
         <lingting.protobuf.java.version>2023.12.18</lingting.protobuf.java.version>
 
         <!--spring-->

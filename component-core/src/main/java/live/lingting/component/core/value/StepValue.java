@@ -1,7 +1,9 @@
 package live.lingting.component.core.value;
 
+import live.lingting.component.core.value.step.ConcurrentStepValue;
+import live.lingting.component.core.value.step.SimpleStepValue;
+import live.lingting.component.core.value.step.StepFunction;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -44,6 +46,10 @@ public class StepValue<T> implements Iterator<T> {
 	 */
 	public static StepValue<Long> simple(long step, Long maxStepCount, Long maxStepValue) {
 		return new SimpleStepValue(step, maxStepCount, maxStepValue);
+	}
+
+	public static ConcurrentStepValue<Long> simpleConcurrent(long step, Long maxStepCount, Long maxStepValue) {
+		return new SimpleStepValue(step, maxStepCount, maxStepValue).concurrent();
 	}
 
 	public StepValue(T startValue, StepFunction<T> function) {
@@ -91,6 +97,10 @@ public class StepValue<T> implements Iterator<T> {
 		return new StepValue<>(startValue, function);
 	}
 
+	public ConcurrentStepValue<T> concurrent() {
+		return new ConcurrentStepValue<>(startValue, function);
+	}
+
 	public List<T> values() {
 		List<T> list = new ArrayList<>();
 		StepValue<T> copy = copy();
@@ -98,89 +108,6 @@ public class StepValue<T> implements Iterator<T> {
 			list.add(copy.next());
 		}
 		return list;
-	}
-
-	@FunctionalInterface
-	public interface StepFunction<T> {
-
-		/**
-		 * 获取下一个值
-		 * @param count 当前已获取值的次数, 初始值为0
-		 * @param previous 上一个获取的值, 初始值为 null
-		 * @return 返回下一个获取的值, 为null表示结束
-		 */
-		T next(long count, T previous);
-
-	}
-
-	/**
-	 * 简单步进器, 第一个值为 startValue + step
-	 */
-	@Getter
-	public static class SimpleStepValue extends StepValue<Long> {
-
-		/**
-		 * 每次步进值
-		 */
-		protected final long step;
-
-		/**
-		 * 最大步进次数, 为null表示无限步进次数
-		 */
-		protected final Long maxStepCount;
-
-		/**
-		 * 最大步进值, 为null表示无最大值限制
-		 */
-		protected final Long maxStepValue;
-
-		public SimpleStepValue(long step, Long maxStepCount, Long maxStepValue) {
-			super(0L, new SimpleStepFunction(step, maxStepCount, maxStepValue));
-			this.step = step;
-			this.maxStepCount = maxStepCount;
-			this.maxStepValue = maxStepValue;
-		}
-
-	}
-
-	@Getter
-	@RequiredArgsConstructor
-	public static class SimpleStepFunction implements StepFunction<Long> {
-
-		/**
-		 * 每次步进值
-		 */
-		protected final long step;
-
-		/**
-		 * 最大步进次数, 为null表示无限步进次数
-		 */
-		protected final Long maxStepCount;
-
-		/**
-		 * 最大步进值, 为null表示无最大值限制
-		 */
-		protected final Long maxStepValue;
-
-		@Override
-		public Long next(long count, Long previous) {
-			// 超次数
-			if (maxStepCount != null && count >= maxStepCount) {
-				return null;
-			}
-			// 上一个值超限
-			if (maxStepValue != null && previous != null && previous > maxStepValue) {
-				return null;
-			}
-			// 获取下一个值
-			long next = previous == null ? step : previous + step;
-			// 下一个值超限
-			if (maxStepValue != null && next > maxStepValue) {
-				return null;
-			}
-			return next;
-		}
-
 	}
 
 }
