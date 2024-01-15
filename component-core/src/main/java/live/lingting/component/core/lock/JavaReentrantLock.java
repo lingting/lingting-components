@@ -5,6 +5,7 @@ import lombok.Getter;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.function.Supplier;
 
 /**
  * @author lingting 2023-04-22 10:55
@@ -42,7 +43,7 @@ public class JavaReentrantLock {
 		return getLock().tryLock(timeout, unit);
 	}
 
-	public void run(LockRunnable runnable) throws InterruptedException {
+	public void run(Runnable runnable) {
 		lock();
 		try {
 			runnable.run();
@@ -84,7 +85,7 @@ public class JavaReentrantLock {
 		}
 	}
 
-	public <R> R get(LockSupplier<R> runnable) throws InterruptedException {
+	public <R> R get(Supplier<R> runnable) {
 		ReentrantLock reentrantLock = getLock();
 		reentrantLock.lock();
 		try {
