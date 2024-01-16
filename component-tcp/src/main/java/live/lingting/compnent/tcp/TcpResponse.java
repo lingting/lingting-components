@@ -26,7 +26,7 @@ public class TcpResponse implements Closeable {
 
 	private File file;
 
-	TcpResponse(Socket socket) {
+	public TcpResponse(Socket socket) {
 		this.socket = socket;
 	}
 
@@ -59,9 +59,9 @@ public class TcpResponse implements Closeable {
 	// endregion
 
 	@Override
-	public void close() throws IOException {
+	public void close() {
 		FileUtils.delete(file);
-		socket.close();
+		StreamUtils.close(socket);
 	}
 
 }
