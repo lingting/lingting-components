@@ -141,7 +141,7 @@ public class ThreadPool {
 				log.warn("线程池内部线程被中断!");
 			}
 			catch (Throwable throwable) {
-				log.error("线程内部线程异常!", throwable);
+				log.error("线程池内部线程异常!", throwable);
 			}
 			finally {
 				thread.setName(oldName);

@@ -88,7 +88,7 @@ public abstract class OkHttpDownload {
 		if (!isStart()) {
 			throw new OkHttpDownloadException("download not start");
 		}
-		ValueUtils.await(this::isFinished, v -> v);
+		ValueUtils.awaitTrue(this::isFinished);
 		return this;
 	}
 

@@ -13,6 +13,14 @@ import java.util.function.Supplier;
 @UtilityClass
 public class ValueUtils {
 
+	public static void awaitTrue(Supplier<Boolean> supplier) {
+		await(supplier, Boolean.TRUE::equals, () -> Thread.sleep(500));
+	}
+
+	public static void awaitFalse(Supplier<Boolean> supplier) {
+		await(supplier, Boolean.FALSE::equals, () -> Thread.sleep(500));
+	}
+
 	/**
 	 * 等待值满足条件, 不满足条件休眠 500 毫秒
 	 * @param supplier 值获取
