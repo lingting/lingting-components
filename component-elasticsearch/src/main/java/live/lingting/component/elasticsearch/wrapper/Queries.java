@@ -72,6 +72,14 @@ public class Queries<E> {
 		return list().toArray(new Query[0]);
 	}
 
+	public Query should() {
+		return QueryWrapper.should(array());
+	}
+
+	public Query must() {
+		return QueryWrapper.must(array());
+	}
+
 	// region term
 
 	public <T> Queries<E> term(EFunction<E, T> func, T obj) {
@@ -148,8 +156,21 @@ public class Queries<E> {
 		return add(query);
 	}
 
+	public Queries<E> should(Queries<E> queries) {
+		return should(queries.array());
+	}
+
 	public Queries<E> should(Query... queries) {
 		Query query = QueryWrapper.should(queries);
+		return add(query);
+	}
+
+	public Queries<E> must(Queries<E> queries) {
+		return must(queries.array());
+	}
+
+	public Queries<E> must(Query... queries) {
+		Query query = QueryWrapper.must(queries);
 		return add(query);
 	}
 

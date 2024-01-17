@@ -113,6 +113,14 @@ class AbstractQueryWrapper {
 		return Query.of(q -> q.bool(b -> b.should(queries)));
 	}
 
+	public static Query must(Query... queries) {
+		return must(Arrays.stream(queries).filter(Objects::nonNull).collect(Collectors.toList()));
+	}
+
+	public static Query must(List<Query> queries) {
+		return Query.of(q -> q.bool(b -> b.must(queries)));
+	}
+
 	public static <T> Query wildcardAll(String field, T obj) {
 		String format = String.format("*%s*", obj);
 		return wildcard(field, format);
