@@ -467,7 +467,7 @@ public abstract class AbstractElasticsearch<T> {
 	protected ScrollCursor<T> scrollCursor(PageScrollParams params, Query... queries) throws IOException {
 		PageScrollResult<T> scroll = scroll(params, queries);
 		return new ScrollCursor<>(scrollId -> {
-			params.setCursor(scroll);
+			params.setCursor(scrollId);
 			return scroll(params, queries);
 		}, scroll.getCursor().toString(), scroll.getRecords());
 	}
