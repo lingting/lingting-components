@@ -7,6 +7,7 @@ import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 /**
  * 用于获取指定字段的值
@@ -99,6 +100,18 @@ public class ClassField {
 
 	public Method methodSet() {
 		return methodSet;
+	}
+
+	// endregion
+
+	// region field
+
+	public boolean hasField() {
+		return field != null;
+	}
+
+	public boolean isFinalField() {
+		return field != null && Modifier.isFinal(field.getModifiers());
 	}
 
 	// endregion

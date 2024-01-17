@@ -1,11 +1,14 @@
 package live.lingting.component.spring.util;
 
+import live.lingting.component.core.domain.ClassField;
 import live.lingting.component.core.util.ClassUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.UtilityClass;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
+import javax.annotation.Resource;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -76,7 +79,21 @@ public class SpringUtils {
 			arguments.add(argument);
 		}
 
-		return constructor.newInstance(arguments.toArray());
+		T t = constructor.newInstance(arguments.toArray());
+		// 自动注入
+		ClassField[] cfs = ClassUtils.classFields(t.getClass());
+		for (ClassField cf : cfs) {
+			if (!cf.hasField() || cf.isFinalField()) {
+				continue;
+			}
+			boolean isAutowired = cf.getAnnotation(Autowired.class) != null || cf.getAnnotation(Resource.class) != null;
+			if (isAutowired) {
+				Class<?> cls = cf.getValueType();
+				Object arg = getArgument.apply(cls);
+				cf.set(t, arg);
+			}
+		}
+		return t;
 	}
 
 	public static void clearCache(Class<?> cls) {
