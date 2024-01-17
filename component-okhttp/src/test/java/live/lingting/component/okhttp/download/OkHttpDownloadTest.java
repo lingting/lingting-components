@@ -1,20 +1,24 @@
 package live.lingting.component.okhttp.download;
 
+import live.lingting.component.core.domain.ClassField;
+import live.lingting.component.core.exception.DownloadException;
+import live.lingting.component.core.util.ClassUtils;
 import live.lingting.component.core.util.DigestUtils;
 import live.lingting.component.core.util.FileUtils;
 import live.lingting.component.core.util.RandomUtils;
 import live.lingting.component.core.util.StreamUtils;
-import live.lingting.component.okhttp.exception.OkHttpDownloadException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.security.NoSuchAlgorithmException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -39,9 +43,11 @@ class OkHttpDownloadTest {
 	}
 
 	@Test
-	void resolveFilename() {
+	void resolveFilename() throws InvocationTargetException, IllegalAccessException {
 		OkHttpDownload download = OkHttpDownload.single(url).build();
-		assertEquals(filename, download.filename);
+		ClassField cf = ClassUtils.classField("filename", download.getClass());
+		assertNotNull(cf);
+		assertEquals(filename, cf.get(download));
 	}
 
 	@Test
@@ -53,7 +59,7 @@ class OkHttpDownloadTest {
 		assertFalse(download.isStart());
 		assertTrue(download.isSuccess());
 		assertFalse(download.isFinished());
-		assertThrowsExactly(OkHttpDownloadException.class, download::await);
+		assertThrowsExactly(DownloadException.class, download::await);
 
 		OkHttpDownload await = download.start().await();
 
@@ -75,15 +81,15 @@ class OkHttpDownloadTest {
 	void multi() throws IOException, InterruptedException, NoSuchAlgorithmException {
 		OkHttpDownload download = OkHttpDownload.multi(url)
 			.filename(String.format("%d.%s.m.pom", System.currentTimeMillis(), RandomUtils.nextHex(3)))
-			.maxShardSize(69)
+			.maxShardSize(520)
 			.build();
 
 		assertFalse(download.isStart());
 		assertTrue(download.isSuccess());
 		assertFalse(download.isFinished());
-		assertThrowsExactly(OkHttpDownloadException.class, download::await);
+		assertThrowsExactly(DownloadException.class, download::await);
 
-		MultiDownload await = (MultiDownload) download.start().await();
+		OkHttpMultiDownload await = (OkHttpMultiDownload) download.start().await();
 
 		assertEquals(download, await);
 		assertTrue(download.isStart());

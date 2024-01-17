@@ -1,27 +1,20 @@
-package live.lingting.component.okhttp.download;
+package live.lingting.component.core.download;
 
-import live.lingting.component.core.util.StreamUtils;
+import live.lingting.component.core.exception.DownloadException;
+import live.lingting.component.core.stream.RandomAccessFileOutputStream;
 import live.lingting.component.core.value.StepValue;
-import live.lingting.component.okhttp.OkHttpClient;
-import live.lingting.component.okhttp.exception.OkHttpDownloadException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-import org.springframework.util.unit.DataSize;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.RandomAccessFile;
 import java.util.NoSuchElementException;
 
 @Getter
 @RequiredArgsConstructor
-public class MultiDownloadTask {
+public class MultiDownloadTask<D extends AbstractMultiDownload<D>> {
 
-	protected final MultiDownload download;
+	protected final D download;
 
 	protected final File target;
 
@@ -55,27 +48,15 @@ public class MultiDownloadTask {
 			doDownload(start, end);
 		}
 		catch (Exception e) {
-			throw new OkHttpDownloadException(
+			throw new DownloadException(
 					String.format("multi download error[%d-%d:%s]!", start, end, download.getFileSize()), e);
 		}
 	}
 
 	protected void doDownload(long start, long end) throws IOException {
-		OkHttpClient client = download.client;
-		Request.Builder builder = new Request.Builder().url(download.url)
-			.addHeader("Range", String.format("bytes=%d-%d", start, end));
-
-		try (Response response = client.request(builder.build())) {
-			ResponseBody body = download.getBody(response);
-			write(body.byteStream(), start);
-		}
-	}
-
-	protected void write(InputStream stream, long start) throws IOException {
-		int size = (int) DataSize.ofMegabytes(10).toBytes();
-		try (RandomAccessFile file = new RandomAccessFile(target, "rw")) {
-			file.seek(start);
-			StreamUtils.read(stream, size, (length, bytes) -> file.write(bytes, 0, length));
+		try (RandomAccessFileOutputStream output = new RandomAccessFileOutputStream(target)) {
+			output.seek(start);
+			download.write(output, start, end);
 		}
 	}
 

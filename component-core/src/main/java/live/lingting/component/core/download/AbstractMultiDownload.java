@@ -1,26 +1,24 @@
-package live.lingting.component.okhttp.download;
+package live.lingting.component.core.download;
 
 import live.lingting.component.core.util.StreamUtils;
 import live.lingting.component.core.util.ValueUtils;
 import live.lingting.component.core.value.StepValue;
 import live.lingting.component.core.value.step.ConcurrentStepValue;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author lingting 2024-01-15 17:35
+ * @author lingting 2024-01-16 20:23
  */
-@Slf4j
 @Getter
-public class MultiDownload extends OkHttpDownload {
+@SuppressWarnings("unchecked")
+public abstract class AbstractMultiDownload<D extends AbstractMultiDownload<D>> extends AbstractDownload<D> {
 
 	/**
 	 * 最大启动线程数
@@ -40,15 +38,12 @@ public class MultiDownload extends OkHttpDownload {
 	 */
 	protected Long fileSize;
 
-	protected boolean finished = false;
-
 	protected long maxShard;
 
 	protected long finishedShard;
 
-	protected MultiDownload(OkHttpDownloadBuilder builder) {
+	protected <B extends AbstractDownloadBuilder<B>> AbstractMultiDownload(B builder) {
 		super(builder);
-		this.fileSize = builder.fileSize;
 		this.maxThreadCount = builder.maxThreadCount;
 		this.maxShardSize = builder.maxShardSize;
 	}
@@ -78,11 +73,11 @@ public class MultiDownload extends OkHttpDownload {
 			return n;
 		});
 
-		List<MultiDownloadTask> tasks = new ArrayList<>();
+		List<MultiDownloadTask<D>> tasks = new ArrayList<>();
 
 		for (int i = 0; i < maxThreadCount; i++) {
 			final int index = i;
-			MultiDownloadTask task = new MultiDownloadTask(this, target, step);
+			MultiDownloadTask<D> task = new MultiDownloadTask<>((D) this, target, step);
 			async(String.format("DOWNLOAD-%d-%s", index, filename), task::start, e -> {
 				log.error("下载异常! 线程序号: {}", index, e);
 				task.stop();
@@ -94,7 +89,7 @@ public class MultiDownload extends OkHttpDownload {
 			long finishedTask = 0;
 			long currentFinishedShard = 0;
 
-			for (MultiDownloadTask task : tasks) {
+			for (MultiDownloadTask<D> task : tasks) {
 				if (task.isFinished()) {
 					// 更新已完成任务数
 					finishedTask++;
@@ -119,11 +114,21 @@ public class MultiDownload extends OkHttpDownload {
 			return fileSize;
 		}
 
-		try (Response response = client.get(url)) {
-			ResponseBody body = getBody(response);
-			fileSize = body.contentLength();
-		}
+		fileSize = remoteSize();
 		return fileSize;
 	}
+
+	/**
+	 * 从远端获取文件大小
+	 */
+	protected abstract long remoteSize();
+
+	/**
+	 * 把指定范围的文件流写入到输出流
+	 * @param output 输出流
+	 * @param start 索引起始
+	 * @param end 索引结束
+	 */
+	protected abstract void write(OutputStream output, long start, long end) throws IOException;
 
 }
