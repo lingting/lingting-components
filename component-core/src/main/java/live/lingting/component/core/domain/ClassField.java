@@ -3,6 +3,7 @@ package live.lingting.component.core.domain;
 import lombok.RequiredArgsConstructor;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -41,13 +42,20 @@ public class ClassField {
 	 * @return boolean true 表示拥有
 	 */
 	public <T extends Annotation> T getAnnotation(Class<T> a) {
-		T annotation;
-		// 字段上找到了
-		if (field != null && (annotation = field.getAnnotation(a)) != null) {
-			return annotation;
-		}
+		// 字段上找
+		T annotation = getAnnotation(field, a);
 		// 方法上找
-		return methodGet == null ? null : methodGet.getAnnotation(a);
+		if (annotation == null) {
+			annotation = getAnnotation(methodGet, a);
+		}
+		if (annotation == null) {
+			annotation = getAnnotation(methodSet, a);
+		}
+		return annotation;
+	}
+
+	protected <T extends Annotation> T getAnnotation(AccessibleObject object, Class<T> a) {
+		return object == null ? null : object.getAnnotation(a);
 	}
 
 	/**
