@@ -9,6 +9,11 @@ import lombok.Getter;
 @Getter
 public class RocketMqMessage {
 
+	/**
+	 * 发送消息此值为null
+	 */
+	private final String id;
+
 	private final String group;
 
 	private final String topic;
@@ -21,7 +26,9 @@ public class RocketMqMessage {
 
 	private final Long sendTimestamp;
 
-	private RocketMqMessage(String group, String topic, String tags, String keys, String body, Long sendTimestamp) {
+	private RocketMqMessage(String id, String group, String topic, String tags, String keys, String body,
+			Long sendTimestamp) {
+		this.id = id;
 		this.group = group;
 		this.topic = topic;
 		this.tags = tags;
@@ -36,12 +43,12 @@ public class RocketMqMessage {
 	}
 
 	public static RocketMqMessage send(String group, String topic, String tags, String keys, String body) {
-		return new RocketMqMessage(group, topic, tags, keys, body, null);
+		return new RocketMqMessage("", group, topic, tags, keys, body, null);
 	}
 
-	public static RocketMqMessage receive(String group, String topic, String tags, String keys, String body,
+	public static RocketMqMessage receive(String id, String group, String topic, String tags, String keys, String body,
 			Long sendTimestamp) {
-		return new RocketMqMessage(group, topic, tags, keys, body, sendTimestamp);
+		return new RocketMqMessage(id, group, topic, tags, keys, body, sendTimestamp);
 	}
 
 }

@@ -102,6 +102,7 @@ public class DefaultRocketMqMessageConvertImpl implements RocketMqMessageConvert
 
 	@Override
 	public RocketMqMessage of(String group, MessageExt ext) {
+		String id = ext.getMsgId();
 		String topic = ext.getTopic();
 		String tags = ext.getTags();
 		String keys = ext.getKeys();
@@ -109,7 +110,7 @@ public class DefaultRocketMqMessageConvertImpl implements RocketMqMessageConvert
 		String body = new String(bytes, properties.getCharset());
 		Number number = NumberUtils.toNumber(ext.getUserProperty(PROPERTY_TIMESTAMP));
 		Long timestamp = number == null ? null : number.longValue();
-		return RocketMqMessage.receive(group, topic, tags, keys, body, timestamp);
+		return RocketMqMessage.receive(id, group, topic, tags, keys, body, timestamp);
 	}
 
 }
