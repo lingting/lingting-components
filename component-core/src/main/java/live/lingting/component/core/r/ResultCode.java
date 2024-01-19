@@ -53,11 +53,19 @@ public interface ResultCode {
 		return new BizException(this);
 	}
 
+	default BizException toException(Exception e) {
+		return new BizException(this, e);
+	}
+
 	/**
 	 * 抛出异常
 	 */
 	default void throwException() throws BizException {
 		throw toException();
+	}
+
+	default void throwException(Exception e) throws BizException {
+		throw toException(e);
 	}
 
 }
