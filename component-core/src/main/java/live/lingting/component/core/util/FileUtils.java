@@ -239,8 +239,9 @@ public class FileUtils {
 	/**
 	 * 依据系统文件路径分隔符解析
 	 */
-	public static String getFilename(String path) {
-		return getFilename(path, SystemUtils.fileSeparator());
+	public static String getFilename(String string) {
+		Path path = Paths.get(string);
+		return path.getFileName().toString();
 	}
 
 	public static String getFilenameByUrl(String url) {
