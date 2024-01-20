@@ -39,6 +39,7 @@ public class ScriptBuilder<T> {
 	}
 
 	// endregion
+
 	// region script
 
 	public ScriptBuilder<T> append(String script) {
@@ -63,12 +64,20 @@ public class ScriptBuilder<T> {
 	}
 
 	public ScriptBuilder<T> set(String field, Object value) {
-		if (value == null) {
-			String source = String.format("%s%s = null", PREFIX_SOURCE, field);
-			return append(source);
+		ScriptSourceBuilder builder = new ScriptSourceBuilder().field(field);
+		String source = value == null ? builder.setNull() : builder.setParams();
+		if (value != null) {
+			params.put(field, JsonData.of(value));
 		}
+		return append(source);
+	}
 
-		String source = String.format("%s%s = %s%s", PREFIX_SOURCE, field, PREFIX_PARAMS, field);
+	public ScriptBuilder<T> setIfAbsent(String field, Object value) {
+		if (value == null) {
+			return this;
+		}
+		ScriptSourceBuilder builder = new ScriptSourceBuilder().field(field);
+		String source = builder.setIfAbsent();
 		params.put(field, JsonData.of(value));
 		return append(source);
 	}
@@ -81,7 +90,9 @@ public class ScriptBuilder<T> {
 	public ScriptBuilder<T> painless() {
 		return lang("painless");
 	}
+
 	// endregion
+
 	// region build
 
 	public InlineScript inlineScript() {
