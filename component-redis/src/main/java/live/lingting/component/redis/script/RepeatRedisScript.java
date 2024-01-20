@@ -14,6 +14,7 @@ import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -23,12 +24,19 @@ public class RepeatRedisScript<T> implements RedisScript<T>, InitializingBean {
 
 	private final DefaultRedisScript<T> script;
 
+	@Getter
 	protected final String sha1;
 
+	@Getter
+	protected final byte[] sha1Bytes;
+
+	@Getter
 	protected final Class<T> resultType;
 
+	@Getter
 	protected final ReturnType returnType;
 
+	@Getter
 	protected final String source;
 
 	protected byte[] bytes;
@@ -48,6 +56,7 @@ public class RepeatRedisScript<T> implements RedisScript<T>, InitializingBean {
 	protected RepeatRedisScript(DefaultRedisScript<T> script) {
 		this.script = script;
 		this.sha1 = script.getSha1();
+		this.sha1Bytes = sha1.getBytes(StandardCharsets.UTF_8);
 		this.resultType = script.getResultType();
 		this.returnType = ReturnType.fromJavaType(this.resultType);
 		this.source = script.getScriptAsString();
@@ -62,23 +71,13 @@ public class RepeatRedisScript<T> implements RedisScript<T>, InitializingBean {
 	}
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet() {
 		script.afterPropertiesSet();
 	}
 
 	@Override
-	public String getSha1() {
-		return sha1;
-	}
-
-	@Override
-	public Class<T> getResultType() {
-		return resultType;
-	}
-
-	@Override
 	public String getScriptAsString() {
-		return source;
+		return getSource();
 	}
 
 	boolean isEmptyBytes() {
@@ -99,6 +98,22 @@ public class RepeatRedisScript<T> implements RedisScript<T>, InitializingBean {
 			return bytes(serializer);
 		}
 		return bytes;
+	}
+
+	/**
+	 * 加载脚本到redis
+	 */
+	public void load() {
+		RedisHelper.execute((RedisCallback<Object>) connection -> {
+			load(connection);
+			return null;
+		});
+	}
+
+	public void load(RedisConnection connection) {
+		connection.scriptLoad(bytes());
+		existsSha1 = true;
+		useSha1ByPipelined = true;
 	}
 
 	/**
@@ -171,7 +186,7 @@ public class RepeatRedisScript<T> implements RedisScript<T>, InitializingBean {
 			return ScriptExecuteResult.FAILED;
 		}
 		try {
-			Object o = connection.evalSha(getSha1(), returnType, keySize, keysAndArgs);
+			Object o = connection.evalSha(getSha1Bytes(), returnType, keySize, keysAndArgs);
 			return ScriptExecuteResult.success(o);
 		}
 		catch (Exception e) {
