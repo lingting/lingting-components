@@ -1,8 +1,9 @@
 package live.lingting.component.redis.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import live.lingting.component.redis.RedisTemplateBeanPostProcessor;
 import live.lingting.component.redis.core.CacheStringAspect;
+import live.lingting.component.redis.post.RedisScriptPost;
+import live.lingting.component.redis.post.RedisTemplateBeanPostProcessor;
 import live.lingting.component.redis.prefix.IRedisPrefixConverter;
 import live.lingting.component.redis.prefix.impl.DefaultRedisPrefixConverter;
 import live.lingting.component.redis.properties.CacheProperties;
@@ -22,6 +23,8 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+
+import java.util.List;
 
 /**
  * @author lingting 2023-04-07 17:46
@@ -90,8 +93,8 @@ public class ComponentRedisAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public RedisTemplateBeanPostProcessor redisTemplateBeanPostProcessor() {
-		return new RedisTemplateBeanPostProcessor();
+	public RedisTemplateBeanPostProcessor redisTemplateBeanPostProcessor(List<RedisScriptPost> scriptPosts) {
+		return new RedisTemplateBeanPostProcessor(scriptPosts);
 	}
 
 	/**
