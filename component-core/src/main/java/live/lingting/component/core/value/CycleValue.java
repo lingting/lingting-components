@@ -1,9 +1,13 @@
 package live.lingting.component.core.value;
 
+import live.lingting.component.core.value.cycle.CycleValueFunction;
+import live.lingting.component.core.value.cycle.IteratorCycleValue;
+import live.lingting.component.core.value.cycle.StepCycleValueFunction;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigInteger;
+import java.util.Iterator;
 
 /**
  * 循环数据
@@ -21,24 +25,12 @@ public class CycleValue<T> {
 	 */
 	protected BigInteger count = BigInteger.ZERO;
 
-	public static <T> CycleValue<T> ofStep(StepValue<T> stepValue) {
-		StepValue<T> value = stepValue.copy();
-		return new CycleValue<>(new CycleValueFunction<T>() {
-			@Override
-			public boolean hasNext() {
-				return value.hasNext();
-			}
+	public static <T> CycleValue<T> step(StepValue<T> step) {
+		return new CycleValue<>(new StepCycleValueFunction<>(step.copy()));
+	}
 
-			@Override
-			public T next() {
-				return value.next();
-			}
-
-			@Override
-			public void reset() {
-				value.reset();
-			}
-		});
+	public static <T> CycleValue<T> iterator(Iterator<T> iterator) {
+		return new IteratorCycleValue<>(iterator);
 	}
 
 	public T next() {
@@ -46,27 +38,6 @@ public class CycleValue<T> {
 			function.reset();
 		}
 		return function.next();
-	}
-
-	public interface CycleValueFunction<T> {
-
-		/**
-		 * 是否存在下一个元素, 如果返回false, 则会调用 {@link CycleValueFunction#reset()}
-		 * @return true 存在下一个元素
-		 */
-		boolean hasNext();
-
-		/**
-		 * 获取下一个元素
-		 * @return 下一个
-		 */
-		T next();
-
-		/**
-		 * 重置元素, 重新从第一个开始
-		 */
-		void reset();
-
 	}
 
 }

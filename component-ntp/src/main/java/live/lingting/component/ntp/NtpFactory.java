@@ -64,7 +64,7 @@ public class NtpFactory {
 	}
 
 	public Ntp initBy(Collection<String> hosts) throws InterruptedException {
-		CycleValue<Long> cycle = CycleValue.ofStep(STEP_INIT);
+		CycleValue<Long> cycle = CycleValue.step(STEP_INIT);
 		for (String host : hosts) {
 			if (blockHosts.contains(host)) {
 				log.debug("host[{}]被拉黑! 跳过", host);

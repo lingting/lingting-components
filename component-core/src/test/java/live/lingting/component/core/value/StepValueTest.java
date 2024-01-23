@@ -1,7 +1,9 @@
 package live.lingting.component.core.value;
 
+import live.lingting.component.core.value.step.IteratorStepValue;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -74,6 +76,22 @@ class StepValueTest {
 		assertTrue(simple.hasNext());
 		assertEquals(3, values.size());
 		assertEquals(1, values.get(0));
+	}
+
+	@Test
+	void testIterator() {
+		List<Integer> list = Arrays.asList(1, 2, 3);
+		StepValue<Integer> step = new IteratorStepValue<>(list.iterator());
+		assertEquals(1, step.next());
+		assertEquals(2, step.next());
+		step.reset();
+		assertEquals(1, step.next());
+		assertEquals(2, step.next());
+		assertEquals(3, step.next());
+		assertFalse(step.hasNext());
+		assertThrowsExactly(NoSuchElementException.class, step::next);
+		step.reset();
+		assertTrue(step.hasNext());
 	}
 
 }

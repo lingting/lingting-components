@@ -1,6 +1,7 @@
 package live.lingting.component.core.value;
 
 import live.lingting.component.core.value.step.ConcurrentStepValue;
+import live.lingting.component.core.value.step.IteratorStepValue;
 import live.lingting.component.core.value.step.SimpleStepValue;
 import live.lingting.component.core.value.step.StepFunction;
 import lombok.Getter;
@@ -50,6 +51,10 @@ public class StepValue<T> implements Iterator<T> {
 
 	public static ConcurrentStepValue<Long> simpleConcurrent(long step, Long maxStepCount, Long maxStepValue) {
 		return new SimpleStepValue(step, maxStepCount, maxStepValue).concurrent();
+	}
+
+	public static <T> StepValue<T> iterator(Iterator<T> iterator) {
+		return new IteratorStepValue<>(iterator);
 	}
 
 	public StepValue(T startValue, StepFunction<T> function) {
