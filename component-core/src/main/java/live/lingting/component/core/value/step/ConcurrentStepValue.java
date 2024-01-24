@@ -2,6 +2,7 @@ package live.lingting.component.core.value.step;
 
 import live.lingting.component.core.lock.JavaReentrantLock;
 import live.lingting.component.core.value.StepValue;
+import lombok.SneakyThrows;
 
 /**
  * @author lingting 2024-01-15 19:21
@@ -15,14 +16,16 @@ public class ConcurrentStepValue<T> extends StepValue<T> {
 	}
 
 	@Override
+	@SneakyThrows
 	@SuppressWarnings("java:S2272")
 	public T next() {
-		return lock.get(super::next);
+		return lock.getByInterruptibly(super::next);
 	}
 
 	@Override
+	@SneakyThrows
 	public void reset() {
-		lock.run(super::reset);
+		lock.runByInterruptibly(super::reset);
 	}
 
 	@Override
