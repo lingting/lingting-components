@@ -61,6 +61,8 @@ public abstract class AbstractMultiDownload<D extends AbstractMultiDownload<D>> 
 
 		// 最大分片数
 		maxShard = size % maxShardSize == 0 ? size / maxShardSize : size / maxShardSize + 1;
+		// 线程数
+		long count = Math.min(maxShard, maxThreadCount);
 
 		StepValue<Long> step = new ConcurrentStepValue<>(0L, (c, p) -> {
 			if (c == 0) {
@@ -75,7 +77,7 @@ public abstract class AbstractMultiDownload<D extends AbstractMultiDownload<D>> 
 
 		List<MultiDownloadTask<D>> tasks = new ArrayList<>();
 
-		for (int i = 0; i < maxThreadCount; i++) {
+		for (int i = 0; i < count; i++) {
 			final int index = i;
 			MultiDownloadTask<D> task = new MultiDownloadTask<>((D) this, target, step);
 			async(String.format("DOWNLOAD-%d-%s", index, filename), task::start, e -> {
