@@ -29,7 +29,10 @@ public class OkHttpMultiDownload extends AbstractMultiDownload<OkHttpMultiDownlo
 
 	@Override
 	protected long remoteSize() {
-		try (Response response = client.get(url)) {
+		Request.Builder builder = new Request.Builder().url(url)
+			// https://github.com/ali-sdk/ali-oss/issues/954#issue-896447718
+			.addHeader("Accept-Encoding", "identity");
+		try (Response response = client.request(builder.build())) {
 			ResponseBody body = getBody(response);
 			return body.contentLength();
 		}
