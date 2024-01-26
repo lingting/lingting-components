@@ -1,6 +1,5 @@
 package live.lingting.component.core.util;
 
-import live.lingting.component.core.constant.FileConstants;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
@@ -10,7 +9,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URLConnection;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,9 +16,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static live.lingting.component.core.constant.GlobalConstants.SLASH;
 
@@ -32,48 +28,6 @@ import static live.lingting.component.core.constant.GlobalConstants.SLASH;
 public class FileUtils {
 
 	private static final File TEMP_DIR = SystemUtils.tmpDirLingting();
-
-	private static final Map<String, String> MIME_TYPE;
-
-	static {
-		MIME_TYPE = new HashMap<>(16);
-		MIME_TYPE.put(FileConstants.CSS_END, FileConstants.CSS_MIME);
-		MIME_TYPE.put(FileConstants.JS_END, FileConstants.JS_MIME);
-		MIME_TYPE.put(FileConstants.APK_END, FileConstants.APK_MIME);
-	}
-
-	/**
-	 * 文件路径获取文件扩展名
-	 * @param path 文件路径
-	 * @return java.lang.String eg: .java
-	 */
-	public static String getExt(String path) {
-		if (!path.contains(FileConstants.POINT)) {
-			return null;
-		}
-
-		return path.substring(path.lastIndexOf(FileConstants.POINT));
-	}
-
-	/**
-	 * 根据文件扩展名获得MimeType
-	 * @param path 文件路径或文件名
-	 * @return MimeType
-	 */
-	public static String getMimeType(String path) throws IOException {
-		String contentType = URLConnection.getFileNameMap().getContentTypeFor(path);
-		if (!StringUtils.hasText(contentType)) {
-			String ext = getExt(path);
-			if (ext != null && MIME_TYPE.containsKey(ext)) {
-				return MIME_TYPE.get(ext);
-			}
-			else {
-				return Files.probeContentType(Paths.get(path));
-			}
-		}
-
-		return contentType;
-	}
 
 	/**
 	 * 扫描指定路径下所有文件
