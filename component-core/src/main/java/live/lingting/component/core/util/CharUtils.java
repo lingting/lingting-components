@@ -8,6 +8,8 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class CharUtils {
 
+	public static final char TXT_BOM = '\uFEFF';
+
 	public static boolean isLowerLetter(char c) {
 		return c >= 'a' && c <= 'z';
 	}
@@ -18,6 +20,10 @@ public class CharUtils {
 
 	public static boolean isLetter(char c) {
 		return isLowerLetter(c) || isUpperLetter(c);
+	}
+
+	public static boolean isBom(char c) {
+		return c == TXT_BOM;
 	}
 
 }

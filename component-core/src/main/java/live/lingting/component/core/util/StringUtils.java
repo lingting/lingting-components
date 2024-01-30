@@ -13,6 +13,8 @@ import java.util.Iterator;
 @UtilityClass
 public class StringUtils {
 
+	public static final String TXT_BOM = Character.toString(CharUtils.TXT_BOM);
+
 	/**
 	 * 指定字符串是否存在可见字符
 	 * @param str 字符串
@@ -233,6 +235,13 @@ public class StringUtils {
 			builder.append(str);
 		}
 		return builder.toString();
+	}
+
+	public static String trim(String raw) {
+		if (!StringUtils.hasText(raw)) {
+			return raw;
+		}
+		return raw.trim().replace(TXT_BOM, "");
 	}
 
 }
