@@ -94,14 +94,15 @@ public class SecurityGrpcResourceServerInterceptor implements ServerInterceptor 
 	protected void handlerScope(Metadata metadata) {
 		SecurityToken token = getToken(metadata);
 		// token有效, 设置上下文
-		if (token.isAvailable()) {
-			try {
-				SecurityScope scope = service.resolve(token);
-				service.setScope(scope);
-			}
-			catch (Exception e) {
-				log.error("resolve token error! token: {}", token, e);
-			}
+		if (!token.isAvailable()) {
+			return;
+		}
+		try {
+			SecurityScope scope = service.resolve(token);
+			service.setScope(scope);
+		}
+		catch (Exception e) {
+			//
 		}
 	}
 

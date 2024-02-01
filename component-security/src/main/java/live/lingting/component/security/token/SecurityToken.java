@@ -44,4 +44,9 @@ public class SecurityToken {
 		return new SecurityToken(type, token, raw);
 	}
 
+	@Override
+	public String toString() {
+		return raw;
+	}
+
 }

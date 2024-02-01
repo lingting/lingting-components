@@ -42,14 +42,15 @@ public class SecurityWebResourceFilter extends OncePerRequestFilter {
 	protected void handlerScope(HttpServletRequest request) {
 		SecurityToken token = getToken(request);
 		// token有效, 设置上下文
-		if (token.isAvailable()) {
-			try {
-				SecurityScope scope = service.resolve(token);
-				service.setScope(scope);
-			}
-			catch (Exception e) {
-				log.error("resolve token error! token: {}", token, e);
-			}
+		if (!token.isAvailable()) {
+			return;
+		}
+		try {
+			SecurityScope scope = service.resolve(token);
+			service.setScope(scope);
+		}
+		catch (Exception e) {
+			//
 		}
 	}
 
