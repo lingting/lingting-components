@@ -178,7 +178,11 @@ public class RocketMqProducer implements ContextComponent {
 
 	// region 其他
 
-	DefaultMQProducer producer(String group) {
+	public DefaultMQProducer producer(RocketMqTarget target) {
+		return producer(target.getGroup());
+	}
+
+	public DefaultMQProducer producer(String group) {
 		return producerMap.computeIfAbsent(group, new Function<String, DefaultMQProducer>() {
 			@SneakyThrows
 			@Override
