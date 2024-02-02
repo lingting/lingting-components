@@ -110,7 +110,7 @@ public class DefaultRocketMqMessageConvertImpl implements RocketMqMessageConvert
 		String body = new String(bytes, properties.getCharset());
 		Number number = NumberUtils.toNumber(ext.getUserProperty(PROPERTY_TIMESTAMP));
 		Long timestamp = number == null ? null : number.longValue();
-		return RocketMqMessage.receive(id, group, topic, tags, keys, body, timestamp);
+		return new RocketMqMessage(id, group, topic, tags, keys, body, timestamp, ext.getDelayTimeLevel());
 	}
 
 }
