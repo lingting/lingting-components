@@ -272,13 +272,30 @@ public abstract class AbstractElasticsearch<T> {
 
 	protected boolean update(UnaryOperator<UpdateRequest.Builder<T, T>> operator, String documentId, Script script)
 			throws IOException {
+		return update(builder -> operator.apply(builder).script(script), documentId);
+	}
+
+	protected boolean update(T t) throws IOException {
+		return update(builder -> builder.doc(t), documentId(t));
+	}
+
+	protected boolean upsert(T doc) throws IOException {
+		return update(builder -> builder.doc(doc).docAsUpsert(true), documentId(doc));
+	}
+
+	protected boolean upsert(T doc, Script script) throws IOException {
+		return update(builder -> builder.doc(doc).script(script), documentId(doc));
+	}
+
+	protected boolean update(UnaryOperator<UpdateRequest.Builder<T, T>> operator, String documentId)
+			throws IOException {
 		UpdateRequest.Builder<T, T> builder = operator.apply(new UpdateRequest.Builder<T, T>()
 			// 刷新策略
 			.refresh(Refresh.WaitFor)
 			// 版本冲突时自动重试次数
 			.retryOnConflict(5));
 
-		builder.index(index).id(documentId).script(script);
+		builder.index(index).id(documentId);
 
 		UpdateResponse<T> response = client.update(builder.build(), cls);
 		Result result = response.result();
