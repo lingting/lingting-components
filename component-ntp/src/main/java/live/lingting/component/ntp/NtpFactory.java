@@ -5,6 +5,7 @@ import live.lingting.component.core.util.IpUtils;
 import live.lingting.component.core.util.ThreadUtils;
 import live.lingting.component.core.value.CycleValue;
 import live.lingting.component.core.value.StepValue;
+import live.lingting.component.core.value.cycle.StepCycleValue;
 import live.lingting.component.core.value.step.LongStepValue;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -65,7 +66,7 @@ public class NtpFactory {
 	}
 
 	public Ntp initBy(Collection<String> hosts) throws InterruptedException {
-		CycleValue<Long> cycle = CycleValue.step(STEP_INIT);
+		CycleValue<Long> cycle = new StepCycleValue<>(STEP_INIT);
 		for (String host : hosts) {
 			if (blockHosts.contains(host)) {
 				log.debug("host[{}]被拉黑! 跳过", host);
