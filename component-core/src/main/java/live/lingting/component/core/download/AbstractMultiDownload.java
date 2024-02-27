@@ -3,7 +3,7 @@ package live.lingting.component.core.download;
 import live.lingting.component.core.util.StreamUtils;
 import live.lingting.component.core.util.ValueUtils;
 import live.lingting.component.core.value.StepValue;
-import live.lingting.component.core.value.step.ConcurrentStepValue;
+import live.lingting.component.core.value.step.LongStepValue;
 import lombok.Getter;
 
 import java.io.File;
@@ -64,16 +64,7 @@ public abstract class AbstractMultiDownload<D extends AbstractMultiDownload<D>> 
 		// 线程数
 		long count = Math.min(maxShard, maxThreadCount);
 
-		StepValue<Long> step = new ConcurrentStepValue<>(0L, (c, p) -> {
-			if (c == 0) {
-				return p;
-			}
-			long n = p + maxShardSize;
-			if (n >= size) {
-				return null;
-			}
-			return n;
-		});
+		StepValue<Long> step = new LongStepValue(maxShardSize, null, maxShardSize * maxShard);
 
 		List<MultiDownloadTask<D>> tasks = new ArrayList<>();
 
