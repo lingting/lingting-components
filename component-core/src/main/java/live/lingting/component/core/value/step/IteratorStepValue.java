@@ -68,6 +68,9 @@ public class IteratorStepValue<T> extends AbstractConcurrentStepValue<T> {
 		return null;
 	}
 
+	/**
+	 * 移除上一个next返回的元素
+	 */
 	@Override
 	@SneakyThrows
 	public void remove() {
@@ -76,10 +79,31 @@ public class IteratorStepValue<T> extends AbstractConcurrentStepValue<T> {
 			if (index.compareTo(BigInteger.ZERO) == 0) {
 				throw new IllegalStateException();
 			}
-			// 移除当前索引位置的值
-			map.remove(index);
-			// index 回调
-			index = index.subtract(BigInteger.ONE);
+			// 被移除的索引
+			BigInteger removeIndex = index;
+			// 移除索引位置的值
+			map.remove(removeIndex);
+			// 索引回调
+			index = removeIndex.subtract(BigInteger.ONE);
+			// values缓存移除
+			values = null;
+			// 用于重设后续索引
+			BigInteger current = removeIndex;
+			while (true) {
+				// 下一个索引
+				BigInteger next = current.add(BigInteger.ONE);
+				// 从缓存中移除下一个
+				T value = map.remove(next);
+				// 不存在后续索引则结束
+				if (value == null) {
+					break;
+				}
+				// 存在值, 放入到上一个索引中
+				map.put(current, value);
+				// 步进, 用于处理下一个
+				current = next;
+			}
+
 		});
 	}
 

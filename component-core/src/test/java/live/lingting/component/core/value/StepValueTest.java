@@ -70,6 +70,8 @@ class StepValueTest {
 		StepValue<Integer> copy = step.copy();
 		assertNumber(copy);
 		IteratorStepValue<Integer> remove = new IteratorStepValue<>(list.iterator());
+		List<Integer> values = remove.values();
+		assertEquals(3, values.size());
 		assertThrowsExactly(IllegalStateException.class, remove::remove);
 		assertEquals(1, remove.next());
 		assertDoesNotThrow(remove::remove);
