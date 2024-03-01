@@ -1,6 +1,7 @@
 package live.lingting.component.elasticsearch;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch._types.ErrorCause;
 import co.elastic.clients.elasticsearch._types.Refresh;
 import co.elastic.clients.elasticsearch._types.Result;
 import co.elastic.clients.elasticsearch._types.Script;
@@ -22,6 +23,7 @@ import co.elastic.clients.elasticsearch.core.UpdateByQueryResponse;
 import co.elastic.clients.elasticsearch.core.UpdateRequest;
 import co.elastic.clients.elasticsearch.core.UpdateResponse;
 import co.elastic.clients.elasticsearch.core.bulk.BulkOperation;
+import co.elastic.clients.elasticsearch.core.bulk.BulkResponseItem;
 import co.elastic.clients.elasticsearch.core.search.Hit;
 import co.elastic.clients.elasticsearch.core.search.HitsMetadata;
 import co.elastic.clients.elasticsearch.core.search.TotalHits;
@@ -364,7 +366,25 @@ public abstract class AbstractElasticsearch<T> {
 			operations.add(ob.build());
 		}
 
-		bulk(builder -> operator.apply(builder.refresh(Refresh.WaitFor)), operations);
+		BulkResponse response = bulk(builder -> operator.apply(builder.refresh(Refresh.WaitFor)), operations);
+		if (response.errors()) {
+			List<BulkResponseItem> collect = response.items()
+				.stream()
+				.filter(item -> item.error() != null)
+				.collect(Collectors.toList());
+			BulkResponseItem first = collect.get(0);
+
+			for (int i = 1; i < collect.size(); i++) {
+				ErrorCause error = collect.get(i).error();
+				log.warn("save error: {}", error);
+			}
+
+			// 全部保存失败, 抛异常
+			if (collect.size() == collection.size()) {
+				throw new IOException("bulk save error! " + first.error());
+			}
+			log.warn("save error: {}", first.error());
+		}
 	}
 
 	protected boolean deleteByQuery(Query... queries) throws IOException {
