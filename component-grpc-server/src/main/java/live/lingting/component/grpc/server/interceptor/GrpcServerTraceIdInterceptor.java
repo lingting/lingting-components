@@ -49,7 +49,7 @@ public class GrpcServerTraceIdInterceptor implements ServerInterceptor {
 			return next.startCall(call, headers);
 		}
 		finally {
-			IdUtils.remoteTraceId();
+			IdUtils.removeTraceId();
 		}
 	}
 

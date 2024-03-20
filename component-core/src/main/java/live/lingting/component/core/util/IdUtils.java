@@ -33,7 +33,7 @@ public class IdUtils {
 		MDC.put(TRACE_ID, traceId);
 	}
 
-	public static void remoteTraceId() {
+	public static void removeTraceId() {
 		MDC.remove(TRACE_ID);
 	}
 

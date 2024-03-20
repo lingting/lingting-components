@@ -30,7 +30,7 @@ public abstract class AbstractRocketAsyncConsumer extends AbstractRocketMqConsum
 					accept(message);
 				}
 				finally {
-					IdUtils.remoteTraceId();
+					IdUtils.removeTraceId();
 				}
 			});
 		}

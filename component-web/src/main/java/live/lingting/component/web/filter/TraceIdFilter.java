@@ -58,7 +58,7 @@ public class TraceIdFilter extends OncePerRequestFilter {
 			// 移除文件, 避免大量文件放在临时目录
 			FileUtils.delete(request.getBodyFile());
 
-			IdUtils.remoteTraceId();
+			IdUtils.removeTraceId();
 			MAP_THREAD_LOCAL.remove();
 
 			response.copyBodyToResponse();
