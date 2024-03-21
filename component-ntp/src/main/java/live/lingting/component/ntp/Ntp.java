@@ -35,6 +35,9 @@ public class Ntp {
 			this.diff = ntpDiff.getDiff();
 			log.warn("授时中心时间[{}]与系统时间[{}]差为 {} 毫秒", ntpDiff.getNtp(), ntpDiff.getSystem(), ntpDiff.getDiff());
 		}
+		catch (NtpException e) {
+			throw e;
+		}
 		catch (Exception e) {
 			throw new NtpException("ntp初始化异常!", e);
 		}

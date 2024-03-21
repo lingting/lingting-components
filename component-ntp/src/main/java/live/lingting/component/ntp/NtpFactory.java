@@ -24,12 +24,20 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
-import static live.lingting.component.ntp.NtpConstants.CN_NTP;
-import static live.lingting.component.ntp.NtpConstants.CN_POOL;
-import static live.lingting.component.ntp.NtpConstants.NTP_NTSC;
+import static live.lingting.component.ntp.NtpConstants.TIME_ALIYUN;
+import static live.lingting.component.ntp.NtpConstants.TIME_ALIYUN1;
+import static live.lingting.component.ntp.NtpConstants.TIME_ALIYUN2;
+import static live.lingting.component.ntp.NtpConstants.TIME_ALIYUN3;
+import static live.lingting.component.ntp.NtpConstants.TIME_ALIYUN4;
+import static live.lingting.component.ntp.NtpConstants.TIME_ALIYUN5;
+import static live.lingting.component.ntp.NtpConstants.TIME_ALIYUN6;
+import static live.lingting.component.ntp.NtpConstants.TIME_ALIYUN7;
 import static live.lingting.component.ntp.NtpConstants.TIME_APPLE;
 import static live.lingting.component.ntp.NtpConstants.TIME_ASIA;
+import static live.lingting.component.ntp.NtpConstants.TIME_CN;
 import static live.lingting.component.ntp.NtpConstants.TIME_NIST;
+import static live.lingting.component.ntp.NtpConstants.TIME_NTSC;
+import static live.lingting.component.ntp.NtpConstants.TIME_POOL;
 import static live.lingting.component.ntp.NtpConstants.TIME_WINDOWS;
 
 /**
@@ -40,8 +48,13 @@ import static live.lingting.component.ntp.NtpConstants.TIME_WINDOWS;
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class NtpFactory {
 
-	private static final String[] HOSTS = { TIME_WINDOWS, TIME_NIST, TIME_APPLE, TIME_ASIA, CN_NTP, NTP_NTSC,
-			CN_POOL, };
+	private static final String[] HOSTS = { TIME_WINDOWS, TIME_NIST, TIME_APPLE, TIME_ASIA, TIME_CN, TIME_NTSC,
+			TIME_POOL,
+
+			TIME_ALIYUN, TIME_ALIYUN1, TIME_ALIYUN2, TIME_ALIYUN3, TIME_ALIYUN4, TIME_ALIYUN5, TIME_ALIYUN6,
+			TIME_ALIYUN7,
+
+	};
 
 	public static final StepValue<Long> STEP_INIT = new LongStepValue(1, null, Long.valueOf(10));
 
@@ -91,11 +104,8 @@ public class NtpFactory {
 			catch (InterruptedException e) {
 				throw e;
 			}
-			catch (TimeoutException e) {
-				log.warn("Ntp初始化超时! host: {}", host);
-			}
 			catch (Exception e) {
-				log.error("初始化异常! host: {}", host);
+				log.error("Ntp初始化失败! host: {}; message: {}", host, e.getMessage());
 			}
 		}
 		return null;
