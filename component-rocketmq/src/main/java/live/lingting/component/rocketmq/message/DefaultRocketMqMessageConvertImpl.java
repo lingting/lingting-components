@@ -2,7 +2,6 @@ package live.lingting.component.rocketmq.message;
 
 import live.lingting.component.core.util.CollectionUtils;
 import live.lingting.component.core.util.NumberUtils;
-import live.lingting.component.ntp.NtpCn;
 import live.lingting.component.rocketmq.properties.RocketMqProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -96,7 +95,7 @@ public class DefaultRocketMqMessageConvertImpl implements RocketMqMessageConvert
 	@Override
 	public Message of(String topic, String tags, String keys, byte[] body) {
 		Message message = new Message(topic, tags, keys, body);
-		message.putUserProperty(PROPERTY_TIMESTAMP, Long.toString(NtpCn.currentMillis()));
+		message.putUserProperty(PROPERTY_TIMESTAMP, Long.toString(System.currentTimeMillis()));
 		return message;
 	}
 

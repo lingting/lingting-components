@@ -1,8 +1,7 @@
 package live.lingting.component.web.exception;
 
-import live.lingting.component.core.r.R;
 import live.lingting.component.core.enums.GlobalResultCode;
-import live.lingting.component.web.constant.WebConstants;
+import live.lingting.component.core.r.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -18,9 +17,9 @@ import javax.servlet.http.HttpServletRequest;
  * @author lingting 2022/9/21 15:55
  */
 @Slf4j
+@Order
 @RestControllerAdvice
 @ResponseStatus(HttpStatus.OK)
-@Order(WebConstants.ORDER_EXCEPTION_DEFAULT)
 public class DefaultExceptionHandler {
 
 	/**

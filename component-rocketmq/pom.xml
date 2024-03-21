@@ -18,10 +18,6 @@
         </dependency>
         <dependency>
             <groupId>live.lingting.components</groupId>
-            <artifactId>component-ntp</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>live.lingting.components</groupId>
             <artifactId>component-spring</artifactId>
         </dependency>
         <dependency>
