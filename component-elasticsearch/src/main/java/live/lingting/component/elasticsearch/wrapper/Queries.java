@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -34,6 +35,13 @@ public class Queries<E> {
 	public Queries<E> add(boolean condition, Query query) {
 		if (condition) {
 			list.add(query);
+		}
+		return this;
+	}
+
+	public Queries<E> addIfPresent(String field, Object value, BiFunction<String, Object, Query> function) {
+		if (isPresent(value)) {
+			list.add(function.apply(field, value));
 		}
 		return this;
 	}
