@@ -106,15 +106,15 @@ public abstract class AbstractQueueThread<E> extends AbstractThreadContextCompon
 	 * 填充数据
 	 */
 	protected void fill() {
-		int count = 0;
 		StopWatch watch = new StopWatch();
-		while (count < getBatchSize()) {
+		watch.start();
+		while (data.size() < getBatchSize()) {
 			E e = poll();
 			E p = process(e);
 
 			if (p != null) {
 				// 第一次插入数据
-				if (count++ == 0) {
+				if (data.isEmpty()) {
 					// 记录时间
 					watch.restart();
 				}
