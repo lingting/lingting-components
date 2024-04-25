@@ -18,7 +18,6 @@ package live.lingting.component.web.converter;
 
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
-import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 import java.lang.reflect.Array;
@@ -33,7 +32,7 @@ import java.util.Set;
  * @author Juergen Hoeller
  * @since 3.0
  */
-public class StringToArrayConverter implements Converter<Object> {
+public class StringToArrayConverter implements ConverterByString<Object> {
 
 	private final ConversionService conversionService;
 
@@ -52,17 +51,31 @@ public class StringToArrayConverter implements Converter<Object> {
 				this.conversionService);
 	}
 
-	@Override
-	@Nullable
-	public Object convert(@Nullable Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
-		String[] fields = toArray(source);
+	Object array(TypeDescriptor type, int length) {
+		TypeDescriptor target = type.getElementTypeDescriptor();
+		Assert.state(target != null, "No target element type");
+		return Array.newInstance(target.getType(), length);
+	}
 
-		TypeDescriptor targetElementType = targetType.getElementTypeDescriptor();
-		Assert.state(targetElementType != null, "No target element type");
-		Object target = Array.newInstance(targetElementType.getType(), fields.length);
+	@Override
+	public Object nullValue(TypeDescriptor sourceType, TypeDescriptor targetType) {
+		return emptyValue(sourceType, targetType);
+	}
+
+	@Override
+	public Object emptyValue(TypeDescriptor sourceType, TypeDescriptor targetType) {
+		return array(targetType, 0);
+	}
+
+	@Override
+	public Object value(String source, TypeDescriptor sourceType, TypeDescriptor targetType) {
+		String[] fields = toArray(source);
+		Object target = array(targetType, fields.length);
+		TypeDescriptor descriptor = targetType.getElementTypeDescriptor();
+		Assert.state(descriptor != null, "No target element descriptor!");
 		for (int i = 0; i < fields.length; i++) {
 			String sourceElement = fields[i];
-			Object targetElement = this.conversionService.convert(sourceElement.trim(), sourceType, targetElementType);
+			Object targetElement = this.conversionService.convert(sourceElement.trim(), sourceType, descriptor);
 			Array.set(target, i, targetElement);
 		}
 		return target;

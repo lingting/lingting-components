@@ -24,6 +24,15 @@ public interface Converter<T> extends ConditionalGenericConverter {
 	}
 
 	@Override
-	T convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType);
+	default T convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
+		if (source == null) {
+			return nullValue(sourceType, targetType);
+		}
+		return value(source, sourceType, targetType);
+	}
+
+	T nullValue(TypeDescriptor sourceType, TypeDescriptor targetType);
+
+	T value(Object source, TypeDescriptor sourceType, TypeDescriptor targetType);
 
 }

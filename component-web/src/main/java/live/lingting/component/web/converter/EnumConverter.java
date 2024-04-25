@@ -33,11 +33,12 @@ public class EnumConverter implements Converter<Enum> {
 	}
 
 	@Override
-	public Enum convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
-		if (source == null) {
-			return null;
-		}
+	public Enum nullValue(TypeDescriptor sourceType, TypeDescriptor targetType) {
+		return null;
+	}
 
+	@Override
+	public Enum value(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
 		ClassField cf = EnumUtils.getCf(targetType.getType());
 
 		// 来源 转化成 目标类型

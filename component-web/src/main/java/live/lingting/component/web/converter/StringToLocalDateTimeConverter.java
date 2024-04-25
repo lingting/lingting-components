@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * @author lingting 2022/9/28 12:17
  */
-public class StringToLocalDateTimeConverter implements Converter<LocalDateTime> {
+public class StringToLocalDateTimeConverter implements ConverterByString<LocalDateTime> {
 
 	@Override
 	public boolean matches(TypeDescriptor sourceType, TypeDescriptor targetType) {
@@ -24,9 +24,18 @@ public class StringToLocalDateTimeConverter implements Converter<LocalDateTime> 
 	}
 
 	@Override
-	public LocalDateTime convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
-		String string = (String) source;
-		return LocalDateTimeUtils.parse(string);
+	public LocalDateTime nullValue(TypeDescriptor sourceType, TypeDescriptor targetType) {
+		return emptyValue(sourceType, targetType);
+	}
+
+	@Override
+	public LocalDateTime emptyValue(TypeDescriptor sourceType, TypeDescriptor targetType) {
+		return null;
+	}
+
+	@Override
+	public LocalDateTime value(String source, TypeDescriptor sourceType, TypeDescriptor targetType) {
+		return LocalDateTimeUtils.parse(source);
 	}
 
 }

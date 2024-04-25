@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.core.CollectionFactory;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
-import org.springframework.lang.Nullable;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -16,7 +15,7 @@ import java.util.Set;
  * @author lingting 2022/9/28 10:33
  */
 @RequiredArgsConstructor
-public class StringToCollectionConverter implements Converter<Collection<Object>> {
+public class StringToCollectionConverter implements ConverterByString<Collection<Object>> {
 
 	private final ConversionService conversionService;
 
@@ -35,14 +34,28 @@ public class StringToCollectionConverter implements Converter<Collection<Object>
 		return conversionService.canConvert(sourceType, targetDescriptor);
 	}
 
+	Collection<Object> collection(TypeDescriptor targetType, int length) {
+		TypeDescriptor elementDesc = targetType.getElementTypeDescriptor();
+		return CollectionFactory.createCollection(targetType.getType(),
+				(elementDesc != null ? elementDesc.getType() : null), length);
+	}
+
 	@Override
-	@Nullable
-	public Collection<Object> convert(@Nullable Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
+	public Collection<Object> nullValue(TypeDescriptor sourceType, TypeDescriptor targetType) {
+		return emptyValue(sourceType, targetType);
+	}
+
+	@Override
+	public Collection<Object> emptyValue(TypeDescriptor sourceType, TypeDescriptor targetType) {
+		return collection(targetType, 0);
+	}
+
+	@Override
+	public Collection<Object> value(String source, TypeDescriptor sourceType, TypeDescriptor targetType) {
 		String[] fields = toArray(source);
 
 		TypeDescriptor elementDesc = targetType.getElementTypeDescriptor();
-		Collection<Object> target = CollectionFactory.createCollection(targetType.getType(),
-				(elementDesc != null ? elementDesc.getType() : null), fields.length);
+		Collection<Object> target = collection(targetType, fields.length);
 
 		if (elementDesc == null) {
 			for (String field : fields) {
