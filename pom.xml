@@ -65,7 +65,7 @@
         <jsqlparser.version>4.5</jsqlparser.version>
 
         <!--other-->
-        <bouncycastle.version>1.77</bouncycastle.version>
+        <bouncycastle.version>1.78</bouncycastle.version>
         <hutool.version>5.8.10</hutool.version>
         <commons-net.version>3.9.0</commons-net.version>
         <javassist.version>3.29.2-GA</javassist.version>
