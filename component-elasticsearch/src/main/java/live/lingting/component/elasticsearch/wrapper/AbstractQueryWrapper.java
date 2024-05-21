@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * @author lingting 2023-11-13 12:15
  */
-class AbstractQueryWrapper {
+public class AbstractQueryWrapper {
 
 	protected AbstractQueryWrapper() {
 	}
