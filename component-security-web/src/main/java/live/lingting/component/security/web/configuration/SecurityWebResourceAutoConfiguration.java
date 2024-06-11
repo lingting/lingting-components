@@ -7,11 +7,11 @@ import live.lingting.component.security.constant.SecurityConstants;
 import live.lingting.component.security.properties.SecurityProperties;
 import live.lingting.component.security.resource.SecurityResourceService;
 import live.lingting.component.security.store.SecurityStore;
-import live.lingting.component.security.web.aspectj.SecurityWebResourceAspectj;
 import live.lingting.component.security.web.filter.SecurityWebResourceFilter;
 import live.lingting.component.security.web.properties.SecurityWebProperties;
 import live.lingting.component.security.web.resource.SecurityWebDefaultRemoteResourceServiceImpl;
 import live.lingting.component.security.web.resource.SecurityWebRemoteResourceRequestCustomer;
+import live.lingting.component.security.web.resource.SecurityWebResourceInterceptor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -19,6 +19,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.web.servlet.ConditionalOnMissingFilterBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.time.Duration;
 
@@ -68,9 +70,20 @@ public class SecurityWebResourceAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public SecurityWebResourceAspectj securityWebResourceAspectj(SecurityWebProperties properties,
+	public SecurityWebResourceInterceptor securityWebResourceInterceptor(SecurityWebProperties properties,
 			SecurityAuthorize authorize) {
-		return new SecurityWebResourceAspectj(properties, authorize);
+		return new SecurityWebResourceInterceptor(properties, authorize);
+	}
+
+	@Bean
+	@ConditionalOnBean(SecurityWebResourceInterceptor.class)
+	public WebMvcConfigurer securityWebResourceWebMvcConfigurer(SecurityWebResourceInterceptor interceptor) {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addInterceptors(InterceptorRegistry registry) {
+				registry.addInterceptor(interceptor).addPathPatterns("/**");
+			}
+		};
 	}
 
 }

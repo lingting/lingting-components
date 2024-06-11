@@ -1,29 +1,26 @@
-package live.lingting.component.security.web.aspectj;
+package live.lingting.component.security.web.resource;
 
 import live.lingting.component.core.util.CollectionUtils;
-import live.lingting.component.security.annotation.Authorize;
 import live.lingting.component.security.authorize.SecurityAuthorize;
 import live.lingting.component.security.constant.SecurityConstants;
 import live.lingting.component.security.web.properties.SecurityWebProperties;
-import live.lingting.component.spring.util.AspectUtils;
 import live.lingting.component.web.filter.WebScope;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.core.annotation.Order;
+import org.springframework.core.Ordered;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Method;
 import java.util.Set;
 
 /**
- * @author lingting 2023-03-30 14:04
+ * @author lingting 2024-06-11 15:07
  */
-@Aspect
 @RequiredArgsConstructor
-@Order(SecurityConstants.ORDER_RESOURCE_ASPECTJ)
-public class SecurityWebResourceAspectj {
+public class SecurityWebResourceInterceptor implements HandlerInterceptor, Ordered {
 
 	private static final AntPathMatcher ANT_PATH_MATCHER = new AntPathMatcher();
 
@@ -31,20 +28,17 @@ public class SecurityWebResourceAspectj {
 
 	private final SecurityAuthorize securityAuthorize;
 
-	@Pointcut("(@within(org.springframework.web.bind.annotation.RestController) || @within(org.springframework.stereotype.Controller) ) "
-			+ "&& execution(@(@org.springframework.web.bind.annotation.RequestMapping *) * *(..))")
-	public void pointCut() {
-		//
-	}
-
-	@Around("pointCut()")
-	public Object around(ProceedingJoinPoint point) throws Throwable {
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
 		// 不是忽略鉴权的uri. 走鉴权流程
-		if (!isIgnoreUri()) {
-			Authorize authorize = AspectUtils.getAnnotation(point, Authorize.class);
-			securityAuthorize.valid(authorize);
+		if (handler instanceof HandlerMethod && !isIgnoreUri()) {
+			HandlerMethod handlerMethod = (HandlerMethod) handler;
+			Class<?> cls = handlerMethod.getBeanType();
+			Method method = handlerMethod.getMethod();
+			securityAuthorize.valid(cls, method);
 		}
-		return point.proceed();
+		return true;
 	}
 
 	protected boolean isIgnoreUri() {
@@ -61,6 +55,11 @@ public class SecurityWebResourceAspectj {
 		}
 
 		return false;
+	}
+
+	@Override
+	public int getOrder() {
+		return SecurityConstants.ORDER_RESOURCE_ASPECTJ;
 	}
 
 }

@@ -1,14 +1,16 @@
 package live.lingting.component.security.authorize;
 
-import live.lingting.component.security.resource.SecurityHolder;
-import live.lingting.component.security.resource.SecurityScope;
+import live.lingting.component.core.util.ArrayUtils;
+import live.lingting.component.core.util.CollectionUtils;
 import live.lingting.component.security.annotation.Authorize;
 import live.lingting.component.security.exception.AuthorizationException;
 import live.lingting.component.security.exception.PermissionsException;
-import live.lingting.component.core.util.ArrayUtils;
-import live.lingting.component.core.util.CollectionUtils;
+import live.lingting.component.security.resource.SecurityHolder;
+import live.lingting.component.security.resource.SecurityScope;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.annotation.AnnotationUtils;
 
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.function.Predicate;
 
@@ -17,6 +19,22 @@ import java.util.function.Predicate;
  */
 @RequiredArgsConstructor
 public class SecurityAuthorize {
+
+	public Authorize findAuthorize(Class<?> cls, Method method) {
+		if (method != null) {
+			Authorize authorize = AnnotationUtils.findAnnotation(method, Authorize.class);
+			if (authorize != null) {
+				return authorize;
+			}
+		}
+
+		return AnnotationUtils.findAnnotation(cls, Authorize.class);
+	}
+
+	public void valid(Class<?> cls, Method method) throws AuthorizationException {
+		Authorize authorize = this.findAuthorize(cls, method);
+		this.valid(authorize);
+	}
 
 	/**
 	 * 校验当前权限数据是否满足指定注解的要求
