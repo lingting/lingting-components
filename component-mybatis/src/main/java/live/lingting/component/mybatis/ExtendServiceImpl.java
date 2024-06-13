@@ -21,7 +21,7 @@ import java.util.function.BiConsumer;
  *
  * @author lingting 2020/7/21 10:00
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({ "unchecked", "java:S6813" })
 public abstract class ExtendServiceImpl<M extends ExtendMapper<T>, T> implements ExtendService<T> {
 
 	protected Log log = LogFactory.getLog(getClass());
@@ -88,6 +88,17 @@ public abstract class ExtendServiceImpl<M extends ExtendMapper<T>, T> implements
 	 */
 	protected <E> boolean executeBatch(Collection<E> list, int batchSize, BiConsumer<SqlSession, E> consumer) {
 		return SqlHelper.executeBatch(this.entityClass, this.log, list, batchSize, consumer);
+	}
+
+	protected <E> boolean executeBatch(Collection<E> list, BiConsumer<SqlSession, E> consumer) {
+		return executeBatch(list, DEFAULT_BATCH_SIZE, consumer);
+	}
+
+	protected <E> boolean batch(Collection<E> list, BiConsumer<M, E> consumer) {
+		return executeBatch(list, ((session, e) -> {
+			M mapper = session.getMapper(mapperClass);
+			consumer.accept(mapper, e);
+		}));
 	}
 
 }
