@@ -1,7 +1,7 @@
 package live.lingting.component.core.enums;
 
-import live.lingting.component.core.r.ResultCode;
 import live.lingting.component.core.constant.GlobalConstants;
+import live.lingting.component.core.r.ResultCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -28,6 +28,10 @@ public enum GlobalResultCode implements ResultCode {
 	 * 权限异常
 	 */
 	FORBIDDEN_ERROR(403, "Forbidden Error!"),
+	/**
+	 * 请求地址异常
+	 */
+	NOT_FOUND_ERROR(404, "Uri Not Found!"),
 	/**
 	 * 重复请求
 	 */

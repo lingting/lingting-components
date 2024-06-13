@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ValidationException;
@@ -162,6 +163,21 @@ public class GlobalExceptionHandler {
 	public R<String> handlerSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException e) {
 		log.error("sql执行异常! {}", e.getMessage());
 		return R.failed(GlobalResultCode.DB_CONSTRAINT_VIOLATION_ERROR);
+	}
+
+	/**
+	 * 404异常. 需要配合两个设置
+	 * <p>
+	 * 1. spring.mvc.throw-exception-if-no-handler-found=true
+	 * </p>
+	 * <p>
+	 * 2. spring.web.resources.add-mappings=false
+	 * </p>
+	 */
+	@ExceptionHandler(NoHandlerFoundException.class)
+	public R<String> handlerNoHandlerFoundException(NoHandlerFoundException e, HttpServletRequest request) {
+		log.error("请求地址: {}, 404异常! {}", request.getRequestURI(), e.getMessage());
+		return R.failed(GlobalResultCode.NOT_FOUND_ERROR);
 	}
 
 }
