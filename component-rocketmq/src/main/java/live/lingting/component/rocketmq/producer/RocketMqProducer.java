@@ -45,22 +45,26 @@ public class RocketMqProducer implements ContextComponent {
 	 * @param body 消息内容
 	 */
 	public RocketMqSendResult send(RocketMqTarget target, String keys, String body) {
-		return send(target, null, keys, body);
+		return send(RocketMqMessage.send(target, null, keys, body));
 	}
 
 	public RocketMqSendResult send(RocketMqTarget target, String tags, String keys, String body) {
 		return send(RocketMqMessage.send(target, tags, keys, body));
 	}
 
-	public RocketMqSendResult send(RocketMqMessage message) {
-		byte[] bytes = convert.toBytes(message);
-		return send(message.getGroup(), message.getTopic(), message.getTags(), message.getKeys(), bytes);
+	public RocketMqSendResult send(String group, String topic, String tags, String keys, byte[] body) {
+		Message message = convert.of(topic, tags, keys, body);
+		return send(group, message);
 	}
 
-	public RocketMqSendResult send(String group, String topic, String tags, String keys, byte[] body) {
+	public RocketMqSendResult send(RocketMqMessage message) {
+		return send(message.getGroup(), convert.of(message));
+	}
+
+	RocketMqSendResult send(String group, Message message) {
+		String topic = message.getTopic();
 		try {
 			DefaultMQProducer producer = producer(group);
-			Message message = convert.of(topic, tags, keys, body);
 			SendResult result = producer.send(message);
 			if (!SendStatus.SEND_OK.equals(result.getSendStatus())) {
 				log.warn("消息发送结果状态异常! mqId: {}; status: {}", result.getMsgId(), result.getSendStatus());
@@ -82,7 +86,7 @@ public class RocketMqProducer implements ContextComponent {
 
 	// region 异步发送
 	public void send(RocketMqTarget target, String keys, String body, RocketMqSendCallback callback) {
-		send(target, null, keys, body, callback);
+		send(RocketMqMessage.send(target, null, keys, body), callback);
 	}
 
 	public void send(RocketMqTarget target, String tags, String keys, String body, RocketMqSendCallback callback) {
@@ -149,29 +153,33 @@ public class RocketMqProducer implements ContextComponent {
 	 * @param body 消息内容
 	 */
 	public void sendOneway(RocketMqTarget target, String keys, String body) {
-		sendOneway(target, null, keys, body);
+		sendOneway(RocketMqMessage.send(target, null, keys, body));
 	}
 
 	public void sendOneway(RocketMqTarget target, String tags, String keys, String body) {
 		sendOneway(RocketMqMessage.send(target, tags, keys, body));
 	}
 
-	public void sendOneway(RocketMqMessage message) {
-		byte[] bytes = convert.toBytes(message);
-		sendOneway(message.getGroup(), message.getTopic(), message.getTags(), message.getKeys(), bytes);
+	public void sendOneway(String group, String topic, String tags, String keys, byte[] body) {
+		Message message = convert.of(topic, tags, keys, body);
+		sendOneway(group, message);
 	}
 
-	public void sendOneway(String group, String topic, String tags, String keys, byte[] body) {
+	public void sendOneway(RocketMqMessage message) {
+		sendOneway(message.getGroup(), convert.of(message));
+	}
+
+	void sendOneway(String group, Message message) {
+		String topic = message.getTopic();
 		try {
 			DefaultMQProducer producer = producer(group);
-			Message message = convert.of(topic, tags, keys, body);
 			producer.sendOneway(message);
 		}
 		catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 		}
 		catch (Exception e) {
-			log.error("mq单向消息发送异常!", e);
+			log.error("mq单向消息发送异常! topic: {}", topic, e);
 		}
 	}
 	// endregion

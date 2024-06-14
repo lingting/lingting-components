@@ -83,7 +83,9 @@ public class DefaultRocketMqMessageConvertImpl implements RocketMqMessageConvert
 
 	@Override
 	public Message of(RocketMqMessage message) {
-		return of(message.getTopic(), message.getTags(), message.getKeys(), message.getBody());
+		Message mqMessage = of(message.getTopic(), message.getTags(), message.getKeys(), message.getBody());
+		mqMessage.setDelayTimeLevel(message.getDelayTimeLevel());
+		return mqMessage;
 	}
 
 	@Override
