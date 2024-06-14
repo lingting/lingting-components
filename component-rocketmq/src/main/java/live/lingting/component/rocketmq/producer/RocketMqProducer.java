@@ -94,8 +94,7 @@ public class RocketMqProducer implements ContextComponent {
 	}
 
 	public void send(RocketMqMessage message, RocketMqSendCallback callback) {
-		byte[] bytes = convert.toBytes(message);
-		send(message.getGroup(), message.getTopic(), message.getTags(), message.getKeys(), bytes, callback);
+		send(message.getGroup(), message.getTopic(), Collections.singletonList(message), callback);
 	}
 
 	public void send(String group, String topic, String tags, String keys, byte[] body, RocketMqSendCallback callback) {
