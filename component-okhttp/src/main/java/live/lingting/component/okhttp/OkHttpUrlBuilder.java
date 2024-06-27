@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static live.lingting.component.core.constant.HttpConstants.HOST_DELIMITER;
+
 /**
  * @author lingting 2023-04-05 20:43
  */
@@ -33,20 +35,20 @@ public class OkHttpUrlBuilder {
 
 	public HttpUrl build() {
 		StringBuilder builder = new StringBuilder(host);
+		if (host.endsWith(HOST_DELIMITER)) {
+			builder.deleteCharAt(builder.length() - 1);
+		}
+
 		if (port != null) {
 			builder.append(HttpConstants.URL_DELIMITER).append(port);
 		}
-		// 不是 / 结尾
-		if (builder.charAt(builder.length() - 1) != HttpConstants.HOST_DELIMITER_CHAR) {
-			builder.append(HttpConstants.HOST_DELIMITER);
+
+		// uri 是否以 / 开头
+		if (!uri.startsWith(HOST_DELIMITER)) {
+			builder.append(HOST_DELIMITER);
 		}
-		// uri 以 / 开头
-		if (uri.startsWith(HttpConstants.HOST_DELIMITER)) {
-			builder.append(uri, 1, uri.length() - 1);
-		}
-		else {
-			builder.append(uri);
-		}
+
+		builder.append(uri);
 
 		// 存在参数
 		if (!CollectionUtils.isEmpty(params)) {
