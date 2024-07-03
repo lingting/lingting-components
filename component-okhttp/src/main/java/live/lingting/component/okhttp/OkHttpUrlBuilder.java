@@ -1,5 +1,6 @@
 package live.lingting.component.okhttp;
 
+import live.lingting.component.core.constant.GlobalConstants;
 import live.lingting.component.core.constant.HttpConstants;
 import live.lingting.component.core.util.CollectionUtils;
 import lombok.AccessLevel;
@@ -40,7 +41,7 @@ public class OkHttpUrlBuilder {
 		}
 
 		if (port != null) {
-			builder.append(HttpConstants.URL_DELIMITER).append(port);
+			builder.append(GlobalConstants.COLON).append(port);
 		}
 
 		// uri 是否以 / 开头
