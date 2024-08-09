@@ -47,7 +47,7 @@ public class ScriptBuilder<T> {
 			return this;
 		}
 		sourceBuilder.append(script);
-		if (!script.endsWith(";")) {
+		if (!script.endsWith(";") && !script.endsWith("}")) {
 			sourceBuilder.append(";");
 		}
 		return this;
