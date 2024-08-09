@@ -128,6 +128,7 @@ public abstract class AbstractDownload<D extends AbstractDownload<D>> implements
 
 	protected void upsertEx(Exception e) {
 		ex = e instanceof DownloadException ? (DownloadException) e : new DownloadException("下载异常!", e);
+		finished = true;
 	}
 
 }
