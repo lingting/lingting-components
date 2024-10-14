@@ -119,40 +119,42 @@ public class ClassUtils {
 	@SuppressWarnings("java:S3776")
 	public static <T> Set<Class<T>> scan(String basePack, Predicate<Class<T>> filter,
 			BiConsumer<String, Exception> error) throws IOException {
-		List<String> classNames = new ArrayList<>();
 		String clsPath = basePack.replace(".", "/");
-		URL url = Thread.currentThread().getContextClassLoader().getResource(clsPath);
-		if (url == null) {
-			return new HashSet<>();
-		}
-		if ("file".equals(url.getProtocol())) {
-			String path = url.getFile();
-			for (String file : FileUtils.scanFile(path, true)) {
-				if (file.endsWith(".class")) {
-					String className = basePack + "."
-							+ file.substring(path.length(), file.length() - 6).replace(File.separator, ".");
+		ClassLoader loader = Thread.currentThread().getContextClassLoader();
+		List<String> classNames = new ArrayList<>();
 
-					classNames.add(className);
-				}
-			}
-		}
-		else {
-			URLConnection connection = url.openConnection();
-			if (connection instanceof JarURLConnection) {
-				JarURLConnection jarURLConnection = (JarURLConnection) connection;
-				JarFile jarFile = jarURLConnection.getJarFile();
+		Enumeration<URL> resources = loader.getResources(clsPath);
+		while (resources.hasMoreElements()) {
+			URL url = resources.nextElement();
+			if ("file".equals(url.getProtocol())) {
+				String path = url.getFile();
+				for (String file : FileUtils.scanFile(path, true)) {
+					if (file.endsWith(".class")) {
+						String className = basePack + "."
+								+ file.substring(path.length(), file.length() - 6).replace(File.separator, ".");
 
-				Enumeration<JarEntry> entries = jarFile.entries();
-
-				while (entries.hasMoreElements()) {
-					JarEntry entry = entries.nextElement();
-					String entryName = entry.getName();
-
-					if (entryName.endsWith(".class") && entryName.startsWith(clsPath)) {
-						classNames.add(entryName.substring(0, entryName.length() - 6).replace("/", "."));
+						classNames.add(className);
 					}
 				}
+			}
+			else {
+				URLConnection connection = url.openConnection();
+				if (connection instanceof JarURLConnection) {
+					JarURLConnection jarURLConnection = (JarURLConnection) connection;
+					JarFile jarFile = jarURLConnection.getJarFile();
 
+					Enumeration<JarEntry> entries = jarFile.entries();
+
+					while (entries.hasMoreElements()) {
+						JarEntry entry = entries.nextElement();
+						String entryName = entry.getName();
+
+						if (entryName.endsWith(".class") && entryName.startsWith(clsPath)) {
+							classNames.add(entryName.substring(0, entryName.length() - 6).replace("/", "."));
+						}
+					}
+
+				}
 			}
 		}
 
