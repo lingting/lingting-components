@@ -705,6 +705,7 @@
                             <waitUntil>published</waitUntil>
                             <!--自动发布-->
                             <autoPublish>true</autoPublish>
+                            <deploymentName>${project.name}-${project.version}</deploymentName>
                         </configuration>
                     </plugin>
                     <plugin>
