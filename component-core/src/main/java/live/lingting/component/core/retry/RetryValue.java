@@ -25,7 +25,7 @@ public class RetryValue<T> {
 		if (isSuccess()) {
 			return value;
 		}
-		throw logs.get(0).getException();
+		throw logs.get(logs.size() - 1).getException();
 	}
 
 }
