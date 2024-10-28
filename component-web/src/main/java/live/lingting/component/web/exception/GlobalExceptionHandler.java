@@ -161,7 +161,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
 	public R<String> handlerSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException e) {
-		log.error("sql执行异常! {}", e.getMessage());
+		log.error("sql执行异常!", e);
 		return R.failed(GlobalResultCode.DB_CONSTRAINT_VIOLATION_ERROR);
 	}
 

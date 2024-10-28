@@ -26,7 +26,7 @@ public class SecurityWebExceptionHandler {
 	 */
 	@ExceptionHandler(AuthorizationException.class)
 	public R<String> handlerAuthorizationException(AuthorizationException e) {
-		log.error("鉴权异常! {}", e.getMessage());
+		log.error("鉴权异常!", e);
 		return R.failed(GlobalResultCode.UNAUTHORIZED_ERROR);
 	}
 
@@ -35,7 +35,7 @@ public class SecurityWebExceptionHandler {
 	 */
 	@ExceptionHandler(PermissionsException.class)
 	public R<String> handlerPermissionsException(PermissionsException e) {
-		log.error("权限异常! {}", e.getMessage());
+		log.error("权限异常!", e);
 		return R.failed(GlobalResultCode.FORBIDDEN_ERROR);
 	}
 

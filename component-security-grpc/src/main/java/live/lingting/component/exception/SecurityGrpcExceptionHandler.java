@@ -17,7 +17,7 @@ public class SecurityGrpcExceptionHandler {
 	 * 鉴权异常
 	 */
 	public Status handlerAuthorizationException(AuthorizationException e) {
-		log.error("鉴权异常! {}", e.getMessage());
+		log.error("鉴权异常!", e);
 		return Status.UNAUTHENTICATED.withCause(e);
 	}
 
@@ -25,7 +25,7 @@ public class SecurityGrpcExceptionHandler {
 	 * 权限异常
 	 */
 	public Status handlerPermissionsException(PermissionsException e) {
-		log.error("权限异常! {}", e.getMessage());
+		log.error("权限异常!", e);
 		return Status.PERMISSION_DENIED.withCause(e);
 	}
 
