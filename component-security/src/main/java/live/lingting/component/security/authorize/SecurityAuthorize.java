@@ -8,6 +8,7 @@ import live.lingting.component.security.exception.PermissionsException;
 import live.lingting.component.security.resource.SecurityHolder;
 import live.lingting.component.security.resource.SecurityScope;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.AnnotationUtils;
 
 import java.lang.reflect.Method;
@@ -17,6 +18,7 @@ import java.util.function.Predicate;
 /**
  * @author lingting 2023-03-29 20:45
  */
+@Slf4j
 @RequiredArgsConstructor
 public class SecurityAuthorize {
 
@@ -40,27 +42,33 @@ public class SecurityAuthorize {
 	 * 校验当前权限数据是否满足指定注解的要求
 	 */
 	public void valid(Authorize authorize) throws PermissionsException {
+		log.trace("开始进行权限校验.");
 		// 未配置, 要求登录
 		if (authorize == null) {
+			log.trace("未配置具体权限, 仅校验登录登录权限.");
 			validLogin();
 			return;
 		}
 
 		// 允许匿名, 直接执行
 		if (authorize.anyone()) {
+			log.trace("允许匿名访问, 直接放行.");
 			return;
 		}
 
+		log.trace("校验登录权限.");
 		// 非匿名
 		validLogin();
 
 		// 要求系统
 		if (authorize.onlySystem()) {
+			log.trace("校验是否系统用户.");
 			valid(SecurityScope::isSystem);
 		}
 
 		// 要求普通用户
 		if (authorize.onlyNormal()) {
+			log.trace("校验是否普通用户.");
 			valid(scope -> !scope.isSystem());
 		}
 
@@ -73,36 +81,46 @@ public class SecurityAuthorize {
 
 	protected void validHas(Authorize authorize) {
 		// 要求所有角色
+		log.debug("校验要求所有角色.");
 		valid(scope -> equals(scope.getRoles(), authorize.hasRole()));
 		// 要求任一角色
+		log.debug("校验要求任一角色.");
 		valid(scope -> contains(scope.getRoles(), authorize.hasAnyRole()));
 		// 要求所有权限
+		log.debug("校验要求所有权限.");
 		valid(scope -> equals(scope.getPermissions(), authorize.hasPermissions()));
 		// 要求任一权限
+		log.debug("校验要求任一权限.");
 		valid(scope -> contains(scope.getPermissions(), authorize.hasAnyPermissions()));
 	}
 
 	protected void validNot(Authorize authorize) {
 		// @formatter:off
 		// 要求未拥有所有角色
+		log.debug("校验要求未拥有所有角色.");
 		valid(scope ->  ArrayUtils.isEmpty(authorize.notRole()) || !equals(scope.getRoles(), authorize.notRole()));
 		// 要求未拥有任一角色
+		log.debug("校验要求未拥有任一角色.");
 		valid(scope ->  ArrayUtils.isEmpty(authorize.notAnyRole()) || !contains(scope.getRoles(), authorize.notAnyRole()));
 		// 要求未拥有所有权限
+		log.debug("校验要求未拥有所有权限.");
 		valid(scope ->  ArrayUtils.isEmpty(authorize.notPermissions()) || !equals(scope.getPermissions(), authorize.notPermissions()));
 		// 要求未拥有任一权限
+		log.debug("校验要求未拥有任一权限.");
 		valid(scope ->  ArrayUtils.isEmpty(authorize.notAnyPermissions()) || !contains(scope.getPermissions(), authorize.notAnyPermissions()));
 		// @formatter:on
 	}
 
 	protected void validLogin() {
 		valid(scope -> {
-			if (scope == null || !scope.isLogin()) {
-				// 未登录让前端登录
-				throw new AuthorizationException();
+			boolean isLogin = scope != null && scope.isLogin();
+			if (!isLogin) {
+				throw new AuthorizationException("未获取到授权用户信息!");
 			}
-			// 权限不足
-			return scope.enabled();
+			if (!scope.enabled()) {
+				throw new AuthorizationException("授权用户状态异常!");
+			}
+			return true;
 		});
 	}
 
@@ -148,7 +166,7 @@ public class SecurityAuthorize {
 		SecurityScope scope = SecurityHolder.scope();
 		boolean flag = predicate.test(scope);
 		if (!flag) {
-			throw new PermissionsException();
+			throw new PermissionsException("未拥有访问权限");
 		}
 	}
 

@@ -38,8 +38,8 @@ public class SecurityGrpcResourceAutoConfiguration {
 	@ConditionalOnProperty(prefix = SecurityProperties.PREFIX + ".authorization", value = "remote",
 			havingValue = "true")
 	public SecurityResourceService serviceGrpcRemoteResourceService(SecurityProperties properties,
-			SecurityGrpcProperties grpcProperties, GrpcClientProvide provide, SecurityGrpcConvert convert) {
-		return new SecurityGrpcDefaultRemoteResourceServiceImpl(properties, grpcProperties, provide, convert);
+			GrpcClientProvide provide, SecurityGrpcConvert convert) {
+		return new SecurityGrpcDefaultRemoteResourceServiceImpl(properties, provide, convert);
 	}
 
 }

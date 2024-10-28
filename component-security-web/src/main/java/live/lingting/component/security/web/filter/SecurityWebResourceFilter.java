@@ -40,13 +40,18 @@ public class SecurityWebResourceFilter extends OncePerRequestFilter {
 	}
 
 	protected void handlerScope(HttpServletRequest request) {
+		log.trace("获取到token: {}", request);
 		SecurityToken token = getToken(request);
 		// token有效, 设置上下文
 		if (!token.isAvailable()) {
+			log.trace("无效的token: {}", token);
 			return;
 		}
 		try {
+			// 设置上下文
+			log.trace("解析token: {}", token);
 			SecurityScope scope = service.resolve(token);
+			log.trace("设置上下文: {}", scope);
 			service.setScope(scope);
 		}
 		catch (Exception e) {

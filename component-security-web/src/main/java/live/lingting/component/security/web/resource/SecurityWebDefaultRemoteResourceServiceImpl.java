@@ -9,11 +9,13 @@ import live.lingting.component.security.resource.SecurityScope;
 import live.lingting.component.security.token.SecurityToken;
 import live.lingting.component.security.vo.AuthorizationVO;
 import live.lingting.component.security.web.constant.SecurityWebConstants;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.Request;
 
 /**
  * @author lingting 2023-03-31 10:53
  */
+@Slf4j
 public class SecurityWebDefaultRemoteResourceServiceImpl implements SecurityResourceService {
 
 	protected final OkHttpClient client;
@@ -39,10 +41,13 @@ public class SecurityWebDefaultRemoteResourceServiceImpl implements SecurityReso
 
 	@Override
 	public SecurityScope resolve(SecurityToken token) {
+		// 请求token
+		log.trace("从远端解析token: {}", token);
 		AuthorizationVO vo = customer.doRequest(client, () -> {
 			Request.Builder builder = resolveBuilder(token);
 			return customer.resolve(builder);
 		});
+		log.trace("从远端获取到授权: {}", vo);
 		return customer.toScope(vo);
 	}
 

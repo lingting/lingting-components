@@ -6,32 +6,33 @@ import io.grpc.ClientCall;
 import io.grpc.ClientInterceptor;
 import io.grpc.Metadata;
 import io.grpc.MethodDescriptor;
+import live.lingting.component.core.util.StringUtils;
 import live.lingting.component.grpc.client.sample.SimpleForwardingClientCall;
-import live.lingting.component.properties.SecurityGrpcProperties;
-import live.lingting.component.resource.SecurityGrpcRemoteResourceHolder;
-import live.lingting.component.security.token.SecurityToken;
+import live.lingting.component.security.resource.SecurityHolder;
 
 /**
- * @author lingting 2023-12-18 16:37
+ * @author lingting 2024/10/28 19:23
  */
-public class SecurityGrpcRemoteResourceClientInterceptor implements ClientInterceptor {
+@SuppressWarnings("java:S110")
+public class SecurityGrpcClientInterceptor implements ClientInterceptor {
 
 	private final Metadata.Key<String> authorizationKey;
 
-	public SecurityGrpcRemoteResourceClientInterceptor(SecurityGrpcProperties properties) {
-		this.authorizationKey = properties.authorizationKey();
+	public SecurityGrpcClientInterceptor(Metadata.Key<String> authorizationKey) {
+		this.authorizationKey = authorizationKey;
 	}
 
 	@Override
 	public <S, R> ClientCall<S, R> interceptCall(MethodDescriptor<S, R> method, CallOptions callOptions, Channel next) {
+		String token = SecurityHolder.token();
 		ClientCall<S, R> call = next.newCall(method, callOptions);
 		return new SimpleForwardingClientCall<S, R>(call) {
 			@Override
 			public void onStartBefore(Listener<R> responseListener, Metadata headers) {
-				SecurityToken token = SecurityGrpcRemoteResourceHolder.get();
-				if (token != null && token.isAvailable()) {
-					headers.put(authorizationKey, token.getRaw());
+				if (!StringUtils.hasText(token)) {
+					return;
 				}
+				headers.put(authorizationKey, token);
 			}
 		};
 	}

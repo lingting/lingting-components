@@ -39,8 +39,8 @@
 
     <properties>
         <!-- 中央仓库不允许snapshot版本了 -->
-        <revision>2024.06.14-beta1</revision>
-        <lingting.protobuf.java.version>2023.12.18</lingting.protobuf.java.version>
+        <revision>2024.06.14-beta2</revision>
+        <lingting.protobuf.java.version>2024.10.28</lingting.protobuf.java.version>
 
         <!--spring-->
         <spring-boot.version>2.7.17</spring-boot.version>

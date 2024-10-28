@@ -48,9 +48,13 @@ public class GrpcClientProvide {
 		return channel(String.format("%s:%d", host, port), operator);
 	}
 
+	public ManagedChannel channel(String target) {
+		return channel(target, (UnaryOperator<ManagedChannelBuilder<?>>) null);
+	}
+
 	public ManagedChannel channel(String target, UnaryOperator<ManagedChannelBuilder<?>> operator) {
 		ManagedChannelBuilder<?> builder = ManagedChannelBuilder.forTarget(target);
-		ManagedChannelBuilder<?> apply = operator.apply(builder);
+		ManagedChannelBuilder<?> apply = operator == null ? builder : operator.apply(builder);
 		return channel(apply);
 	}
 
