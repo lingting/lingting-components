@@ -40,8 +40,8 @@ public class SecurityWebResourceFilter extends OncePerRequestFilter {
 	}
 
 	protected void handlerScope(HttpServletRequest request) {
-		log.trace("获取到token: {}", request);
 		SecurityToken token = getToken(request);
+		log.trace("获取到token: {}", token);
 		// token有效, 设置上下文
 		if (!token.isAvailable()) {
 			log.trace("无效的token: {}", token);
