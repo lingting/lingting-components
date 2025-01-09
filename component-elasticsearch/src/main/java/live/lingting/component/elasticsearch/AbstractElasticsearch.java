@@ -323,8 +323,8 @@ public abstract class AbstractElasticsearch<T> {
 		builder.index(index).query(qb.build()).script(script);
 
 		UpdateByQueryResponse response = client.updateByQuery(builder.build());
-		Long total = response.total();
-		return total != null && total > 0;
+		Long updated = response.updated();
+		return updated != null && updated > 0;
 	}
 
 	protected BulkResponse bulk(BulkOperation... operations) throws IOException {
