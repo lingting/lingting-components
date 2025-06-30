@@ -228,6 +228,14 @@ public class LambdaQueryWrapperX<T> extends AbstractLambdaWrapper<T, LambdaQuery
 	public LambdaQueryWrapperX<T> notInIfPresent(SFunction<T, ?> column, Collection<?> values) {
 		return super.notIn(isPresent(values), column, values);
 	}
+
+	public LambdaQueryWrapperX<T> betweenIfPresent(SFunction<T, ?> column, Object val1, Object val2) {
+		if (isPresent(val1) && isPresent(val2)) {
+			between(column, val1, val2);
+		}
+		return this;
+	}
+
 	// region customize
 
 	protected LambdaQueryWrapperX<T> appendSqlSegment(ISqlSegment segment) {
