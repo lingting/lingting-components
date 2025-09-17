@@ -4,6 +4,8 @@ import live.lingting.component.core.util.IdUtils;
 import lombok.experimental.UtilityClass;
 import org.slf4j.MDC;
 
+import java.util.Map;
+
 import static live.lingting.component.web.filter.TraceIdFilter.MAP_THREAD_LOCAL;
 
 /**
@@ -35,7 +37,15 @@ public class WebScope {
 
 	@SuppressWarnings("unchecked")
 	public static <T> T get(String key) {
-		return (T) MAP_THREAD_LOCAL.get().get(key);
+		Map<String, Object> map = MAP_THREAD_LOCAL.get();
+		if (map == null) {
+			return null;
+		}
+		Object o = map.get(key);
+		if (o == null) {
+			return null;
+		}
+		return (T) o;
 	}
 
 	// endregion
