@@ -39,7 +39,7 @@
 
     <properties>
         <!-- 中央仓库不允许snapshot版本了 -->
-        <revision>2024.06.14-beta3</revision>
+        <revision>2024.06.14-beta4</revision>
         <lingting.protobuf.java.version>2024.10.28</lingting.protobuf.java.version>
 
         <!--spring-->
