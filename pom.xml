@@ -43,7 +43,7 @@
         <lingting.protobuf.java.version>2024.10.28</lingting.protobuf.java.version>
 
         <!--spring-->
-        <spring-boot.version>2.7.17</spring-boot.version>
+        <spring-boot.version>2.7.18</spring-boot.version>
         <spring-boot-admin.version>2.7.10</spring-boot-admin.version>
 
         <!--ali-->
