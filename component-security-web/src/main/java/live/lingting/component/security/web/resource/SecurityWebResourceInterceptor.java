@@ -1,6 +1,7 @@
 package live.lingting.component.security.web.resource;
 
 import live.lingting.component.core.util.CollectionUtils;
+import live.lingting.component.core.util.StringUtils;
 import live.lingting.component.security.authorize.SecurityAuthorize;
 import live.lingting.component.security.constant.SecurityConstants;
 import live.lingting.component.security.web.properties.SecurityWebProperties;
@@ -30,7 +31,7 @@ public class SecurityWebResourceInterceptor implements HandlerInterceptor, Order
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
+		throws Exception {
 		// 不是忽略鉴权的uri. 走鉴权流程
 		if (handler instanceof HandlerMethod && !isIgnoreUri()) {
 			HandlerMethod handlerMethod = (HandlerMethod) handler;
@@ -47,6 +48,10 @@ public class SecurityWebResourceInterceptor implements HandlerInterceptor, Order
 			return false;
 		}
 		String uri = WebScope.uri();
+		// 没有获取到uri不忽略
+		if (StringUtils.hasText(uri)) {
+			return false;
+		}
 
 		for (String antPattern : ignoreAntPatterns) {
 			if (ANT_PATH_MATCHER.match(antPattern, uri)) {
